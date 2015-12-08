@@ -1,4 +1,5 @@
-from dialog.schema.factories.action import RecencyPreferenceAction
+from dialog.schema.elements import Goto
+from dialog.schema.factories.action import RecencyPreferenceAction, CertificationPreferenceAction, GenrePreferenceAction
 from dialog.schema.factories.grammar import FeelingGrammar, ProfileGrammar, GenericGrammar
 
 
@@ -41,16 +42,8 @@ class MainFolder:
                                 ]
                             },
                             (1, "action"): [
-                                {
-                                    "@varName": "Genre_Preference",
-                                    "@operator": "SET_TO",
-                                    "#text": "{Genre_Preference.value:main}"
-                                },
-                                {
-                                    "@varName": "Certification_Preference",
-                                    "@operator": "SET_TO",
-                                    "#text": "{Certification_Preference.value:main}"
-                                },
+                                GenrePreferenceAction.create_set_to_value(),
+                                CertificationPreferenceAction.create_set_to_value(),
                                 RecencyPreferenceAction.create_set_to_value(),
                                 {
                                     "@varName": "Topic",
@@ -174,9 +167,7 @@ class MainFolder:
                                         "@operator": "SET_TO",
                                         "#text": "<mct:getTime>America/Tijuana</mct:getTime>"
                                     },
-                                    (2, "goto"): {
-                                        "@ref": "input_2503411"
-                                    }
+                                    (2, "goto"): Goto(ref="input_date_time")
                                 },
                                 {
                                     (0, "grammar"): {

@@ -1,5 +1,5 @@
 from dialog.schema.elements import Goto
-from dialog.schema.factories.action import GreetingAction, SmallTalkAction
+from dialog.schema.factories.action import GreetingAction, SmallTalkAction, GenrePreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 
 __author__ = 'robdefeo'
@@ -20,11 +20,7 @@ class ShowtimesInput:
                 ]
             },
             (1, "action"): [
-                {
-                    "@varName": "Genre_Preference",
-                    "@operator": "SET_TO",
-                    "#text": "{Genre_Preference.value:main}"
-                },
+                GenrePreferenceAction.create_set_to_value(),
                 GreetingAction.create_reset(),
                 SmallTalkAction.create_reset()
             ],
@@ -63,14 +59,12 @@ class ShowtimesInput:
                             "@operator": "SET_TO",
                             "#text": "{ZIP_Code_Preference.source}"
                         },
-                        (2, "goto"): {
-                            "@ref": "profileCheck_2503330"
-                        }
+                        (2, "goto"): Goto(ref="profileCheck_zipcode")
                     }
                 }
             ],
             (3, "if"): {
-                "@id": "profileCheck_2503330",
+                "@id": "profileCheck_zipcode",
                 (0, "cond"): {
                     "@varName": "ZIP_Code_Preference",
                     "@operator": "IS_BLANK"

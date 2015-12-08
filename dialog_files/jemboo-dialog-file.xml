@@ -136,7 +136,7 @@
                                 <item>$ (DATE_TIME_RANGE)={DateTime_Mentioned_ENT}</item>
                             </grammar>
                             <action operator="SET_TO" varName="DateTime_Current">&lt;mct:getTime&gt;America/Tijuana&lt;/mct:getTime&gt;</action>
-                            <goto ref="input_2503411"/>
+                            <goto ref="input_date_time"/>
                         </input>
                         <input>
                             <grammar>
@@ -402,13 +402,13 @@
                                 <item>what</item>
                                 <item>$ what</item>
                             </grammar>
-                            <goto ref="output_2449762"/>
+                            <goto ref="output_no_topic_lookup"/>
                         </input>
                         <output>
                             <prompt selectionType="RANDOM">
                                 <item>No.</item>
                             </prompt>
-                            <output id="output_2449762">
+                            <output id="output_no_topic_lookup">
                                 <prompt selectionType="RANDOM">
                                     <item>I'm afraid I can't look up movies by {Topic}, only by Genre or MPAA Rating.
                                     </item>
@@ -833,7 +833,7 @@
                         <item>$ (OTHER_MOVIE)={Topic}</item>
                     </grammar>
                     <action operator="SET_TO" varName="Topic">{Topic.value:main}</action>
-                    <goto ref="output_2449762"/>
+                    <goto ref="output_no_topic_lookup"/>
                 </input>
                 <input>
                     <grammar>
@@ -993,10 +993,10 @@
                             <prompt/>
                             <action operator="SET_TO" varName="ZIP_Code_Preference">{ZIP_Code_Preference.source}
                             </action>
-                            <goto ref="profileCheck_2503330"/>
+                            <goto ref="profileCheck_zipcode"/>
                         </output>
                     </input>
-                    <if id="profileCheck_2503330">
+                    <if id="profileCheck_zipcode">
                         <cond operator="IS_BLANK" varName="ZIP_Code_Preference"/>
                         <output id="output_2503331">
                             <prompt>
@@ -1119,7 +1119,7 @@
                         </getUserInput>
                     </output>
                 </input>
-                <input id="input_2443892">
+                <input id="input_main_search_criteria">
                     <grammar>
                         <item>Movies</item>
                         <item>$ (GENRE)={Genre_Preference}</item>
@@ -1136,7 +1136,7 @@
                     <action operator="SET_TO" varName="Certification_Preference">{Certification_Preference.value:main}
                     </action>
                     <action operator="SET_TO" varName="Recency_Preference">{Recency_Preference.value:main}</action>
-                    <input id="input_2503411">
+                    <input id="input_date_time">
                         <grammar>
                             <item>$ (DATE_TIME_RANGE)={DateTime_Mentioned_ENT}</item>
                         </grammar>
@@ -1151,7 +1151,7 @@
                         </input>
                         <if id="profileCheck_2503417">
                             <cond operator="EQUALS" varName="Recency_Preference">Upcoming</cond>
-                            <goto ref="input_2443775"/>
+                            <goto ref="input_certification_preference"/>
                         </if>
                         <output>
                             <prompt selectionType="RANDOM"/>
@@ -1168,19 +1168,19 @@
                                     </action>
                                     <if>
                                         <cond operator="LESS_THEN" varName="DateTime_Difference">1</cond>
-                                        <goto ref="input_2443775">
+                                        <goto ref="input_certification_preference">
                                             <action operator="SET_TO" varName="Recency_Preference">Current</action>
                                         </goto>
                                     </if>
-                                    <goto ref="input_2443775">
+                                    <goto ref="input_certification_preference">
                                         <action operator="SET_TO" varName="Recency_Preference">Upcoming</action>
                                     </goto>
                                 </output>
                             </function>
-                            <goto ref="input_2443775"/>
+                            <goto ref="input_certification_preference"/>
                         </output>
                     </input>
-                    <input id="input_2443775">
+                    <input id="input_certification_preference">
                         <grammar>
                             <item>rated</item>
                             <item>$(CERTIFICATION)={Certification_Preference}</item>
@@ -1188,9 +1188,9 @@
                         <action operator="SET_TO" varName="Certification_Preference">
                             {Certification_Preference.value:main}
                         </action>
-                        <goto ref="input_2503399"/>
+                        <goto ref="input_family_friendly"/>
                     </input>
-                    <input id="input_2503399">
+                    <input id="input_family_friendly">
                         <grammar>
                             <item>family-friendly</item>
                             <item>$ family</item>
@@ -1199,17 +1199,17 @@
                             <item>$ kid</item>
                         </grammar>
                         <action operator="SET_TO" varName="Certification_Preference">G</action>
-                        <goto ref="input_2443841"/>
+                        <goto ref="input_recency_preference"/>
                     </input>
-                    <input id="input_2443841">
+                    <input id="input_recency_preference">
                         <grammar>
                             <item>how recent</item>
                             <item>$ (RECENCY)={Recency_Preference}</item>
                         </grammar>
                         <action operator="SET_TO" varName="Recency_Preference">{Recency_Preference.value:main}</action>
-                        <goto ref="input_2459178"/>
+                        <goto ref="input_zipcode"/>
                     </input>
-                    <input id="input_2459178">
+                    <input id="input_zipcode">
                         <grammar>
                             <item>near me</item>
                             <item>$ (ZIPCODE)={ZIP_Code_Preference}</item>
@@ -1217,7 +1217,7 @@
                         </grammar>
                         <action operator="SET_TO" varName="ZIP_Code_Preference">{ZIP_Code_Preference.value:main}
                         </action>
-                        <goto ref="profileCheck_2503330"/>
+                        <goto ref="profileCheck_zipcode"/>
                     </input>
                     <input>
                         <grammar>
@@ -1225,7 +1225,7 @@
                             <item>$ (OTHER_MOVIE)={Topic}</item>
                         </grammar>
                         <action operator="SET_TO" varName="Topic">{Topic.value:main}</action>
-                        <goto ref="output_2449762"/>
+                        <goto ref="output_no_topic_lookup"/>
                     </input>
                     <if id="profileCheck_recency_preference">
                         <cond operator="IS_BLANK" varName="Recency_Preference"/>
@@ -2456,7 +2456,7 @@
                             <item>hey there</item>
                         </grammar>
                         <action operator="INCREMENT_BY" varName="Greeting_Count">1</action>
-                        <if>
+                        <if matchType="AND">
                             <cond operator="EQUAL_TO_YES" varName="Terminal_Exchange"/>
                             <goto ref="output_welcome_back"/>
                         </if>
@@ -2486,7 +2486,7 @@
                                             <item>$ (RECENCY)={Recency_Preference}</item>
                                             <item>$ movies</item>
                                         </grammar>
-                                        <goto ref="input_2443892"/>
+                                        <goto ref="input_main_search_criteria"/>
                                     </input>
                                     <input>
                                         <grammar>
@@ -3439,7 +3439,7 @@
                             <item>$ what is matrix about</item>
                             <item>$ what is the matrix</item>
                         </grammar>
-                        <if>
+                        <if matchType="AND">
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <goto ref="output_too_much_small_talk"/>
                         </if>

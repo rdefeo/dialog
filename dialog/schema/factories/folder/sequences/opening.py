@@ -62,9 +62,7 @@ class OpeningSequences:
                                                 "$ movies"
                                             ]
                                         },
-                                        (1, "goto"): {
-                                            "@ref": "input_2443892"
-                                        }
+                                        (1, "goto"): Goto(ref="input_main_search_criteria")
                                     },
                                     {
                                         (0, "grammar"): FeelingGrammar.create_not_so_good(),

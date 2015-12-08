@@ -3,6 +3,27 @@ from dialog.schema.elements import Action
 __author__ = 'robdefeo'
 
 
+class CertificationPreferenceAction:
+    @staticmethod
+    def create_reset():
+        return Action(varName="Certification_Preference", operator="SET_TO_BLANK").create()
+
+    @staticmethod
+    def create_set_to_value():
+        return Action(varName="Certification_Preference", operator="SET_TO",
+                      text="{Certification_Preference.value:main}").create()
+
+class GenrePreferenceAction:
+    @staticmethod
+    def create_reset():
+        return Action(varName="Genre_Preference", operator="SET_TO_BLANK").create()
+
+    @staticmethod
+    def create_set_to_value():
+        return Action(varName="Genre_Preference", operator="SET_TO",
+                      text="{Genre_Preference.value:main}").create()
+
+
 class RecencyPreferenceAction:
     @staticmethod
     def create_reset():

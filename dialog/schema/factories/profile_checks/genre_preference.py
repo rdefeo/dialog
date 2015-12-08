@@ -1,4 +1,5 @@
 from dialog.schema.elements import Goto
+from dialog.schema.factories.action import CertificationPreferenceAction, GenrePreferenceAction
 
 
 class GenrePreferenceProfileCheck:
@@ -126,16 +127,8 @@ class GenrePreferenceProfileCheck:
                                 ]
                             },
                             (1, "action"): [
-                                {
-                                    "@varName": "Certification_Preference",
-                                    "@operator": "SET_TO",
-                                    "#text": "{Certification_Preference.value:main}"
-                                },
-                                {
-                                    "@varName": "Genre_Preference",
-                                    "@operator": "SET_TO",
-                                    "#text": "{Genre_Preference.value:main}"
-                                },
+                                CertificationPreferenceAction.create_set_to_value(),
+                                GenrePreferenceAction.create_set_to_value(),
                                 {
                                     "@varName": "Search_Now",
                                     "@operator": "SET_TO_NO"
@@ -166,11 +159,7 @@ class GenrePreferenceProfileCheck:
                                 ]
                             },
                             (1, "action"): [
-                                {
-                                    "@varName": "Genre_Preference",
-                                    "@operator": "SET_TO",
-                                    "#text": "{Genre_Preference.value:main}"
-                                },
+                                GenrePreferenceAction.create_set_to_value(),
                                 {
                                     "@varName": "Search_Now",
                                     "@operator": "SET_TO_NO"

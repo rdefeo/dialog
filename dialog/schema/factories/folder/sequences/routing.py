@@ -28,7 +28,7 @@ class RoutingSequences:
                         "#text": "{Topic.value:main}"
                     },
                     (2, "goto"): {
-                        "@ref": "output_2449762"
+                        "@ref": "output_no_topic_lookup"
                     }
                 },
                 {

@@ -1,5 +1,5 @@
 from dialog.schema.elements import Goto
-from dialog.schema.factories.action import RecencyPreferenceAction
+from dialog.schema.factories.action import RecencyPreferenceAction, CertificationPreferenceAction, GenrePreferenceAction
 
 
 class RecencyPreferenceProfileCheck:
@@ -33,11 +33,7 @@ class RecencyPreferenceProfileCheck:
                                     "@operator": "SET_TO",
                                     "#text": "0"
                                 },
-                                {
-                                    "@varName": "Genre_Preference",
-                                    "@operator": "SET_TO",
-                                    "#text": "{Genre_Preference.value:main}"
-                                },
+                                GenrePreferenceAction.create_set_to_value(),
                                 RecencyPreferenceAction.create_set_to_value()
                             ],
                             (2, "goto"): Goto(ref="profileCheck_genre_preference")
@@ -57,11 +53,7 @@ class RecencyPreferenceProfileCheck:
                                     "@operator": "SET_TO",
                                     "#text": "0"
                                 },
-                                {
-                                    "@varName": "Certification_Preference",
-                                    "@operator": "SET_TO",
-                                    "#text": "{Certification_Preference.value:main}"
-                                }
+                                CertificationPreferenceAction.create_set_to_value()
                             ],
                             (2, "goto"): Goto(ref="profileCheck_genre_preference")
                         },

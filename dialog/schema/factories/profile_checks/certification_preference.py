@@ -1,3 +1,4 @@
+from dialog.schema.factories.action import CertificationPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 
 
@@ -88,11 +89,7 @@ class CertificationPreferenceProfileCheck:
                                     "@varName": "Search_Now",
                                     "@operator": "SET_TO_NO"
                                 },
-                                {
-                                    "@varName": "Certification_Preference",
-                                    "@operator": "SET_TO",
-                                    "#text": "{Certification_Preference.value:main}"
-                                }
+                                CertificationPreferenceAction.create_set_to_value()
                             ],
                             (2, "goto"): {
                                 "@ref": "output_2456875"

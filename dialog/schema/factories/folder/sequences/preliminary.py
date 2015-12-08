@@ -1,4 +1,4 @@
-from dialog.schema.factories.action import GreetingAction, SmallTalkAction
+from dialog.schema.factories.action import GreetingAction, SmallTalkAction, GenrePreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 
 __author__ = 'robdefeo'
@@ -56,7 +56,7 @@ class PreliminarySequences:
                                 ]
                             },
                             (1, "goto"): {
-                                "@ref": "output_2449762"
+                                "@ref": "output_no_topic_lookup"
                             }
                         },
                         (3, "output"): {
@@ -65,7 +65,7 @@ class PreliminarySequences:
                                 "@selectionType": "RANDOM"
                             },
                             (1, "output"): {
-                                "@id": "output_2449762",
+                                "@id": "output_no_topic_lookup",
                                 (0, "prompt"): {
                                     "item": "I'm afraid I can't look up movies by {Topic}, only by Genre or MPAA Rating.",
                                     "@selectionType": "RANDOM"
@@ -325,11 +325,7 @@ class PreliminarySequences:
                         (0, "grammar"): {
                             "item": "$ (GENRE)={Genre_Preference}"
                         },
-                        (1, "action"): {
-                            "@varName": "Genre_Preference",
-                            "@operator": "SET_TO",
-                            "#text": "{Genre_Preference.value:main}"
-                        },
+                        (1, "action"): GenrePreferenceAction.create_set_to_value(),
                         (2, "goto"): {
                             "@ref": "search_2414740"
                         }

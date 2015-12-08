@@ -1,5 +1,5 @@
 from dialog.schema.elements import If, Condition, Goto
-from dialog.schema.factories.action import SmallTalkAction
+from dialog.schema.factories.action import SmallTalkAction, CertificationPreferenceAction
 
 __author__ = 'robdefeo'
 
@@ -428,11 +428,7 @@ class SmallTalkSequences:
                                                     "$ terminator"
                                                 ]
                                             },
-                                            (1, "action"): {
-                                                "@varName": "Certification_Preference",
-                                                "@operator": "SET_TO",
-                                                "#text": "{Certification_Preference.value:main}"
-                                            },
+                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457979"
                                             }
@@ -444,11 +440,7 @@ class SmallTalkSequences:
                                                     "$ matrix"
                                                 ]
                                             },
-                                            (1, "action"): {
-                                                "@varName": "Certification_Preference",
-                                                "@operator": "SET_TO",
-                                                "#text": "{Certification_Preference.value:main}"
-                                            },
+                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457995"
                                             }
@@ -602,11 +594,7 @@ class SmallTalkSequences:
                                                     "$ 2001"
                                                 ]
                                             },
-                                            (1, "action"): {
-                                                "@varName": "Certification_Preference",
-                                                "@operator": "SET_TO",
-                                                "#text": "{Certification_Preference.value:main}"
-                                            },
+                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457907"
                                             }
@@ -618,11 +606,7 @@ class SmallTalkSequences:
                                                     "$ matrix"
                                                 ]
                                             },
-                                            (1, "action"): {
-                                                "@varName": "Certification_Preference",
-                                                "@operator": "SET_TO",
-                                                "#text": "{Certification_Preference.value:main}"
-                                            },
+                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457995"
                                             }
@@ -769,11 +753,7 @@ class SmallTalkSequences:
                                                     "$ 2001"
                                                 ]
                                             },
-                                            (1, "action"): {
-                                                "@varName": "Certification_Preference",
-                                                "@operator": "SET_TO",
-                                                "#text": "{Certification_Preference.value:main}"
-                                            },
+                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457907"
                                             }
@@ -785,11 +765,7 @@ class SmallTalkSequences:
                                                     "$ terminator"
                                                 ]
                                             },
-                                            (1, "action"): {
-                                                "@varName": "Certification_Preference",
-                                                "@operator": "SET_TO",
-                                                "#text": "{Certification_Preference.value:main}"
-                                            },
+                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457979"
                                             }

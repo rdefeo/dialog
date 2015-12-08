@@ -131,7 +131,7 @@ class Condition(Element):
 
 
 class If(Element):
-    def __init__(self, match_type=None, elements=Iterable[Element]):
+    def __init__(self, match_type="AND", elements=Iterable[Element]):
         self.match_type = match_type
         self.elements = elements
 
