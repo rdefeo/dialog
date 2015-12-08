@@ -1,5 +1,5 @@
 from dialog.schema.elements import Goto
-from dialog.schema.factories.action import GreetingAction, SmallTalkAction
+from dialog.schema.factories.action import GreetingAction, SmallTalkAction, RecencyPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 
 __author__ = 'robdefeo'
@@ -37,11 +37,11 @@ class BaseSequences:
                         },
                         (1, "getUserInput"): {
                             (0, "input"): {
-                                (0, "grammar"): GenericGrammar.create_ok,
+                                (0, "grammar"): GenericGrammar.create_ok(),
                                 (1, "goto"): Goto(ref="output_how_can_i_help_you")
                             },
                             (1, "goto"): {
-                                "@ref": "search_2414738"
+                                "@ref": "search_preliminary_sequences"
                             }
                         }
                     }
@@ -67,11 +67,11 @@ class BaseSequences:
                         },
                         (1, "getUserInput"): {
                             (0, "input"): {
-                                (0, "grammar"): GenericGrammar.create_ok,
+                                (0, "grammar"): GenericGrammar.create_ok(),
                                 (1, "goto"): Goto(ref="output_how_can_i_help_you")
                             },
                             (1, "goto"): {
-                                "@ref": "search_2414738"
+                                "@ref": "search_preliminary_sequences"
                             }
                         }
                     }
@@ -309,7 +309,7 @@ class BaseSequences:
                                     "@varName": "ZIP_Code_Preference",
                                     "@operator": "SET_TO_BLANK"
                                 },
-                                "@ref": "search_2414738"
+                                "@ref": "search_preliminary_sequences"
                             }
                         }
                     }
@@ -353,11 +353,7 @@ class BaseSequences:
                             "@operator": "SET_TO",
                             "#text": "{Certification_Preference.value:main}"
                         },
-                        {
-                            "@varName": "Recency_Preference",
-                            "@operator": "SET_TO",
-                            "#text": "{Recency_Preference.value:main}"
-                        }
+                        RecencyPreferenceAction.create_set_to_value()
                     ],
                     (2, "input"): [
                         {
@@ -417,20 +413,12 @@ class BaseSequences:
                                                 "#text": "1"
                                             },
                                             (1, "goto"): {
-                                                "action": {
-                                                    "@varName": "Recency_Preference",
-                                                    "@operator": "SET_TO",
-                                                    "#text": "Current"
-                                                },
+                                                "action": RecencyPreferenceAction().create_set_to_current(),
                                                 "@ref": "input_2443775"
                                             }
                                         },
                                         (3, "goto"): {
-                                            "action": {
-                                                "@varName": "Recency_Preference",
-                                                "@operator": "SET_TO",
-                                                "#text": "Upcoming"
-                                            },
+                                            "action": RecencyPreferenceAction().create_set_to_upcoming(),
                                             "@ref": "input_2443775"
                                         }
                                     }
@@ -485,11 +473,7 @@ class BaseSequences:
                                     "$ (RECENCY)={Recency_Preference}"
                                 ]
                             },
-                            (1, "action"): {
-                                "@varName": "Recency_Preference",
-                                "@operator": "SET_TO",
-                                "#text": "{Recency_Preference.value:main}"
-                            },
+                            (1, "action"): RecencyPreferenceAction.create_set_to_value(),
                             (2, "goto"): {
                                 "@ref": "input_2459178"
                             }
@@ -562,11 +546,7 @@ class BaseSequences:
                                                     "@operator": "SET_TO",
                                                     "#text": "{Genre_Preference.value:main}"
                                                 },
-                                                {
-                                                    "@varName": "Recency_Preference",
-                                                    "@operator": "SET_TO",
-                                                    "#text": "{Recency_Preference.value:main}"
-                                                }
+                                                RecencyPreferenceAction.create_set_to_value()
                                             ],
                                             (2, "goto"): {
                                                 "@ref": "profileCheck_2449894"
@@ -581,11 +561,7 @@ class BaseSequences:
                                                 ]
                                             },
                                             (1, "action"): [
-                                                {
-                                                    "@varName": "Recency_Preference",
-                                                    "@operator": "SET_TO",
-                                                    "#text": "{Recency_Preference.value:main}"
-                                                },
+                                                RecencyPreferenceAction.create_set_to_value(),
                                                 {
                                                     "@varName": "Current_Index",
                                                     "@operator": "SET_TO",
@@ -609,11 +585,7 @@ class BaseSequences:
                                                 ]
                                             },
                                             (1, "action"): [
-                                                {
-                                                    "@varName": "Recency_Preference",
-                                                    "@operator": "SET_TO",
-                                                    "#text": "{Recency_Preference.value:main}"
-                                                },
+                                                RecencyPreferenceAction.create_set_to_value(),
                                                 {
                                                     "@varName": "Current_Index",
                                                     "@operator": "SET_TO",
@@ -648,7 +620,7 @@ class BaseSequences:
                                         }
                                     ],
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             },
@@ -883,7 +855,7 @@ class BaseSequences:
                                         }
                                     ],
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -1045,7 +1017,7 @@ class BaseSequences:
                                         }
                                     ],
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -1126,10 +1098,7 @@ class BaseSequences:
                                                                 "@varName": "Genre_Preference",
                                                                 "@operator": "SET_TO_BLANK"
                                                             },
-                                                            {
-                                                                "@varName": "Recency_Preference",
-                                                                "@operator": "SET_TO_BLANK"
-                                                            }
+                                                            RecencyPreferenceAction.create_reset()
                                                         ],
                                                         (2, "goto"): {
                                                             "@ref": "profileCheck_2449907"
@@ -1272,10 +1241,7 @@ class BaseSequences:
                                                                             "@varName": "Genre_Preference",
                                                                             "@operator": "SET_TO_BLANK"
                                                                         },
-                                                                        {
-                                                                            "@varName": "Recency_Preference",
-                                                                            "@operator": "SET_TO_BLANK"
-                                                                        }
+                                                                        RecencyPreferenceAction.create_reset()
                                                                     ],
                                                                     (2, "goto"): Goto(ref="output_how_can_i_help_you")
                                                                 },
@@ -1658,11 +1624,7 @@ class BaseSequences:
                                                     ]
                                                 },
                                                 (1, "action"): [
-                                                    {
-                                                        "@varName": "Recency_Preference",
-                                                        "@operator": "SET_TO",
-                                                        "#text": "{Recency_Preference.value:main}"
-                                                    },
+                                                    RecencyPreferenceAction.create_set_to_value(),
                                                     {
                                                         "@varName": "Genre_Preference",
                                                         "@operator": "SET_TO",
@@ -1697,11 +1659,7 @@ class BaseSequences:
                                                         "@operator": "SET_TO",
                                                         "#text": "0"
                                                     },
-                                                    {
-                                                        "@varName": "Recency_Preference",
-                                                        "@operator": "SET_TO",
-                                                        "#text": "{Recency_Preference.value:main}"
-                                                    },
+                                                    RecencyPreferenceAction.create_set_to_value(),
                                                     {
                                                         "@varName": "Genre_Preference",
                                                         "@operator": "SET_TO",
@@ -1756,11 +1714,7 @@ class BaseSequences:
                                                         "@operator": "SET_TO",
                                                         "#text": "new"
                                                     },
-                                                    {
-                                                        "@varName": "Recency_Preference",
-                                                        "@operator": "SET_TO",
-                                                        "#text": "{Recency_Preference.value:main}"
-                                                    }
+                                                    RecencyPreferenceAction.create_set_to_value()
                                                 ],
                                                 (2, "goto"): {
                                                     "@ref": "output_2456875"
@@ -1818,11 +1772,7 @@ class BaseSequences:
                                                         "@operator": "SET_TO",
                                                         "#text": "new"
                                                     },
-                                                    {
-                                                        "@varName": "Recency_Preference",
-                                                        "@operator": "SET_TO",
-                                                        "#text": "{Recency_Preference.value:main}"
-                                                    }
+                                                    RecencyPreferenceAction.create_set_to_value()
                                                 ],
                                                 (2, "input"): {
                                                     (0, "grammar"): {
@@ -2028,11 +1978,7 @@ class BaseSequences:
                                                                     "#text": "1"
                                                                 },
                                                                 (1, "goto"): {
-                                                                    "action": {
-                                                                        "@varName": "Recency_Preference",
-                                                                        "@operator": "SET_TO",
-                                                                        "#text": "Current"
-                                                                    },
+                                                                    "action": RecencyPreferenceAction.create_set_to_current(),
                                                                     "@ref": "output_2456875"
                                                                 }
                                                             },
@@ -2349,7 +2295,7 @@ class BaseSequences:
                                                 }
                                             },
                                             (21, "goto"): {
-                                                "@ref": "search_2414738"
+                                                "@ref": "search_preliminary_sequences"
                                             }
                                         }
                                     }

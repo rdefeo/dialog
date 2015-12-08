@@ -72,15 +72,13 @@ class PreliminarySequences:
                                 },
                                 (1, "getUserInput"): {
                                     (0, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "Okay."
-                                        },
+                                        (0, "grammar"): GenericGrammar.create_ok(),
                                         (1, "goto"): {
                                             "@ref": "output_how_can_i_help_you"
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -128,7 +126,7 @@ class PreliminarySequences:
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 },
                                 "@id": "output_2503370"
@@ -179,7 +177,7 @@ class PreliminarySequences:
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -215,15 +213,13 @@ class PreliminarySequences:
                                 },
                                 (1, "getUserInput"): {
                                     (0, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "Okay"
-                                        },
+                                        (0, "grammar"): GenericGrammar.create_ok(),
                                         (1, "goto"): {
                                             "@ref": "output_how_can_i_help_you"
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 },
                                 "@id": "output_2459443"
@@ -261,15 +257,13 @@ class PreliminarySequences:
                                 },
                                 (1, "getUserInput"): {
                                     (0, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "Okay"
-                                        },
+                                        (0, "grammar"): GenericGrammar.create_ok(),
                                         (1, "goto"): {
                                             "@ref": "output_how_can_i_help_you"
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -315,15 +309,13 @@ class PreliminarySequences:
                                 },
                                 (1, "getUserInput"): {
                                     (0, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "Okay"
-                                        },
+                                        (0, "grammar"): GenericGrammar.create_ok(),
                                         (1, "goto"): {
                                             "@ref": "output_how_can_i_help_you"
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -356,15 +348,13 @@ class PreliminarySequences:
                             },
                             (1, "getUserInput"): {
                                 (0, "input"): {
-                                    (0, "grammar"): {
-                                        "item": "Okay"
-                                    },
+                                    (0, "grammar"): GenericGrammar.create_ok(),
                                     (1, "goto"): {
                                         "@ref": "output_how_can_i_help_you"
                                     }
                                 },
                                 (1, "goto"): {
-                                    "@ref": "search_2414738"
+                                    "@ref": "search_preliminary_sequences"
                                 }
                             }
                         }
@@ -402,15 +392,13 @@ class PreliminarySequences:
                                 },
                                 (1, "getUserInput"): {
                                     (0, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "Okay"
-                                        },
+                                        (0, "grammar"): GenericGrammar.create_ok(),
                                         (1, "goto"): {
                                             "@ref": "output_how_can_i_help_you"
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -452,15 +440,13 @@ class PreliminarySequences:
                                 },
                                 (1, "getUserInput"): {
                                     (0, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "Okay"
-                                        },
+                                        (0, "grammar"): GenericGrammar.create_ok(),
                                         (1, "goto"): {
                                             "@ref": "output_how_can_i_help_you"
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -497,15 +483,13 @@ class PreliminarySequences:
                                 },
                                 (1, "getUserInput"): {
                                     (0, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "Okay"
-                                        },
+                                        (0, "grammar"): GenericGrammar.create_ok(),
                                         (1, "goto"): {
                                             "@ref": "output_how_can_i_help_you"
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -564,16 +548,14 @@ class PreliminarySequences:
                                             }
                                         },
                                         {
-                                            (0, "grammar"): {
-                                                "item": "Okay"
-                                            },
+                                            (0, "grammar"): GenericGrammar.create_ok(),
                                             (1, "goto"): {
                                                 "@ref": "output_ask_for_recency"
                                             }
                                         }
                                     ],
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 }
                             }
@@ -607,7 +589,7 @@ class PreliminarySequences:
                                         }
                                     },
                                     (1, "goto"): {
-                                        "@ref": "search_2414738"
+                                        "@ref": "search_preliminary_sequences"
                                     }
                                 },
                                 "@id": "output_2497989"

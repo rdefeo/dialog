@@ -33,7 +33,7 @@
                         </action>
                         <action operator="SET_TO" varName="Recency_Preference">{Recency_Preference.value:main}</action>
                         <action operator="SET_TO" varName="Topic">movies</action>
-                        <goto ref="search_2414738"/>
+                        <goto ref="search_preliminary_sequences"/>
                     </input>
                     <input>
                         <grammar>
@@ -57,7 +57,7 @@
                             <item>$ (WEATHER)={Topic}</item>
                             <item>$ (TRAFFIC)={Topic}</item>
                         </grammar>
-                        <goto ref="search_2414738"/>
+                        <goto ref="search_preliminary_sequences"/>
                     </input>
                     <input>
                         <grammar>
@@ -74,7 +74,7 @@
                             <item>$ do you have information</item>
                             <item>$ can I</item>
                         </grammar>
-                        <goto ref="search_2414738"/>
+                        <goto ref="search_preliminary_sequences"/>
                     </input>
                     <input>
                         <grammar>
@@ -184,7 +184,7 @@
                                 <goto ref="input_user_knownas_name"/>
                             </output>
                         </input>
-                        <goto ref="search_2414738"/>
+                        <goto ref="search_preliminary_sequences"/>
                     </getUserInput>
                 </output>
                 <output id="output_how_can_i_help_you">
@@ -193,7 +193,7 @@
                         <item>What can I do for you?</item>
                     </prompt>
                     <getUserInput id="getUserInput_2414745">
-                        <search id="search_2414738" ref="folder_preliminary_sequences"/>
+                        <search id="search_preliminary_sequences" ref="folder_preliminary_sequences"/>
                         <search ref="folder_routing_sequences"/>
                         <search id="search_2414740" ref="folder_base_sequences"/>
                         <default>
@@ -249,7 +249,7 @@
                                 <goto ref="output_did_find_what_looking_for"/>
                             </output>
                         </input>
-                        <goto ref="search_2414738"/>
+                        <goto ref="search_preliminary_sequences"/>
                     </getUserInput>
                 </output>
                 <output id="output_did_find_what_looking_for">
@@ -337,7 +337,7 @@
                                 </getUserInput>
                             </output>
                         </input>
-                        <goto ref="search_2414738"/>
+                        <goto ref="search_preliminary_sequences"/>
                     </getUserInput>
                 </output>
                 <output id="output_too_much_small_talk">
@@ -366,11 +366,12 @@
                         </input>
                         <input>
                             <grammar>
-                                <item>Okay</item>
+                                <item>okay</item>
+                                <item>ok</item>
                             </grammar>
                             <goto ref="output_ask_for_recency"/>
                         </input>
-                        <goto ref="search_2414738"/>
+                        <goto ref="search_preliminary_sequences"/>
                     </getUserInput>
                 </output>
             </folder>
@@ -415,11 +416,12 @@
                                 <getUserInput>
                                     <input>
                                         <grammar>
-                                            <item>Okay.</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -454,7 +456,7 @@
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -487,7 +489,7 @@
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -517,11 +519,12 @@
                                 <getUserInput>
                                     <input>
                                         <grammar>
-                                            <item>Okay</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -552,11 +555,12 @@
                                 <getUserInput>
                                     <input>
                                         <grammar>
-                                            <item>Okay</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -595,11 +599,12 @@
                                 <getUserInput>
                                     <input>
                                         <grammar>
-                                            <item>Okay</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -625,11 +630,12 @@
                             <getUserInput>
                                 <input>
                                     <grammar>
-                                        <item>Okay</item>
+                                        <item>okay</item>
+                                        <item>ok</item>
                                     </grammar>
                                     <goto ref="output_how_can_i_help_you"/>
                                 </input>
-                                <goto ref="search_2414738"/>
+                                <goto ref="search_preliminary_sequences"/>
                             </getUserInput>
                         </output>
                     </input>
@@ -659,11 +665,12 @@
                                 <getUserInput>
                                     <input>
                                         <grammar>
-                                            <item>Okay</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -695,11 +702,12 @@
                                 <getUserInput>
                                     <input>
                                         <grammar>
-                                            <item>Okay</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -730,11 +738,12 @@
                                 <getUserInput>
                                     <input>
                                         <grammar>
-                                            <item>Okay</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -776,11 +785,12 @@
                                     </input>
                                     <input>
                                         <grammar>
-                                            <item>Okay</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_ask_for_recency"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </if>
@@ -806,7 +816,7 @@
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -911,11 +921,12 @@
                         <getUserInput>
                             <input>
                                 <grammar>
-                                    <item>Okay.</item>
+                                    <item>okay</item>
+                                    <item>ok</item>
                                 </grammar>
                                 <goto ref="output_how_can_i_help_you"/>
                             </input>
-                            <goto ref="search_2414738"/>
+                            <goto ref="search_preliminary_sequences"/>
                         </getUserInput>
                     </output>
                 </input>
@@ -938,11 +949,12 @@
                         <getUserInput>
                             <input>
                                 <grammar>
-                                    <item>Okay.</item>
+                                    <item>okay</item>
+                                    <item>ok</item>
                                 </grammar>
                                 <goto ref="output_how_can_i_help_you"/>
                             </input>
-                            <goto ref="search_2414738"/>
+                            <goto ref="search_preliminary_sequences"/>
                         </getUserInput>
                     </output>
                 </input>
@@ -1101,7 +1113,7 @@
                                 </action>
                                 <goto ref="output_2503344"/>
                             </input>
-                            <goto ref="search_2414738">
+                            <goto ref="search_preliminary_sequences">
                                 <action operator="SET_TO_BLANK" varName="ZIP_Code_Preference"/>
                             </goto>
                         </getUserInput>
@@ -1283,7 +1295,7 @@
                                         <goto ref="getUserInput_2449875"/>
                                     </output>
                                 </input>
-                                <goto ref="search_2414738"/>
+                                <goto ref="search_preliminary_sequences"/>
                             </getUserInput>
                         </output>
                     </if>
@@ -1441,7 +1453,7 @@
                                         <goto ref="getUserInput_pick_genre"/>
                                     </output>
                                 </input>
-                                <goto ref="search_2414738"/>
+                                <goto ref="search_preliminary_sequences"/>
                             </getUserInput>
                         </output>
                     </if>
@@ -1548,7 +1560,7 @@
                                         <goto ref="getUserInput_2443780"/>
                                     </output>
                                 </input>
-                                <goto ref="search_2414738"/>
+                                <goto ref="search_preliminary_sequences"/>
                             </getUserInput>
                         </output>
                     </if>
@@ -1693,7 +1705,8 @@
                                                             </grammar>
                                                             <output>
                                                                 <prompt>
-                                                                    <item>Okay.</item>
+                                                                    <item>okay</item>
+                                                                    <item>ok</item>
                                                                 </prompt>
                                                                 <goto ref="output_did_find_what_looking_for"/>
                                                             </output>
@@ -2373,7 +2386,7 @@
                                                     </output>
                                                 </output>
                                             </input>
-                                            <goto ref="search_2414738"/>
+                                            <goto ref="search_preliminary_sequences"/>
                                         </getUserInput>
                                     </output>
                                 </input>
@@ -2551,7 +2564,7 @@
                                             <goto ref="output_how_can_i_help_you"/>
                                         </output>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </output>
@@ -2595,11 +2608,12 @@
                                     </input>
                                     <input>
                                         <grammar>
-                                            <item>Okay</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_ask_for_recency"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </if>
@@ -2675,11 +2689,12 @@
                                     </input>
                                     <input>
                                         <grammar>
-                                            <item>Okay</item>
+                                            <item>okay</item>
+                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_ask_for_recency"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </if>
@@ -3029,7 +3044,7 @@
                                     </grammar>
                                     <goto ref="input_user_knownas_name"/>
                                 </input>
-                                <goto ref="search_2414738"/>
+                                <goto ref="search_preliminary_sequences"/>
                             </getUserInput>
                         </output>
                     </input>
@@ -3061,7 +3076,7 @@
                                         </grammar>
                                         <goto ref="output_help_with_anything_else"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </input>
@@ -3110,7 +3125,7 @@
                                         <goto ref="output_help_with_anything_else"/>
                                     </output>
                                 </input>
-                                <goto ref="search_2414738"/>
+                                <goto ref="search_preliminary_sequences"/>
                             </getUserInput>
                         </output>
                     </input>
@@ -3144,7 +3159,7 @@
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </input>
@@ -3168,7 +3183,7 @@
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </getUserInput>
                             </output>
                         </input>
@@ -3288,9 +3303,9 @@
                                         </action>
                                         <goto ref="output_2457995"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </input>
-                                <goto ref="search_2414738"/>
+                                <goto ref="search_preliminary_sequences"/>
                             </getUserInput>
                         </output>
                     </input>
@@ -3411,9 +3426,9 @@
                                         </action>
                                         <goto ref="output_2457995"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </input>
-                                <goto ref="search_2414738"/>
+                                <goto ref="search_preliminary_sequences"/>
                             </getUserInput>
                         </output>
                     </input>
@@ -3533,9 +3548,9 @@
                                         </action>
                                         <goto ref="output_2457979"/>
                                     </input>
-                                    <goto ref="search_2414738"/>
+                                    <goto ref="search_preliminary_sequences"/>
                                 </input>
-                                <goto ref="search_2414738"/>
+                                <goto ref="search_preliminary_sequences"/>
                             </getUserInput>
                         </output>
                     </input>

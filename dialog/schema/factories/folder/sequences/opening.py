@@ -113,7 +113,7 @@ class OpeningSequences:
                                     }
                                 ],
                                 (1, "goto"): {
-                                    "@ref": "search_2414738"
+                                    "@ref": "search_preliminary_sequences"
                                 }
                             }
                         }
@@ -159,14 +159,12 @@ class OpeningSequences:
                                         }
                                     },
                                     {
-                                        (0, "grammar"): {
-                                            "item": "Okay"
-                                        },
+                                        (0, "grammar"): GenericGrammar.create_ok(),
                                         (1, "goto"): Goto(ref="output_ask_for_recency")
                                     }
                                 ],
                                 (1, "goto"): {
-                                    "@ref": "search_2414738"
+                                    "@ref": "search_preliminary_sequences"
                                 }
                             }
                         }
@@ -243,14 +241,12 @@ class OpeningSequences:
                                         }
                                     },
                                     {
-                                        (0, "grammar"): {
-                                            "item": "Okay"
-                                        },
+                                        (0, "grammar"): GenericGrammar.create_ok(),
                                         (1, "goto"): Goto(ref="output_ask_for_recency")
                                     }
                                 ],
                                 (1, "goto"): {
-                                    "@ref": "search_2414738"
+                                    "@ref": "search_preliminary_sequences"
                                 }
                             }
                         }

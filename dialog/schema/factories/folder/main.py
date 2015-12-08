@@ -1,3 +1,4 @@
+from dialog.schema.factories.action import RecencyPreferenceAction
 from dialog.schema.factories.grammar import FeelingGrammar, ProfileGrammar, GenericGrammar
 
 
@@ -50,11 +51,7 @@ class MainFolder:
                                     "@operator": "SET_TO",
                                     "#text": "{Certification_Preference.value:main}"
                                 },
-                                {
-                                    "@varName": "Recency_Preference",
-                                    "@operator": "SET_TO",
-                                    "#text": "{Recency_Preference.value:main}"
-                                },
+                                RecencyPreferenceAction.create_set_to_value(),
                                 {
                                     "@varName": "Topic",
                                     "@operator": "SET_TO",
@@ -62,7 +59,7 @@ class MainFolder:
                                 }
                             ],
                             (2, "goto"): {
-                                "@ref": "search_2414738"
+                                "@ref": "search_preliminary_sequences"
                             }
                         },
                         {
@@ -90,13 +87,13 @@ class MainFolder:
                                 ]
                             },
                             (1, "goto"): {
-                                "@ref": "search_2414738"
+                                "@ref": "search_preliminary_sequences"
                             }
                         },
                         {
                             (0, "grammar"): FeelingGrammar.create_preliminaries(),
                             (1, "goto"): {
-                                "@ref": "search_2414738"
+                                "@ref": "search_preliminary_sequences"
                             }
                         },
                         {
@@ -236,7 +233,7 @@ class MainFolder:
                                 }
                             ],
                             (1, "goto"): {
-                                "@ref": "search_2414738"
+                                "@ref": "search_preliminary_sequences"
                             }
                         }
                     },
@@ -253,7 +250,7 @@ class MainFolder:
                             "@id": "getUserInput_2414745",
                             (0, "search"): [
                                 {
-                                    "@id": "search_2414738",
+                                    "@id": "search_preliminary_sequences",
                                     "@ref": "folder_preliminary_sequences"
                                 },
                                 {

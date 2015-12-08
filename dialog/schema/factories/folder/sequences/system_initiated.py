@@ -1,5 +1,6 @@
-from dialog.schema.elements import Action
-from dialog.schema.factories.action import TerminalExchangeAction, GreetingAction, SmallTalkAction
+from dialog.schema.elements import Action, Goto
+from dialog.schema.factories.action import TerminalExchangeAction, GreetingAction, SmallTalkAction, \
+    RecencyPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 
 __author__ = 'robdefeo'
@@ -22,7 +23,7 @@ class SystemInitiatedSequences:
                         Action(varName="Current_Index", operator="SET_TO", text="0").create(),
                         Action(varName="Certification_Preference", operator="SET_TO_BLANK").create(),
                         Action(varName="Genre_Preference", operator="SET_TO_BLANK").create(),
-                        Action(varName="Recency_Preference", operator="SET_TO_BLANK").create(),
+                        RecencyPreferenceAction.create_reset(),
                         Action(varName="Search_Now", operator="SET_TO_NO").create(),
                         Action(varName="Terminal_Exchange", operator="SET_TO_BLANK").create(),
                         Action(varName="Topic", operator="SET_TO_BLANK").create(),
@@ -48,15 +49,11 @@ class SystemInitiatedSequences:
                                         "item": "Okay.",
                                         "@selectionType": "RANDOM"
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "output_did_find_what_looking_for"
-                                    }
+                                    (1, "goto"): Goto(ref="output_did_find_what_looking_for")
                                 }
                             }
                         ],
-                        (1, "goto"): {
-                            "@ref": "search_2414738"
-                        }
+                        (1, "goto"): Goto(ref="search_preliminary_sequences")
                     }
                 },
                 {
@@ -160,7 +157,7 @@ class SystemInitiatedSequences:
                             }
                         ],
                         (1, "goto"): {
-                            "@ref": "search_2414738"
+                            "@ref": "search_preliminary_sequences"
                         }
                     },
                     "@id": "output_did_find_what_looking_for"
@@ -190,16 +187,14 @@ class SystemInitiatedSequences:
                                 }
                             },
                             {
-                                (0, "grammar"): {
-                                    "item": "Okay"
-                                },
+                                (0, "grammar"): GenericGrammar.create_ok(),
                                 (1, "goto"): {
                                     "@ref": "output_ask_for_recency"
                                 }
                             }
                         ],
                         (1, "goto"): {
-                            "@ref": "search_2414738"
+                            "@ref": "search_preliminary_sequences"
                         }
                     }
                 }
