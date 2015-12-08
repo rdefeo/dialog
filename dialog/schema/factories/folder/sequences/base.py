@@ -1,3 +1,4 @@
+from dialog.schema.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction
 from dialog.schema.factories.grammar import GenericGrammar
 
@@ -36,12 +37,8 @@ class BaseSequences:
                         },
                         (1, "getUserInput"): {
                             (0, "input"): {
-                                (0, "grammar"): {
-                                    "item": "Okay."
-                                },
-                                (1, "goto"): {
-                                    "@ref": "output_how_can_i_help_you"
-                                }
+                                (0, "grammar"): GenericGrammar.create_ok,
+                                (1, "goto"): Goto(ref="output_how_can_i_help_you")
                             },
                             (1, "goto"): {
                                 "@ref": "search_2414738"
@@ -70,12 +67,8 @@ class BaseSequences:
                         },
                         (1, "getUserInput"): {
                             (0, "input"): {
-                                (0, "grammar"): {
-                                    "item": "Okay."
-                                },
-                                (1, "goto"): {
-                                    "@ref": "output_how_can_i_help_you"
-                                }
+                                (0, "grammar"): GenericGrammar.create_ok,
+                                (1, "goto"): Goto(ref="output_how_can_i_help_you")
                             },
                             (1, "goto"): {
                                 "@ref": "search_2414738"
@@ -274,9 +267,7 @@ class BaseSequences:
                                                             "@operator": "SET_TO_BLANK"
                                                         }
                                                     ],
-                                                    (2, "goto"): {
-                                                        "@ref": "output_how_can_i_help_you"
-                                                    }
+                                                    (2, "goto"): Goto(ref="output_how_can_i_help_you")
                                                 },
                                                 {
                                                     (0, "grammar"): GenericGrammar.create_no(),
@@ -1286,19 +1277,13 @@ class BaseSequences:
                                                                             "@operator": "SET_TO_BLANK"
                                                                         }
                                                                     ],
-                                                                    (2, "goto"): {
-                                                                        "@ref": "output_how_can_i_help_you"
-                                                                    }
+                                                                    (2, "goto"): Goto(ref="output_how_can_i_help_you")
                                                                 },
                                                                 {
                                                                     (0, "grammar"): GenericGrammar.create_no(),
                                                                     (1, "output"): {
-                                                                        (0, "prompt"): {
-                                                                            "item": "Okay."
-                                                                        },
-                                                                        (1, "goto"): {
-                                                                            "@ref": "output_did_find_what_looking_for"
-                                                                        }
+                                                                        (0, "prompt"): GenericGrammar.create_ok(),
+                                                                        (1, "goto"): Goto(ref="output_did_find_what_looking_for")
                                                                     }
                                                                 }
                                                             ],

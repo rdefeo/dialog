@@ -2431,16 +2431,25 @@
                         <grammar>
                             <item>Hello</item>
                             <item>Hello again</item>
+                            <item>Hi</item>
+                            <item>Hola</item>
+                            <item>Howdy</item>
+                            <item>Hiya</item>
+                            <item>Hey</item>
+                            <item>Heya</item>
+                            <item>yello</item>
+                            <item>aloha</item>
                             <item>hi there</item>
+                            <item>hey there</item>
                         </grammar>
                         <action operator="INCREMENT_BY" varName="Greeting_Count">1</action>
                         <if>
                             <cond operator="EQUAL_TO_YES" varName="Terminal_Exchange"/>
                             <goto ref="output_welcome_back"/>
                         </if>
-                        <if>
+                        <if matchType="ANY">
                             <cond operator="GREATER_THEN" varName="Greeting_Count">2</cond>
-                            <cond operator="GREATER_THEN" varName="Greeting_Count">2</cond>
+                            <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <goto ref="output_end_of_small_talk"/>
                         </if>
                         <output>
@@ -2559,7 +2568,7 @@
                         <action operator="INCREMENT_BY" varName="Greeting_Count">1</action>
                         <if>
                             <cond operator="GREATER_THEN" varName="Greeting_Count">2</cond>
-                            <cond operator="GREATER_THEN" varName="Greeting_Count">2</cond>
+                            <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <output id="output_end_of_small_talk">
                                 <prompt selectionType="RANDOM">
                                     <item>You're very polite, but don't you want me to look up movies for you?</item>
@@ -3853,6 +3862,7 @@
             <concept>
                 <grammar>
                     <item>Hello</item>
+                    <item>Hello again</item>
                     <item>Hi</item>
                     <item>Hola</item>
                     <item>Howdy</item>

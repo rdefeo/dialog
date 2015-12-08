@@ -2,6 +2,8 @@ from typing import Iterable
 
 
 class Element:
+    _element_name = None
+
     def create(self):
         raise NotImplemented()
 
@@ -101,5 +103,61 @@ class Concept(Element):
 
         if any(self.grammars):
             doc["grammar"] = [x.create() for x in self.grammars]
+
+        return doc
+
+
+class Condition(Element):
+    _element_name = "cond"
+
+    def __init__(self, name=None, operator=None, root_text=None):
+        self.name = name
+        self.operator = operator
+        self.root_text = root_text
+
+    def create(self):
+        doc = {}
+
+        if self.name is not None:
+            doc["@varName"] = self.name
+
+        if self.operator is not None:
+            doc["@operator"] = self.operator
+
+        if self.root_text is not None:
+            doc["#text"] = self.root_text
+
+        return doc
+
+
+class If(Element):
+    def __init__(self, match_type=None, elements=Iterable[Element]):
+        self.match_type = match_type
+        self.elements = elements
+
+    def create(self):
+        doc = {}
+
+        if self.match_type is not None:
+            doc["@matchType"] = self.match_type
+
+        if self.elements is not None:
+            for index, x in enumerate(self.elements):
+                doc[(index, x._element_name)] = x
+
+        return doc
+
+
+class Goto(Element):
+    _element_name = "goto"
+
+    def __init__(self, ref=None):
+        self.ref = ref
+
+    def create(self):
+        doc = {}
+
+        if self.ref is not None:
+            doc["@ref"] = self.ref
 
         return doc

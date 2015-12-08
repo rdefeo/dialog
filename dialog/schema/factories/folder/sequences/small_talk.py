@@ -1,3 +1,4 @@
+from dialog.schema.elements import If, Condition, Goto
 from dialog.schema.factories.action import SmallTalkAction
 
 __author__ = 'robdefeo'
@@ -649,16 +650,12 @@ class SmallTalkSequences:
                             "$ what is the matrix"
                         ]
                     },
-                    (1, "if"): {
-                        "cond": {
-                            "@varName": "Small_Talk_Count",
-                            "@operator": "GREATER_THEN",
-                            "#text": "2"
-                        },
-                        "goto": {
-                            "@ref": "output_too_much_small_talk"
-                        }
-                    },
+                    (1, "if"): If(
+                        elements=[
+                            Condition(name="Small_Talk_Count", operator="GREATER_THEN", root_text="2"),
+                            Goto(ref="output_too_much_small_talk")
+                        ]
+                    ),
                     (2, "output"): {
                         (0, "prompt"): {
                             "item": "It's about a guy, named Neo, who has special powers for fighting intelligent programs in a computer simulation.",

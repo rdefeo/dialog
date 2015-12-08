@@ -41,6 +41,7 @@ class GenericGrammar:
         return Grammar(
             items=[
                 "Hello",
+                "Hello again",
                 "Hi",
                 "Hola",
                 "Howdy",
@@ -68,7 +69,6 @@ class GenericGrammar:
     def create_ok_thanks():
         return Grammar(
             items=[
-
                 "okay",
                 "ok",
                 "thanks",

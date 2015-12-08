@@ -1,7 +1,7 @@
+from dialog.schema.factories.folder.library import LibraryFolder
 from dialog.schema.factories.folder.main import MainFolder
-from dialog.schema.folder import LibraryFolder
 from dialog.schema.factories.folder.concept import ConceptFolder
-from dialog.schema.factories.folder.global_folder import GlobalFolder
+from dialog.schema.factories.folder._global import GlobalFolder
 
 
 class Flow:
@@ -9,7 +9,7 @@ class Flow:
         return {
             "folder": [
                 MainFolder.create(),
-                LibraryFolder().create(),
+                LibraryFolder.create(),
                 GlobalFolder.create(),
                 ConceptFolder.create()
 

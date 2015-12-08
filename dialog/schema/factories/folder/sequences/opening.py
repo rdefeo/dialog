@@ -1,3 +1,4 @@
+from dialog.schema.elements import Condition, If, Goto
 from dialog.schema.factories.action import GreetingAction
 from dialog.schema.factories.grammar import GenericGrammar, FeelingGrammar
 
@@ -12,41 +13,23 @@ class OpeningSequences:
             "@label": "OPENING SEQUENCES",
             (0, "input"): [
                 {
-                    (0, "grammar"): {
-                        "item": [
-                            "Hello",
-                            "Hello again",
-                            "hi there"
-                        ]
-                    },
+                    (0, "grammar"): GenericGrammar.create_hello(),
                     (1, "action"): GreetingAction.create_increment(),
                     (2, "if"): [
-                        {
-                            (0, "cond"): {
-                                "@varName": "Terminal_Exchange",
-                                "@operator": "EQUAL_TO_YES"
-                            },
-                            (1, "goto"): {
-                                "@ref": "output_welcome_back"
-                            }
-                        },
-                        {
-                            (0, "cond"): [
-                                {
-                                    "@varName": "Greeting_Count",
-                                    "@operator": "GREATER_THEN",
-                                    "#text": "2"
-                                },
-                                {
-                                    "@varName": "Greeting_Count",
-                                    "@operator": "GREATER_THEN",
-                                    "#text": "2"
-                                }
-                            ],
-                            (1, "goto"): {
-                                "@ref": "output_end_of_small_talk"
-                            }
-                        }
+                        If(
+                            elements=[
+                                Condition(name="Terminal_Exchange", operator="EQUAL_TO_YES"),
+                                Goto(ref="output_welcome_back")
+                            ]
+                        ),
+                        If(
+                            match_type="ANY",
+                            elements=[
+                                Condition(name="Greeting_Count", operator="GREATER_THEN", root_text="2"),
+                                Condition(name="Small_Talk_Count", operator="GREATER_THEN", root_text="2"),
+                                Goto(ref="output_end_of_small_talk")
+                            ]
+                        )
                     ],
                     (3, "output"): {
                         (0, "prompt"): {
@@ -85,9 +68,7 @@ class OpeningSequences:
                                     },
                                     {
                                         (0, "grammar"): FeelingGrammar.create_not_so_good(),
-                                        (1, "goto"): {
-                                            "@ref": "output_sorry_to_hear_that"
-                                        }
+                                        (1, "goto"): Goto(ref="output_sorry_to_hear_that")
                                     },
                                     {
                                         (0, "grammar"): {
@@ -96,21 +77,17 @@ class OpeningSequences:
                                                 "$ not * bad"
                                             ]
                                         },
-                                        (1, "goto"): {
-                                            "@ref": "output_good_to_hear"
-                                        }
+                                        (1, "goto"): Goto(ref="output_good_to_hear")
                                     },
                                     {
                                         (0, "grammar"): FeelingGrammar.create_feeling_fine(),
                                         (1, "output"): {
+                                            "@id": "output_good_to_hear",
                                             (0, "prompt"): {
                                                 "item": "Good to hear! <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): {
-                                                "@ref": "output_how_can_i_help_you"
-                                            },
-                                            "@id": "output_good_to_hear"
+                                            (1, "goto"): Goto(ref="output_how_can_i_help_you")
                                         }
                                     },
                                     {
@@ -120,9 +97,7 @@ class OpeningSequences:
                                                 "item": "Fantastic! So glad to hear it. <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): {
-                                                "@ref": "output_how_can_i_help_you"
-                                            }
+                                            (1, "goto"): Goto(ref="output_how_can_i_help_you")
                                         }
                                     },
                                     {
@@ -132,9 +107,7 @@ class OpeningSequences:
                                                 "item": "I'm sorry to hear that. <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): {
-                                                "@ref": "output_how_can_i_help_you"
-                                            },
+                                            (1, "goto"): Goto(ref="output_how_can_i_help_you"),
                                             "@id": "output_sorry_to_hear_that"
                                         }
                                     }
@@ -160,16 +133,8 @@ class OpeningSequences:
                     (1, "action"): GreetingAction.create_increment(),
                     (2, "if"): {
                         (0, "cond"): [
-                            {
-                                "@varName": "Greeting_Count",
-                                "@operator": "GREATER_THEN",
-                                "#text": "2"
-                            },
-                            {
-                                "@varName": "Greeting_Count",
-                                "@operator": "GREATER_THEN",
-                                "#text": "2"
-                            }
+                            Condition(name="Greeting_Count", operator="GREATER_THEN", root_text="2"),
+                            Condition(name="Small_Talk_Count", operator="GREATER_THEN", root_text="2"),
                         ],
                         (1, "output"): {
                             "@id": "output_end_of_small_talk",
@@ -181,9 +146,7 @@ class OpeningSequences:
                                 (0, "input"): [
                                     {
                                         (0, "grammar"): GenericGrammar.create_yes(),
-                                        (1, "goto"): {
-                                            "@ref": "output_ask_for_recency"
-                                        }
+                                        (1, "goto"): Goto(ref="output_ask_for_recency")
                                     },
                                     {
                                         (0, "grammar"): GenericGrammar.create_no(),
@@ -199,9 +162,7 @@ class OpeningSequences:
                                         (0, "grammar"): {
                                             "item": "Okay"
                                         },
-                                        (1, "goto"): {
-                                            "@ref": "output_ask_for_recency"
-                                        }
+                                        (1, "goto"): Goto(ref="output_ask_for_recency")
                                     }
                                 ],
                                 (1, "goto"): {
@@ -239,9 +200,7 @@ class OpeningSequences:
                             (0, "prompt"): {
                                 "item": "I am doing well, thanks."
                             },
-                            (1, "goto"): {
-                                "@ref": "output_how_can_i_help_you"
-                            }
+                            (1, "goto"): Goto(ref="output_how_can_i_help_you")
                         }
                     },
                     (4, "output"): {
@@ -263,11 +222,7 @@ class OpeningSequences:
                         ]
                     },
                     (1, "if"): {
-                        (0, "cond"): {
-                            "@varName": "Greeting_Count",
-                            "@operator": "GREATER_THEN",
-                            "#text": "2"
-                        },
+                        (0, "cond"): Condition(name="Greeting_Count", operator="GREATER_THEN", root_text="2"),
                         (1, "output"): {
                             (0, "prompt"): {
                                 "item": "You're very polite, but don't you want me to look up movies for you?"
@@ -276,9 +231,7 @@ class OpeningSequences:
                                 (0, "input"): [
                                     {
                                         (0, "grammar"): GenericGrammar.create_yes(),
-                                        (1, "goto"): {
-                                            "@ref": "output_ask_for_recency"
-                                        }
+                                        (1, "goto"): Goto(ref="output_ask_for_recency")
                                     },
                                     {
                                         (0, "grammar"): GenericGrammar.create_no(),
@@ -293,9 +246,7 @@ class OpeningSequences:
                                         (0, "grammar"): {
                                             "item": "Okay"
                                         },
-                                        (1, "goto"): {
-                                            "@ref": "output_ask_for_recency"
-                                        }
+                                        (1, "goto"): Goto(ref="output_ask_for_recency")
                                     }
                                 ],
                                 (1, "goto"): {
@@ -309,9 +260,7 @@ class OpeningSequences:
                             "item": "Nice to meet you too, {User_Name}!",
                             "@selectionType": "RANDOM"
                         },
-                        (1, "goto"): {
-                            "@ref": "output_how_can_i_help_you"
-                        }
+                        (1, "goto"): Goto(ref="output_how_can_i_help_you")
                     }
                 }
             ]

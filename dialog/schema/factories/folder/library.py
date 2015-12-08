@@ -3,7 +3,8 @@ from dialog.schema.factories.folder.sequences import BaseSequences, GlobalSequen
 
 
 class LibraryFolder:
-    def create(self):
+    @staticmethod
+    def create():
         return {
             "@label": "Library",
             "folder": [
