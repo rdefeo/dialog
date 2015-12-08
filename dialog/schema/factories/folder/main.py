@@ -1,6 +1,8 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import RecencyPreferenceAction, CertificationPreferenceAction, GenrePreferenceAction
 from dialog.schema.factories.grammar import FeelingGrammar, ProfileGrammar, GenericGrammar
+from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.prompts.generic import GenericPrompt
 
 
 class MainFolder:
@@ -10,13 +12,7 @@ class MainFolder:
             "@label": "Main",
             (0, "output"): {
                 "@id": "output_what_is_name",
-                (0, "prompt"): {
-                    "item": [
-                        "What can I call you?",
-                        "What's your name?"
-                    ],
-                    "@selectionType": "SEQUENTIAL"
-                },
+                (0, "prompt"): GenericPrompt.what_is_your_name(),
                 (1, "getUserInput"): {
                     "@id": "getUserInput_2508591",
                     "input": [
@@ -179,13 +175,8 @@ class MainFolder:
                                         ]
                                     },
                                     (1, "output"): {
-                                        (0, "prompt"): {
-                                            "item": "Okay.",
-                                            "@selectionType": "RANDOM"
-                                        },
-                                        (1, "goto"): {
-                                            "@ref": "output_how_can_i_help_you"
-                                        }
+                                        (0, "prompt"): GenericPrompt.ok(),
+                                        (1, "goto"): HowCanHelpYou.goto()
                                     }
                                 },
                                 {
@@ -228,44 +219,7 @@ class MainFolder:
                             }
                         }
                     },
-                    {
-                        "@id": "output_how_can_i_help_you",
-                        (0, "prompt"): {
-                            "item": [
-                                "How can I help you?",
-                                "What can I do for you?"
-                            ],
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "getUserInput"): {
-                            "@id": "getUserInput_2414745",
-                            (0, "search"): [
-                                {
-                                    "@id": "search_preliminary_sequences",
-                                    "@ref": "folder_preliminary_sequences"
-                                },
-                                {
-                                    "@ref": "folder_routing_sequences"
-                                },
-                                {
-                                    "@id": "search_2414740",
-                                    "@ref": "folder_base_sequences"
-                                }
-                            ],
-                            (1, "default"): {
-                                (0, "output"): {
-                                    "@isInsertDNRStatement": "true",
-                                    (0, "prompt"): {
-                                        "item": "I'm not sure what you mean. I can understand things like <i>Show me recent PG13-rated Action movies.</i>",
-                                        "@selectionType": "RANDOM"
-                                    },
-                                    (1, "goto"): {
-                                        "@ref": "##special_DNR_GET_USER_INPUT_NODE_ID"
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    HowCanHelpYou.create()
                 ]
             }
         }

@@ -146,7 +146,7 @@ class CertificationPreferenceProfileCheck:
                             }
                         },
                         {
-                            (0, "grammar"): GenericGrammar.create_yes(),
+                            (0, "grammar"): GenericGrammar.yes(),
                             (1, "output"): {
                                 (0, "prompt"): {
                                     "item": "Which one?"

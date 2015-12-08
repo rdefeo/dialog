@@ -1,6 +1,7 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, GenrePreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
+from dialog.schema.factories.outputs import HowCanHelpYou
 
 __author__ = 'robdefeo'
 
@@ -193,10 +194,10 @@ class ShowtimesInput:
                                                     "@operator": "SET_TO_BLANK"
                                                 }
                                             ],
-                                            (2, "goto"): Goto(ref="output_how_can_i_help_you")
+                                            (2, "goto"): HowCanHelpYou.goto()
                                         },
                                         {
-                                            (0, "grammar"): GenericGrammar.create_no(),
+                                            (0, "grammar"): GenericGrammar.no(),
                                             (1, "output"): {
                                                 (0, "prompt"): {
                                                     "item": "Okay."

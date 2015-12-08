@@ -56,7 +56,7 @@ class GenericGrammar:
         )
 
     @staticmethod
-    def create_ok():
+    def ok():
         return Grammar(
             items=[
 
@@ -159,7 +159,7 @@ class GenericGrammar:
         )
 
     @staticmethod
-    def create_yes():
+    def yes():
         return Grammar(
             items=[
                 "Yes",
@@ -169,7 +169,7 @@ class GenericGrammar:
         )
 
     @staticmethod
-    def create_no():
+    def no():
         return Grammar(
             items=[
                 "No"

@@ -1,9 +1,6 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import CertificationPreferenceAction
 
-__author__ = 'robdefeo'
-
-__author__ = 'robdefeo'
 
 
 class FamilyFriendlyInput:

@@ -1,6 +1,8 @@
 from dialog.schema.elements import Condition, If, Goto
 from dialog.schema.factories.action import GreetingAction
 from dialog.schema.factories.grammar import GenericGrammar, FeelingGrammar
+from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.prompts.generic import GenericPrompt
 
 __author__ = 'robdefeo'
 
@@ -80,7 +82,7 @@ class OpeningSequences:
                                                 "item": "Good to hear! <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): Goto(ref="output_how_can_i_help_you")
+                                            (1, "goto"): HowCanHelpYou.goto()
                                         }
                                     },
                                     {
@@ -90,7 +92,7 @@ class OpeningSequences:
                                                 "item": "Fantastic! So glad to hear it. <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): Goto(ref="output_how_can_i_help_you")
+                                            (1, "goto"): HowCanHelpYou.goto()
                                         }
                                     },
                                     {
@@ -101,7 +103,7 @@ class OpeningSequences:
                                                 "item": "I'm sorry to hear that. <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): Goto(ref="output_how_can_i_help_you")
+                                            (1, "goto"): HowCanHelpYou.goto()
                                         }
                                     }
                                 ],
@@ -138,21 +140,18 @@ class OpeningSequences:
                             (1, "getUserInput"): {
                                 (0, "input"): [
                                     {
-                                        (0, "grammar"): GenericGrammar.create_yes(),
+                                        (0, "grammar"): GenericGrammar.yes(),
                                         (1, "goto"): Goto(ref="output_ask_for_recency")
                                     },
                                     {
-                                        (0, "grammar"): GenericGrammar.create_no(),
+                                        (0, "grammar"): GenericGrammar.no(),
                                         (1, "action"): GreetingAction.create_reset(),
                                         (2, "output"): {
-                                            "prompt": {
-                                                "item": "Okay, fine.",
-                                                "@selectionType": "RANDOM"
-                                            }
+                                            "prompt": GenericPrompt.ok_fine()
                                         }
                                     },
                                     {
-                                        (0, "grammar"): GenericGrammar.create_ok(),
+                                        (0, "grammar"): GenericGrammar.ok(),
                                         (1, "goto"): Goto(ref="output_ask_for_recency")
                                     }
                                 ],
@@ -191,7 +190,7 @@ class OpeningSequences:
                             (0, "prompt"): {
                                 "item": "I am doing well, thanks."
                             },
-                            (1, "goto"): Goto(ref="output_how_can_i_help_you")
+                            (1, "goto"): HowCanHelpYou.goto()
                         }
                     },
                     (4, "output"): {
@@ -219,20 +218,18 @@ class OpeningSequences:
                             (1, "getUserInput"): {
                                 (0, "input"): [
                                     {
-                                        (0, "grammar"): GenericGrammar.create_yes(),
+                                        (0, "grammar"): GenericGrammar.yes(),
                                         (1, "goto"): Goto(ref="output_ask_for_recency")
                                     },
                                     {
-                                        (0, "grammar"): GenericGrammar.create_no(),
+                                        (0, "grammar"): GenericGrammar.no(),
                                         (1, "action"): GreetingAction.create_reset(),
                                         (2, "output"): {
-                                            "prompt": {
-                                                "item": "Okay, fine."
-                                            }
+                                            "prompt": GenericPrompt.ok_fine()
                                         }
                                     },
                                     {
-                                        (0, "grammar"): GenericGrammar.create_ok(),
+                                        (0, "grammar"): GenericGrammar.ok(),
                                         (1, "goto"): Goto(ref="output_ask_for_recency")
                                     }
                                 ],
@@ -245,7 +242,7 @@ class OpeningSequences:
                             "item": "Nice to meet you too, {User_Name}!",
                             "@selectionType": "RANDOM"
                         },
-                        (1, "goto"): Goto(ref="output_how_can_i_help_you")
+                        (1, "goto"): HowCanHelpYou.goto()
                     }
                 }
             ]

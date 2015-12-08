@@ -1,3 +1,5 @@
+from dialog.schema.factories.prompts.generic import GenericPrompt
+
 __author__ = 'robdefeo'
 
 
@@ -25,10 +27,7 @@ class ClosingSequences:
                         ]
                     },
                     (1, "output"): {
-                        (0, "prompt"): {
-                            "item": "Okay.",
-                            "@selectionType": "RANDOM"
-                        },
+                        (0, "prompt"): GenericPrompt.ok(),
                         (1, "goto"): {
                             "@ref": "output_did_find_what_looking_for"
                         },

@@ -1,6 +1,7 @@
 from dialog.schema.elements import If, Condition, Goto, Prompt
 from dialog.schema.factories.action import SmallTalkAction, CertificationPreferenceAction
 from dialog.schema.factories.conditions import SmallTalkConditions
+from dialog.schema.factories.outputs import HowCanHelpYou
 
 __author__ = 'robdefeo'
 
@@ -204,9 +205,7 @@ class SmallTalkSequences:
                                                 "okay"
                                             ]
                                         },
-                                        (1, "goto"): {
-                                            "@ref": "output_how_can_i_help_you"
-                                        }
+                                        (1, "goto"): HowCanHelpYou.goto()
                                     },
                                     (1, "goto"): {
                                         "@ref": "search_preliminary_sequences"
@@ -239,9 +238,7 @@ class SmallTalkSequences:
                                                 "okay"
                                             ]
                                         },
-                                        (1, "goto"): {
-                                            "@ref": "output_how_can_i_help_you"
-                                        }
+                                        (1, "goto"): HowCanHelpYou.goto()
                                     },
                                     (1, "goto"): {
                                         "@ref": "search_preliminary_sequences"

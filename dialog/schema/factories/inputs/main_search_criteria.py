@@ -4,6 +4,7 @@ from dialog.schema.factories.action import GreetingAction, SmallTalkAction, Rece
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.inputs import DateTimeInput, CertificationPreferenceInput, FamilyFriendlyInput, \
     RecencyPreferenceInput, ZipcodeInput
+from dialog.schema.factories.outputs import HowCanHelpYou
 from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck, CertificationPreferenceProfileCheck, \
     RecencyPreferenceProfileCheck
 
@@ -149,7 +150,7 @@ class MainSearchCriteriaInput:
                                                         "@varName": "Genre_Preference",
                                                         "@operator": "SET_TO_BLANK"
                                                     },
-                                                    RecencyPreferenceAction.create_reset()
+                                                    RecencyPreferenceAction.reset()
                                                 ],
                                                 (2, "goto"): {
                                                     "@ref": "profileCheck_recency_preference"
@@ -270,7 +271,7 @@ class MainSearchCriteriaInput:
                                                             }
                                                         },
                                                         {
-                                                            (0, "grammar"): GenericGrammar.create_yes(),
+                                                            (0, "grammar"): GenericGrammar.yes(),
                                                             (1, "action"): [
                                                                 {
                                                                     "@varName": "Request_Success",
@@ -292,14 +293,14 @@ class MainSearchCriteriaInput:
                                                                     "@varName": "Genre_Preference",
                                                                     "@operator": "SET_TO_BLANK"
                                                                 },
-                                                                RecencyPreferenceAction.create_reset()
+                                                                RecencyPreferenceAction.reset()
                                                             ],
-                                                            (2, "goto"): Goto(ref="output_how_can_i_help_you")
+                                                            (2, "goto"): HowCanHelpYou.goto()
                                                         },
                                                         {
-                                                            (0, "grammar"): GenericGrammar.create_no(),
+                                                            (0, "grammar"): GenericGrammar.no(),
                                                             (1, "output"): {
-                                                                (0, "prompt"): GenericGrammar.create_ok(),
+                                                                (0, "prompt"): GenericGrammar.ok(),
                                                                 (1, "goto"): Goto(
                                                                     ref="output_did_find_what_looking_for")
                                                             }
@@ -358,7 +359,7 @@ class MainSearchCriteriaInput:
                                             (1, "getUserInput"): {
                                                 (0, "input"): [
                                                     {
-                                                        (0, "grammar"): GenericGrammar.create_yes(),
+                                                        (0, "grammar"): GenericGrammar.yes(),
                                                         (1, "output"): {
                                                             (0, "prompt"): {
                                                                 "item": "Okay.",

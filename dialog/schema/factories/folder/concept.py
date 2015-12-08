@@ -20,7 +20,7 @@ class ConceptFolder:
                 Concept(grammar=GenericGrammar.create_yes_goodbye()),
                 Concept(grammar=GenericGrammar.create_ok_thanks()),
                 Concept(grammar=GenericGrammar.create_yes_full()),
-                Concept(grammar=GenericGrammar.create_no()),
+                Concept(grammar=GenericGrammar.no()),
                 Concept(grammar=GenericGrammar.create_haha()),
                 Concept(grammar=GenericGrammar.create_sorry()),
                 Concept(grammar=GenericGrammar.create_you()),

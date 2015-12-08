@@ -315,7 +315,7 @@
                                         </grammar>
                                         <action operator="SET_TO_NO" varName="Terminal_Exchange"/>
                                         <output>
-                                            <prompt>
+                                            <prompt selectionType="RANDOM">
                                                 <item>Okay.</item>
                                             </prompt>
                                             <goto ref="output_goodbye"/>
@@ -778,7 +778,7 @@
                                         </grammar>
                                         <action operator="SET_TO" varName="Out-of-Scope_Count">0</action>
                                         <output>
-                                            <prompt>
+                                            <prompt selectionType="RANDOM">
                                                 <item>Okay, fine.</item>
                                             </prompt>
                                         </output>
@@ -2682,7 +2682,7 @@
                                         </grammar>
                                         <action operator="SET_TO" varName="Greeting_Count">0</action>
                                         <output>
-                                            <prompt>
+                                            <prompt selectionType="RANDOM">
                                                 <item>Okay, fine.</item>
                                             </prompt>
                                         </output>

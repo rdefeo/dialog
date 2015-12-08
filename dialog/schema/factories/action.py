@@ -26,7 +26,7 @@ class GenrePreferenceAction:
 
 class RecencyPreferenceAction:
     @staticmethod
-    def create_reset():
+    def reset():
         return Action(varName="Recency_Preference", operator="SET_TO_BLANK").create()
 
     @staticmethod
