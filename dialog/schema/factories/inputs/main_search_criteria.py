@@ -1,12 +1,15 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, RecencyPreferenceAction, \
     CertificationPreferenceAction, GenrePreferenceAction
+from dialog.schema.factories.conditions.certification import CertificationsConditions
+from dialog.schema.factories.conditions.genre import GenreConditions
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.inputs import DateTimeInput, CertificationPreferenceInput, FamilyFriendlyInput, \
     RecencyPreferenceInput, ZipcodeInput
 from dialog.schema.factories.outputs import HowCanHelpYou
 from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck, CertificationPreferenceProfileCheck, \
     RecencyPreferenceProfileCheck
+from dialog.schema.factories.prompts.generic import GenericPrompt
 
 __author__ = 'robdefeo'
 
@@ -76,10 +79,7 @@ class MainSearchCriteriaInput:
             ],
             (4, "output"): {
                 "@id": "output_2456875",
-                (0, "prompt"): {
-                    "item": "Okay. <br><br>",
-                    "@selectionType": "RANDOM"
-                },
+                (0, "prompt"): GenericPrompt.ok(),
                 (1, "output"): {
                     "@id": "output_2456876",
                     (0, "prompt"): {
@@ -164,10 +164,7 @@ class MainSearchCriteriaInput:
                                 },
                                 {
                                     (0, "cond"): [
-                                        {
-                                            "@varName": "Genre_Preference",
-                                            "@operator": "IS_BLANK"
-                                        },
+                                        GenreConditions.is_blank(),
                                         {
                                             "@varName": "Certification_Preference",
                                             "@operator": "HAS_VALUE"
@@ -185,14 +182,8 @@ class MainSearchCriteriaInput:
                                 },
                                 {
                                     (0, "cond"): [
-                                        {
-                                            "@varName": "Certification_Preference",
-                                            "@operator": "IS_BLANK"
-                                        },
-                                        {
-                                            "@varName": "Genre_Preference",
-                                            "@operator": "HAS_VALUE"
-                                        }
+                                        CertificationsConditions.is_blank(),
+                                        GenreConditions.has_value()
                                     ],
                                     (1, "output"): {
                                         (0, "prompt"): {
@@ -206,14 +197,8 @@ class MainSearchCriteriaInput:
                                 },
                                 {
                                     (0, "cond"): [
-                                        {
-                                            "@varName": "Certification_Preference",
-                                            "@operator": "IS_BLANK"
-                                        },
-                                        {
-                                            "@varName": "Genre_Preference",
-                                            "@operator": "IS_BLANK"
-                                        }
+                                        CertificationsConditions.is_blank(),
+                                        GenreConditions.is_blank()
                                     ],
                                     (1, "output"): {
                                         (0, "prompt"): {
@@ -1138,10 +1123,7 @@ class MainSearchCriteriaInput:
                                                                 },
                                                                 {
                                                                     (0, "cond"): [
-                                                                        {
-                                                                            "@varName": "Certification_Preference",
-                                                                            "@operator": "IS_BLANK"
-                                                                        },
+                                                                        CertificationsConditions.is_blank(),
                                                                         {
                                                                             "@varName": "Genre_Preference",
                                                                             "@operator": "HAS_VALUE"
@@ -1158,10 +1140,7 @@ class MainSearchCriteriaInput:
                                                                 },
                                                                 {
                                                                     (0, "cond"): [
-                                                                        {
-                                                                            "@varName": "Certification_Preference",
-                                                                            "@operator": "IS_BLANK"
-                                                                        },
+                                                                        CertificationsConditions.is_blank(),
                                                                         {
                                                                             "@varName": "Genre_Preference",
                                                                             "@operator": "IS_BLANK"

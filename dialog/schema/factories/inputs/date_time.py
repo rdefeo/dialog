@@ -1,6 +1,4 @@
-from dialog.schema.elements import Goto
 from dialog.schema.factories.action import RecencyPreferenceAction
-
 
 
 class RecencyPreferenceInput:
@@ -24,6 +22,7 @@ class RecencyPreferenceInput:
 class DateTimeInput:
     @staticmethod
     def create():
+        from dialog.schema.factories.inputs import CertificationPreferenceInput
         return {
             "@id": "input_date_time",
             (0, "grammar"): {
@@ -44,13 +43,13 @@ class DateTimeInput:
                 }
             },
             (3, "if"): {
+                "@id": "profileCheck_2503417",
                 (0, "cond"): {
                     "@varName": "Recency_Preference",
                     "@operator": "EQUALS",
                     "#text": "Upcoming"
                 },
-                (1, "goto"): Goto(ref="input_certification_preference"),
-                "@id": "profileCheck_2503417"
+                (1, "goto"): CertificationPreferenceInput.goto()
             },
             (4, "output"): {
                 (0, "prompt"): {
@@ -85,6 +84,6 @@ class DateTimeInput:
                         }
                     }
                 },
-                (2, "goto"): Goto(ref="input_certification_preference")
+                (2, "goto"): CertificationPreferenceInput.goto()
             }
         }

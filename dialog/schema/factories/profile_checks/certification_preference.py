@@ -1,4 +1,5 @@
 from dialog.schema.factories.action import CertificationPreferenceAction
+from dialog.schema.factories.conditions import CertificationsConditions
 from dialog.schema.factories.grammar import GenericGrammar
 
 
@@ -7,10 +8,7 @@ class CertificationPreferenceProfileCheck:
     def create():
         return {
             "@id": "profileCheck_certification_preference",
-            (0, "cond"): {
-                "@varName": "Certification_Preference",
-                "@operator": "IS_BLANK"
-            },
+            (0, "cond"): CertificationsConditions.is_blank(),
             (1, "output"): {
                 (0, "prompt"): {
                     "item": "Do you prefer a certain movie rating? ",

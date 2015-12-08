@@ -1,16 +1,23 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import CertificationPreferenceAction, GenrePreferenceAction
+from dialog.schema.factories.conditions.genre import GenreConditions
+from dialog.schema.factories.grammar import GenericGrammar
 
 
 class GenrePreferenceProfileCheck:
     @staticmethod
+    def goto():
+        return Goto(ref=GenrePreferenceProfileCheck.__id())
+
+    @staticmethod
+    def __id():
+        return "profileCheck_genre_preference"
+
+    @staticmethod
     def create():
         return {
-            "@id": "profileCheck_genre_preference",
-            (0, "cond"): {
-                "@varName": "Genre_Preference",
-                "@operator": "IS_BLANK"
-            },
+            "@id": GenrePreferenceProfileCheck.__id(),
+            (0, "cond"): GenreConditions.is_blank(),
             (1, "output"): {
                 (0, "prompt"): {
                     "item": "Are you in the mood for a specific genre?",
@@ -183,27 +190,12 @@ class GenrePreferenceProfileCheck:
                             (3, "goto"): Goto(ref="profileCheck_certification_preference")
                         },
                         {
-                            (0, "grammar"): {
-                                "item": [
-                                    "No",
-                                    "$ no",
-                                    "$ no preference",
-                                    "$ don't care",
-                                    "$ don't know",
-                                    "$ none",
-                                    "$ all",
-                                    "$ anything",
-                                    "$ any",
-                                    "$ whatever",
-                                    "$ nothing specific",
-                                    "$ don't have a preference"
-                                ]
-                            },
+                            (0, "grammar"): GenericGrammar.create_no_preference(),
                             (1, "goto"): Goto(ref="profileCheck_certification_preference")
                         },
                         {
                             (0, "grammar"): {
-                                "item": "Yes"
+                                "item": GenericGrammar.yes()
                             },
                             (1, "output"): {
                                 (0, "prompt"): {

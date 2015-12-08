@@ -159,6 +159,25 @@ class GenericGrammar:
         )
 
     @staticmethod
+    def create_no_preference():
+        return Grammar(
+            items=[
+                "No",
+                "$ no",
+                "$ no preference",
+                "$ don't care",
+                "$ don't know",
+                "$ none",
+                "$ all",
+                "$ anything",
+                "$ any",
+                "$ whatever",
+                "$ nothing specific",
+                "$ don't have a preference"
+            ]
+        )
+
+    @staticmethod
     def yes():
         return Grammar(
             items=[

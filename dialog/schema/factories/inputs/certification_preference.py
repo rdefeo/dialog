@@ -28,9 +28,18 @@ class FamilyFriendlyInput:
 
 class CertificationPreferenceInput:
     @staticmethod
+    def goto():
+        return Goto(ref=CertificationPreferenceInput.__id())
+
+    @staticmethod
+    def __id():
+        return "input_certification_preference"
+
+
+    @staticmethod
     def create():
         return {
-            "@id": "input_certification_preference",
+            "@id": CertificationPreferenceInput.__id(),
             (0, "grammar"): {
                 "item": [
                     "rated",
