@@ -3416,8 +3416,8 @@
                             <item>$ what is the matrix</item>
                         </grammar>
                         <if>
-                            <goto ref="output_too_much_small_talk"/>
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
+                            <goto ref="output_too_much_small_talk"/>
                         </if>
                         <output id="output_2457995">
                             <prompt selectionType="RANDOM">
