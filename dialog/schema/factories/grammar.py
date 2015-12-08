@@ -190,7 +190,7 @@ class GenericGrammar:
         )
 
     @staticmethod
-    def create_yes_okay():
+    def yes_okay():
         return Grammar(
             items=[
                 "Yes",

@@ -6,16 +6,16 @@ __author__ = 'robdefeo'
 class HowCanHelpYou:
     @staticmethod
     def goto():
-        return Goto(ref=HowCanHelpYou.id())
+        return Goto(ref=HowCanHelpYou.__id())
 
     @staticmethod
-    def id():
+    def __id():
         return "output_how_can_i_help_you"
 
     @staticmethod
     def create():
         return {
-            "@id": HowCanHelpYou.id(),
+            "@id": HowCanHelpYou.__id(),
             (0, "prompt"): {
                 "item": [
                     "How can I help you?",
