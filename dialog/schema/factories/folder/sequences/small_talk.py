@@ -1,5 +1,6 @@
-from dialog.schema.elements import If, Condition, Goto
+from dialog.schema.elements import If, Condition, Goto, Prompt
 from dialog.schema.factories.action import SmallTalkAction, CertificationPreferenceAction
+from dialog.schema.factories.conditions import SmallTalkConditions
 
 __author__ = 'robdefeo'
 
@@ -22,16 +23,7 @@ class SmallTalkSequences:
                             "$ what can I call you"
                         ]
                     },
-                    (1, "if"): {
-                        (0, "cond"): {
-                            "@varName": "Small_Talk_Count",
-                            "@operator": "GREATER_THEN",
-                            "#text": "2"
-                        },
-                        (1, "goto"): {
-                            "@ref": "output_too_much_small_talk"
-                        }
-                    },
+                    (1, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (2, "output"): {
                         (0, "prompt"): {
                             "item": "My name is Watson.",
@@ -78,14 +70,10 @@ class SmallTalkSequences:
                                             "$ known as"
                                         ]
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "input_user_knownas_name"
-                                    }
+                                    (1, "goto"): Goto(ref="input_user_knownas_name")
                                 }
                             ],
-                            (1, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            }
+                            (1, "goto"): Goto(ref="search_preliminary_sequences")
                         }
                     }
                 },
@@ -101,16 +89,7 @@ class SmallTalkSequences:
                         "@operator": "SET_TO",
                         "#text": "{Topic.value:main}"
                     },
-                    (2, "if"): {
-                        (0, "cond"): {
-                            "@varName": "Small_Talk_Count",
-                            "@operator": "GREATER_THEN",
-                            "#text": "2"
-                        },
-                        (1, "goto"): {
-                            "@ref": "output_too_much_small_talk"
-                        }
-                    },
+                    (2, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (3, "input"): {
                         (0, "grammar"): {
                             "item": [
@@ -132,13 +111,9 @@ class SmallTalkSequences:
                                             "$ sorry"
                                         ]
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "output_help_with_anything_else"
-                                    }
+                                    (1, "goto"): Goto(ref="output_help_with_anything_else")
                                 },
-                                (1, "goto"): {
-                                    "@ref": "search_preliminary_sequences"
-                                }
+                                (1, "goto"): Goto(ref="search_preliminary_sequences")
                             }
                         }
                     }
@@ -153,16 +128,7 @@ class SmallTalkSequences:
                             "$ get English"
                         ]
                     },
-                    (1, "if"): {
-                        (0, "cond"): {
-                            "@varName": "Small_Talk_Count",
-                            "@operator": "GREATER_THEN",
-                            "#text": "2"
-                        },
-                        (1, "goto"): {
-                            "@ref": "output_too_much_small_talk"
-                        }
-                    },
+                    (1, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (2, "output"): {
                         (0, "prompt"): {
                             "item": "I'm sorry, English is my second language. My native tongue is Binary. 01110011 01101111 01110010 01110010 01111001",
@@ -177,9 +143,7 @@ class SmallTalkSequences:
                                             "okay"
                                         ]
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "output_help_with_anything_else"
-                                    }
+                                    (1, "goto"): Goto(ref="output_help_with_anything_else")
                                 },
                                 {
                                     (0, "grammar"): {
@@ -217,16 +181,7 @@ class SmallTalkSequences:
                             "$ you prefer"
                         ]
                     },
-                    (1, "if"): {
-                        (0, "cond"): {
-                            "@varName": "Small_Talk_Count",
-                            "@operator": "GREATER_THEN",
-                            "#text": "2"
-                        },
-                        (1, "goto"): {
-                            "@ref": "output_too_much_small_talk"
-                        }
-                    },
+                    (1, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (2, "input"): [
                         {
                             (0, "grammar"): {
@@ -303,16 +258,7 @@ class SmallTalkSequences:
                             "$ what is 2001 about"
                         ]
                     },
-                    (1, "if"): {
-                        "cond": {
-                            "@varName": "Small_Talk_Count",
-                            "@operator": "GREATER_THEN",
-                            "#text": "2"
-                        },
-                        (1, "goto"): {
-                            "@ref": "output_too_much_small_talk"
-                        }
-                    },
+                    (1, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (2, "output"): {
                         (0, "prompt"): {
                             "item": "It's about an intelligent computer, named HAL, who tries to kill the crew of a spaceship.",
@@ -343,10 +289,7 @@ class SmallTalkSequences:
                                         ]
                                     },
                                     (1, "output"): {
-                                        (0, "prompt"): {
-                                            "item": "Yes, that's right.",
-                                            "@selectionType": "RANDOM"
-                                        },
+                                        (0, "prompt"): Prompt(items=["Yes, that's right."]),
                                         (1, "goto"): {
                                             "@ref": "getUserInput_2457908"
                                         }
@@ -361,10 +304,7 @@ class SmallTalkSequences:
                                         ]
                                     },
                                     (1, "output"): {
-                                        (0, "prompt"): {
-                                            "item": "The human crew plans to deactivate him so HAL tries to kill them first.",
-                                            "@selectionType": "RANDOM"
-                                        },
+                                        (0, "prompt"): Prompt(items=["The human crew plans to deactivate him so HAL tries to kill them first."]),
                                         (1, "goto"): {
                                             "@ref": "getUserInput_2457908"
                                         }
@@ -398,10 +338,7 @@ class SmallTalkSequences:
                                         ]
                                     },
                                     (1, "output"): {
-                                        (0, "prompt"): {
-                                            "item": "Well, I don't want to spoil the surprise!",
-                                            "@selectionType": "RANDOM"
-                                        },
+                                        (0, "prompt"): Prompt(items=["Well, I don't want to spoil the surprise!"]),
                                         (1, "goto"): {
                                             "@ref": "getUserInput_2457908"
                                         }
@@ -467,16 +404,7 @@ class SmallTalkSequences:
                             "$ what is Terminator about"
                         ]
                     },
-                    (1, "if"): {
-                        (0, "cond"): {
-                            "@varName": "Small_Talk_Count",
-                            "@operator": "GREATER_THEN",
-                            "#text": "2"
-                        },
-                        (1, "goto"): {
-                            "@ref": "output_too_much_small_talk"
-                        }
-                    },
+                    (1, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (2, "output"): {
                         (0, "prompt"): {
                             "item": "It's about a robot who travels back in time to kill the inventor of intelligent machines.",
@@ -612,14 +540,10 @@ class SmallTalkSequences:
                                             }
                                         }
                                     ],
-                                    (2, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (2, "goto"): Goto(ref="search_preliminary_sequences")
                                 }
                             ],
-                            (1, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            },
+                            (1, "goto"): Goto(ref="search_preliminary_sequences"),
                             "@id": "getUserInput_2457980"
                         },
                         "@id": "output_2457979"
@@ -634,12 +558,7 @@ class SmallTalkSequences:
                             "$ what is the matrix"
                         ]
                     },
-                    (1, "if"): If(
-                        elements=[
-                            Condition(name="Small_Talk_Count", operator="GREATER_THEN", root_text="2"),
-                            Goto(ref="output_too_much_small_talk")
-                        ]
-                    ),
+                    (1, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (2, "output"): {
                         (0, "prompt"): {
                             "item": "It's about a guy, named Neo, who has special powers for fighting intelligent programs in a computer simulation.",
@@ -654,9 +573,7 @@ class SmallTalkSequences:
                                             "haha"
                                         ]
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "output_help_with_anything_else"
-                                    }
+                                    (1, "goto"): Goto(ref="output_help_with_anything_else")
                                 },
                                 {
                                     (0, "grammar"): {
@@ -771,14 +688,10 @@ class SmallTalkSequences:
                                             }
                                         }
                                     ],
-                                    (2, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (2, "goto"): Goto(ref="search_preliminary_sequences")
                                 }
                             ],
-                            (1, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            },
+                            (1, "goto"): Goto(ref="search_preliminary_sequences"),
                             "@id": "getUserInput_2457996"
                         },
                         "@id": "output_2457995"

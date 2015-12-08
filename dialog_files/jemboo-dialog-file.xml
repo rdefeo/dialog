@@ -2456,7 +2456,7 @@
                             <item>hey there</item>
                         </grammar>
                         <action operator="INCREMENT_BY" varName="Greeting_Count">1</action>
-                        <if matchType="AND">
+                        <if matchType="ALL">
                             <cond operator="EQUAL_TO_YES" varName="Terminal_Exchange"/>
                             <goto ref="output_welcome_back"/>
                         </if>
@@ -3006,7 +3006,7 @@
                             <item>$ they call you</item>
                             <item>$ what can I call you</item>
                         </grammar>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <goto ref="output_too_much_small_talk"/>
                         </if>
@@ -3054,7 +3054,7 @@
                             <item>$ (VIRTUAL_AGENTS)={Topic}</item>
                         </grammar>
                         <action operator="SET_TO" varName="Topic">{Topic.value:main}</action>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <goto ref="output_too_much_small_talk"/>
                         </if>
@@ -3089,7 +3089,7 @@
                             <item>$ know English</item>
                             <item>$ get English</item>
                         </grammar>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <goto ref="output_too_much_small_talk"/>
                         </if>
@@ -3137,7 +3137,7 @@
                             <item>$ you like</item>
                             <item>$ you prefer</item>
                         </grammar>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <goto ref="output_too_much_small_talk"/>
                         </if>
@@ -3193,7 +3193,7 @@
                             <item>What is 2001: A Space Odyssey about?</item>
                             <item>$ what is 2001 about</item>
                         </grammar>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <goto ref="output_too_much_small_talk"/>
                         </if>
@@ -3315,7 +3315,7 @@
                             <item>$ what is the Terminator about</item>
                             <item>$ what is Terminator about</item>
                         </grammar>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <goto ref="output_too_much_small_talk"/>
                         </if>
@@ -3439,7 +3439,7 @@
                             <item>$ what is matrix about</item>
                             <item>$ what is the matrix</item>
                         </grammar>
-                        <if matchType="AND">
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <goto ref="output_too_much_small_talk"/>
                         </if>
