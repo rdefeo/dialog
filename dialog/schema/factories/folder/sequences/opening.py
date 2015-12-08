@@ -71,12 +71,7 @@ class OpeningSequences:
                                         (1, "goto"): Goto(ref="output_sorry_to_hear_that")
                                     },
                                     {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Not so bad",
-                                                "$ not * bad"
-                                            ]
-                                        },
+                                        (0, "grammar"): FeelingGrammar.create_not_so_bad(),
                                         (1, "goto"): Goto(ref="output_good_to_hear")
                                     },
                                     {
@@ -103,12 +98,12 @@ class OpeningSequences:
                                     {
                                         (0, "grammar"): FeelingGrammar.create_feeling_bad(),
                                         (1, "output"): {
+                                            "@id": "output_sorry_to_hear_that",
                                             (0, "prompt"): {
                                                 "item": "I'm sorry to hear that. <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): Goto(ref="output_how_can_i_help_you"),
-                                            "@id": "output_sorry_to_hear_that"
+                                            (1, "goto"): Goto(ref="output_how_can_i_help_you")
                                         }
                                     }
                                 ],
@@ -205,9 +200,7 @@ class OpeningSequences:
                         (0, "prompt"): {
                             "item": "I am doing well, thanks."
                         },
-                        (1, "goto"): {
-                            "@ref": "output_2459184"
-                        }
+                        (1, "goto"): Goto(ref="output_2459184")
                     }
                 },
                 {
@@ -245,9 +238,7 @@ class OpeningSequences:
                                         (1, "goto"): Goto(ref="output_ask_for_recency")
                                     }
                                 ],
-                                (1, "goto"): {
-                                    "@ref": "search_preliminary_sequences"
-                                }
+                                (1, "goto"): Goto(ref="search_preliminary_sequences")
                             }
                         }
                     },

@@ -1,6 +1,7 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, RecencyPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
+from dialog.schema.factories.inputs import FavoritesInput, DetailsInput
 
 __author__ = 'robdefeo'
 
@@ -16,66 +17,8 @@ class BaseSequences:
                 SmallTalkAction.create_reset()
             ],
             (1, "input"): [
-                {
-                    (0, "grammar"): {
-                        "item": [
-                            "Favorites",
-                            "$ favorites",
-                            "$ favorite movies",
-                            "$ favorited",
-                            "$ hearted"
-                        ]
-                    },
-                    (1, "action"): [
-                        GreetingAction.create_reset(),
-                        SmallTalkAction.create_reset()
-                    ],
-                    (2, "output"): {
-                        (0, "prompt"): {
-                            "item": "When you get the details for a movie, you can save the movie in your <i>Favorites</i> by clicking on the heart icon above the trailer.",
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "getUserInput"): {
-                            (0, "input"): {
-                                (0, "grammar"): GenericGrammar.create_ok(),
-                                (1, "goto"): Goto(ref="output_how_can_i_help_you")
-                            },
-                            (1, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            }
-                        }
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
-                            "Details",
-                            "$ details",
-                            "$ detail",
-                            "$ movie info",
-                            "$ movie information"
-                        ]
-                    },
-                    (1, "action"): [
-                        GreetingAction.create_reset(),
-                        SmallTalkAction.create_reset()
-                    ],
-                    (2, "output"): {
-                        (0, "prompt"): {
-                            "item": "After searching for movies, you can click on a particular movie result to see <i>details</i>, such as rating, summary and trailer.",
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "getUserInput"): {
-                            (0, "input"): {
-                                (0, "grammar"): GenericGrammar.create_ok(),
-                                (1, "goto"): Goto(ref="output_how_can_i_help_you")
-                            },
-                            (1, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            }
-                        }
-                    }
-                },
+                FavoritesInput.create(),
+                DetailsInput.create(),
                 {
                     (0, "grammar"): {
                         "item": [

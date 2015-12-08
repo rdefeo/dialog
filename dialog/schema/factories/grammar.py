@@ -252,6 +252,15 @@ class FeelingGrammar:
         ).create()
 
     @staticmethod
+    def create_not_so_bad():
+        return Grammar(
+            items=[
+                "Not so bad",
+                "$ not * bad"
+            ]
+        ).create()
+
+    @staticmethod
     def create_feeling_great():
         return Grammar(
             items=[

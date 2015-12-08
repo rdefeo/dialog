@@ -51,7 +51,7 @@ class Variables:
                 Variable("Certification_Preference", "TEXT", description="User's preferred MPAA movie rating"),
                 Variable("Genre_Preference", "TEXT", description="User's preferred movie genre."),
                 Variable("Search_Now", "YESNO", init_value="No",
-                                     description="Tells backend when to call the movie API"),
+                         description="Tells backend when to call the movie API"),
                 Variable("Recency_Preference", "TEXT", description="If the movie is current or upcoming"),
                 Variable("Selected_Movie", "TEXT"),
                 Variable("ZIP_Code_Preference", "TEXT", description="User's indicated ZIP code"),
