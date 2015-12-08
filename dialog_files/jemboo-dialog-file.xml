@@ -193,9 +193,9 @@
                         <item>What can I do for you?</item>
                     </prompt>
                     <getUserInput id="getUserInput_2414745">
-                        <search id="search_2414738" ref="folder_2414695"/>
-                        <search ref="folder_routing_seqeuences"/>
-                        <search id="search_2414740" ref="folder_2414701"/>
+                        <search id="search_2414738" ref="folder_preliminary_sequences"/>
+                        <search ref="folder_routing_sequences"/>
+                        <search id="search_2414740" ref="folder_base_sequences"/>
                         <default>
                             <output isInsertDNRStatement="true">
                                 <prompt selectionType="RANDOM">
@@ -246,13 +246,13 @@
                                 <prompt selectionType="RANDOM">
                                     <item>Okay.</item>
                                 </prompt>
-                                <goto ref="output_2458386"/>
+                                <goto ref="output_did_find_what_looking_for"/>
                             </output>
                         </input>
                         <goto ref="search_2414738"/>
                     </getUserInput>
                 </output>
-                <output id="output_2458386">
+                <output id="output_did_find_what_looking_for">
                     <prompt selectionType="RANDOM">
                         <item>Did you find what you were looking for, {User_Name}?</item>
                     </prompt>
@@ -351,7 +351,7 @@
                                 <item>Yes.</item>
                                 <item>$ yes</item>
                             </grammar>
-                            <goto ref="output_2449874"/>
+                            <goto ref="output_ask_for_recency"/>
                         </input>
                         <input>
                             <grammar>
@@ -368,13 +368,13 @@
                             <grammar>
                                 <item>Okay</item>
                             </grammar>
-                            <goto ref="output_2449874"/>
+                            <goto ref="output_ask_for_recency"/>
                         </input>
                         <goto ref="search_2414738"/>
                     </getUserInput>
                 </output>
             </folder>
-            <folder id="folder_2414695" label="PRELIMINARY SEQUENCES">
+            <folder id="folder_preliminary_sequences" label="PRELIMINARY SEQUENCES">
                 <action operator="SET_TO" varName="Greeting_Count">0</action>
                 <action operator="SET_TO" varName="Small_Talk_Count">0</action>
                 <input>
@@ -679,13 +679,13 @@
                                 <item>what</item>
                                 <item>$ what</item>
                             </grammar>
-                            <goto ref="output_2443814"/>
+                            <goto ref="output_what_jemboo_knows"/>
                         </input>
                         <output>
                             <prompt selectionType="RANDOM">
                                 <item>Yes.</item>
                             </prompt>
-                            <output id="output_2443814">
+                            <output id="output_what_jemboo_knows">
                                 <prompt selectionType="RANDOM">
                                     <item>I can look up current and upcoming movies by Genre or MPAA Rating and show you
                                         trailers for them. But I'm afraid I cannot search by number of stars or by movie
@@ -757,13 +757,11 @@
                                 <getUserInput>
                                     <input>
                                         <grammar>
-                                            <item>
-                                                <item>Yes</item>
-                                                <item>Yes.</item>
-                                                <item>$ yes</item>
-                                            </item>
+                                            <item>Yes</item>
+                                            <item>Yes.</item>
+                                            <item>$ yes</item>
                                         </grammar>
-                                        <goto ref="output_2449874"/>
+                                        <goto ref="output_ask_for_recency"/>
                                     </input>
                                     <input>
                                         <grammar>
@@ -780,7 +778,7 @@
                                         <grammar>
                                             <item>Okay</item>
                                         </grammar>
-                                        <goto ref="output_2449874"/>
+                                        <goto ref="output_ask_for_recency"/>
                                     </input>
                                     <goto ref="search_2414738"/>
                                 </getUserInput>
@@ -813,10 +811,10 @@
                             </output>
                         </output>
                     </input>
-                    <goto ref="output_2443814"/>
+                    <goto ref="output_what_jemboo_knows"/>
                 </input>
             </folder>
-            <folder id="folder_routing_seqeuences" label="ROUTING SEQUENCES" selectionType="RANDOM">
+            <folder id="folder_routing_sequences" label="ROUTING SEQUENCES" selectionType="RANDOM">
                 <action operator="SET_TO" varName="Greeting_Count">0</action>
                 <action operator="SET_TO" varName="Small_Talk_Count">0</action>
                 <input>
@@ -891,7 +889,7 @@
                     <goto ref="output_2510290"/>
                 </input>
             </folder>
-            <folder id="folder_2414701" label="BASE SEQUENCES">
+            <folder id="folder_base_sequences" label="BASE SEQUENCES">
                 <action operator="SET_TO" varName="Greeting_Count">0</action>
                 <action operator="SET_TO" varName="Small_Talk_Count">0</action>
                 <input>
@@ -1087,7 +1085,7 @@
                                                 <prompt>
                                                     <item>Okay.</item>
                                                 </prompt>
-                                                <goto ref="output_2458386"/>
+                                                <goto ref="output_did_find_what_looking_for"/>
                                             </output>
                                         </input>
                                         <goto ref="input_2503346"/>
@@ -1219,7 +1217,7 @@
                     </input>
                     <if id="profileCheck_2449907">
                         <cond operator="IS_BLANK" varName="Recency_Preference"/>
-                        <output id="output_2449874">
+                        <output id="output_ask_for_recency">
                             <prompt selectionType="RANDOM">
                                 <item>Current movies or upcoming movies?</item>
                             </prompt>
@@ -1697,7 +1695,7 @@
                                                                 <prompt>
                                                                     <item>Okay.</item>
                                                                 </prompt>
-                                                                <goto ref="output_2458386"/>
+                                                                <goto ref="output_did_find_what_looking_for"/>
                                                             </output>
                                                         </input>
                                                         <goto ref="input_2456878"/>
@@ -2384,7 +2382,7 @@
                     </output>
                 </input>
             </folder>
-            <folder id="folder_2442951" label="GLOBAL SEQUENCES" selectionType="RANDOM">
+            <folder id="folder_global_sequences" label="GLOBAL SEQUENCES" selectionType="RANDOM">
                 <folder label="UI ACTIONS">
                     <input>
                         <grammar>
@@ -2573,7 +2571,7 @@
                                             <item>Yes.</item>
                                             <item>$ yes</item>
                                         </grammar>
-                                        <goto ref="output_2449874"/>
+                                        <goto ref="output_ask_for_recency"/>
                                     </input>
                                     <input>
                                         <grammar>
@@ -2590,7 +2588,7 @@
                                         <grammar>
                                             <item>Okay</item>
                                         </grammar>
-                                        <goto ref="output_2449874"/>
+                                        <goto ref="output_ask_for_recency"/>
                                     </input>
                                     <goto ref="search_2414738"/>
                                 </getUserInput>
@@ -2653,7 +2651,7 @@
                                             <item>Yes.</item>
                                             <item>$ yes</item>
                                         </grammar>
-                                        <goto ref="output_2449874"/>
+                                        <goto ref="output_ask_for_recency"/>
                                     </input>
                                     <input>
                                         <grammar>
@@ -2670,7 +2668,7 @@
                                         <grammar>
                                             <item>Okay</item>
                                         </grammar>
-                                        <goto ref="output_2449874"/>
+                                        <goto ref="output_ask_for_recency"/>
                                     </input>
                                     <goto ref="search_2414738"/>
                                 </getUserInput>
@@ -2704,7 +2702,7 @@
                             <prompt selectionType="RANDOM">
                                 <item>Okay.</item>
                             </prompt>
-                            <goto ref="output_2458386"/>
+                            <goto ref="output_did_find_what_looking_for"/>
                         </output>
                     </input>
                     <input>
@@ -2717,7 +2715,7 @@
                             <prompt selectionType="RANDOM">
                                 <item>You are welcome.</item>
                             </prompt>
-                            <goto ref="output_2458386"/>
+                            <goto ref="output_did_find_what_looking_for"/>
                         </output>
                     </input>
                     <input>
@@ -3537,9 +3535,23 @@
             <folder label="Storage"/>
         </folder>
         <folder label="Global">
-            <search ref="folder_2442951"/>
+            <search ref="folder_global_sequences"/>
         </folder>
         <folder label="Concepts">
+            <folder label="Style">
+                <concept id="high heels">
+                    <grammar>
+                        <item>high heels</item>
+                        <item>high-heels</item>
+                    </grammar>
+                </concept>
+                <concept id="boots">
+                    <grammar>
+                        <item>boots</item>
+                        <item>boot</item>
+                    </grammar>
+                </concept>
+            </folder>
             <folder label="Genre">
                 <concept>
                     <grammar>
@@ -3993,7 +4005,7 @@
                     <item>movie times</item>
                 </grammar>
             </concept>
-            <concept id="concept_2456113">
+            <concept id="concept_place_to_eat">
                 <grammar>
                     <item>dining</item>
                     <item>restaurant</item>
@@ -4272,6 +4284,7 @@
                 </grammar>
             </value>
         </entity>
+        <entity name="DINING"/>
     </entities>
     <variables>
         <var_folder name="Home">

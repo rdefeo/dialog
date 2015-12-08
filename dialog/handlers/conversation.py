@@ -2,8 +2,10 @@ from json import loads, dumps
 
 from tornado.web import RequestHandler, Finish
 from watson_developer_cloud import DialogV1 as Dialog
-personalized_prompt_current_index = "UPDATE CURRENT_INDEX" # $NON-NLS-1$
-personalized_prompt_movies_returned = "UPDATE NUM_MOVIES"; # $NON-NLS-1$
+
+personalized_prompt_current_index = "UPDATE CURRENT_INDEX"  # $NON-NLS-1$
+personalized_prompt_movies_returned = "UPDATE NUM_MOVIES";  # $NON-NLS-1$
+
 
 class Conversation(RequestHandler):
     def data_received(self, chunk):
@@ -82,44 +84,44 @@ class Conversation(RequestHandler):
         client_input = self.get_argument("input", None)
 
 
-        #     long lStartTime = System.nanoTime();
-        #     long lEndTime, difference;
-        #     String errorMessage = null, issue = null;
-        #     String wdsMessage = null;
-        #     JsonObject processedText = null;
-        #     if (input == null || input.trim().isEmpty()) {
-        #         errorMessage = Messages.getString("WDSBlueMixProxyResource.SPECIFY_INPUT"); //$NON-NLS-1$
-        #         issue = Messages.getString("WDSBlueMixProxyResource.EMPTY_QUESTION"); //$NON-NLS-1$
-        #         UtilityFunctions.logger.error(issue);
-        #         return Response.serverError().entity(new ServerErrorPayload(errorMessage, issue)).build();
-        #     }
+        # long lStartTime = System.nanoTime();
+        # long lEndTime, difference;
+        # String errorMessage = null, issue = null;
+        # String wdsMessage = null;
+        # JsonObject processedText = null;
+        # if (input == null || input.trim().isEmpty()) {
+        #     errorMessage = Messages.getString("WDSBlueMixProxyResource.SPECIFY_INPUT"); //$NON-NLS-1$
+        #     issue = Messages.getString("WDSBlueMixProxyResource.EMPTY_QUESTION"); //$NON-NLS-1$
+        #     UtilityFunctions.logger.error(issue);
+        #     return Response.serverError().entity(new ServerErrorPayload(errorMessage, issue)).build();
+        # }
         try:
             pass
             #
-            #         // 1.Get all the class info from NLC and set appropriate profile variables.
-            #         List<ClassifiedClass> classInfo = null;
-            #         if(nlcService != null){
-            #             if (UtilityFunctions.logger.isTraceEnabled()) {
-            #                 UtilityFunctions.logger.trace(Messages.getString("WDSBlueMixProxyResource.NLC_SERVICE")); //$NON-NLS-1$
-            #             }
-            #             // Send utterance to NLC to get user intent
-            #             Classification classification = nlcService.classify(classifier_id, input);
-            #             classInfo = classification.getClasses();
-            #             // Set classification profile variables for WDS.
-            #             List<NameValue> nameValues = new ArrayList<NameValue>();
-            #             nameValues.add(new NameValue("Class1", classInfo.get(0).getName()));
-            #             nameValues.add(new NameValue("Class1_Confidence", Double.toString(classInfo.get(0).getConfidence())));
-            #             nameValues.add(new NameValue("Class2", classInfo.get(1).getName()));
-            #             nameValues.add(new NameValue("Class2_Confidence", Double.toString(classInfo.get(1).getConfidence())));
-            #             dialogService.updateProfile(dialog_id, Integer.parseInt(clientId), nameValues);
-            #         }
+            # // 1.Get all the class info from NLC and set appropriate profile variables.
+            # List<ClassifiedClass> classInfo = null;
+            # if(nlcService != null){
+            #     if (UtilityFunctions.logger.isTraceEnabled()) {
+            #         UtilityFunctions.logger.trace(Messages.getString("WDSBlueMixProxyResource.NLC_SERVICE")); //$NON-NLS-1$
+            #     }
+            #     // Send utterance to NLC to get user intent
+            #     Classification classification = nlcService.classify(classifier_id, input);
+            #     classInfo = classification.getClasses();
+            #     // Set classification profile variables for WDS.
+            #     List<NameValue> nameValues = new ArrayList<NameValue>();
+            #     nameValues.add(new NameValue("Class1", classInfo.get(0).getName()));
+            #     nameValues.add(new NameValue("Class1_Confidence", Double.toString(classInfo.get(0).getConfidence())));
+            #     nameValues.add(new NameValue("Class2", classInfo.get(1).getName()));
+            #     nameValues.add(new NameValue("Class2_Confidence", Double.toString(classInfo.get(1).getConfidence())));
+            #     dialogService.updateProfile(dialog_id, Integer.parseInt(clientId), nameValues);
+            # }
             #
-            #         // 2. Send original utterance to WDS
+            # // 2. Send original utterance to WDS
             conversation = self.dialog_service.conversation(self.dialog_id, client_input, client_id, conversation_id)
             wds_message = " ".join(conversation["response"])
 
             profile = self.dialog_service.get_profile(self.dialog_id, client_id)
-            print (profile)
+            print(profile)
 
             processed_text = self.match_search_now_pattern(wds_message)
             #         WDSConversationPayload conversationPayload = new WDSConversationPayload();

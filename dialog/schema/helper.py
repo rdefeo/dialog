@@ -47,7 +47,7 @@ def dict_to_etree(d):
                         assert key_string == '#text' and isinstance(value, basestring)
                         root.text = value
                     elif key_string.startswith('@'):
-                        assert isinstance(value, basestring)
+                        assert isinstance(value, basestring), (value, basestring)
                         root.set(key_string[1:], value)
                     elif isinstance(value, list):
                         for e in value:

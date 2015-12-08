@@ -5,9 +5,18 @@ __author__ = 'robdefeo'
 
 class GenericGrammar:
     @staticmethod
+    def create_you():
+        return Grammar(
+            items=[
+                "you",
+                "u"
+            ]
+        )
+
+    @staticmethod
     def create_sorry():
         return Grammar(
-            [
+            items=[
                 "sorry",
                 "apologize",
                 "I am sorry",
@@ -30,7 +39,7 @@ class GenericGrammar:
     @staticmethod
     def create_hello():
         return Grammar(
-            [
+            items=[
                 "Hello",
                 "Hi",
                 "Hola",
@@ -48,7 +57,7 @@ class GenericGrammar:
     @staticmethod
     def create_ok():
         return Grammar(
-            [
+            items=[
 
                 "okay",
                 "ok"
@@ -58,7 +67,7 @@ class GenericGrammar:
     @staticmethod
     def create_ok_thanks():
         return Grammar(
-            [
+            items=[
 
                 "okay",
                 "ok",
@@ -88,7 +97,7 @@ class GenericGrammar:
     @staticmethod
     def create_yes_goodbye():
         return Grammar(
-            [
+            items=[
                 "Goodbye",
                 "bye bye",
                 "bye now",
@@ -109,7 +118,7 @@ class GenericGrammar:
     @staticmethod
     def create_yes_full():
         return Grammar(
-            [
+            items=[
                 "yes",
                 "yep",
                 "yup",
@@ -137,7 +146,7 @@ class GenericGrammar:
     @staticmethod
     def create_no_full():
         return Grammar(
-            [
+            items=[
                 "no",
                 "n",
                 "nope",
@@ -152,7 +161,7 @@ class GenericGrammar:
     @staticmethod
     def create_yes():
         return Grammar(
-            [
+            items=[
                 "Yes",
                 "Yes.",
                 "$ yes"
@@ -162,15 +171,28 @@ class GenericGrammar:
     @staticmethod
     def create_no():
         return Grammar(
-            [
+            items=[
                 "No"
+            ]
+        )
+
+    @staticmethod
+    def create_haha():
+        return Grammar(
+            items=[
+                "haha",
+                "ha",
+                "hehe",
+                "lol",
+                "rofl",
+                "lmao"
             ]
         )
 
     @staticmethod
     def create_yes_okay():
         return Grammar(
-            [
+            items=[
                 "Yes",
                 "Yes.",
                 "Okay",
@@ -184,7 +206,7 @@ class ProfileGrammar:
     @staticmethod
     def create_my_name_is_dynamic_data():
         return Grammar(
-            [
+            items=[
                 "My name is",
                 "$ my name is (DYNAMIC_DATA)={User_Name}",
                 "$ I am (DYNAMIC_DATA)={User_Name}",
@@ -201,7 +223,7 @@ class FeelingGrammar:
     @staticmethod
     def create_preliminaries():
         return Grammar(
-            [
+            items=[
                 "Preliminaries",
                 "$ what do you know",
                 "$ what can you do",
@@ -220,7 +242,7 @@ class FeelingGrammar:
     @staticmethod
     def create_not_so_good():
         return Grammar(
-            [
+            items=[
                 "Not so good",
                 "$ not * good",
                 "$ not * well",
@@ -232,7 +254,7 @@ class FeelingGrammar:
     @staticmethod
     def create_feeling_great():
         return Grammar(
-            [
+            items=[
                 "Great",
                 "$ great",
                 "$ excellent",
@@ -247,7 +269,7 @@ class FeelingGrammar:
     @staticmethod
     def create_feeling_fine():
         return Grammar(
-            [
+            items=[
                 "Fine",
                 "$ good",
                 "$ fine",
@@ -260,7 +282,7 @@ class FeelingGrammar:
     @staticmethod
     def create_feeling_bad():
         return Grammar(
-            [
+            items=[
                 "Bad",
                 "$ terrible",
                 "$ awful",

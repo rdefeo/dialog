@@ -9,27 +9,38 @@ class Entities:
             "entity": [
                 Entity(
                     "CERTIFICATION", [
-                        Value("G", "G", Grammar(["G Rated", "G-Rated"])),
-                        Value("PG", "PG", Grammar(["PG Rated", "PG-Rated"]))
+                        Value("G", "G", Grammar(items=["G Rated", "G-Rated"])),
+                        Value("PG", "PG", Grammar(items=["PG Rated", "PG-Rated"]))
                     ]
                 ).create(),
                 Entity(
                     "GENRE", [
-                        Value("Action", "Action", Grammar(["Action"])),
-                        Value("Adventure", "Adventure", Grammar(["Adventure"]))
+                        Value("Action", "Action", Grammar(items=["Action"])),
+                        Value("Adventure", "Adventure", Grammar(items=["Adventure"]))
                     ]
                 ).create(),
                 Entity(
                     "DYNAMIC_DATA", [
-                        Value("DataCapture", "DataCapture", Grammar(["*"]))
+                        Value("DataCapture", "DataCapture", Grammar(items=["*"]))
                     ]
                 ).create(),
                 Entity(
                     "RECENCY", [
-                        Value("Upcoming", "Upcoming", Grammar(["coming soon"])),
-                        Value("Current", "Current", Grammar(["current", "recent", "now", "new"]))
+                        Value("Upcoming", "Upcoming", Grammar(items=["coming soon"])),
+                        Value("Current", "Current", Grammar(items=["current", "recent", "now", "new"]))
                     ]
-                ).create()
+                ).create(),
+                Entity(
+                    "DINING", [
 
+                    ]
+                )
+                # TODO
+        #         <entity name="DINING">
+        #     <value name="restaurants" value="restaurants">
+        #         <concept ref="concept_2456113"/>
+        #     </value>
+        #     <value name="bars" value="bars"/>
+        # </entity>
             ]
         }

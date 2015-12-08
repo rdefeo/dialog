@@ -25,13 +25,16 @@ class Action(Element):
 
 
 class Grammar(Element):
-    def __init__(self, items: list):
+    def __init__(self, items: list = None):
         self.items = items
 
     def create(self):
-        return {
-            "item": self.items
-        }
+        doc = {}
+
+        if self.items is not None:
+            doc["item"] = self.items
+
+        return doc
 
 
 class Value(Element):
@@ -82,4 +85,21 @@ class Entities(Element):
 
 
 class Concept(Element):
-    pass
+    def __init__(self, id=None, grammars: Iterable[Grammar] = None, grammar: Grammar = None):
+        if grammars is not None:
+            self.grammars = grammars
+        elif grammar is not None:
+            self.grammars = [grammar]
+
+        self.id = id
+
+    def create(self):
+        doc = {}
+
+        if self.id is not None:
+            doc["@id"] = self.id
+
+        if any(self.grammars):
+            doc["grammar"] = [x.create() for x in self.grammars]
+
+        return doc
