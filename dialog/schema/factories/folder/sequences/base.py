@@ -371,11 +371,7 @@ class BaseSequences:
                                     "item": "$ next"
                                 },
                                 (1, "goto"): {
-                                    "action": {
-                                        "@varName": "Recency_Preference",
-                                        "@operator": "SET_TO",
-                                        "#text": "Upcoming"
-                                    },
+                                    "action": RecencyPreferenceAction.create_set_to_upcoming(),
                                     "@ref": "profileCheck_2503417"
                                 }
                             },
@@ -1024,6 +1020,7 @@ class BaseSequences:
                         }
                     ],
                     (4, "output"): {
+                        "@id": "output_2456875",
                         (0, "prompt"): {
                             "item": "Okay. <br><br>",
                             "@selectionType": "RANDOM"
@@ -1938,11 +1935,7 @@ class BaseSequences:
                                                         "item": "$ next"
                                                     },
                                                     (1, "goto"): {
-                                                        "action": {
-                                                            "@varName": "Recency_Preference",
-                                                            "@operator": "SET_TO",
-                                                            "#text": "Upcoming"
-                                                        },
+                                                        "action": RecencyPreferenceAction.create_set_to_upcoming(),
                                                         "@ref": "profileCheck_2510175"
                                                     }
                                                 },
@@ -1983,11 +1976,7 @@ class BaseSequences:
                                                                 }
                                                             },
                                                             (3, "goto"): {
-                                                                "action": {
-                                                                    "@varName": "Recency_Preference",
-                                                                    "@operator": "SET_TO",
-                                                                    "#text": "Upcoming"
-                                                                },
+                                                                "action": RecencyPreferenceAction.create_set_to_upcoming(),
                                                                 "@ref": "output_2456875"
                                                             }
                                                         }
@@ -2301,8 +2290,7 @@ class BaseSequences:
                                     }
                                 }
                             }
-                        },
-                        "@id": "output_2456875"
+                        }
                     }
                 }
             ]

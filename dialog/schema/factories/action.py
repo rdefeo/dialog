@@ -20,6 +20,7 @@ class RecencyPreferenceAction:
     def create_set_to_current():
         return Action(varName="Recency_Preference", operator="SET_TO", text="Current").create()
 
+
 class GreetingAction:
     @staticmethod
     def create_reset():
@@ -48,5 +49,3 @@ class SmallTalkAction:
     @staticmethod
     def create_increment():
         return Action(varName="Small_Talk_Count", operator="INCREMENT_BY", text="1").create()
-
-

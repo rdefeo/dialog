@@ -1,3 +1,6 @@
+from dialog.schema.elements import Variable
+
+
 class Variables:
     def create(self):
         return {
@@ -8,48 +11,35 @@ class Variables:
                     self.create_movie_search(),
                 ],
                 (1, "var"): [
-                    self.create_variable("Previous Certification Selected", "TEXT"),
-                    self.create_variable("Previous Genre Selected", "TEXT"),
-                    self.create_variable("Previous Recency Selected", "TEXT"),
-                    self.create_variable("DateTime_Current", "DATETIME", description="Current date Time for US ET"),
-                    self.create_variable("DateTime_Difference", "NUMBER"),
-                    self.create_variable("DateTime_Mentioned_ENT", "TEXT")
+                    Variable("Previous Certification Selected", "TEXT"),
+                    Variable("Previous Genre Selected", "TEXT"),
+                    Variable("Previous Recency Selected", "TEXT"),
+                    Variable("DateTime_Current", "DATETIME", description="Current date Time for US ET"),
+                    Variable("DateTime_Difference", "NUMBER"),
+                    Variable("DateTime_Mentioned_ENT", "TEXT")
                 ]
             }
         }
-
-    def create_variable(self, name, _type, description=None, initValue=None):
-        doc = {
-            (0, "@name"): name,
-            (1, "@type"): _type
-        }
-        if initValue is not None:
-            doc[(2, "@initValue")] = initValue
-
-        if description is not None:
-            doc[(3, "@description")] = description
-
-        return doc
 
     def create_conversation_management(self):
         return {
             "@name": "Conversation Management",
             "@type": "VAR",
             "var": [
-                self.create_variable("Topic", "TEXT"),
-                self.create_variable("Request_Success", "YESNO",
-                                     description="Did the user find what s/he was looking for?"),
-                self.create_variable("Terminal_Exchange", "YESNO", initValue="No",
-                                     description="Has the system already said goodbye?"),
-                self.create_variable("Greeting_Count", "NUMBER", initValue="0",
-                                     description="How many times a user says &quot;hi&quot; or &quot;howareyou&quot;"),
-                self.create_variable("Small_Talk_Count", "NUMBER", initValue="0",
-                                     description="How many times User engages Small Talk sequences"),
-                self.create_variable("Out-of-Scope_Count", "NUMBER", initValue="0",
-                                     description="How many times User engages out-of-scope sequences"),
-                self.create_variable("User_Name", "TEXT", initValue="friend"),
-                self.create_variable("First_Time", "YESNO", initValue="Yes",
-                                     description="User's first time using the app.")
+                Variable("Topic", "TEXT"),
+                Variable("Request_Success", "YESNO", description="Did the user find what s/he was looking for?"),
+                Variable("Terminal_Exchange", "YESNO", init_value="No",
+                         description="Has the system already said goodbye?"),
+                Variable("Greeting_Count", "NUMBER", init_value="0",
+                         description="How many times a user says &quot;hi&quot; or &quot;howareyou&quot;"),
+                Variable("Small_Talk_Count", "NUMBER", init_value="0",
+                         description="How many times User engages Small Talk sequences"),
+
+                Variable("Out-of-Scope_Count", "NUMBER", init_value="0",
+                         description="How many times User engages out-of-scope sequences"),
+
+                Variable("User_Name", "TEXT", init_value="friend"),
+                Variable("First_Time", "YESNO", init_value="Yes", description="User's first time using the app."),
             ]
         }
 
@@ -58,22 +48,20 @@ class Variables:
             "@name": "Movie Search",
             "@type": "VAR",
             "var": [
-                self.create_variable("Certification_Preference", "TEXT", description="User's preferred MPAA movie rating"),
-                self.create_variable("Genre_Preference", "TEXT",
-                                     description="User's preferred movie genre."),
-                self.create_variable("Search_Now", "YESNO", initValue="No",
+                Variable("Certification_Preference", "TEXT", description="User's preferred MPAA movie rating"),
+                Variable("Genre_Preference", "TEXT", description="User's preferred movie genre."),
+                Variable("Search_Now", "YESNO", init_value="No",
                                      description="Tells backend when to call the movie API"),
-                self.create_variable("Recency_Preference", "TEXT",
-                                     description="If the movie is current or upcoming"),
-                self.create_variable("Selected_Movie", "TEXT"),
-                self.create_variable("ZIP_Code_Preference", "TEXT", description="User's indicated ZIP code"),
-                self.create_variable("Display_Trailer", "YESNO", initValue="No"),
-                self.create_variable("Display_Movie_Details", "YESNO", initValue="No"),
+                Variable("Recency_Preference", "TEXT", description="If the movie is current or upcoming"),
+                Variable("Selected_Movie", "TEXT"),
+                Variable("ZIP_Code_Preference", "TEXT", description="User's indicated ZIP code"),
+                Variable("Display_Trailer", "YESNO", init_value="No"),
+                Variable("Display_Movie_Details", "YESNO", init_value="No"),
 
             ]
         }
 
-#                 <var name="Search_Results" type="TEXT" description="No_Hits, One_Hit, Multiple_Hits"/>
+# <var name="Search_Results" type="TEXT" description="No_Hits, One_Hit, Multiple_Hits"/>
 # 4845
 #                 <var name="Display_Reviews" type="YESNO" initValue="No"
 # 4846
