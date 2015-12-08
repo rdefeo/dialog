@@ -1227,7 +1227,7 @@
                         <action operator="SET_TO" varName="Topic">{Topic.value:main}</action>
                         <goto ref="output_2449762"/>
                     </input>
-                    <if id="profileCheck_2449907">
+                    <if id="profileCheck_recency_preference">
                         <cond operator="IS_BLANK" varName="Recency_Preference"/>
                         <output id="output_ask_for_recency">
                             <prompt selectionType="RANDOM">
@@ -1245,7 +1245,7 @@
                                     <action operator="SET_TO" varName="Recency_Preference">
                                         {Recency_Preference.value:main}
                                     </action>
-                                    <goto ref="profileCheck_2449894"/>
+                                    <goto ref="profileCheck_genre_preference"/>
                                 </input>
                                 <input>
                                     <grammar>
@@ -1264,7 +1264,7 @@
                                     <action operator="SET_TO" varName="Certification_Preference">
                                         {Certification_Preference.value:main}
                                     </action>
-                                    <goto ref="profileCheck_2449894"/>
+                                    <goto ref="profileCheck_genre_preference"/>
                                 </input>
                                 <input>
                                     <grammar>
@@ -1275,7 +1275,7 @@
                                         {Recency_Preference.value:main}
                                     </action>
                                     <action operator="SET_TO" varName="Current_Index">0</action>
-                                    <goto ref="profileCheck_2449894"/>
+                                    <goto ref="profileCheck_genre_preference"/>
                                 </input>
                                 <input>
                                     <grammar>
@@ -1299,7 +1299,7 @@
                             </getUserInput>
                         </output>
                     </if>
-                    <if id="profileCheck_2449894">
+                    <if id="profileCheck_genre_preference">
                         <cond operator="IS_BLANK" varName="Genre_Preference"/>
                         <output>
                             <prompt selectionType="RANDOM">
@@ -1403,11 +1403,11 @@
                                     <action operator="SET_TO_NO" varName="Search_Now"/>
                                     <if>
                                         <cond operator="EQUALS" varName="Genre_Preference">Family</cond>
-                                        <goto ref="profileCheck_2449895">
+                                        <goto ref="profileCheck_certification_preference">
                                             <action operator="SET_TO" varName="Certification_Preference">G</action>
                                         </goto>
                                     </if>
-                                    <goto ref="profileCheck_2449895"/>
+                                    <goto ref="profileCheck_certification_preference"/>
                                 </input>
                                 <input>
                                     <grammar>
@@ -1419,11 +1419,11 @@
                                     <action operator="SET_TO_NO" varName="Search_Now"/>
                                     <if>
                                         <cond operator="EQUALS" varName="Genre_Preference">Family</cond>
-                                        <goto ref="profileCheck_2449895">
+                                        <goto ref="profileCheck_certification_preference">
                                             <action operator="SET_TO" varName="Certification_Preference">G</action>
                                         </goto>
                                     </if>
-                                    <goto ref="profileCheck_2449895"/>
+                                    <goto ref="profileCheck_certification_preference"/>
                                 </input>
                                 <input>
                                     <grammar>
@@ -1440,7 +1440,7 @@
                                         <item>$ nothing specific</item>
                                         <item>$ don't have a preference</item>
                                     </grammar>
-                                    <goto ref="profileCheck_2449895"/>
+                                    <goto ref="profileCheck_certification_preference"/>
                                 </input>
                                 <input>
                                     <grammar>
@@ -1457,7 +1457,7 @@
                             </getUserInput>
                         </output>
                     </if>
-                    <if id="profileCheck_2449895">
+                    <if id="profileCheck_certification_preference">
                         <cond operator="IS_BLANK" varName="Certification_Preference"/>
                         <output>
                             <prompt selectionType="RANDOM">
@@ -1606,7 +1606,7 @@
                                                     <action operator="SET_TO_BLANK" varName="Certification_Preference"/>
                                                     <action operator="SET_TO_BLANK" varName="Genre_Preference"/>
                                                     <action operator="SET_TO_BLANK" varName="Recency_Preference"/>
-                                                    <goto ref="profileCheck_2449907"/>
+                                                    <goto ref="profileCheck_recency_preference"/>
                                                 </input>
                                                 <goto ref="input_2460509"/>
                                             </getUserInput>
