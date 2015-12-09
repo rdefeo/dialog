@@ -1612,7 +1612,7 @@
                                                     <action operator="SET_TO_BLANK" varName="Recency_Preference"/>
                                                     <goto ref="profileCheck_recency_preference"/>
                                                 </input>
-                                                <goto ref="input_2460509"/>
+                                                <goto ref="input_remove_genre"/>
                                             </getUserInput>
                                         </output>
                                     </if>
@@ -1666,7 +1666,7 @@
                                                     <item>okay</item>
                                                     <item>$ done</item>
                                                 </grammar>
-                                                <output id="output_2460098">
+                                                <output id="output_anything_else_can_help_with">
                                                     <prompt>
                                                         <item>Is there anything else I can help you with?</item>
                                                     </prompt>
@@ -1774,8 +1774,8 @@
                                                         </input>
                                                         <input>
                                                             <grammar>
-                                                                <item>No</item>
-                                                                <item>$ no</item>
+                                                                <item>okay</item>
+                                                                <item>ok</item>
                                                             </grammar>
                                                             <output>
                                                                 <prompt selectionType="RANDOM">
@@ -1818,7 +1818,7 @@
                                                                     <item>$ sucks</item>
                                                                     <item>haha</item>
                                                                 </grammar>
-                                                                <goto ref="output_2460098"/>
+                                                                <goto ref="output_anything_else_can_help_with"/>
                                                             </input>
                                                             <goto ref="input_2456878"/>
                                                         </getUserInput>
@@ -1843,7 +1843,7 @@
                                                                     <item>$ sucks</item>
                                                                     <item>haha</item>
                                                                 </grammar>
-                                                                <goto ref="output_2460098"/>
+                                                                <goto ref="output_anything_else_can_help_with"/>
                                                             </input>
                                                             <goto ref="input_2456878"/>
                                                         </getUserInput>
@@ -1899,7 +1899,7 @@
                                                     <goto ref="getUserInput_2456877"/>
                                                 </output>
                                             </input>
-                                            <input id="input_2460509">
+                                            <input id="input_remove_genre">
                                                 <grammar>
                                                     <item>Remove genre</item>
                                                     <item>$ remove (GENRE)={Genre_Preference}</item>

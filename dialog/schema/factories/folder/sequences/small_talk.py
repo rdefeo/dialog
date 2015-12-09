@@ -362,7 +362,7 @@ class SmallTalkSequences:
                                                     "$ terminator"
                                                 ]
                                             },
-                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
+                                            (1, "action"): CertificationPreferenceAction.set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457979"
                                             }
@@ -374,7 +374,7 @@ class SmallTalkSequences:
                                                     "$ matrix"
                                                 ]
                                             },
-                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
+                                            (1, "action"): CertificationPreferenceAction.set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457995"
                                             }
@@ -519,7 +519,7 @@ class SmallTalkSequences:
                                                     "$ 2001"
                                                 ]
                                             },
-                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
+                                            (1, "action"): CertificationPreferenceAction.set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457907"
                                             }
@@ -531,7 +531,7 @@ class SmallTalkSequences:
                                                     "$ matrix"
                                                 ]
                                             },
-                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
+                                            (1, "action"): CertificationPreferenceAction.set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457995"
                                             }
@@ -667,7 +667,7 @@ class SmallTalkSequences:
                                                     "$ 2001"
                                                 ]
                                             },
-                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
+                                            (1, "action"): CertificationPreferenceAction.set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457907"
                                             }
@@ -679,7 +679,7 @@ class SmallTalkSequences:
                                                     "$ terminator"
                                                 ]
                                             },
-                                            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
+                                            (1, "action"): CertificationPreferenceAction.set_to_value(),
                                             (2, "goto"): {
                                                 "@ref": "output_2457979"
                                             }

@@ -1,7 +1,5 @@
 from dialog.schema.elements import Goto
 
-__author__ = 'robdefeo'
-
 
 class HowCanHelpYou:
     @staticmethod

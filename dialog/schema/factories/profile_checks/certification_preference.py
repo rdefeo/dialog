@@ -87,7 +87,7 @@ class CertificationPreferenceProfileCheck:
                                     "@varName": "Search_Now",
                                     "@operator": "SET_TO_NO"
                                 },
-                                CertificationPreferenceAction.create_set_to_value()
+                                CertificationPreferenceAction.set_to_value()
                             ],
                             (2, "goto"): {
                                 "@ref": "output_2456875"

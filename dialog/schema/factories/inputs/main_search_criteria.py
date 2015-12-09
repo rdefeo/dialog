@@ -1,12 +1,13 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, RecencyPreferenceAction, \
-    CertificationPreferenceAction, GenrePreferenceAction
+    CertificationPreferenceAction, GenrePreferenceAction, RequestSuccessAction, TerminalExchangeAction, TopicAction
 from dialog.schema.factories.conditions.certification import CertificationsConditions
 from dialog.schema.factories.conditions.genre import GenreConditions
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.inputs import DateTimeInput, CertificationPreferenceInput, FamilyFriendlyInput, \
-    RecencyPreferenceInput, ZipcodeInput
+    RecencyPreferenceInput, ZipcodeInput, RemoveGenreInput
 from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.outputs.anything_else_can_help_with import AnythingElseCanHelpWith
 from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck, CertificationPreferenceProfileCheck, \
     RecencyPreferenceProfileCheck
 from dialog.schema.factories.prompts.generic import GenericPrompt
@@ -42,13 +43,13 @@ class MainSearchCriteriaInput:
                     "@operator": "SET_TO",
                     "#text": "new"
                 },
-                GenrePreferenceAction.create_set_to_value(),
+                GenrePreferenceAction.set_to_value(),
                 {
                     "@varName": "Topic",
                     "@operator": "SET_TO",
                     "#text": "movies"
                 },
-                CertificationPreferenceAction.create_set_to_value(),
+                CertificationPreferenceAction.set_to_value(),
                 RecencyPreferenceAction.create_set_to_value()
             ],
             (2, "input"): [
@@ -138,27 +139,17 @@ class MainSearchCriteriaInput:
                                         },
                                         (1, "getUserInput"): {
                                             (0, "input"): {
-                                                (0, "grammar"): {
-                                                    "item": "Okay"
-                                                },
+                                                (0, "grammar"): GenericGrammar.ok(),
                                                 (1, "action"): [
-                                                    {
-                                                        "@varName": "Certification_Preference",
-                                                        "@operator": "SET_TO_BLANK"
-                                                    },
-                                                    {
-                                                        "@varName": "Genre_Preference",
-                                                        "@operator": "SET_TO_BLANK"
-                                                    },
-                                                    RecencyPreferenceAction.reset()
+                                                    CertificationPreferenceAction.set_to_blank(),
+                                                    GenrePreferenceAction.set_to_blank(),
+                                                    RecencyPreferenceAction.set_to_blank()
                                                 ],
                                                 (2, "goto"): {
                                                     "@ref": "profileCheck_recency_preference"
                                                 }
                                             },
-                                            (1, "goto"): {
-                                                "@ref": "input_2460509"
-                                            }
+                                            (1, "goto"): RemoveGenreInput.goto()
                                         }
                                     }
                                 },
@@ -228,74 +219,7 @@ class MainSearchCriteriaInput:
                                                     "$ done"
                                                 ]
                                             },
-                                            (1, "output"): {
-                                                "@id": "output_2460098",
-                                                (0, "prompt"): {
-                                                    "item": "Is there anything else I can help you with?"
-                                                },
-                                                (1, "getUserInput"): {
-                                                    (0, "input"): [
-                                                        {
-                                                            (0, "grammar"): {
-                                                                "item": [
-                                                                    "Go back",
-                                                                    "$ go back",
-                                                                    "$ wait",
-                                                                    "$ not done",
-                                                                    "$ not finished"
-                                                                ]
-                                                            },
-                                                            (1, "output"): {
-                                                                (0, "prompt"): {
-                                                                    "item": "Okay.",
-                                                                    "@selectionType": "RANDOM"
-                                                                },
-                                                                (1, "goto"): {
-                                                                    "@ref": "getUserInput_2456877"
-                                                                }
-                                                            }
-                                                        },
-                                                        {
-                                                            (0, "grammar"): GenericGrammar.yes(),
-                                                            (1, "action"): [
-                                                                {
-                                                                    "@varName": "Request_Success",
-                                                                    "@operator": "SET_TO_BLANK"
-                                                                },
-                                                                {
-                                                                    "@varName": "Terminal_Exchange",
-                                                                    "@operator": "SET_TO_BLANK"
-                                                                },
-                                                                {
-                                                                    "@varName": "Topic",
-                                                                    "@operator": "SET_TO_BLANK"
-                                                                },
-                                                                {
-                                                                    "@varName": "Certification_Preference",
-                                                                    "@operator": "SET_TO_BLANK"
-                                                                },
-                                                                {
-                                                                    "@varName": "Genre_Preference",
-                                                                    "@operator": "SET_TO_BLANK"
-                                                                },
-                                                                RecencyPreferenceAction.reset()
-                                                            ],
-                                                            (2, "goto"): HowCanHelpYou.goto()
-                                                        },
-                                                        {
-                                                            (0, "grammar"): GenericGrammar.no(),
-                                                            (1, "output"): {
-                                                                (0, "prompt"): GenericGrammar.ok(),
-                                                                (1, "goto"): Goto(
-                                                                    ref="output_did_find_what_looking_for")
-                                                            }
-                                                        }
-                                                    ],
-                                                    (1, "goto"): {
-                                                        "@ref": "input_2456878"
-                                                    }
-                                                }
-                                            }
+                                            (1, "output"): AnythingElseCanHelpWith.create()
                                         },
                                     (1, "input"): {
                                         (0, "grammar"): {
@@ -346,27 +270,16 @@ class MainSearchCriteriaInput:
                                                     {
                                                         (0, "grammar"): GenericGrammar.yes(),
                                                         (1, "output"): {
-                                                            (0, "prompt"): {
-                                                                "item": "Okay.",
-                                                                "@selectionType": "RANDOM"
-                                                            },
+                                                            (0, "prompt"): GenericPrompt.ok(),
                                                             (1, "goto"): {
                                                                 "@ref": "output_2503331"
                                                             }
                                                         }
                                                     },
                                                     {
-                                                        (0, "grammar"): {
-                                                            "item": [
-                                                                "No",
-                                                                "$ no"
-                                                            ]
-                                                        },
+                                                        (0, "grammar"): GenericGrammar.ok(),
                                                         (1, "output"): {
-                                                            (0, "prompt"): {
-                                                                "item": "Okay.",
-                                                                "@selectionType": "RANDOM"
-                                                            },
+                                                            (0, "prompt"): GenericPrompt.ok(),
                                                             (1, "goto"): {
                                                                 "@ref": "getUserInput_2456877"
                                                             }
@@ -416,9 +329,7 @@ class MainSearchCriteriaInput:
                                                                     "haha"
                                                                 ]
                                                             },
-                                                            (1, "goto"): {
-                                                                "@ref": "output_2460098"
-                                                            }
+                                                            (1, "goto"): AnythingElseCanHelpWith.goto()
                                                         },
                                                         (1, "goto"): {
                                                             "@ref": "input_2456878"
@@ -448,9 +359,7 @@ class MainSearchCriteriaInput:
                                                                     "haha"
                                                                 ]
                                                             },
-                                                            (1, "goto"): {
-                                                                "@ref": "output_2460098"
-                                                            }
+                                                            (1, "goto"): AnythingElseCanHelpWith.goto()
                                                         },
                                                         (1, "goto"): {
                                                             "@ref": "input_2456878"
@@ -536,39 +445,7 @@ class MainSearchCriteriaInput:
                                             }
                                         }
                                     },
-                                    (5, "input"): {
-                                        "@id": "input_2460509",
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Remove genre",
-                                                "$ remove (GENRE)={Genre_Preference}",
-                                                "$ cancel (GENRE)={Genre_Preference}",
-                                                "$ remove genre",
-                                                "$ cancel genre",
-                                                "$ any genre",
-                                                "$ all genre"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Current_Index",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            },
-                                            {
-                                                "@varName": "Genre_Preference",
-                                                "@operator": "SET_TO_BLANK"
-                                            }
-                                        ],
-                                        (2, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
+                                    (5, "input"): RemoveGenreInput.create(),
                                     (6, "input"): {
                                         (0, "grammar"): {
                                             "item": [
@@ -663,13 +540,13 @@ class MainSearchCriteriaInput:
                                         },
                                         (1, "action"): [
                                             RecencyPreferenceAction.create_set_to_value(),
-                                            GenrePreferenceAction.create_set_to_value(),
+                                            GenrePreferenceAction.set_to_value(),
                                             {
                                                 "@varName": "Page",
                                                 "@operator": "SET_TO",
                                                 "#text": "new"
                                             },
-                                            CertificationPreferenceAction.create_set_to_value()
+                                            CertificationPreferenceAction.set_to_value()
                                         ],
                                         (2, "goto"): {
                                             "@ref": "output_2456875"
@@ -690,7 +567,7 @@ class MainSearchCriteriaInput:
                                                 "#text": "0"
                                             },
                                             RecencyPreferenceAction.create_set_to_value(),
-                                            GenrePreferenceAction.create_set_to_value(),
+                                            GenrePreferenceAction.set_to_value(),
                                             {
                                                 "@varName": "Page",
                                                 "@operator": "SET_TO",
@@ -725,7 +602,7 @@ class MainSearchCriteriaInput:
                                             ]
                                         },
                                         (1, "action"): [
-                                            CertificationPreferenceAction.create_set_to_value(),
+                                            CertificationPreferenceAction.set_to_value(),
                                             {
                                                 "@varName": "Current_Index",
                                                 "@operator": "SET_TO",
@@ -756,13 +633,13 @@ class MainSearchCriteriaInput:
                                                 "@operator": "SET_TO",
                                                 "#text": "0"
                                             },
-                                            GenrePreferenceAction.create_set_to_value(),
+                                            GenrePreferenceAction.set_to_value(),
                                             {
                                                 "@varName": "Page",
                                                 "@operator": "SET_TO",
                                                 "#text": "new"
                                             },
-                                            CertificationPreferenceAction.create_set_to_value()
+                                            CertificationPreferenceAction.set_to_value()
                                         ],
                                         (2, "goto"): {
                                             "@ref": "output_2456875"
@@ -834,7 +711,7 @@ class MainSearchCriteriaInput:
                                                 "@operator": "SET_TO",
                                                 "#text": "new"
                                             },
-                                            GenrePreferenceAction.create_set_to_value()
+                                            GenrePreferenceAction.set_to_value()
                                         ],
                                         (2, "input"): {
                                             (0, "grammar"): {
@@ -889,7 +766,7 @@ class MainSearchCriteriaInput:
                                                 "@operator": "SET_TO",
                                                 "#text": "new"
                                             },
-                                            CertificationPreferenceAction.create_set_to_value()
+                                            CertificationPreferenceAction.set_to_value()
                                         ],
                                         (2, "input"): {
                                             (0, "grammar"): {
@@ -980,7 +857,7 @@ class MainSearchCriteriaInput:
                                                             "#text": "1"
                                                         },
                                                         (1, "goto"): {
-                                                            "action": RecencyPreferenceAction.create_set_to_current(),
+                                                            "action": RecencyPreferenceAction.set_to_current(),
                                                             "@ref": "output_2456875"
                                                         }
                                                     },
@@ -1103,14 +980,8 @@ class MainSearchCriteriaInput:
                                                                 {
                                                                     "@id": "profileCheck_2503183",
                                                                     (0, "cond"): [
-                                                                        {
-                                                                            "@varName": "Genre_Preference",
-                                                                            "@operator": "IS_BLANK"
-                                                                        },
-                                                                        {
-                                                                            "@varName": "Certification_Preference",
-                                                                            "@operator": "HAS_VALUE"
-                                                                        }
+                                                                        GenreConditions.is_blank(),
+                                                                        CertificationsConditions.has_value()
                                                                     ],
                                                                     (1, "output"): {
                                                                         (0, "prompt"): {
@@ -1124,10 +995,7 @@ class MainSearchCriteriaInput:
                                                                 {
                                                                     (0, "cond"): [
                                                                         CertificationsConditions.is_blank(),
-                                                                        {
-                                                                            "@varName": "Genre_Preference",
-                                                                            "@operator": "HAS_VALUE"
-                                                                        }
+                                                                        GenreConditions.has_value()
                                                                     ],
                                                                     (1, "output"): {
                                                                         (0, "prompt"): {
@@ -1141,10 +1009,7 @@ class MainSearchCriteriaInput:
                                                                 {
                                                                     (0, "cond"): [
                                                                         CertificationsConditions.is_blank(),
-                                                                        {
-                                                                            "@varName": "Genre_Preference",
-                                                                            "@operator": "IS_BLANK"
-                                                                        }
+                                                                        GenreConditions.is_blank()
                                                                     ],
                                                                     (1, "output"): {
                                                                         (0, "prompt"): {
@@ -1207,10 +1072,7 @@ class MainSearchCriteriaInput:
                                             }
                                         },
                                         (3, "output"): {
-                                            (0, "prompt"): {
-                                                "item": "Okay.",
-                                                "@selectionType": "RANDOM"
-                                            },
+                                            (0, "prompt"): GenericPrompt.ok(),
                                             (1, "output"): {
                                                 (0, "prompt"): {
                                                     "item": "\"{Search_Now:\"{Search_Now}\", Recency:\"{Recency_Preference}\", Rating:\"{Certification_Preference}\", Genre:\"{Genre_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\"}\"",

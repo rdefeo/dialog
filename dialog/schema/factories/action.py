@@ -5,28 +5,29 @@ __author__ = 'robdefeo'
 
 class CertificationPreferenceAction:
     @staticmethod
-    def create_reset():
+    def set_to_blank():
         return Action(varName="Certification_Preference", operator="SET_TO_BLANK").create()
 
     @staticmethod
-    def create_set_to_value():
+    def set_to_value():
         return Action(varName="Certification_Preference", operator="SET_TO",
                       text="{Certification_Preference.value:main}").create()
 
+
 class GenrePreferenceAction:
     @staticmethod
-    def create_reset():
+    def set_to_blank():
         return Action(varName="Genre_Preference", operator="SET_TO_BLANK").create()
 
     @staticmethod
-    def create_set_to_value():
+    def set_to_value():
         return Action(varName="Genre_Preference", operator="SET_TO",
                       text="{Genre_Preference.value:main}").create()
 
 
 class RecencyPreferenceAction:
     @staticmethod
-    def reset():
+    def set_to_blank():
         return Action(varName="Recency_Preference", operator="SET_TO_BLANK").create()
 
     @staticmethod
@@ -38,7 +39,7 @@ class RecencyPreferenceAction:
         return Action(varName="Recency_Preference", operator="SET_TO", text="Upcoming").create()
 
     @staticmethod
-    def create_set_to_current():
+    def set_to_current():
         return Action(varName="Recency_Preference", operator="SET_TO", text="Current").create()
 
 
@@ -54,12 +55,28 @@ class GreetingAction:
 
 class TerminalExchangeAction:
     @staticmethod
-    def create_no():
+    def set_to_no():
         return Action(varName="Terminal_Exchange", operator="SET_TO_NO").create()
 
     @staticmethod
-    def create_yes():
+    def set_to_yes():
         return Action(varName="Terminal_Exchange", operator="SET_TO_YES").create()
+
+    @staticmethod
+    def set_to_blank():
+        return Action(varName="Terminal_Exchange", operator="SET_TO_BLANK").create()
+
+
+class TopicAction:
+    @staticmethod
+    def set_to_blank():
+        return Action(varName="Topic", operator="SET_TO_BLANK").create()
+
+
+class RequestSuccessAction:
+    @staticmethod
+    def set_to_blank():
+        return Action(varName="Request_Success", operator="SET_TO_BLANK").create()
 
 
 class SmallTalkAction:

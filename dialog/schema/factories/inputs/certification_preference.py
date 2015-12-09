@@ -46,6 +46,6 @@ class CertificationPreferenceInput:
                     "$(CERTIFICATION)={Certification_Preference}"
                 ]
             },
-            (1, "action"): CertificationPreferenceAction.create_set_to_value(),
+            (1, "action"): CertificationPreferenceAction.set_to_value(),
             (2, "goto"): Goto(ref="input_family_friendly")
         }

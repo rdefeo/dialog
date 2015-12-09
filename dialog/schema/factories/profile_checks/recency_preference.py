@@ -32,7 +32,7 @@ class RecencyPreferenceProfileCheck:
                                     "@operator": "SET_TO",
                                     "#text": "0"
                                 },
-                                GenrePreferenceAction.create_set_to_value(),
+                                GenrePreferenceAction.set_to_value(),
                                 RecencyPreferenceAction.create_set_to_value()
                             ],
                             (2, "goto"): GenrePreferenceProfileCheck.goto()
@@ -52,7 +52,7 @@ class RecencyPreferenceProfileCheck:
                                     "@operator": "SET_TO",
                                     "#text": "0"
                                 },
-                                CertificationPreferenceAction.create_set_to_value()
+                                CertificationPreferenceAction.set_to_value()
                             ],
                             (2, "goto"): GenrePreferenceProfileCheck.goto()
                         },

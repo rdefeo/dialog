@@ -315,7 +315,7 @@ class PreliminarySequences:
                         (0, "grammar"): {
                             "item": "$ (GENRE)={Genre_Preference}"
                         },
-                        (1, "action"): GenrePreferenceAction.create_set_to_value(),
+                        (1, "action"): GenrePreferenceAction.set_to_value(),
                         (2, "goto"): {
                             "@ref": "search_2414740"
                         }

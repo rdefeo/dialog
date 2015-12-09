@@ -21,7 +21,7 @@ class ShowtimesInput:
                 ]
             },
             (1, "action"): [
-                GenrePreferenceAction.create_set_to_value(),
+                GenrePreferenceAction.set_to_value(),
                 GreetingAction.create_reset(),
                 SmallTalkAction.create_reset()
             ],

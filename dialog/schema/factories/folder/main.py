@@ -39,8 +39,8 @@ class MainFolder:
                                 ]
                             },
                             (1, "action"): [
-                                GenrePreferenceAction.create_set_to_value(),
-                                CertificationPreferenceAction.create_set_to_value(),
+                                GenrePreferenceAction.set_to_value(),
+                                CertificationPreferenceAction.set_to_value(),
                                 RecencyPreferenceAction.create_set_to_value(),
                                 {
                                     "@varName": "Topic",

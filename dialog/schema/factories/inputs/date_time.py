@@ -74,7 +74,7 @@ class DateTimeInput:
                                 "#text": "1"
                             },
                             (1, "goto"): {
-                                "action": RecencyPreferenceAction().create_set_to_current(),
+                                "action": RecencyPreferenceAction().set_to_current(),
                                 "@ref": "input_certification_preference"
                             }
                         },

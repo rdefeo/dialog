@@ -134,8 +134,8 @@ class GenrePreferenceProfileCheck:
                                 ]
                             },
                             (1, "action"): [
-                                CertificationPreferenceAction.create_set_to_value(),
-                                GenrePreferenceAction.create_set_to_value(),
+                                CertificationPreferenceAction.set_to_value(),
+                                GenrePreferenceAction.set_to_value(),
                                 {
                                     "@varName": "Search_Now",
                                     "@operator": "SET_TO_NO"
@@ -166,7 +166,7 @@ class GenrePreferenceProfileCheck:
                                 ]
                             },
                             (1, "action"): [
-                                GenrePreferenceAction.create_set_to_value(),
+                                GenrePreferenceAction.set_to_value(),
                                 {
                                     "@varName": "Search_Now",
                                     "@operator": "SET_TO_NO"

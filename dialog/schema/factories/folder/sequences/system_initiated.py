@@ -25,7 +25,7 @@ class SystemInitiatedSequences:
                         Action(varName="Current_Index", operator="SET_TO", text="0").create(),
                         Action(varName="Certification_Preference", operator="SET_TO_BLANK").create(),
                         Action(varName="Genre_Preference", operator="SET_TO_BLANK").create(),
-                        RecencyPreferenceAction.reset(),
+                        RecencyPreferenceAction.set_to_blank(),
                         Action(varName="Search_Now", operator="SET_TO_NO").create(),
                         Action(varName="Terminal_Exchange", operator="SET_TO_BLANK").create(),
                         Action(varName="Topic", operator="SET_TO_BLANK").create(),
@@ -76,7 +76,7 @@ class SystemInitiatedSequences:
                                             "item": "Goodbye.<br> <br>"
                                         },
                                         (1, "action"): [
-                                            TerminalExchangeAction.create_yes(),
+                                            TerminalExchangeAction.set_to_yes(),
                                             GreetingAction.create_reset()
                                         ],
                                         (2, "getUserInput"): {
@@ -123,7 +123,7 @@ class SystemInitiatedSequences:
                                         "input": [
                                             {
                                                 (0, "grammar"): GenericGrammar.no(),
-                                                (1, "action"): TerminalExchangeAction.create_no(),
+                                                (1, "action"): TerminalExchangeAction.set_to_no(),
                                                 (2, "output"): {
                                                     (0, "prompt"): GenericPrompt.ok(),
                                                     (1, "goto"): {
