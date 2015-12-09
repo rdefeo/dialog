@@ -41,7 +41,5 @@ class RemoveGenreInput:
                     "@operator": "SET_TO_BLANK"
                 }
             ],
-            (2, "goto"): {
-                "@ref": "output_2456875"
-            }
+            (2, "goto"):  Goto(ref="output_ok_do_search")
         }

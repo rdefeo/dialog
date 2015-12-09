@@ -122,6 +122,8 @@ class Conversation(RequestHandler):
 
             profile = self.dialog_service.get_profile(self.dialog_id, client_id)
             print(profile)
+            for x in profile["name_values"]:
+                print(x["name"], x["value"].strip())
 
             processed_text = self.match_search_now_pattern(wds_message)
             #         WDSConversationPayload conversationPayload = new WDSConversationPayload();

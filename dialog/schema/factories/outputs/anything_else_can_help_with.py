@@ -57,8 +57,7 @@ class AnythingElseCanHelpWith:
                         (0, "grammar"): GenericGrammar.no(),
                         (1, "output"): {
                             (0, "prompt"): GenericGrammar.ok(),
-                            (1, "goto"): Goto(
-                                ref="output_did_find_what_looking_for")
+                            (1, "goto"): Goto(ref="output_did_find_what_looking_for")
                         }
                     }
                 ],

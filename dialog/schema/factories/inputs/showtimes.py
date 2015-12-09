@@ -71,7 +71,7 @@ class ShowtimesInput:
                     "@operator": "IS_BLANK"
                 },
                 (1, "output"): {
-                    "@id": "output_2503331",
+                    "@id": "output_showtimes_zipcode",
                     (0, "prompt"): {
                         "item": "What's your ZIP code?"
                     },

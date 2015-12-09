@@ -1,3 +1,4 @@
+from dialog.schema.elements import Goto
 from dialog.schema.factories.action import CertificationPreferenceAction
 from dialog.schema.factories.conditions import CertificationsConditions
 from dialog.schema.factories.grammar import GenericGrammar
@@ -89,9 +90,7 @@ class CertificationPreferenceProfileCheck:
                                 },
                                 CertificationPreferenceAction.set_to_value()
                             ],
-                            (2, "goto"): {
-                                "@ref": "output_2456875"
-                            }
+                            (2, "goto"):  Goto(ref="output_ok_do_search")
                         },
                         {
                             (0, "grammar"): {

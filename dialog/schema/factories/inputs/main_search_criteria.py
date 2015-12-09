@@ -22,12 +22,20 @@ class MainSearchCriteriaInput:
             (0, "grammar"): {
                 "item": [
                     "Movies",
+                    "blobbly",
                     "$ (GENRE)={Genre_Preference}",
                     "$ (CERTIFICATION)={Certification_Preference}",
                     "$ (RECENCY)={Recency_Preference}",
-                    "$ movies"
+                    # "$ movies"
                 ]
             },
+            # (0.5, "output"): {
+            #     (0, "prompt"): {
+            #         "item": "Totall cool man",
+            #         "@selectionType": "RANDOM"
+            #     },
+            #     (1, "goto"): Goto(ref="getUserInput_2456877")
+            # },
             # Reset variables
             (1, "action"): [
                 GreetingAction.create_reset(),
@@ -78,7 +86,7 @@ class MainSearchCriteriaInput:
                 CertificationPreferenceProfileCheck.create(),
             ],
             (4, "output"): {
-                "@id": "output_2456875",
+                "@id": "output_ok_do_search",
                 (0, "prompt"): GenericPrompt.ok(),
                 (1, "output"): {
                     "@id": "output_2456876",
@@ -86,39 +94,7 @@ class MainSearchCriteriaInput:
                         "item": "\"{\"Search_Now\":\"{Search_Now}\", \"Recency\":\"{Recency_Preference}\", \"Rating\":\"{Certification_Preference}\", \"Genre\":\"{Genre_Preference}\", \"Index\":\"{Current_Index}\", \"Page\":\"{Page}\"}\"",
                         "@selectionType": "RANDOM"
                     },
-                    (1, "action"): [
-                        {
-                            "@varName": "Last_Results",
-                            "@operator": "SET_TO_NO"
-                        },
-                        {
-                            "@varName": "First_Results",
-                            "@operator": "SET_TO_NO"
-                        },
-                        {
-                            "@varName": "Search_Now",
-                            "@operator": "SET_TO_YES"
-                        },
-                        {
-                            "@varName": "First_Time",
-                            "@operator": "SET_TO_NO"
-                        },
-                        {
-                            "@varName": "Previous Certification Selected",
-                            "@operator": "SET_TO",
-                            "#text": "{Certification_Preference}"
-                        },
-                        {
-                            "@varName": "Previous Genre Selected",
-                            "@operator": "SET_TO",
-                            "#text": "{Genre_Preference}"
-                        },
-                        {
-                            "@varName": "Previous Recency Selected",
-                            "@operator": "SET_TO",
-                            "#text": "{Recency_Preference}"
-                        }
-                    ],
+                    (1, "action"): SetVariablesNewSearchAction.create(),
                     (2, "getUserInput"): {
                         (0, "input"): {
                             (0, "grammar"): {
@@ -155,10 +131,7 @@ class MainSearchCriteriaInput:
                                 {
                                     (0, "cond"): [
                                         GenreConditions.is_blank(),
-                                        {
-                                            "@varName": "Certification_Preference",
-                                            "@operator": "HAS_VALUE"
-                                        }
+                                        CertificationsConditions.has_value()
                                     ],
                                     (1, "output"): {
                                         (0, "prompt"): {
@@ -259,7 +232,7 @@ class MainSearchCriteriaInput:
                                             ]
                                         },
                                         (1, "output"): {
-                                            "@id": "output_2459418",
+                                            "@id": "output_ask_search_for_movies_in_area",
                                             (0, "prompt"): {
                                                 "item": "Oh. You mean movies in your area. I must direct you to Fandango for that. Would you like the link?",
                                                 "@selectionType": "RANDOM"
@@ -270,13 +243,11 @@ class MainSearchCriteriaInput:
                                                         (0, "grammar"): GenericGrammar.yes(),
                                                         (1, "output"): {
                                                             (0, "prompt"): GenericPrompt.ok(),
-                                                            (1, "goto"): {
-                                                                "@ref": "output_2503331"
-                                                            }
+                                                            (1, "goto"): Goto(ref="output_showtimes_zipcode")
                                                         }
                                                     },
                                                     {
-                                                        (0, "grammar"): GenericGrammar.ok(),
+                                                        (0, "grammar"): GenericGrammar.no(),
                                                         (1, "output"): {
                                                             (0, "prompt"): GenericPrompt.ok(),
                                                             (1, "goto"): {
@@ -447,633 +418,19 @@ class MainSearchCriteriaInput:
                                     (5, "input"): RemoveGenreInput.create(),
                                     (6, "input"): RemoveRatingInput.create(),
                                     (7, "input"): RemoveAllSearchCriteriaInput.create(),
-                                    (8, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Showtimes",
-                                                "$ showtimes",
-                                                "$ times",
-                                                "$ time",
-                                                "$ showing"
-                                            ]
-                                        },
-                                        (1, "goto"): {
-                                            "@ref": "output_2459418"
-                                        }
-                                    },
-                                    (9, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Recency, Genre and Rating",
-                                                "$ (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference}",
-                                                "$ (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference} ",
-                                                "$ (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference}",
-                                                "$ (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference} ",
-                                                "$ (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference}",
-                                                "$ (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference}"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            RecencyPreferenceAction.create_set_to_value(),
-                                            GenrePreferenceAction.set_to_value(),
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            },
-                                            CertificationPreferenceAction.set_to_value()
-                                        ],
-                                        (2, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
-                                    (10, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Recency and Genre",
-                                                "$ (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference}",
-                                                "$ (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference}"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Current_Index",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            RecencyPreferenceAction.create_set_to_value(),
-                                            GenrePreferenceAction.set_to_value(),
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            }
-                                        ],
-                                        (2, "if"): {
-                                            (0, "cond"): {
-                                                "@varName": "Genre_Preference",
-                                                "@operator": "EQUALS",
-                                                "#text": "Family"
-                                            },
-                                            (1, "goto"): {
-                                                "action": {
-                                                    "@varName": "Certification_Preference",
-                                                    "@operator": "SET_TO",
-                                                    "#text": "G"
-                                                },
-                                                "@ref": "output_2456875"
-                                            }
-                                        },
-                                        (3, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
-                                    (11, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Recency and Rating",
-                                                "$ (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference}",
-                                                "$ (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference}"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            CertificationPreferenceAction.set_to_value(),
-                                            {
-                                                "@varName": "Current_Index",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            },
-                                            RecencyPreferenceAction.create_set_to_value()
-                                        ],
-                                        (2, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
-                                    (12, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Genre and Rating",
-                                                "$ (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference}",
-                                                "$ (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference}"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Current_Index",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            GenrePreferenceAction.set_to_value(),
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            },
-                                            CertificationPreferenceAction.set_to_value()
-                                        ],
-                                        (2, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
-                                    (13, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Recency",
-                                                "$ (RECENCY)={Recency_Preference}"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Current_Index",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            },
-                                            RecencyPreferenceAction.create_set_to_value()
-                                        ],
-                                        (2, "input"): {
-                                            (0, "grammar"): {
-                                                "item": [
-                                                    "all",
-                                                    "$ all",
-                                                    "$ just",
-                                                    "$ any"
-                                                ]
-                                            },
-                                            (1, "action"): [
-                                                CertificationPreferenceAction.set_to_blank(),
-                                                {
-                                                    "@varName": "Genre_Preference",
-                                                    "@operator": "SET_TO_BLANK"
-                                                }
-                                            ],
-                                            (2, "goto"): {
-                                                "@ref": "output_2456875"
-                                            }
-                                        },
-                                        (3, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
-                                    (14, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Genre",
-                                                "$ (GENRE)={Genre_Preference}",
-                                                "$ genre"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Current_Index",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            },
-                                            GenrePreferenceAction.set_to_value()
-                                        ],
-                                        (2, "input"): {
-                                            (0, "grammar"): {
-                                                "item": [
-                                                    "all",
-                                                    "$ all",
-                                                    "$ just"
-                                                ]
-                                            },
-                                            (1, "action"): CertificationPreferenceAction.set_to_blank(),
-                                            (2, "goto"): {
-                                                "@ref": "output_2456875"
-                                            }
-                                        },
-                                        (3, "if"): {
-                                            (0, "cond"): {
-                                                "@varName": "Genre_Preference",
-                                                "@operator": "EQUALS",
-                                                "#text": "Family"
-                                            },
-                                            (1, "goto"): {
-                                                "action": {
-                                                    "@varName": "Certification_Preference",
-                                                    "@operator": "SET_TO",
-                                                    "#text": "G"
-                                                },
-                                                "@ref": "output_2456875"
-                                            }
-                                        },
-                                        (4, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
-                                    (15, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Rating",
-                                                "$ (CERTIFICATION)={Certification_Preference}"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Current_Index",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            },
-                                            CertificationPreferenceAction.set_to_value()
-                                        ],
-                                        (2, "input"): {
-                                            (0, "grammar"): {
-                                                "item": [
-                                                    "all",
-                                                    "$ all",
-                                                    "$ any"
-                                                ]
-                                            },
-                                            (1, "action"): GenrePreferenceAction.set_to_blank(),
-                                            (2, "goto"): {
-                                                "@ref": "output_2456875"
-                                            }
-                                        },
-                                        (3, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
-                                    (16, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "$ (UNSUPPORTED_GENRES)={Topic}"
-                                        },
-                                        (1, "action"): {
-                                            "@varName": "Topic",
-                                            "@operator": "SET_TO",
-                                            "#text": "{Topic.value:main}"
-                                        },
-                                        (2, "output"): {
-                                            (0, "prompt"): {
-                                                "item": "I'm afraid {Topic} isn't a movie genre I know. Please try another one.",
-                                                "@selectionType": "RANDOM"
-                                            },
-                                            (1, "goto"): {
-                                                "@ref": "getUserInput_2456877"
-                                            }
-                                        }
-                                    },
-                                    (17, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "$ (DATE_TIME_RANGE)={DateTime_Mentioned_ENT}"
-                                        },
-                                        (1, "action"): {
-                                            "@varName": "DateTime_Current",
-                                            "@operator": "SET_TO",
-                                            "#text": "<mct:getTime>America/Tijuana</mct:getTime>"
-                                        },
-                                        (2, "input"): {
-                                            (0, "grammar"): {
-                                                "item": "$ next"
-                                            },
-                                            (1, "goto"): {
-                                                "action": RecencyPreferenceAction.create_set_to_upcoming(),
-                                                "@ref": "profileCheck_2510175"
-                                            }
-                                        },
-                                        (3, "if"): {
-                                            "@id": "profileCheck_2510175",
-                                            (0, "cond"): {
-                                                "@varName": "Recency_Preference",
-                                                "@operator": "EQUALS",
-                                                "#text": "Upcoming"
-                                            },
-                                            (1, "goto"): {
-                                                "@ref": "output_2456875"
-                                            }
-                                        },
-                                        (4, "output"): {
-                                            (0, "prompt"): "",
-                                            (1, "function"): {
-                                                (0, "script"): {
-                                                    "@name": "CalculateTimeDiff",
-                                                    "#text": "Name=CalculateTimeDiff\n\nStartTime={DateTime_Current}\nEndTime={DateTime_Mentioned_ENT.value:FROM_FULL}"
-                                                },
-                                                (1, "output"): {
-                                                    (0, "prompt"): "",
-                                                    (1, "action"): {
-                                                        "@varName": "DateTime_Difference",
-                                                        "@operator": "SET_TO",
-                                                        "#text": "{MCT:CUSTOM:CalculateTimeDiff:days}"
-                                                    },
-                                                    (2, "if"): {
-                                                        (0, "cond"): {
-                                                            "@varName": "DateTime_Difference",
-                                                            "@operator": "LESS_THEN",
-                                                            "#text": "1"
-                                                        },
-                                                        (1, "goto"): {
-                                                            "action": RecencyPreferenceAction.set_to_current(),
-                                                            "@ref": "output_2456875"
-                                                        }
-                                                    },
-                                                    (3, "goto"): {
-                                                        "action": RecencyPreferenceAction.create_set_to_upcoming(),
-                                                        "@ref": "output_2456875"
-                                                    }
-                                                }
-                                            },
-                                            (2, "goto"): {
-                                                "@ref": "output_2456875"
-                                            }
-                                        }
-                                    },
-                                    (18, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "again",
-                                                "$ again",
-                                                "$ one more time"
-                                            ]
-                                        },
-                                        (1, "action"): {
-                                            "@varName": "Page",
-                                            "@operator": "SET_TO",
-                                            "#text": "repeat"
-                                        },
-                                        (2, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
-                                    (19, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "more",
-                                                "$ more",
-                                                "$ next",
-                                                "$ forward"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Show_Next",
-                                                "@operator": "SET_TO_YES"
-                                            },
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "next"
-                                            }
-                                        ],
-                                        (2, "output"): {
-                                            (0, "prompt"): {
-                                                "item": "Okay."
-                                            },
-                                            (1, "output"): {
-                                                (0, "prompt"): {
-                                                    "item": "\"{Search_Now:\"{Search_Now}\", Recency:\"{Recency_Preference}\", Rating:\"{Certification_Preference}\", Genre:\"{Genre_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\", Total_Movies:\"{Num_Movies}\", Total_Pages:\"{Total_Pages}\"}\""
-                                                },
-                                                (1, "action"): {
-                                                    "@varName": "First_Results",
-                                                    "@operator": "SET_TO_NO"
-                                                },
-                                                (2, "getUserInput"): {
-                                                    "@id": "getUserInput_2503174",
-                                                    "input": {
-                                                        (0, "grammar"): {
-                                                            "item": "UPDATE CURRENT_INDEX"
-                                                        },
-                                                        (1, "action"): [
-                                                            {
-                                                                "@varName": "Show_Next",
-                                                                "@operator": "SET_TO_NO"
-                                                            },
-                                                            {
-                                                                "@varName": "Show_Previous",
-                                                                "@operator": "SET_TO_NO"
-                                                            }
-                                                        ],
-                                                        (2, "if"): [
-                                                            {
-                                                                (0, "cond"): {
-                                                                    "@varName": "Last_Results",
-                                                                    "@operator": "EQUAL_TO_YES"
-                                                                },
-                                                                (1, "output"): {
-                                                                    (0, "prompt"): {
-                                                                        "item": "Those were the last results"
-                                                                    },
-                                                                    (1, "goto"): {
-                                                                        "@ref": "profileCheck_2503183"
-                                                                    }
-                                                                }
-                                                            },
-                                                            {
-                                                                (0, "cond"): {
-                                                                    "@varName": "Current_Index",
-                                                                    "@operator": "EQUALS",
-                                                                    "#text": "{Num_Movies}"
-                                                                },
-                                                                (1, "output"): {
-                                                                    (0, "prompt"): {
-                                                                        "item": "Here are the last results"
-                                                                    },
-                                                                    (1, "action"): {
-                                                                        "@varName": "Last_Results",
-                                                                        "@operator": "SET_TO_YES"
-                                                                    },
-                                                                    (2, "goto"): {
-                                                                        "@ref": "profileCheck_2503183"
-                                                                    }
-                                                                }
-                                                            }
-                                                        ],
-                                                        (3, "output"): {
-                                                            (0, "prompt"): {
-                                                                "item": "Here is the next set of results"
-                                                            },
-                                                            (1, "if"): [
-                                                                {
-                                                                    "@id": "profileCheck_2503183",
-                                                                    (0, "cond"): [
-                                                                        GenreConditions.is_blank(),
-                                                                        CertificationsConditions.has_value()
-                                                                    ],
-                                                                    (1, "output"): {
-                                                                        (0, "prompt"): {
-                                                                            "item": "for {Recency_Preference} {Certification_Preference}-rated movies."
-                                                                        },
-                                                                        (1, "goto"): {
-                                                                            "@ref": "getUserInput_2456877"
-                                                                        }
-                                                                    }
-                                                                },
-                                                                {
-                                                                    (0, "cond"): [
-                                                                        CertificationsConditions.is_blank(),
-                                                                        GenreConditions.has_value()
-                                                                    ],
-                                                                    (1, "output"): {
-                                                                        (0, "prompt"): {
-                                                                            "item": "for {Recency_Preference} {Genre_Preference} movies."
-                                                                        },
-                                                                        (1, "goto"): {
-                                                                            "@ref": "getUserInput_2456877"
-                                                                        }
-                                                                    }
-                                                                },
-                                                                {
-                                                                    (0, "cond"): [
-                                                                        CertificationsConditions.is_blank(),
-                                                                        GenreConditions.is_blank()
-                                                                    ],
-                                                                    (1, "output"): {
-                                                                        (0, "prompt"): {
-                                                                            "item": "for ALL {Recency_Preference} movies."
-                                                                        },
-                                                                        (1, "goto"): {
-                                                                            "@ref": "getUserInput_2456877"
-                                                                        }
-                                                                    }
-                                                                }
-                                                            ],
-                                                            (2, "output"): {
-                                                                (0, "prompt"): {
-                                                                    "item": "for {Recency_Preference} {Certification_Preference}-rated {Genre_Preference} movies."
-                                                                },
-                                                                (1, "goto"): {
-                                                                    "@ref": "getUserInput_2456877"
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    (20, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Go back",
-                                                "$ back",
-                                                "$ previous",
-                                                "$ prior"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "previous"
-                                            },
-                                            {
-                                                "@varName": "Show_Previous",
-                                                "@operator": "SET_TO_YES"
-                                            }
-                                        ],
-                                        (2, "if"): {
-                                            (0, "cond"): {
-                                                "@varName": "Current_Index",
-                                                "@operator": "EQUALS",
-                                                "#text": "10"
-                                            },
-                                            (1, "output"): {
-                                                (0, "prompt"): {
-                                                    "item": "Those were the first results",
-                                                    "@selectionType": "RANDOM"
-                                                },
-                                                (1, "goto"): {
-                                                    "@ref": "profileCheck_2503183"
-                                                }
-                                            }
-                                        },
-                                        (3, "output"): {
-                                            (0, "prompt"): GenericPrompt.ok(),
-                                            (1, "output"): {
-                                                (0, "prompt"): {
-                                                    "item": "\"{Search_Now:\"{Search_Now}\", Recency:\"{Recency_Preference}\", Rating:\"{Certification_Preference}\", Genre:\"{Genre_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\"}\"",
-                                                    "@selectionType": "RANDOM"
-                                                },
-                                                (1, "action"): {
-                                                    "@varName": "Last_Results",
-                                                    "@operator": "SET_TO_NO"
-                                                },
-                                                (2, "getUserInput"): {
-                                                    (0, "input"): {
-                                                        (0, "grammar"): {
-                                                            "item": "UPDATE CURRENT_INDEX"
-                                                        },
-                                                        (1, "action"): [
-                                                            {
-                                                                "@varName": "Show_Next",
-                                                                "@operator": "SET_TO_NO"
-                                                            },
-                                                            {
-                                                                "@varName": "Show_Previous",
-                                                                "@operator": "SET_TO_NO"
-                                                            }
-                                                        ],
-                                                        (2, "if"): [
-                                                            {
-                                                                (0, "cond"): {
-                                                                    "@varName": "First_Results",
-                                                                    "@operator": "EQUAL_TO_YES"
-                                                                },
-                                                                (1, "output"): {
-                                                                    (0, "prompt"): {
-                                                                        "item": "Those were the first results",
-                                                                        "@selectionType": "RANDOM"
-                                                                    },
-                                                                    (1, "goto"): {
-                                                                        "@ref": "getUserInput_2503174"
-                                                                    }
-                                                                }
-                                                            },
-                                                            {
-                                                                (0, "cond"): {
-                                                                    "@varName": "Current_Index",
-                                                                    "@operator": "EQUALS",
-                                                                    "#text": "10"
-                                                                },
-                                                                (1, "output"): {
-                                                                    (0, "prompt"): {
-                                                                        "item": "Here are the first results",
-                                                                        "@selectionType": "RANDOM"
-                                                                    },
-                                                                    (1, "action"): {
-                                                                        "@varName": "First_Results",
-                                                                        "@operator": "SET_TO_YES"
-                                                                    },
-                                                                    (2, "goto"): {
-                                                                        "@ref": "getUserInput_2456877"
-                                                                    }
-                                                                }
-                                                            }
-                                                        ],
-                                                        (3, "output"): {
-                                                            (0, "prompt"): {
-                                                                "item": "Here is the previous set of results",
-                                                                "@selectionType": "RANDOM"
-                                                            },
-                                                            (1, "goto"): {
-                                                                "@ref": "getUserInput_2456877"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
+                                    (8, "input"): Showtimes.create(),
+                                    (9, "input"): RecencyGenreRatingPreference.create(),
+                                    (10, "input"): RecencyGenrePreference.create(),
+                                    (11, "input"): RecencyRatingPreference.create(),
+                                    (12, "input"): GenreRecencyPreference.create(),
+                                    (13, "input"): RecencyPreference.create(),
+                                    (14, "input"): GenrePreference.create(),
+                                    (15, "input"): CertificationPreference.create(),
+                                    (16, "input"): UnsupportedGenre.create(),
+                                    (17, "input"): DateTimePreference.create(),
+                                    (18, "input"): AgainOption.create(),
+                                    (19, "input"): MoreOption.create(),
+                                    (20, "input"): GoBackOption.create(),
                                     (21, "goto"): Goto(ref="search_preliminary_sequences")
                                 }
                             }
@@ -1082,3 +439,707 @@ class MainSearchCriteriaInput:
                 }
             }
         }
+
+
+class Showtimes:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "Showtimes",
+                    "$ showtimes",
+                    "$ times",
+                    "$ time",
+                    "$ showing"
+                ]
+            },
+            (1, "goto"): {
+                "@ref": "output_ask_search_for_movies_in_area"
+            }
+        }
+
+
+class GenrePreference:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "Genre",
+                    "$ (GENRE)={Genre_Preference}",
+                    "$ genre"
+                ]
+            },
+            (1, "action"): [
+                {
+                    "@varName": "Current_Index",
+                    "@operator": "SET_TO",
+                    "#text": "0"
+                },
+                {
+                    "@varName": "Page",
+                    "@operator": "SET_TO",
+                    "#text": "new"
+                },
+                GenrePreferenceAction.set_to_value()
+            ],
+            (2, "input"): {
+                (0, "grammar"): {
+                    "item": [
+                        "all",
+                        "$ all",
+                        "$ just"
+                    ]
+                },
+                (1, "action"): CertificationPreferenceAction.set_to_blank(),
+                (2, "goto"): Goto(ref="output_ok_do_search")
+            },
+            (3, "if"): {
+                (0, "cond"): {
+                    "@varName": "Genre_Preference",
+                    "@operator": "EQUALS",
+                    "#text": "Family"
+                },
+                (1, "goto"): {
+                    "action": {
+                        "@varName": "Certification_Preference",
+                        "@operator": "SET_TO",
+                        "#text": "G"
+                    },
+                    "@ref": "output_ok_do_search"
+                }
+            },
+            (4, "goto"): Goto(ref="output_ok_do_search")
+        }
+
+
+class AgainOption:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "again",
+                    "$ again",
+                    "$ one more time"
+                ]
+            },
+            (1, "action"): {
+                "@varName": "Page",
+                "@operator": "SET_TO",
+                "#text": "repeat"
+            },
+            (2, "goto"): Goto(ref="output_ok_do_search")
+        }
+
+
+class GoBackOption:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "Go back",
+                    "$ back",
+                    "$ previous",
+                    "$ prior"
+                ]
+            },
+            (1, "action"): [
+                {
+                    "@varName": "Page",
+                    "@operator": "SET_TO",
+                    "#text": "previous"
+                },
+                {
+                    "@varName": "Show_Previous",
+                    "@operator": "SET_TO_YES"
+                }
+            ],
+            (2, "if"): {
+                (0, "cond"): {
+                    "@varName": "Current_Index",
+                    "@operator": "EQUALS",
+                    "#text": "10"
+                },
+                (1, "output"): {
+                    (0, "prompt"): {
+                        "item": "Those were the first results",
+                        "@selectionType": "RANDOM"
+                    },
+                    (1, "goto"): {
+                        "@ref": "profileCheck_2503183"
+                    }
+                }
+            },
+            (3, "output"): {
+                (0, "prompt"): GenericPrompt.ok(),
+                (1, "output"): {
+                    (0, "prompt"): {
+                        "item": "\"{Search_Now:\"{Search_Now}\", Recency:\"{Recency_Preference}\", Rating:\"{Certification_Preference}\", Genre:\"{Genre_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\"}\"",
+                        "@selectionType": "RANDOM"
+                    },
+                    (1, "action"): {
+                        "@varName": "Last_Results",
+                        "@operator": "SET_TO_NO"
+                    },
+                    (2, "getUserInput"): {
+                        (0, "input"): {
+                            (0, "grammar"): {
+                                "item": "UPDATE CURRENT_INDEX"
+                            },
+                            (1, "action"): [
+                                {
+                                    "@varName": "Show_Next",
+                                    "@operator": "SET_TO_NO"
+                                },
+                                {
+                                    "@varName": "Show_Previous",
+                                    "@operator": "SET_TO_NO"
+                                }
+                            ],
+                            (2, "if"): [
+                                {
+                                    (0, "cond"): {
+                                        "@varName": "First_Results",
+                                        "@operator": "EQUAL_TO_YES"
+                                    },
+                                    (1, "output"): {
+                                        (0, "prompt"): {
+                                            "item": "Those were the first results",
+                                            "@selectionType": "RANDOM"
+                                        },
+                                        (1, "goto"): {
+                                            "@ref": "getUserInput_2503174"
+                                        }
+                                    }
+                                },
+                                {
+                                    (0, "cond"): {
+                                        "@varName": "Current_Index",
+                                        "@operator": "EQUALS",
+                                        "#text": "10"
+                                    },
+                                    (1, "output"): {
+                                        (0, "prompt"): {
+                                            "item": "Here are the first results",
+                                            "@selectionType": "RANDOM"
+                                        },
+                                        (1, "action"): {
+                                            "@varName": "First_Results",
+                                            "@operator": "SET_TO_YES"
+                                        },
+                                        (2, "goto"): {
+                                            "@ref": "getUserInput_2456877"
+                                        }
+                                    }
+                                }
+                            ],
+                            (3, "output"): {
+                                (0, "prompt"): {
+                                    "item": "Here is the previous set of results",
+                                    "@selectionType": "RANDOM"
+                                },
+                                (1, "goto"): {
+                                    "@ref": "getUserInput_2456877"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+class GenreRecencyPreference:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "Genre and Rating",
+                    "$ (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference}",
+                    "$ (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference}"
+                ]
+            },
+            (1, "action"): [
+                {
+                    "@varName": "Current_Index",
+                    "@operator": "SET_TO",
+                    "#text": "0"
+                },
+                GenrePreferenceAction.set_to_value(),
+                {
+                    "@varName": "Page",
+                    "@operator": "SET_TO",
+                    "#text": "new"
+                },
+                CertificationPreferenceAction.set_to_value()
+            ],
+            (2, "goto"): Goto(ref="output_ok_do_search")
+        }
+
+
+class RecencyRatingPreference:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "Recency and Rating",
+                    "$ (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference}",
+                    "$ (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference}"
+                ]
+            },
+            (1, "action"): [
+                CertificationPreferenceAction.set_to_value(),
+                {
+                    "@varName": "Current_Index",
+                    "@operator": "SET_TO",
+                    "#text": "0"
+                },
+                {
+                    "@varName": "Page",
+                    "@operator": "SET_TO",
+                    "#text": "new"
+                },
+                RecencyPreferenceAction.create_set_to_value()
+            ],
+            (2, "goto"): Goto(ref="output_ok_do_search")
+        }
+
+
+class MoreOption:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "more",
+                    "$ more",
+                    "$ next",
+                    "$ forward"
+                ]
+            },
+            (1, "action"): [
+                {
+                    "@varName": "Show_Next",
+                    "@operator": "SET_TO_YES"
+                },
+                {
+                    "@varName": "Page",
+                    "@operator": "SET_TO",
+                    "#text": "next"
+                }
+            ],
+            (2, "output"): {
+                (0, "prompt"): {
+                    "item": "Okay."
+                },
+                (1, "output"): {
+                    (0, "prompt"): {
+                        "item": "\"{Search_Now:\"{Search_Now}\", Recency:\"{Recency_Preference}\", Rating:\"{Certification_Preference}\", Genre:\"{Genre_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\", Total_Movies:\"{Num_Movies}\", Total_Pages:\"{Total_Pages}\"}\""
+                    },
+                    (1, "action"): {
+                        "@varName": "First_Results",
+                        "@operator": "SET_TO_NO"
+                    },
+                    (2, "getUserInput"): {
+                        "@id": "getUserInput_2503174",
+                        "input": {
+                            (0, "grammar"): {
+                                "item": "UPDATE CURRENT_INDEX"
+                            },
+                            (1, "action"): [
+                                {
+                                    "@varName": "Show_Next",
+                                    "@operator": "SET_TO_NO"
+                                },
+                                {
+                                    "@varName": "Show_Previous",
+                                    "@operator": "SET_TO_NO"
+                                }
+                            ],
+                            (2, "if"): [
+                                {
+                                    (0, "cond"): {
+                                        "@varName": "Last_Results",
+                                        "@operator": "EQUAL_TO_YES"
+                                    },
+                                    (1, "output"): {
+                                        (0, "prompt"): {
+                                            "item": "Those were the last results"
+                                        },
+                                        (1, "goto"): {
+                                            "@ref": "profileCheck_2503183"
+                                        }
+                                    }
+                                },
+                                {
+                                    (0, "cond"): {
+                                        "@varName": "Current_Index",
+                                        "@operator": "EQUALS",
+                                        "#text": "{Num_Movies}"
+                                    },
+                                    (1, "output"): {
+                                        (0, "prompt"): {
+                                            "item": "Here are the last results"
+                                        },
+                                        (1, "action"): {
+                                            "@varName": "Last_Results",
+                                            "@operator": "SET_TO_YES"
+                                        },
+                                        (2, "goto"): {
+                                            "@ref": "profileCheck_2503183"
+                                        }
+                                    }
+                                }
+                            ],
+                            (3, "output"): {
+                                (0, "prompt"): {
+                                    "item": "Here is the next set of results"
+                                },
+                                (1, "if"): [
+                                    {
+                                        "@id": "profileCheck_2503183",
+                                        (0, "cond"): [
+                                            GenreConditions.is_blank(),
+                                            CertificationsConditions.has_value()
+                                        ],
+                                        (1, "output"): {
+                                            (0, "prompt"): {
+                                                "item": "for {Recency_Preference} {Certification_Preference}-rated movies."
+                                            },
+                                            (1, "goto"): {
+                                                "@ref": "getUserInput_2456877"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        (0, "cond"): [
+                                            CertificationsConditions.is_blank(),
+                                            GenreConditions.has_value()
+                                        ],
+                                        (1, "output"): {
+                                            (0, "prompt"): {
+                                                "item": "for {Recency_Preference} {Genre_Preference} movies."
+                                            },
+                                            (1, "goto"): {
+                                                "@ref": "getUserInput_2456877"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        (0, "cond"): [
+                                            CertificationsConditions.is_blank(),
+                                            GenreConditions.is_blank()
+                                        ],
+                                        (1, "output"): {
+                                            (0, "prompt"): {
+                                                "item": "for ALL {Recency_Preference} movies."
+                                            },
+                                            (1, "goto"): {
+                                                "@ref": "getUserInput_2456877"
+                                            }
+                                        }
+                                    }
+                                ],
+                                (2, "output"): {
+                                    (0, "prompt"): {
+                                        "item": "for {Recency_Preference} {Certification_Preference}-rated {Genre_Preference} movies."
+                                    },
+                                    (1, "goto"): {
+                                        "@ref": "getUserInput_2456877"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+class RecencyGenrePreference:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "Recency and Genre",
+                    "$ (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference}",
+                    "$ (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference}"
+                ]
+            },
+            (1, "action"): [
+                {
+                    "@varName": "Current_Index",
+                    "@operator": "SET_TO",
+                    "#text": "0"
+                },
+                RecencyPreferenceAction.create_set_to_value(),
+                GenrePreferenceAction.set_to_value(),
+                {
+                    "@varName": "Page",
+                    "@operator": "SET_TO",
+                    "#text": "new"
+                }
+            ],
+            (2, "if"): {
+                (0, "cond"): {
+                    "@varName": "Genre_Preference",
+                    "@operator": "EQUALS",
+                    "#text": "Family"
+                },
+                (1, "goto"): {
+                    "action": {
+                        "@varName": "Certification_Preference",
+                        "@operator": "SET_TO",
+                        "#text": "G"
+                    },
+                    "@ref": "output_ok_do_search"
+                }
+            },
+            (3, "goto"): Goto(ref="output_ok_do_search")
+        }
+
+
+class RecencyGenreRatingPreference:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "Recency, Genre and Rating",
+                    "$ (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference}",
+                    "$ (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference} ",
+                    "$ (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference}",
+                    "$ (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference} ",
+                    "$ (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference}",
+                    "$ (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference}"
+                ]
+            },
+            (1, "action"): [
+                RecencyPreferenceAction.create_set_to_value(),
+                GenrePreferenceAction.set_to_value(),
+                {
+                    "@varName": "Page",
+                    "@operator": "SET_TO",
+                    "#text": "new"
+                },
+                CertificationPreferenceAction.set_to_value()
+            ],
+            (2, "goto"): Goto(ref="output_ok_do_search")
+        }
+
+
+class UnsupportedGenre:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": "$ (UNSUPPORTED_GENRES)={Topic}"
+            },
+            (1, "action"): {
+                "@varName": "Topic",
+                "@operator": "SET_TO",
+                "#text": "{Topic.value:main}"
+            },
+            (2, "output"): {
+                (0, "prompt"): {
+                    "item": "I'm afraid {Topic} isn't a movie genre I know. Please try another one.",
+                    "@selectionType": "RANDOM"
+                },
+                (1, "goto"): {
+                    "@ref": "getUserInput_2456877"
+                }
+            }
+        }
+
+
+class DateTimePreference:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": "$ (DATE_TIME_RANGE)={DateTime_Mentioned_ENT}"
+            },
+            (1, "action"): {
+                "@varName": "DateTime_Current",
+                "@operator": "SET_TO",
+                "#text": "<mct:getTime>America/Tijuana</mct:getTime>"
+            },
+            (2, "input"): {
+                (0, "grammar"): {
+                    "item": "$ next"
+                },
+                (1, "goto"): {
+                    "action": RecencyPreferenceAction.create_set_to_upcoming(),
+                    "@ref": "profileCheck_2510175"
+                }
+            },
+            (3, "if"): {
+                "@id": "profileCheck_2510175",
+                (0, "cond"): {
+                    "@varName": "Recency_Preference",
+                    "@operator": "EQUALS",
+                    "#text": "Upcoming"
+                },
+                (1, "goto"): Goto(ref="output_ok_do_search")
+            },
+            (4, "output"): {
+                (0, "prompt"): "",
+                (1, "function"): {
+                    (0, "script"): {
+                        "@name": "CalculateTimeDiff",
+                        "#text": "Name=CalculateTimeDiff\n\nStartTime={DateTime_Current}\nEndTime={DateTime_Mentioned_ENT.value:FROM_FULL}"
+                    },
+                    (1, "output"): {
+                        (0, "prompt"): "",
+                        (1, "action"): {
+                            "@varName": "DateTime_Difference",
+                            "@operator": "SET_TO",
+                            "#text": "{MCT:CUSTOM:CalculateTimeDiff:days}"
+                        },
+                        (2, "if"): {
+                            (0, "cond"): {
+                                "@varName": "DateTime_Difference",
+                                "@operator": "LESS_THEN",
+                                "#text": "1"
+                            },
+                            (1, "goto"): {
+                                "action": RecencyPreferenceAction.set_to_current(),
+                                "@ref": "output_ok_do_search"
+                            }
+                        },
+                        (3, "goto"): {
+                            "action": RecencyPreferenceAction.create_set_to_upcoming(),
+                            "@ref": "output_ok_do_search"
+                        }
+                    }
+                },
+                (2, "goto"): Goto(ref="output_ok_do_search")
+            }
+        }
+
+
+class CertificationPreference:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "Rating",
+                    "$ (CERTIFICATION)={Certification_Preference}"
+                ]
+            },
+            (1, "action"): [
+                {
+                    "@varName": "Current_Index",
+                    "@operator": "SET_TO",
+                    "#text": "0"
+                },
+                {
+                    "@varName": "Page",
+                    "@operator": "SET_TO",
+                    "#text": "new"
+                },
+                CertificationPreferenceAction.set_to_value()
+            ],
+            (2, "input"): {
+                (0, "grammar"): {
+                    "item": [
+                        "all",
+                        "$ all",
+                        "$ any"
+                    ]
+                },
+                (1, "action"): GenrePreferenceAction.set_to_blank(),
+                (2, "goto"): Goto(ref="output_ok_do_search")
+            },
+            (3, "goto"): Goto(ref="output_ok_do_search")
+        }
+
+
+class RecencyPreference:
+    @staticmethod
+    def create():
+        return {
+            (0, "grammar"): {
+                "item": [
+                    "Recency",
+                    "$ (RECENCY)={Recency_Preference}"
+                ]
+            },
+            (1, "action"): [
+                {
+                    "@varName": "Current_Index",
+                    "@operator": "SET_TO",
+                    "#text": "0"
+                },
+                {
+                    "@varName": "Page",
+                    "@operator": "SET_TO",
+                    "#text": "new"
+                },
+                RecencyPreferenceAction.create_set_to_value()
+            ],
+            (2, "input"): {
+                (0, "grammar"): {
+                    "item": [
+                        "all",
+                        "$ all",
+                        "$ just",
+                        "$ any"
+                    ]
+                },
+                (1, "action"): [
+                    CertificationPreferenceAction.set_to_blank(),
+                    {
+                        "@varName": "Genre_Preference",
+                        "@operator": "SET_TO_BLANK"
+                    }
+                ],
+                (2, "goto"): Goto(ref="output_ok_do_search")
+            },
+            (3, "goto"): Goto(ref="output_ok_do_search")
+        }
+
+
+class SetVariablesNewSearchAction:
+    @staticmethod
+    def create():
+        return [
+            {
+                "@varName": "Last_Results",
+                "@operator": "SET_TO_NO"
+            },
+            {
+                "@varName": "First_Results",
+                "@operator": "SET_TO_NO"
+            },
+            {
+                "@varName": "Search_Now",
+                "@operator": "SET_TO_YES"
+            },
+            {
+                "@varName": "First_Time",
+                "@operator": "SET_TO_NO"
+            },
+            {
+                "@varName": "Previous Certification Selected",
+                "@operator": "SET_TO",
+                "#text": "{Certification_Preference}"
+            },
+            {
+                "@varName": "Previous Genre Selected",
+                "@operator": "SET_TO",
+                "#text": "{Genre_Preference}"
+            },
+            {
+                "@varName": "Previous Recency Selected",
+                "@operator": "SET_TO",
+                "#text": "{Recency_Preference}"
+            }
+        ]
