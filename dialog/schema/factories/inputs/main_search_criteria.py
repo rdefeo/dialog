@@ -1,12 +1,11 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, RecencyPreferenceAction, \
-    CertificationPreferenceAction, GenrePreferenceAction, RequestSuccessAction, TerminalExchangeAction, TopicAction
+    CertificationPreferenceAction, GenrePreferenceAction
 from dialog.schema.factories.conditions.certification import CertificationsConditions
 from dialog.schema.factories.conditions.genre import GenreConditions
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.inputs import DateTimeInput, CertificationPreferenceInput, FamilyFriendlyInput, \
-    RecencyPreferenceInput, ZipcodeInput, RemoveGenreInput
-from dialog.schema.factories.outputs import HowCanHelpYou
+    RecencyPreferenceInput, ZipcodeInput, RemoveGenreInput, RemoveRatingInput, RemoveAllSearchCriteriaInput
 from dialog.schema.factories.outputs.anything_else_can_help_with import AnythingElseCanHelpWith
 from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck, CertificationPreferenceProfileCheck, \
     RecencyPreferenceProfileCheck
@@ -446,72 +445,8 @@ class MainSearchCriteriaInput:
                                         }
                                     },
                                     (5, "input"): RemoveGenreInput.create(),
-                                    (6, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "Remove rating",
-                                                "$ remove (CERTIFICATION)={Certification_Preference}",
-                                                "$ cancel (CERTIFICATION)={Certification_Preference}",
-                                                "$ remove rating",
-                                                "$ cancel rating",
-                                                "$ all ratings",
-                                                "$ all rating",
-                                                "$ any ratings",
-                                                "$ any rating"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Current_Index",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            },
-                                            {
-                                                "@varName": "Certification_Preference",
-                                                "@operator": "SET_TO_BLANK"
-                                            }
-                                        ],
-                                        (2, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
-                                    (7, "input"): {
-                                        (0, "grammar"): {
-                                            "item": [
-                                                "all movies",
-                                                "$ all movies",
-                                                "$ all results"
-                                            ]
-                                        },
-                                        (1, "action"): [
-                                            {
-                                                "@varName": "Current_Index",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            {
-                                                "@varName": "Page",
-                                                "@operator": "SET_TO",
-                                                "#text": "new"
-                                            },
-                                            {
-                                                "@varName": "Certification_Preference",
-                                                "@operator": "SET_TO_BLANK"
-                                            },
-                                            {
-                                                "@varName": "Genre_Preference",
-                                                "@operator": "SET_TO_BLANK"
-                                            }
-                                        ],
-                                        (2, "goto"): {
-                                            "@ref": "output_2456875"
-                                        }
-                                    },
+                                    (6, "input"): RemoveRatingInput.create(),
+                                    (7, "input"): RemoveAllSearchCriteriaInput.create(),
                                     (8, "input"): {
                                         (0, "grammar"): {
                                             "item": [
@@ -675,10 +610,7 @@ class MainSearchCriteriaInput:
                                                 ]
                                             },
                                             (1, "action"): [
-                                                {
-                                                    "@varName": "Certification_Preference",
-                                                    "@operator": "SET_TO_BLANK"
-                                                },
+                                                CertificationPreferenceAction.set_to_blank(),
                                                 {
                                                     "@varName": "Genre_Preference",
                                                     "@operator": "SET_TO_BLANK"
@@ -721,10 +653,7 @@ class MainSearchCriteriaInput:
                                                     "$ just"
                                                 ]
                                             },
-                                            (1, "action"): {
-                                                "@varName": "Certification_Preference",
-                                                "@operator": "SET_TO_BLANK"
-                                            },
+                                            (1, "action"): CertificationPreferenceAction.set_to_blank(),
                                             (2, "goto"): {
                                                 "@ref": "output_2456875"
                                             }
@@ -776,10 +705,7 @@ class MainSearchCriteriaInput:
                                                     "$ any"
                                                 ]
                                             },
-                                            (1, "action"): {
-                                                "@varName": "Genre_Preference",
-                                                "@operator": "SET_TO_BLANK"
-                                            },
+                                            (1, "action"): GenrePreferenceAction.set_to_blank(),
                                             (2, "goto"): {
                                                 "@ref": "output_2456875"
                                             }

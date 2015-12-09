@@ -1605,7 +1605,8 @@
                                             <getUserInput>
                                                 <input>
                                                     <grammar>
-                                                        <item>Okay</item>
+                                                        <item>okay</item>
+                                                        <item>ok</item>
                                                     </grammar>
                                                     <action operator="SET_TO_BLANK" varName="Certification_Preference"/>
                                                     <action operator="SET_TO_BLANK" varName="Genre_Preference"/>
