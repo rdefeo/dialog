@@ -58,6 +58,9 @@ class Variables:
                 Variable("Display_Trailer", "YESNO", init_value="No"),
                 Variable("Display_Movie_Details", "YESNO", init_value="No"),
 
+                # Jemboo Variables
+                Variable("Style_Preference", "TEXT", description="Style of the shoe being searched for"),
+
             ]
         }
 

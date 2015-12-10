@@ -1,4 +1,4 @@
-from dialog.schema.factories.folder.sequences import BaseSequences, GlobalSequences, PreliminarySequences, \
+from dialog.schema.factories.folder.sequences import BaseSequences, GlobalSequences, PreliminarySequencesFolder, \
     RoutingSequences, SystemInitiatedSequences
 
 
@@ -9,7 +9,7 @@ class LibraryFolder:
             "@label": "Library",
             "folder": [
                 SystemInitiatedSequences.create(),
-                PreliminarySequences.create(),
+                PreliminarySequencesFolder.create(),
                 RoutingSequences.create(),
                 BaseSequences.create(),
                 GlobalSequences.create(),

@@ -1,9 +1,10 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import RecencyPreferenceAction, CertificationPreferenceAction, GenrePreferenceAction
 from dialog.schema.factories.grammar import FeelingGrammar, ProfileGrammar, GenericGrammar
-from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.outputs.start_search import StartSearch
 from dialog.schema.factories.prompts.generic import GenericPrompt
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 
 class MainFolder:
@@ -48,9 +49,7 @@ class MainFolder:
                                     "#text": "movies"
                                 }
                             ],
-                            (2, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            }
+                            (2, "goto"): PreliminarySequencesSearch.goto()
                         },
                         {
                             (0, "grammar"): {
@@ -76,15 +75,11 @@ class MainFolder:
                                     "$ (TRAFFIC)={Topic}"
                                 ]
                             },
-                            (1, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            }
+                            (1, "goto"): PreliminarySequencesSearch.goto()
                         },
                         {
                             (0, "grammar"): FeelingGrammar.create_preliminaries(),
-                            (1, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            }
+                            (1, "goto"): PreliminarySequencesSearch.goto()
                         },
                         {
                             (0, "grammar"): {
@@ -142,7 +137,7 @@ class MainFolder:
                 },
                 (2, "output"): [
                     StartSearch.create(),
-                    HowCanHelpYou.create()
+                    HowCanHelpYouOutput.create()
                 ]
             }
         }

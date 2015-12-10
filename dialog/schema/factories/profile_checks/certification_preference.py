@@ -2,6 +2,7 @@ from dialog.schema.elements import Goto
 from dialog.schema.factories.action import CertificationPreferenceAction
 from dialog.schema.factories.conditions import CertificationsConditions
 from dialog.schema.factories.grammar import GenericGrammar
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 
 class CertificationPreferenceProfileCheck:
@@ -154,9 +155,7 @@ class CertificationPreferenceProfileCheck:
                             }
                         }
                     ],
-                    (1, "goto"): {
-                        "@ref": "search_preliminary_sequences"
-                    }
+                    (1, "goto"): PreliminarySequencesSearch.goto()
                 }
             }
         }

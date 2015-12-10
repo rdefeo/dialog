@@ -1,8 +1,9 @@
 from dialog.schema.elements import Condition, If, Goto
 from dialog.schema.factories.action import GreetingAction
 from dialog.schema.factories.grammar import GenericGrammar, FeelingGrammar
-from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.prompts.generic import GenericPrompt
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 __author__ = 'robdefeo'
 
@@ -82,7 +83,7 @@ class OpeningSequences:
                                                 "item": "Good to hear! <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): HowCanHelpYou.goto()
+                                            (1, "goto"): HowCanHelpYouOutput.goto()
                                         }
                                     },
                                     {
@@ -92,7 +93,7 @@ class OpeningSequences:
                                                 "item": "Fantastic! So glad to hear it. <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): HowCanHelpYou.goto()
+                                            (1, "goto"): HowCanHelpYouOutput.goto()
                                         }
                                     },
                                     {
@@ -103,13 +104,11 @@ class OpeningSequences:
                                                 "item": "I'm sorry to hear that. <br> <br>",
                                                 "@selectionType": "RANDOM"
                                             },
-                                            (1, "goto"): HowCanHelpYou.goto()
+                                            (1, "goto"): HowCanHelpYouOutput.goto()
                                         }
                                     }
                                 ],
-                                (1, "goto"): {
-                                    "@ref": "search_preliminary_sequences"
-                                }
+                                (1, "goto"): PreliminarySequencesSearch.goto()
                             }
                         }
                     }
@@ -155,9 +154,7 @@ class OpeningSequences:
                                         (1, "goto"): Goto(ref="output_ask_for_recency")
                                     }
                                 ],
-                                (1, "goto"): {
-                                    "@ref": "search_preliminary_sequences"
-                                }
+                                (1, "goto"): PreliminarySequencesSearch.goto()
                             }
                         }
                     },
@@ -190,7 +187,7 @@ class OpeningSequences:
                             (0, "prompt"): {
                                 "item": "I am doing well, thanks."
                             },
-                            (1, "goto"): HowCanHelpYou.goto()
+                            (1, "goto"): HowCanHelpYouOutput.goto()
                         }
                     },
                     (4, "output"): {
@@ -233,7 +230,7 @@ class OpeningSequences:
                                         (1, "goto"): Goto(ref="output_ask_for_recency")
                                     }
                                 ],
-                                (1, "goto"): Goto(ref="search_preliminary_sequences")
+                                (1, "goto"): PreliminarySequencesSearch.goto()
                             }
                         }
                     },
@@ -242,7 +239,7 @@ class OpeningSequences:
                             "item": "Nice to meet you too, {User_Name}!",
                             "@selectionType": "RANDOM"
                         },
-                        (1, "goto"): HowCanHelpYou.goto()
+                        (1, "goto"): HowCanHelpYouOutput.goto()
                     }
                 }
             ]

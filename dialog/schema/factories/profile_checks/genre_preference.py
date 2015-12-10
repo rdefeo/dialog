@@ -2,6 +2,7 @@ from dialog.schema.elements import Goto
 from dialog.schema.factories.action import CertificationPreferenceAction, GenrePreferenceAction
 from dialog.schema.factories.conditions.genre import GenreConditions
 from dialog.schema.factories.grammar import GenericGrammar
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 
 class GenrePreferenceProfileCheck:
@@ -207,9 +208,7 @@ class GenrePreferenceProfileCheck:
                             }
                         }
                     ],
-                    (1, "goto"): {
-                        "@ref": "search_preliminary_sequences"
-                    }
+                    (1, "goto"): PreliminarySequencesSearch.goto()
                 }
             }
         }

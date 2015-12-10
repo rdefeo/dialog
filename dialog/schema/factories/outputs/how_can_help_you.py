@@ -1,10 +1,10 @@
 from dialog.schema.elements import Goto
 
 
-class HowCanHelpYou:
+class HowCanHelpYouOutput:
     @staticmethod
     def goto():
-        return Goto(ref=HowCanHelpYou.__id())
+        return Goto(ref=HowCanHelpYouOutput.__id())
 
     @staticmethod
     def __id():
@@ -12,8 +12,9 @@ class HowCanHelpYou:
 
     @staticmethod
     def create():
+        from dialog.schema.factories.inputs.how_can_i_help_you import HowCanHelpYouInput
         return {
-            "@id": HowCanHelpYou.__id(),
+            "@id": HowCanHelpYouOutput.__id(),
             (0, "prompt"): {
                 "item": [
                     "How can I help you?",
@@ -21,32 +22,5 @@ class HowCanHelpYou:
                 ],
                 "@selectionType": "RANDOM"
             },
-            (1, "getUserInput"): {
-                "@id": "getUserInput_how_can_i_help_you",
-                (0, "search"): [
-                    {
-                        "@id": "search_preliminary_sequences",
-                        "@ref": "folder_preliminary_sequences"
-                    },
-                    {
-                        "@ref": "folder_routing_sequences"
-                    },
-                    {
-                        "@id": "search_2414740",
-                        "@ref": "folder_base_sequences"
-                    }
-                ],
-                (1, "default"): {
-                    (0, "output"): {
-                        "@isInsertDNRStatement": "true",
-                        (0, "prompt"): {
-                            "item": "I'm not sure what you mean. I can understand things like <i>Show me recent PG13-rated Action movies.</i>",
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "goto"): {
-                            "@ref": "##special_DNR_GET_USER_INPUT_NODE_ID"
-                        }
-                    }
-                }
-            }
+            (1, "getUserInput"): HowCanHelpYouInput.create()
         }

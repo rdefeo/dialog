@@ -1,17 +1,23 @@
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, GenrePreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
-from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.prompts.generic import GenericPrompt
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 __author__ = 'robdefeo'
 
 
-class PreliminarySequences:
+class PreliminarySequencesFolder:
+
+    @staticmethod
+    def _id():
+        return "folder_preliminary_sequences"
+
     @staticmethod
     def create():
         return {
             "@label": "PRELIMINARY SEQUENCES",
-            "@id": "folder_preliminary_sequences",
+            "@id": PreliminarySequencesFolder._id(),
             (0, "action"): [
                 GreetingAction.create_reset(),
                 SmallTalkAction.set_to_zero()
@@ -71,11 +77,9 @@ class PreliminarySequences:
                                 (1, "getUserInput"): {
                                     (0, "input"): {
                                         (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         }
@@ -117,11 +121,9 @@ class PreliminarySequences:
                                         (0, "grammar"): {
                                             "item": "Okay."
                                         },
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 },
                                 "@id": "output_2503370"
                             }
@@ -166,11 +168,9 @@ class PreliminarySequences:
                                         (0, "grammar"): {
                                             "item": "Okay."
                                         },
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         }
@@ -206,11 +206,9 @@ class PreliminarySequences:
                                 (1, "getUserInput"): {
                                     (0, "input"): {
                                         (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 },
                                 "@id": "output_2459443"
                             }
@@ -248,11 +246,9 @@ class PreliminarySequences:
                                 (1, "getUserInput"): {
                                     (0, "input"): {
                                         (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         }
@@ -298,11 +294,9 @@ class PreliminarySequences:
                                 (1, "getUserInput"): {
                                     (0, "input"): {
                                         (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         }
@@ -331,11 +325,9 @@ class PreliminarySequences:
                             (1, "getUserInput"): {
                                 (0, "input"): {
                                     (0, "grammar"): GenericGrammar.ok(),
-                                    (1, "goto"): HowCanHelpYou.goto()
+                                    (1, "goto"): HowCanHelpYouOutput.goto()
                                 },
-                                (1, "goto"): {
-                                    "@ref": "search_preliminary_sequences"
-                                }
+                                (1, "goto"): PreliminarySequencesSearch.goto()
                             }
                         }
                     },
@@ -373,11 +365,9 @@ class PreliminarySequences:
                                 (1, "getUserInput"): {
                                     (0, "input"): {
                                         (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         }
@@ -419,11 +409,9 @@ class PreliminarySequences:
                                 (1, "getUserInput"): {
                                     (0, "input"): {
                                         (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         }
@@ -460,11 +448,9 @@ class PreliminarySequences:
                                 (1, "getUserInput"): {
                                     (0, "input"): {
                                         (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         }
@@ -526,9 +512,7 @@ class PreliminarySequences:
                                             }
                                         }
                                     ],
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         },
@@ -556,11 +540,9 @@ class PreliminarySequences:
                                         (0, "grammar"): {
                                             "item": "Okay."
                                         },
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 },
                                 "@id": "output_2497989"
                             }

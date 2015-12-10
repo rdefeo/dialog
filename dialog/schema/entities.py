@@ -31,6 +31,12 @@ class Entities:
                     ]
                 ).create(),
                 Entity(
+                    "STYLE", [
+                        Value("high heels", "high heels", Grammar(items=["high heels", "high-heels"])),
+                        Value("boots", "boots", Grammar(items=["boots", "boot"]))
+                    ]
+                ).create(),
+                Entity(
                     "DINING", [
 
                     ]

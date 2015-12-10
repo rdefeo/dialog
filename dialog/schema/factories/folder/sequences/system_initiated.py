@@ -2,8 +2,9 @@ from dialog.schema.elements import Action, Goto
 from dialog.schema.factories.action import TerminalExchangeAction, GreetingAction, SmallTalkAction, \
     RecencyPreferenceAction, GenrePreferenceAction, CertificationPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
-from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.prompts.generic import GenericPrompt
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 __author__ = 'robdefeo'
 
@@ -46,7 +47,7 @@ class SystemInitiatedSequences:
                         (0, "input"): [
                             {
                                 (0, "grammar"): GenericGrammar.yes(),
-                                (1, "goto"): HowCanHelpYou.goto()
+                                (1, "goto"): HowCanHelpYouOutput.goto()
                             },
                             {
                                 (0, "grammar"): GenericGrammar.no(),
@@ -56,7 +57,7 @@ class SystemInitiatedSequences:
                                 }
                             }
                         ],
-                        (1, "goto"): Goto(ref="search_preliminary_sequences")
+                        (1, "goto"): PreliminarySequencesSearch.goto()
                     }
                 },
                 {
@@ -105,12 +106,12 @@ class SystemInitiatedSequences:
                                                             (0, "prompt"): {
                                                                 "item": "Welcome back!"
                                                             },
-                                                            (1, "goto"): HowCanHelpYou.goto()
+                                                            (1, "goto"): HowCanHelpYouOutput.goto()
                                                         }
                                                     }
                                                 }
                                             },
-                                            (1, "goto"):HowCanHelpYou.goto()
+                                            (1, "goto"):HowCanHelpYouOutput.goto()
                                         }
                                     }
                                 }
@@ -153,7 +154,7 @@ class SystemInitiatedSequences:
                                 }
                             }
                         ],
-                        (1, "goto"): Goto(ref="search_preliminary_sequences")
+                        (1, "goto"): PreliminarySequencesSearch.goto()
                     },
                     "@id": "output_did_find_what_looking_for"
                 },
@@ -181,7 +182,7 @@ class SystemInitiatedSequences:
                                 (1, "goto"): Goto(ref="output_ask_for_recency")
                             }
                         ],
-                        (1, "goto"): Goto(ref="search_preliminary_sequences")
+                        (1, "goto"): PreliminarySequencesSearch.goto()
                     }
                 }
             ]

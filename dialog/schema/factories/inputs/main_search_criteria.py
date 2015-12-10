@@ -10,8 +10,7 @@ from dialog.schema.factories.outputs.anything_else_can_help_with import Anything
 from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck, CertificationPreferenceProfileCheck, \
     RecencyPreferenceProfileCheck
 from dialog.schema.factories.prompts.generic import GenericPrompt
-
-__author__ = 'robdefeo'
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 
 class MainSearchCriteriaInput:
@@ -431,7 +430,7 @@ class MainSearchCriteriaInput:
                                     (18, "input"): AgainOption.create(),
                                     (19, "input"): MoreOption.create(),
                                     (20, "input"): GoBackOption.create(),
-                                    (21, "goto"): Goto(ref="search_preliminary_sequences")
+                                    (21, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         }

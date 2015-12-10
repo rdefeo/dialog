@@ -1,7 +1,8 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction
 from dialog.schema.factories.grammar import GenericGrammar
-from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.outputs import HowCanHelpYouOutput
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 __author__ = 'robdefeo'
 
@@ -31,9 +32,9 @@ class DetailsInput:
                 (1, "getUserInput"): {
                     (0, "input"): {
                         (0, "grammar"): GenericGrammar.ok(),
-                        (1, "goto"): HowCanHelpYou.goto()
+                        (1, "goto"): HowCanHelpYouOutput.goto()
                     },
-                    (1, "goto"): Goto(ref="search_preliminary_sequences")
+                    (1, "goto"): PreliminarySequencesSearch.goto()
                 }
             }
         }

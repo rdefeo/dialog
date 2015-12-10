@@ -1,7 +1,8 @@
 from dialog.schema.elements import If, Condition, Goto, Prompt
 from dialog.schema.factories.action import SmallTalkAction, CertificationPreferenceAction
 from dialog.schema.factories.conditions import SmallTalkConditions
-from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.outputs import HowCanHelpYouOutput
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 __author__ = 'robdefeo'
 
@@ -76,7 +77,7 @@ class SmallTalkSequences:
                                     (1, "goto"): Goto(ref="input_user_knownas_name")
                                 }
                             ],
-                            (1, "goto"): Goto(ref="search_preliminary_sequences")
+                            (1, "goto"): PreliminarySequencesSearch.goto()
                         }
                     }
                 },
@@ -116,7 +117,7 @@ class SmallTalkSequences:
                                     },
                                     (1, "goto"): SystemInitiatedSequences.goto()
                                 },
-                                (1, "goto"): SystemInitiatedSequences.goto()
+                                (1, "goto"): PreliminarySequencesSearch.goto()
                             }
                         }
                     }
@@ -166,9 +167,7 @@ class SmallTalkSequences:
                                     }
                                 }
                             ],
-                            (1, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            }
+                            (1, "goto"): PreliminarySequencesSearch.goto()
                         }
                     }
                 },
@@ -205,11 +204,9 @@ class SmallTalkSequences:
                                                 "okay"
                                             ]
                                         },
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         },
@@ -238,11 +235,9 @@ class SmallTalkSequences:
                                                 "okay"
                                             ]
                                         },
-                                        (1, "goto"): HowCanHelpYou.goto()
+                                        (1, "goto"): HowCanHelpYouOutput.goto()
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             }
                         }
@@ -378,14 +373,10 @@ class SmallTalkSequences:
                                             }
                                         }
                                     ],
-                                    (2, "goto"): {
-                                        "@ref": "search_preliminary_sequences"
-                                    }
+                                    (2, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             ],
-                            (1, "goto"): {
-                                "@ref": "search_preliminary_sequences"
-                            },
+                            (1, "goto"): PreliminarySequencesSearch.goto(),
                             "@id": "getUserInput_2457908"
                         },
                         "@id": "output_2457907"
@@ -533,10 +524,10 @@ class SmallTalkSequences:
                                             }
                                         }
                                     ],
-                                    (2, "goto"): Goto(ref="search_preliminary_sequences")
+                                    (2, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             ],
-                            (1, "goto"): Goto(ref="search_preliminary_sequences"),
+                            (1, "goto"): PreliminarySequencesSearch.goto(),
                             "@id": "getUserInput_2457980"
                         },
                         "@id": "output_2457979"
@@ -681,10 +672,10 @@ class SmallTalkSequences:
                                             }
                                         }
                                     ],
-                                    (2, "goto"): Goto(ref="search_preliminary_sequences")
+                                    (2, "goto"): PreliminarySequencesSearch.goto()
                                 }
                             ],
-                            (1, "goto"): Goto(ref="search_preliminary_sequences"),
+                            (1, "goto"): PreliminarySequencesSearch.goto(),
                             "@id": "getUserInput_2457996"
                         },
                         "@id": "output_2457995"

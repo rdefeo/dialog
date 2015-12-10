@@ -2,6 +2,7 @@ from dialog.schema.elements import Goto
 from dialog.schema.factories.action import RecencyPreferenceAction, CertificationPreferenceAction, GenrePreferenceAction
 from dialog.schema.factories.conditions.recency import RecencyConditions
 from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 
 class RecencyPreferenceProfileCheck:
@@ -96,7 +97,7 @@ class RecencyPreferenceProfileCheck:
                             }
                         }
                     ],
-                    (1, "goto"): Goto(ref="search_preliminary_sequences")
+                    (1, "goto"): PreliminarySequencesSearch.goto()
                 }
             }
         }

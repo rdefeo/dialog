@@ -1,7 +1,8 @@
-from dialog.schema.elements import Goto
+from dialog.schema.elements import Goto, Prompt
 from dialog.schema.factories.grammar import GenericGrammar
-from dialog.schema.factories.outputs import HowCanHelpYou
+from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.prompts.generic import GenericPrompt
+from dialog.schema.factories.search import PreliminarySequencesSearch
 
 
 class StartSearch:
@@ -17,23 +18,23 @@ class StartSearch:
     def create():
         return {
             "@id": StartSearch.__id(),
-            (0, "prompt"): {
-                "item": "Would you like to find a specific style of shoe?",
-                # "item": "Would you like to find a movie that's now playing or coming soon?",
-                "@selectionType": "RANDOM"
-            },
+            (0, "prompt"): Prompt(
+                items=["Would you like to find a specific style of shoe?"]
+                # "Would you like to find a movie that's now playing or coming soon?"
+            ),
             (1, "getUserInput"): {
-                (0, "input"): {
-                    (0, "grammar"): {
-                        "item": "$ (DATE_TIME_RANGE)={DateTime_Mentioned_ENT}"
-                    },
-                    (1, "action"): {
-                        "@varName": "DateTime_Current",
-                        "@operator": "SET_TO",
-                        "#text": "<mct:getTime>America/Tijuana</mct:getTime>"
-                    },
-                    (2, "goto"): Goto(ref="input_date_time")
-                },
+                # TODO Not sure how this is useful
+                # (0, "input"): {
+                #     (0, "grammar"): {
+                #         "item": "$ (DATE_TIME_RANGE)={DateTime_Mentioned_ENT}"
+                #     },
+                #     (1, "action"): {
+                #         "@varName": "DateTime_Current",
+                #         "@operator": "SET_TO",
+                #         "#text": "<mct:getTime>America/Tijuana</mct:getTime>"
+                #     },
+                #     (2, "goto"): Goto(ref="input_date_time")
+                # },
                 (1, "input"): {
                     (0, "grammar"): {
                         "item": [
@@ -45,20 +46,17 @@ class StartSearch:
                     },
                     (1, "output"): {
                         (0, "prompt"): GenericPrompt.ok(),
-                        (1, "goto"): HowCanHelpYou.goto()
+                        (1, "goto"): HowCanHelpYouOutput.goto()
                     }
                 },
                 (2, "input"): {
                     (0, "grammar"): GenericGrammar.yes_okay(),
                     (1, "output"): {
-                        (0, "prompt"): {
-                            "item": "Something that's now playing or coming soon?",
-                            # "item": "Something that's now playing or coming soon?",
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "goto"): {
-                            "@ref": "getUserInput_how_can_i_help_you"
-                        }
+                        (0, "prompt"): Prompt(
+                            items=["Please tell me the style you would like then."]
+                            # "Something that's now playing or coming soon?",
+                        ),
+                        (1, "goto"): Goto(ref="getUserInput_how_can_i_help_you")
                     }
                 },
                 (3, "input"): {
@@ -74,17 +72,10 @@ class StartSearch:
                         ]
                     },
                     (1, "output"): {
-                        (0, "prompt"): {
-                            "item": "Sorry.",
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "goto"): {
-                            "@ref": "input_user_knownas_name"
-                        }
+                        (0, "prompt"): Prompt(items=["Sorry."]),
+                        (1, "goto"): Goto(ref="input_user_knownas_name")
                     }
                 },
-                (4, "goto"): {
-                    "@ref": "search_preliminary_sequences"
-                }
+                (4, "goto"): PreliminarySequencesSearch.goto()
             }
         }
