@@ -1,6 +1,7 @@
 from dialog.schema.elements import Goto, Prompt
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
+from dialog.schema.factories.profile_checks.style_preference import StylePreferenceProfileCheckInput
 from dialog.schema.factories.prompts.generic import GenericPrompt
 from dialog.schema.factories.search import PreliminarySequencesSearch
 
@@ -56,7 +57,7 @@ class StartSearch:
                             items=["Please tell me the style you would like then."]
                             # "Something that's now playing or coming soon?",
                         ),
-                        (1, "goto"): Goto(ref="getUserInput_how_can_i_help_you")
+                        (1, "goto"): StylePreferenceProfileCheckInput.goto()
                     }
                 },
                 (3, "input"): {

@@ -24,7 +24,7 @@ class MainFolder:
                                     "Movies",
                                     "$ (GENRE)={Genre_Preference}",
                                     "$ (CERTIFICATION)={Certification_Preference}",
-                                    "$ (RECENCY)={Recency_Preference}",
+                                    "$ (Style)={Style_Preference}",
                                     "$ movies",
                                     "$ want to see something",
                                     "$ planning to go see",

@@ -1,14 +1,15 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, RecencyPreferenceAction, \
-    CertificationPreferenceAction, GenrePreferenceAction
+    CertificationPreferenceAction, GenrePreferenceAction, StylePreferenceAction
 from dialog.schema.factories.conditions.certification import CertificationsConditions
 from dialog.schema.factories.conditions.genre import GenreConditions
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.inputs import DateTimeInput, CertificationPreferenceInput, FamilyFriendlyInput, \
-    RecencyPreferenceInput, ZipcodeInput, RemoveGenreInput, RemoveRatingInput, RemoveAllSearchCriteriaInput
+    ZipcodeInput, RemoveGenreInput, RemoveRatingInput, RemoveAllSearchCriteriaInput
+from dialog.schema.factories.inputs.style import StylePreferenceInput
 from dialog.schema.factories.outputs.anything_else_can_help_with import AnythingElseCanHelpWith
-from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck, CertificationPreferenceProfileCheck, \
-    RecencyPreferenceProfileCheck
+from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck, CertificationPreferenceProfileCheck
+from dialog.schema.factories.profile_checks.style_preference import StylePreferenceProfileCheck
 from dialog.schema.factories.prompts.generic import GenericPrompt
 from dialog.schema.factories.search import PreliminarySequencesSearch
 
@@ -24,7 +25,7 @@ class MainSearchCriteriaInput:
                     "blobbly",
                     "$ (GENRE)={Genre_Preference}",
                     "$ (CERTIFICATION)={Certification_Preference}",
-                    "$ (RECENCY)={Recency_Preference}",
+                    "$ (STYLE)={Style_Preference}",
                     # "$ movies"
                 ]
             },
@@ -56,13 +57,13 @@ class MainSearchCriteriaInput:
                     "#text": "movies"
                 },
                 CertificationPreferenceAction.set_to_value(),
-                RecencyPreferenceAction.create_set_to_value()
+                StylePreferenceAction.set_to_value()
             ],
             (2, "input"): [
                 DateTimeInput.create(),
                 CertificationPreferenceInput.create(),
                 FamilyFriendlyInput.create(),
-                RecencyPreferenceInput.create(),
+                StylePreferenceInput.create(),
                 ZipcodeInput.create(),
                 {
                     (0, "grammar"): {
@@ -80,7 +81,7 @@ class MainSearchCriteriaInput:
                 }
             ],
             (3, "if"): [
-                RecencyPreferenceProfileCheck.create(),
+                StylePreferenceProfileCheck.create(),
                 GenrePreferenceProfileCheck.create(),
                 CertificationPreferenceProfileCheck.create(),
             ],
@@ -90,7 +91,7 @@ class MainSearchCriteriaInput:
                 (1, "output"): {
                     "@id": "output_2456876",
                     (0, "prompt"): {
-                        "item": "\"{\"Search_Now\":\"{Search_Now}\", \"Recency\":\"{Recency_Preference}\", \"Rating\":\"{Certification_Preference}\", \"Genre\":\"{Genre_Preference}\", \"Index\":\"{Current_Index}\", \"Page\":\"{Page}\"}\"",
+                        "item": "\"{\"Search_Now\":\"{Search_Now}\", \"Style\":\"{Style_Preference}\", \"Rating\":\"{Certification_Preference}\", \"Genre\":\"{Genre_Preference}\", \"Index\":\"{Current_Index}\", \"Page\":\"{Page}\"}\"",
                         "@selectionType": "RANDOM"
                     },
                     (1, "action"): SetVariablesNewSearchAction.create(),
@@ -117,11 +118,9 @@ class MainSearchCriteriaInput:
                                                 (1, "action"): [
                                                     CertificationPreferenceAction.set_to_blank(),
                                                     GenrePreferenceAction.set_to_blank(),
-                                                    RecencyPreferenceAction.set_to_blank()
+                                                    StylePreferenceAction.set_to_blank()
                                                 ],
-                                                (2, "goto"): {
-                                                    "@ref": "profileCheck_recency_preference"
-                                                }
+                                                (2, "goto"): StylePreferenceProfileCheck.goto()
                                             },
                                             (1, "goto"): RemoveGenreInput.goto()
                                         }
@@ -576,7 +575,7 @@ class GoBackOption:
                 (0, "prompt"): GenericPrompt.ok(),
                 (1, "output"): {
                     (0, "prompt"): {
-                        "item": "\"{Search_Now:\"{Search_Now}\", Recency:\"{Recency_Preference}\", Rating:\"{Certification_Preference}\", Genre:\"{Genre_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\"}\"",
+                        "item": "\"{Search_Now:\"{Search_Now}\", Style:\"{Style_Preference}\", Rating:\"{Certification_Preference}\", Genre:\"{Genre_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\"}\"",
                         "@selectionType": "RANDOM"
                     },
                     (1, "action"): {

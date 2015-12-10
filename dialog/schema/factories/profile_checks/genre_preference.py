@@ -195,9 +195,7 @@ class GenrePreferenceProfileCheck:
                             (1, "goto"): Goto(ref="profileCheck_certification_preference")
                         },
                         {
-                            (0, "grammar"): {
-                                "item": GenericGrammar.yes()
-                            },
+                            (0, "grammar"): GenericGrammar.yes(),
                             (1, "output"): {
                                 (0, "prompt"): {
                                     "item": "Which one?"

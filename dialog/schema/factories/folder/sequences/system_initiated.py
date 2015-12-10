@@ -3,6 +3,7 @@ from dialog.schema.factories.action import TerminalExchangeAction, GreetingActio
     RecencyPreferenceAction, GenrePreferenceAction, CertificationPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
+from dialog.schema.factories.profile_checks.style_preference import StylePreferenceProfileCheck
 from dialog.schema.factories.prompts.generic import GenericPrompt
 from dialog.schema.factories.search import PreliminarySequencesSearch
 
@@ -168,7 +169,7 @@ class SystemInitiatedSequences:
                         (0, "input"): [
                             {
                                 (0, "grammar"): GenericGrammar.yes(),
-                                (1, "goto"): Goto(ref="output_ask_for_recency")
+                                (1, "goto"): StylePreferenceProfileCheck.goto()
                             },
                             {
                                 (0, "grammar"): GenericGrammar.no(),
@@ -179,7 +180,7 @@ class SystemInitiatedSequences:
                             },
                             {
                                 (0, "grammar"): GenericGrammar.ok(),
-                                (1, "goto"): Goto(ref="output_ask_for_recency")
+                                (1, "goto"): StylePreferenceProfileCheck.goto()
                             }
                         ],
                         (1, "goto"): PreliminarySequencesSearch.goto()

@@ -43,6 +43,16 @@ class RecencyPreferenceAction:
         return Action(varName="Recency_Preference", operator="SET_TO", text="Current").create()
 
 
+class StylePreferenceAction:
+    @staticmethod
+    def set_to_blank():
+        return Action(varName="Style_Preference", operator="SET_TO_BLANK").create()
+
+    @staticmethod
+    def set_to_value():
+        return Action(varName="Style_Preference", operator="SET_TO", text="{Style_Preference.value:main}").create()
+
+
 class GreetingAction:
     @staticmethod
     def create_reset():

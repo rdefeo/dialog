@@ -1,22 +1,22 @@
 from dialog.schema.factories.action import RecencyPreferenceAction
 
 
-class RecencyPreferenceInput:
-    @staticmethod
-    def create():
-        return {
-            "@id": "input_recency_preference",
-            (0, "grammar"): {
-                "item": [
-                    "how recent",
-                    "$ (RECENCY)={Recency_Preference}"
-                ]
-            },
-            (1, "action"): RecencyPreferenceAction.create_set_to_value(),
-            (2, "goto"): {
-                "@ref": "input_zipcode"
-            }
-        }
+# class RecencyPreferenceInput:
+#     @staticmethod
+#     def create():
+#         return {
+#             "@id": "input_recency_preference",
+#             (0, "grammar"): {
+#                 "item": [
+#                     "how recent",
+#                     "$ (RECENCY)={Recency_Preference}"
+#                 ]
+#             },
+#             (1, "action"): RecencyPreferenceAction.create_set_to_value(),
+#             (2, "goto"): {
+#                 "@ref": "input_zipcode"
+#             }
+#         }
 
 
 class DateTimeInput:

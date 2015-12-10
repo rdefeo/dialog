@@ -1,6 +1,6 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import CertificationPreferenceAction
-
+from dialog.schema.factories.inputs.style import StylePreferenceInput
 
 
 class FamilyFriendlyInput:
@@ -22,7 +22,7 @@ class FamilyFriendlyInput:
                 "@operator": "SET_TO",
                 "#text": "G"
             },
-            (2, "goto"): Goto(ref="input_recency_preference")
+            (2, "goto"): StylePreferenceInput.goto()
         }
 
 

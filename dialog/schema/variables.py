@@ -9,6 +9,7 @@ class Variables:
                 (0, "var_folder"): [
                     self.create_conversation_management(),
                     self.create_movie_search(),
+                    self.create_shoe_search(),
                 ],
                 (1, "var"): [
                     Variable("Previous Certification Selected", "TEXT"),
@@ -52,15 +53,20 @@ class Variables:
                 Variable("Genre_Preference", "TEXT", description="User's preferred movie genre."),
                 Variable("Search_Now", "YESNO", init_value="No",
                          description="Tells backend when to call the movie API"),
-                Variable("Recency_Preference", "TEXT", description="If the movie is current or upcoming"),
                 Variable("Selected_Movie", "TEXT"),
                 Variable("ZIP_Code_Preference", "TEXT", description="User's indicated ZIP code"),
                 Variable("Display_Trailer", "YESNO", init_value="No"),
                 Variable("Display_Movie_Details", "YESNO", init_value="No"),
 
-                # Jemboo Variables
-                Variable("Style_Preference", "TEXT", description="Style of the shoe being searched for"),
+            ]
+        }
 
+    def create_shoe_search(self):
+        return {
+            "@name": "Shoe Search",
+            "@type": "VAR",
+            "var": [
+                Variable("Style_Preference", "TEXT", description="Style of the shoe being searched for"),
             ]
         }
 

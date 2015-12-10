@@ -3,7 +3,7 @@ __author__ = 'robdefeo'
 from .favorites import FavoritesInput
 from .details import DetailsInput
 from .showtimes import ShowtimesInput
-from .date_time import DateTimeInput, RecencyPreferenceInput
+from .date_time import DateTimeInput
 from .zipcode import ZipcodeInput
 from .certification_preference import CertificationPreferenceInput, FamilyFriendlyInput
 from .remove_genre import RemoveGenreInput
