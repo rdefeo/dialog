@@ -22,7 +22,7 @@ class HowCanHelpYou:
                 "@selectionType": "RANDOM"
             },
             (1, "getUserInput"): {
-                "@id": "getUserInput_2414745",
+                "@id": "getUserInput_how_can_i_help_you",
                 (0, "search"): [
                     {
                         "@id": "search_preliminary_sequences",

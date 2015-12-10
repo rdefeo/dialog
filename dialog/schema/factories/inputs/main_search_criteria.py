@@ -39,7 +39,7 @@ class MainSearchCriteriaInput:
             # Reset variables
             (1, "action"): [
                 GreetingAction.create_reset(),
-                SmallTalkAction.create_reset(),
+                SmallTalkAction.set_to_zero(),
                 {
                     "@varName": "Current_Index",
                     "@operator": "SET_TO",

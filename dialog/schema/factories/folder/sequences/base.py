@@ -16,12 +16,12 @@ class BaseSequences:
             "@id": "folder_base_sequences",
             (0, "action"): [
                 GreetingAction.create_reset(),
-                SmallTalkAction.create_reset()
+                SmallTalkAction.set_to_zero()
             ],
             (1, "input"): [
                 FavoritesInput.create(),
                 DetailsInput.create(),
-                ShowtimesInput.create(),
+                # ShowtimesInput.create(),
                 MainSearchCriteriaInput.create()
             ]
         }

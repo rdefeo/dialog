@@ -9,6 +9,8 @@ __author__ = 'robdefeo'
 class SmallTalkSequences:
     @staticmethod
     def create():
+        from dialog.schema.factories.folder.sequences import SystemInitiatedSequences
+
         return {
             "@selectionType": "RANDOM",
             "@label": "SMALL TALK SEQUENCES",
@@ -112,9 +114,9 @@ class SmallTalkSequences:
                                             "$ sorry"
                                         ]
                                     },
-                                    (1, "goto"): Goto(ref="output_help_with_anything_else")
+                                    (1, "goto"): SystemInitiatedSequences.goto()
                                 },
-                                (1, "goto"): Goto(ref="search_preliminary_sequences")
+                                (1, "goto"): SystemInitiatedSequences.goto()
                             }
                         }
                     }
@@ -144,7 +146,7 @@ class SmallTalkSequences:
                                             "okay"
                                         ]
                                     },
-                                    (1, "goto"): Goto(ref="output_help_with_anything_else")
+                                    (1, "goto"): SystemInitiatedSequences.goto()
                                 },
                                 {
                                     (0, "grammar"): {
@@ -160,9 +162,7 @@ class SmallTalkSequences:
                                             "item": "haha, you're good!",
                                             "@selectionType": "RANDOM"
                                         },
-                                        (1, "goto"): {
-                                            "@ref": "output_help_with_anything_else"
-                                        }
+                                        (1, "goto"): SystemInitiatedSequences.goto()
                                     }
                                 }
                             ],
@@ -270,9 +270,7 @@ class SmallTalkSequences:
                                             "haha"
                                         ]
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "output_help_with_anything_else"
-                                    }
+                                    (1, "goto"): SystemInitiatedSequences.goto()
                                 },
                                 {
                                     (0, "grammar"): {
@@ -416,9 +414,7 @@ class SmallTalkSequences:
                                             "haha"
                                         ]
                                     },
-                                    (1, "goto"): {
-                                        "@ref": "output_help_with_anything_else"
-                                    }
+                                    (1, "goto"): SystemInitiatedSequences.goto()
                                 },
                                 {
                                     (0, "grammar"): {
@@ -570,7 +566,7 @@ class SmallTalkSequences:
                                             "haha"
                                         ]
                                     },
-                                    (1, "goto"): Goto(ref="output_help_with_anything_else")
+                                    (1, "goto"): SystemInitiatedSequences.goto()
                                 },
                                 {
                                     (0, "grammar"): {

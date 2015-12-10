@@ -81,7 +81,7 @@ class RequestSuccessAction:
 
 class SmallTalkAction:
     @staticmethod
-    def create_reset():
+    def set_to_zero():
         return Action(varName="Small_Talk_Count", operator="SET_TO", text="0").create()
 
     @staticmethod

@@ -14,11 +14,7 @@ class PreliminarySequences:
             "@id": "folder_preliminary_sequences",
             (0, "action"): [
                 GreetingAction.create_reset(),
-                {
-                    "@varName": "Small_Talk_Count",
-                    "@operator": "SET_TO",
-                    "#text": "0"
-                }
+                SmallTalkAction.set_to_zero()
             ],
             (1, "input"): {
                 (0, "grammar"): {
@@ -35,7 +31,7 @@ class PreliminarySequences:
                 },
                 (1, "action"): [
                     GreetingAction.create_reset(),
-                    SmallTalkAction.create_reset()
+                    SmallTalkAction.set_to_zero()
                 ],
                 (2, "input"): [
                     {

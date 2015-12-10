@@ -1,6 +1,6 @@
 from dialog.schema.elements import Action, Goto
 from dialog.schema.factories.action import TerminalExchangeAction, GreetingAction, SmallTalkAction, \
-    RecencyPreferenceAction
+    RecencyPreferenceAction, GenrePreferenceAction, CertificationPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYou
 from dialog.schema.factories.prompts.generic import GenericPrompt
@@ -10,12 +10,18 @@ __author__ = 'robdefeo'
 
 class SystemInitiatedSequences:
     @staticmethod
+    def __id():
+        return "output_help_with_anything_else"
+    @staticmethod
+    def goto():
+        return Goto(ref=SystemInitiatedSequences.__id())
+    @staticmethod
     def create():
         return {
             "@label": "SYSTEM INITIATED SEQUENCES",
             "output": [
                 {
-                    "@id": "output_help_with_anything_else",
+                    "@id": SystemInitiatedSequences.__id(),
                     (0, "prompt"): {
                         "item": "Is there anything else I can help you with?",
                         "@selectionType": "RANDOM"
@@ -23,8 +29,8 @@ class SystemInitiatedSequences:
                     (1, "action"): [
                         Action(varName="Page", operator="SET_TO", text="New").create(),
                         Action(varName="Current_Index", operator="SET_TO", text="0").create(),
-                        Action(varName="Certification_Preference", operator="SET_TO_BLANK").create(),
-                        Action(varName="Genre_Preference", operator="SET_TO_BLANK").create(),
+                        CertificationPreferenceAction.set_to_blank(),
+                        GenrePreferenceAction.set_to_blank(),
                         RecencyPreferenceAction.set_to_blank(),
                         Action(varName="Search_Now", operator="SET_TO_NO").create(),
                         Action(varName="Terminal_Exchange", operator="SET_TO_BLANK").create(),
@@ -138,7 +144,7 @@ class SystemInitiatedSequences:
                                                         "item": "Okay. What can I do for you?"
                                                     },
                                                     (1, "goto"): {
-                                                        "@ref": "getUserInput_2414745"
+                                                        "@ref": "getUserInput_how_can_i_help_you"
                                                     }
                                                 }
                                             }
@@ -165,7 +171,7 @@ class SystemInitiatedSequences:
                             },
                             {
                                 (0, "grammar"): GenericGrammar.no(),
-                                (1, "action"): SmallTalkAction.create_reset(),
+                                (1, "action"): SmallTalkAction.set_to_zero(),
                                 (2, "output"): {
                                     "prompt": GenericPrompt.ok_fine()
                                 }

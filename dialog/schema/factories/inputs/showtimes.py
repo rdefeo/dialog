@@ -9,6 +9,8 @@ __author__ = 'robdefeo'
 class ShowtimesInput:
     @staticmethod
     def create():
+        from dialog.schema.factories.folder.sequences import SystemInitiatedSequences
+
         return {
             (0, "grammar"): {
                 "item": [
@@ -23,7 +25,7 @@ class ShowtimesInput:
             (1, "action"): [
                 GenrePreferenceAction.set_to_value(),
                 GreetingAction.create_reset(),
-                SmallTalkAction.create_reset()
+                SmallTalkAction.set_to_zero()
             ],
             (2, "input"): [
                 {
@@ -111,9 +113,7 @@ class ShowtimesInput:
                                             (0, "grammar"): {
                                                 "item": "Okay"
                                             },
-                                            (1, "goto"): {
-                                                "@ref": "output_help_with_anything_else"
-                                            }
+                                            (1, "goto"): SystemInitiatedSequences.goto()
                                         }
                                     }
                                 }
@@ -122,9 +122,7 @@ class ShowtimesInput:
                                 (0, "grammar"): {
                                     "item": "Okay"
                                 },
-                                (1, "goto"): {
-                                    "@ref": "output_help_with_anything_else"
-                                }
+                                (1, "goto"): SystemInitiatedSequences.goto()
                             }
                         ],
                         (1, "output"): {

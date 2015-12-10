@@ -1,9 +1,12 @@
+
 __author__ = 'robdefeo'
 
 
 class RepairSequences:
     @staticmethod
     def create():
+        from dialog.schema.factories.folder.sequences import SystemInitiatedSequences
+
         return {
             "@label": "REPAIR SEQUENCES",
             (0, "input"): [
@@ -68,9 +71,7 @@ class RepairSequences:
                             "item": "Okay. Whatever you say, {User_Name}!",
                             "@selectionType": "RANDOM"
                         },
-                        (1, "goto"): {
-                            "@ref": "output_help_with_anything_else"
-                        }
+                        (1, "goto"): SystemInitiatedSequences.goto()
                     }
                 },
                 {
@@ -281,7 +282,7 @@ class RepairSequences:
                             "@selectionType": "RANDOM"
                         },
                         (1, "goto"): {
-                            "@ref": "getUserInput_2414745"
+                            "@ref": "getUserInput_how_can_i_help_you"
                         }
                     }
                 }

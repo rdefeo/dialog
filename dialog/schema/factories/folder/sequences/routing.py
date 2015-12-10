@@ -12,7 +12,7 @@ class RoutingSequences:
             "@label": "ROUTING SEQUENCES",
             (0, "action"): [
                 GreetingAction.create_reset(),
-                SmallTalkAction.create_reset()
+                SmallTalkAction.set_to_zero()
             ],
             (1, "input"): [
                 {
@@ -97,7 +97,7 @@ class RoutingSequences:
                     },
                     (1, "action"): [
                         GreetingAction.create_reset(),
-                        SmallTalkAction.create_reset()
+                        SmallTalkAction.set_to_zero()
                     ],
                     (2, "goto"): {
                         "@ref": "output_2469539"
