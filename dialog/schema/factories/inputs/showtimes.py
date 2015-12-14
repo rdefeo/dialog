@@ -1,5 +1,5 @@
 from dialog.schema.elements import Goto
-from dialog.schema.factories.action import GreetingAction, SmallTalkAction, GenrePreferenceAction
+from dialog.schema.factories.action import GreetingAction, SmallTalkAction, StylePreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.search import PreliminarySequencesSearch
@@ -24,7 +24,7 @@ class ShowtimesInput:
                 ]
             },
             (1, "action"): [
-                GenrePreferenceAction.set_to_value(),
+                StylePreferenceAction.set_to_value(),
                 GreetingAction.create_reset(),
                 SmallTalkAction.set_to_zero()
             ],

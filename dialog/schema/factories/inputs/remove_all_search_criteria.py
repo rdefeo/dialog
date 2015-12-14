@@ -1,4 +1,5 @@
 from dialog.schema.elements import Goto
+from dialog.schema.factories.action import PageAction
 
 
 class RemoveAllSearchCriteriaInput:
@@ -18,11 +19,7 @@ class RemoveAllSearchCriteriaInput:
                     "@operator": "SET_TO",
                     "#text": "0"
                 },
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "new"
-                },
+                PageAction.set_to_new(),
                 {
                     "@varName": "Certification_Preference",
                     "@operator": "SET_TO_BLANK"

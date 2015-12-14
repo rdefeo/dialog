@@ -1,17 +1,19 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, RecencyPreferenceAction, \
-    CertificationPreferenceAction, GenrePreferenceAction, StylePreferenceAction
-from dialog.schema.factories.conditions.certification import CertificationsConditions
-from dialog.schema.factories.conditions.genre import GenreConditions
+    CertificationPreferenceAction, StylePreferenceAction, ColorPreferenceAction, PageAction
+from dialog.schema.factories.conditions import ColorConditions, StyleConditions
+# from dialog.schema.factories.conditions.certification import CertificationsConditions
+from dialog.schema.factories.conditions.results_count import ResultsCountConditions
 from dialog.schema.factories.grammar import GenericGrammar
-from dialog.schema.factories.inputs import DateTimeInput, CertificationPreferenceInput, FamilyFriendlyInput, \
+from dialog.schema.factories.inputs import \
     ZipcodeInput, RemoveGenreInput, RemoveRatingInput, RemoveAllSearchCriteriaInput
+from dialog.schema.factories.inputs.color import ColorPreferenceInput
 from dialog.schema.factories.inputs.style import StylePreferenceInput
 from dialog.schema.factories.outputs.anything_else_can_help_with import AnythingElseCanHelpWith
-from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck, CertificationPreferenceProfileCheck
-from dialog.schema.factories.profile_checks.style_preference import StylePreferenceProfileCheck
+from dialog.schema.factories.profile_checks import StylePreferenceProfileCheck, ColorPreferenceProfileCheck
 from dialog.schema.factories.prompts.generic import GenericPrompt
 from dialog.schema.factories.search import PreliminarySequencesSearch
+from dialog.schema.factories.variables import NAME_RESULTS_COUNT
 
 
 class MainSearchCriteriaInput:
@@ -23,8 +25,7 @@ class MainSearchCriteriaInput:
                 "item": [
                     "Movies",
                     "blobbly",
-                    "$ (GENRE)={Genre_Preference}",
-                    "$ (CERTIFICATION)={Certification_Preference}",
+                    "$ (COLOR)={Color_Preference}",
                     "$ (STYLE)={Style_Preference}",
                     # "$ movies"
                 ]
@@ -45,12 +46,7 @@ class MainSearchCriteriaInput:
                     "@operator": "SET_TO",
                     "#text": "0"
                 },
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "new"
-                },
-                GenrePreferenceAction.set_to_value(),
+                PageAction.set_to_new(),
                 {
                     "@varName": "Topic",
                     "@operator": "SET_TO",
@@ -60,10 +56,11 @@ class MainSearchCriteriaInput:
                 StylePreferenceAction.set_to_value()
             ],
             (2, "input"): [
-                DateTimeInput.create(),
-                CertificationPreferenceInput.create(),
-                FamilyFriendlyInput.create(),
-                StylePreferenceInput.create(),
+                # DateTimeInput.create(),
+                # CertificationPreferenceInput.create(),
+                # FamilyFriendlyInput.create(),
+                ColorPreferenceInput.create(StylePreferenceInput.goto()),
+                StylePreferenceInput.create(Goto(ref="input_zipcode")),
                 ZipcodeInput.create(),
                 {
                     (0, "grammar"): {
@@ -82,8 +79,8 @@ class MainSearchCriteriaInput:
             ],
             (3, "if"): [
                 StylePreferenceProfileCheck.create(),
-                GenrePreferenceProfileCheck.create(),
-                CertificationPreferenceProfileCheck.create(),
+                # GenrePreferenceProfileCheck.create(),
+                ColorPreferenceProfileCheck.create(),
             ],
             (4, "output"): {
                 "@id": "output_ok_do_search",
@@ -91,7 +88,7 @@ class MainSearchCriteriaInput:
                 (1, "output"): {
                     "@id": "output_2456876",
                     (0, "prompt"): {
-                        "item": "\"{\"Search_Now\":\"{Search_Now}\", \"Style\":\"{Style_Preference}\", \"Rating\":\"{Certification_Preference}\", \"Genre\":\"{Genre_Preference}\", \"Index\":\"{Current_Index}\", \"Page\":\"{Page}\"}\"",
+                        "item": "\"{\"Search_Now\":\"{Search_Now}\", \"Style\":\"{Style_Preference}\", \"Color\":\"{Color_Preference}\", \"Index\":\"{Current_Index}\", \"Page\":\"{Page}\"}\"",
                         "@selectionType": "RANDOM"
                     },
                     (1, "action"): SetVariablesNewSearchAction.create(),
@@ -102,22 +99,17 @@ class MainSearchCriteriaInput:
                             },
                             (1, "if"): [
                                 {
-                                    (0, "cond"): {
-                                        "@varName": "Num_Movies",
-                                        "@operator": "EQUALS",
-                                        "#text": "0"
-                                    },
+                                    (0, "cond"): ResultsCountConditions.equals_zero(),
                                     (1, "output"): {
                                         (0, "prompt"): {
-                                            "item": "I'm afraid I found {Num_Movies} {Recency_Preference} movies matching {Certification_Preference} {Genre_Preference}. Try changing your criteria.",
+                                            "item": "I'm afraid I found {%s} matching {Color_Preference} {Style_Preference}. Try changing your criteria." % NAME_RESULTS_COUNT,
                                             "@selectionType": "RANDOM"
                                         },
                                         (1, "getUserInput"): {
                                             (0, "input"): {
                                                 (0, "grammar"): GenericGrammar.ok(),
                                                 (1, "action"): [
-                                                    CertificationPreferenceAction.set_to_blank(),
-                                                    GenrePreferenceAction.set_to_blank(),
+                                                    ColorPreferenceAction.set_to_blank(),
                                                     StylePreferenceAction.set_to_blank()
                                                 ],
                                                 (2, "goto"): StylePreferenceProfileCheck.goto()
@@ -128,12 +120,12 @@ class MainSearchCriteriaInput:
                                 },
                                 {
                                     (0, "cond"): [
-                                        GenreConditions.is_blank(),
-                                        CertificationsConditions.has_value()
+                                        StyleConditions.is_blank(),
+                                        ColorConditions.has_value()
                                     ],
                                     (1, "output"): {
                                         (0, "prompt"): {
-                                            "item": "Good choice, {User_Name}! I found {Num_Movies} results for {Recency_Preference} {Certification_Preference}-rated movies.",
+                                            "item": "Good choice, {User_Name}! I found {%s} results for {Recency_Preference} {Color_Preference}-rated movies." % NAME_RESULTS_COUNT,
                                             "@selectionType": "RANDOM"
                                         },
                                         (1, "goto"): {
@@ -143,12 +135,12 @@ class MainSearchCriteriaInput:
                                 },
                                 {
                                     (0, "cond"): [
-                                        CertificationsConditions.is_blank(),
-                                        GenreConditions.has_value()
+                                        ColorConditions.is_blank(),
+                                        StyleConditions.has_value()
                                     ],
                                     (1, "output"): {
                                         (0, "prompt"): {
-                                            "item": "Good choice, {User_Name}! I found {Num_Movies} results for {Recency_Preference} {Genre_Preference} movies.",
+                                            "item": "Good choice, {User_Name}! I found {%s} results for {Color_Preference} {Style_Preference} movies." % NAME_RESULTS_COUNT,
                                             "@selectionType": "RANDOM"
                                         },
                                         (1, "goto"): {
@@ -158,12 +150,12 @@ class MainSearchCriteriaInput:
                                 },
                                 {
                                     (0, "cond"): [
-                                        CertificationsConditions.is_blank(),
-                                        GenreConditions.is_blank()
+                                        ColorConditions.is_blank(),
+                                        StyleConditions.is_blank()
                                     ],
                                     (1, "output"): {
                                         (0, "prompt"): {
-                                            "item": "I found {Num_Movies} results for ALL {Recency_Preference} movies.",
+                                            "item": "I found {%s} results for ALL {Recency_Preference} movies." % NAME_RESULTS_COUNT,
                                             "@selectionType": "RANDOM"
                                         },
                                         (1, "goto"): {
@@ -174,7 +166,7 @@ class MainSearchCriteriaInput:
                             ],
                             (2, "output"): {
                                 (0, "prompt"): {
-                                    "item": "Good choices, {User_Name}! I found {Num_Movies} results for {Recency_Preference} {Certification_Preference}-rated {Genre_Preference} movies.",
+                                    "item": "Good choices, {User_Name}! I found {%s} results for {Color_Preference} {Style_Preference} movies." % NAME_RESULTS_COUNT,
                                     "@selectionType": "RANDOM"
                                 },
                                 (1, "getUserInput"): {
@@ -364,11 +356,7 @@ class MainSearchCriteriaInput:
                                                         "$ what were"
                                                     ]
                                                 },
-                                                (1, "action"): {
-                                                    "@varName": "Page",
-                                                    "@operator": "SET_TO",
-                                                    "#text": "repeat"
-                                                },
+                                                (1, "action"): PageAction.set_to_repeat(),
                                                 (2, "goto"): {
                                                     "@ref": "output_2456876"
                                                 }
@@ -391,7 +379,7 @@ class MainSearchCriteriaInput:
                                             (0, "cond"): {
                                                 "@varName": "Current_Index",
                                                 "@operator": "LESS_THEN",
-                                                "#text": "{Num_Movies}"
+                                                "#text": "{%s}" % NAME_RESULTS_COUNT
                                             },
                                             (1, "output"): {
                                                 (0, "prompt"): {
@@ -417,13 +405,12 @@ class MainSearchCriteriaInput:
                                     (6, "input"): RemoveRatingInput.create(),
                                     (7, "input"): RemoveAllSearchCriteriaInput.create(),
                                     (8, "input"): Showtimes.create(),
-                                    (9, "input"): RecencyGenreRatingPreference.create(),
+                                    # (9, "input"): RecencyGenreRatingPreference.create(),
                                     (10, "input"): RecencyGenrePreference.create(),
                                     (11, "input"): RecencyRatingPreference.create(),
-                                    (12, "input"): GenreRecencyPreference.create(),
+                                    # (12, "input"): GenreRecencyPreference.create(),
                                     (13, "input"): RecencyPreference.create(),
-                                    (14, "input"): GenrePreference.create(),
-                                    (15, "input"): CertificationPreference.create(),
+                                    # (15, "input"): CertificationPreference.create(),
                                     (16, "input"): UnsupportedGenre.create(),
                                     (17, "input"): DateTimePreference.create(),
                                     (18, "input"): AgainOption.create(),
@@ -458,60 +445,6 @@ class Showtimes:
         }
 
 
-class GenrePreference:
-    @staticmethod
-    def create():
-        return {
-            (0, "grammar"): {
-                "item": [
-                    "Genre",
-                    "$ (GENRE)={Genre_Preference}",
-                    "$ genre"
-                ]
-            },
-            (1, "action"): [
-                {
-                    "@varName": "Current_Index",
-                    "@operator": "SET_TO",
-                    "#text": "0"
-                },
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "new"
-                },
-                GenrePreferenceAction.set_to_value()
-            ],
-            (2, "input"): {
-                (0, "grammar"): {
-                    "item": [
-                        "all",
-                        "$ all",
-                        "$ just"
-                    ]
-                },
-                (1, "action"): CertificationPreferenceAction.set_to_blank(),
-                (2, "goto"): Goto(ref="output_ok_do_search")
-            },
-            (3, "if"): {
-                (0, "cond"): {
-                    "@varName": "Genre_Preference",
-                    "@operator": "EQUALS",
-                    "#text": "Family"
-                },
-                (1, "goto"): {
-                    "action": {
-                        "@varName": "Certification_Preference",
-                        "@operator": "SET_TO",
-                        "#text": "G"
-                    },
-                    "@ref": "output_ok_do_search"
-                }
-            },
-            (4, "goto"): Goto(ref="output_ok_do_search")
-        }
-
-
 class AgainOption:
     @staticmethod
     def create():
@@ -523,11 +456,7 @@ class AgainOption:
                     "$ one more time"
                 ]
             },
-            (1, "action"): {
-                "@varName": "Page",
-                "@operator": "SET_TO",
-                "#text": "repeat"
-            },
+            (1, "action"): PageAction.set_to_repeat(),
             (2, "goto"): Goto(ref="output_ok_do_search")
         }
 
@@ -545,11 +474,7 @@ class GoBackOption:
                 ]
             },
             (1, "action"): [
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "previous"
-                },
+                PageAction.set_to_previous(),
                 {
                     "@varName": "Show_Previous",
                     "@operator": "SET_TO_YES"
@@ -575,7 +500,7 @@ class GoBackOption:
                 (0, "prompt"): GenericPrompt.ok(),
                 (1, "output"): {
                     (0, "prompt"): {
-                        "item": "\"{Search_Now:\"{Search_Now}\", Style:\"{Style_Preference}\", Rating:\"{Certification_Preference}\", Genre:\"{Genre_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\"}\"",
+                        "item": "\"{Search_Now:\"{Search_Now}\", Style:\"{Style_Preference}\", Rating:\"{Color_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\"}\"",
                         "@selectionType": "RANDOM"
                     },
                     (1, "action"): {
@@ -650,33 +575,33 @@ class GoBackOption:
         }
 
 
-class GenreRecencyPreference:
-    @staticmethod
-    def create():
-        return {
-            (0, "grammar"): {
-                "item": [
-                    "Genre and Rating",
-                    "$ (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference}",
-                    "$ (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference}"
-                ]
-            },
-            (1, "action"): [
-                {
-                    "@varName": "Current_Index",
-                    "@operator": "SET_TO",
-                    "#text": "0"
-                },
-                GenrePreferenceAction.set_to_value(),
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "new"
-                },
-                CertificationPreferenceAction.set_to_value()
-            ],
-            (2, "goto"): Goto(ref="output_ok_do_search")
-        }
+# class GenreRecencyPreference:
+#     @staticmethod
+#     def create():
+#         return {
+#             (0, "grammar"): {
+#                 "item": [
+#                     "Genre and Rating",
+#                     "$ (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference}",
+#                     "$ (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference}"
+#                 ]
+#             },
+#             (1, "action"): [
+#                 {
+#                     "@varName": "Current_Index",
+#                     "@operator": "SET_TO",
+#                     "#text": "0"
+#                 },
+#                 GenrePreferenceAction.set_to_value(),
+#                 {
+#                     "@varName": "Page",
+#                     "@operator": "SET_TO",
+#                     "#text": "new"
+#                 },
+#                 CertificationPreferenceAction.set_to_value()
+#             ],
+#             (2, "goto"): Goto(ref="output_ok_do_search")
+#         }
 
 
 class RecencyRatingPreference:
@@ -697,11 +622,7 @@ class RecencyRatingPreference:
                     "@operator": "SET_TO",
                     "#text": "0"
                 },
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "new"
-                },
+                PageAction.set_to_new(),
                 RecencyPreferenceAction.create_set_to_value()
             ],
             (2, "goto"): Goto(ref="output_ok_do_search")
@@ -725,11 +646,7 @@ class MoreOption:
                     "@varName": "Show_Next",
                     "@operator": "SET_TO_YES"
                 },
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "next"
-                }
+                PageAction.set_to_next()
             ],
             (2, "output"): {
                 (0, "prompt"): {
@@ -737,7 +654,7 @@ class MoreOption:
                 },
                 (1, "output"): {
                     (0, "prompt"): {
-                        "item": "\"{Search_Now:\"{Search_Now}\", Recency:\"{Recency_Preference}\", Rating:\"{Certification_Preference}\", Genre:\"{Genre_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\", Total_Movies:\"{Num_Movies}\", Total_Pages:\"{Total_Pages}\"}\""
+                        "item": "\"{Search_Now:\"{Search_Now}\", Color:\"{Color_Preference}\", Style:\"{Style_Preference}\", Index:\"{Current_Index}\", Page:\"{Page}\", Total_Movies:\"{%s}\", Total_Pages:\"{Total_Pages}\"}\"" % NAME_RESULTS_COUNT
                     },
                     (1, "action"): {
                         "@varName": "First_Results",
@@ -778,7 +695,7 @@ class MoreOption:
                                     (0, "cond"): {
                                         "@varName": "Current_Index",
                                         "@operator": "EQUALS",
-                                        "#text": "{Num_Movies}"
+                                        "#text": "{%s}" % NAME_RESULTS_COUNT
                                     },
                                     (1, "output"): {
                                         (0, "prompt"): {
@@ -802,12 +719,12 @@ class MoreOption:
                                     {
                                         "@id": "profileCheck_2503183",
                                         (0, "cond"): [
-                                            GenreConditions.is_blank(),
-                                            CertificationsConditions.has_value()
+                                            StyleConditions.is_blank(),
+                                            ColorConditions.has_value()
                                         ],
                                         (1, "output"): {
                                             (0, "prompt"): {
-                                                "item": "for {Recency_Preference} {Certification_Preference}-rated movies."
+                                                "item": "for {Style_Preference} {Color_Preference}-rated movies."
                                             },
                                             (1, "goto"): {
                                                 "@ref": "getUserInput_2456877"
@@ -816,8 +733,8 @@ class MoreOption:
                                     },
                                     {
                                         (0, "cond"): [
-                                            CertificationsConditions.is_blank(),
-                                            GenreConditions.has_value()
+                                            ColorConditions.is_blank(),
+                                            StyleConditions.has_value()
                                         ],
                                         (1, "output"): {
                                             (0, "prompt"): {
@@ -830,8 +747,8 @@ class MoreOption:
                                     },
                                     {
                                         (0, "cond"): [
-                                            CertificationsConditions.is_blank(),
-                                            GenreConditions.is_blank()
+                                            ColorConditions.is_blank(),
+                                            StyleConditions.is_blank()
                                         ],
                                         (1, "output"): {
                                             (0, "prompt"): {
@@ -877,12 +794,8 @@ class RecencyGenrePreference:
                     "#text": "0"
                 },
                 RecencyPreferenceAction.create_set_to_value(),
-                GenrePreferenceAction.set_to_value(),
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "new"
-                }
+                # GenrePreferenceAction.set_to_value(),
+                PageAction.set_to_new()
             ],
             (2, "if"): {
                 (0, "cond"): {
@@ -903,33 +816,33 @@ class RecencyGenrePreference:
         }
 
 
-class RecencyGenreRatingPreference:
-    @staticmethod
-    def create():
-        return {
-            (0, "grammar"): {
-                "item": [
-                    "Recency, Genre and Rating",
-                    "$ (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference}",
-                    "$ (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference} ",
-                    "$ (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference}",
-                    "$ (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference} ",
-                    "$ (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference}",
-                    "$ (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference}"
-                ]
-            },
-            (1, "action"): [
-                RecencyPreferenceAction.create_set_to_value(),
-                GenrePreferenceAction.set_to_value(),
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "new"
-                },
-                CertificationPreferenceAction.set_to_value()
-            ],
-            (2, "goto"): Goto(ref="output_ok_do_search")
-        }
+# class RecencyGenreRatingPreference:
+#     @staticmethod
+#     def create():
+#         return {
+#             (0, "grammar"): {
+#                 "item": [
+#                     "Recency, Genre and Rating",
+#                     "$ (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference}",
+#                     "$ (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference} ",
+#                     "$ (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference} (CERTIFICATION)={Certification_Preference}",
+#                     "$ (GENRE)={Genre_Preference} (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference} ",
+#                     "$ (CERTIFICATION)={Certification_Preference} (GENRE)={Genre_Preference} (RECENCY)={Recency_Preference}",
+#                     "$ (CERTIFICATION)={Certification_Preference} (RECENCY)={Recency_Preference} (GENRE)={Genre_Preference}"
+#                 ]
+#             },
+#             (1, "action"): [
+#                 RecencyPreferenceAction.create_set_to_value(),
+#                 GenrePreferenceAction.set_to_value(),
+#                 {
+#                     "@varName": "Page",
+#                     "@operator": "SET_TO",
+#                     "#text": "new"
+#                 },
+#                 CertificationPreferenceAction.set_to_value()
+#             ],
+#             (2, "goto"): Goto(ref="output_ok_do_search")
+#         }
 
 
 class UnsupportedGenre:
@@ -1022,42 +935,42 @@ class DateTimePreference:
         }
 
 
-class CertificationPreference:
-    @staticmethod
-    def create():
-        return {
-            (0, "grammar"): {
-                "item": [
-                    "Rating",
-                    "$ (CERTIFICATION)={Certification_Preference}"
-                ]
-            },
-            (1, "action"): [
-                {
-                    "@varName": "Current_Index",
-                    "@operator": "SET_TO",
-                    "#text": "0"
-                },
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "new"
-                },
-                CertificationPreferenceAction.set_to_value()
-            ],
-            (2, "input"): {
-                (0, "grammar"): {
-                    "item": [
-                        "all",
-                        "$ all",
-                        "$ any"
-                    ]
-                },
-                (1, "action"): GenrePreferenceAction.set_to_blank(),
-                (2, "goto"): Goto(ref="output_ok_do_search")
-            },
-            (3, "goto"): Goto(ref="output_ok_do_search")
-        }
+# class CertificationPreference:
+#     @staticmethod
+#     def create():
+#         return {
+#             (0, "grammar"): {
+#                 "item": [
+#                     "Rating",
+#                     "$ (CERTIFICATION)={Certification_Preference}"
+#                 ]
+#             },
+#             (1, "action"): [
+#                 {
+#                     "@varName": "Current_Index",
+#                     "@operator": "SET_TO",
+#                     "#text": "0"
+#                 },
+#                 {
+#                     "@varName": "Page",
+#                     "@operator": "SET_TO",
+#                     "#text": "new"
+#                 },
+#                 CertificationPreferenceAction.set_to_value()
+#             ],
+#             (2, "input"): {
+#                 (0, "grammar"): {
+#                     "item": [
+#                         "all",
+#                         "$ all",
+#                         "$ any"
+#                     ]
+#                 },
+#                 (1, "action"): GenrePreferenceAction.set_to_blank(),
+#                 (2, "goto"): Goto(ref="output_ok_do_search")
+#             },
+#             (3, "goto"): Goto(ref="output_ok_do_search")
+#         }
 
 
 class RecencyPreference:
@@ -1076,11 +989,7 @@ class RecencyPreference:
                     "@operator": "SET_TO",
                     "#text": "0"
                 },
-                {
-                    "@varName": "Page",
-                    "@operator": "SET_TO",
-                    "#text": "new"
-                },
+                PageAction.set_to_new(),
                 RecencyPreferenceAction.create_set_to_value()
             ],
             (2, "input"): {

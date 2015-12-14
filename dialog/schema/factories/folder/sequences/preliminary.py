@@ -1,4 +1,4 @@
-from dialog.schema.factories.action import GreetingAction, SmallTalkAction, GenrePreferenceAction
+from dialog.schema.factories.action import GreetingAction, SmallTalkAction, StylePreferenceAction, ColorPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.profile_checks.style_preference import StylePreferenceProfileCheck
@@ -304,9 +304,9 @@ class PreliminarySequencesFolder:
                     },
                     {
                         (0, "grammar"): {
-                            "item": "$ (GENRE)={Genre_Preference}"
+                            "item": "$ (STYLE)={Style_Preference}"
                         },
-                        (1, "action"): GenrePreferenceAction.set_to_value(),
+                        (1, "action"): StylePreferenceAction.set_to_value(),
                         (2, "goto"): {
                             "@ref": "search_2414740"
                         }

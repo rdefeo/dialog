@@ -1,6 +1,7 @@
 from dialog.schema.elements import Action, Goto
 from dialog.schema.factories.action import TerminalExchangeAction, GreetingAction, SmallTalkAction, \
-    RecencyPreferenceAction, GenrePreferenceAction, CertificationPreferenceAction
+    CertificationPreferenceAction, StylePreferenceAction, \
+    ColorPreferenceAction, PageAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.profile_checks.style_preference import StylePreferenceProfileCheck
@@ -29,11 +30,12 @@ class SystemInitiatedSequences:
                         "@selectionType": "RANDOM"
                     },
                     (1, "action"): [
-                        Action(varName="Page", operator="SET_TO", text="New").create(),
+                        PageAction.set_to_new(),
                         Action(varName="Current_Index", operator="SET_TO", text="0").create(),
                         CertificationPreferenceAction.set_to_blank(),
-                        GenrePreferenceAction.set_to_blank(),
-                        RecencyPreferenceAction.set_to_blank(),
+                        ColorPreferenceAction.set_to_blank(),
+                        # RecencyPreferenceAction.set_to_blank(),
+                        StylePreferenceAction.set_to_blank(),
                         Action(varName="Search_Now", operator="SET_TO_NO").create(),
                         Action(varName="Terminal_Exchange", operator="SET_TO_BLANK").create(),
                         Action(varName="Topic", operator="SET_TO_BLANK").create(),

@@ -30,7 +30,7 @@ class SmallTalkSequences:
                     (1, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (2, "output"): {
                         (0, "prompt"): {
-                            "item": "My name is Watson.",
+                            "item": "My name is Jemboo.",
                             "@selectionType": "RANDOM"
                         },
                         (1, "if"): {
@@ -56,7 +56,7 @@ class SmallTalkSequences:
                                             "Okay",
                                             "okay",
                                             "hi",
-                                            "hi Watson"
+                                            "hi jemboo"
                                         ]
                                     },
                                     (1, "goto"): {

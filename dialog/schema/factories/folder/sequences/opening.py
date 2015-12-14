@@ -60,9 +60,8 @@ class OpeningSequences:
                                         (0, "grammar"): {
                                             "item": [
                                                 "Movies",
-                                                "$ (GENRE)={Genre_Preference}",
-                                                "$ (CERTIFICATION)={Certification_Preference}",
-                                                "$ (RECENCY)={Recency_Preference}",
+                                                "$ (STYLE)={Style_Preference}",
+                                                "$ (COLOR)={Color_Preference}",
                                                 "$ movies"
                                             ]
                                         },

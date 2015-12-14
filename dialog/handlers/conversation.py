@@ -1,10 +1,11 @@
 from json import loads, dumps
 
+from dialog.schema.factories.variables import NAME_RESULTS_COUNT
 from tornado.web import RequestHandler, Finish
 from watson_developer_cloud import DialogV1 as Dialog
 
 personalized_prompt_current_index = "UPDATE CURRENT_INDEX"  # $NON-NLS-1$
-personalized_prompt_movies_returned = "UPDATE NUM_MOVIES";  # $NON-NLS-1$
+personalized_prompt_movies_returned = "UPDATE NUM_MOVIES"  # $NON-NLS-1$
 
 
 class Conversation(RequestHandler):
@@ -156,26 +157,25 @@ class Conversation(RequestHandler):
                 # Dialog says we have enough info to proceed with a search of themoviedb..
                 # Find out search variables.
                 params = processed_text["Params"]
-                new_search = False
-                previous_search = False
-                next_search = False
-                repeat_search = False
                 page = params["Page"]
-                # String page = paramsObj.get("Page").getAsString(); //$NON-NLS-1$
-                # switch (page) {
-                # case "new":newSearch = true; //$NON-NLS-1$
-                #     break;
-                # case "next":nextSearch = true; //$NON-NLS-1$
-                #     break;
-                # case "previous":prevSearch = true; //$NON-NLS-1$
-                #     break;
-                # case "repeat":repeatSearch = true; //$NON-NLS-1$
-                #     break;
-                # default:
-                #     errorMessage = Messages.getString("WDSBlueMixProxyResource.DIALOG_UNDERSTAND_FAIL"); //$NON-NLS-1$
-                #     issue = Messages.getString("WDSBlueMixProxyResource.PAGE_TYPE_NOT_UNDERSTOOD"); //$NON-NLS-1$
-                #     UtilityFunctions.logger.error(issue);
-                # }
+                new_search = page == "new"
+                previous_search = page == "previous"
+                next_search = page == "next"
+                repeat_search = page == "repeat"
+                # do fake search
+                self.dialog_service.update_profile(
+                    self.dialog_id,
+                    conversation["conversation_id"],
+                    {
+                        "name_values":[
+                            {
+                                "name": NAME_RESULTS_COUNT,
+                                "value": "122"
+                            }
+                        ]
+                    }
+                )
+
                 #
                 # if (UtilityFunctions.logger.isTraceEnabled()) {
                 #     UtilityFunctions.logger.trace(Messages.getString("WDSBlueMixProxyResource.WDS_RESPONSE") + paramsObj); //$NON-NLS-1$
@@ -240,9 +240,9 @@ class Conversation(RequestHandler):
                 #     conversationPayload.setTotalPages(totalPages);
                 # }
                 # If first time, get personalized prompt based on Num_Movies
-                prompt = personalized_prompt_current_index;
+                prompt = personalized_prompt_current_index
                 if new_search or repeat_search:
-                    prompt = personalized_prompt_movies_returned;
+                    prompt = personalized_prompt_movies_returned
 
 
                 # Get the personalized prompt.

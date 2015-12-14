@@ -51,11 +51,13 @@ class StartSearch:
                     }
                 },
                 (2, "input"): {
-                    (0, "grammar"): GenericGrammar.yes_okay(),
+                    (0, "grammar"): GenericGrammar.yes_okay(wildcard=False),
                     (1, "output"): {
                         (0, "prompt"): Prompt(
-                            items=["Please tell me the style you would like then."]
-                            # "Something that's now playing or coming soon?",
+                            items=[
+                                "Please tell me the style you would like then.",
+                                "Ok great what style would you like?"
+                            ]
                         ),
                         (1, "goto"): StylePreferenceProfileCheckInput.goto()
                     }

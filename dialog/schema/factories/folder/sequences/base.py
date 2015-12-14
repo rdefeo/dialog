@@ -1,8 +1,5 @@
-from dialog.schema.elements import Goto
-from dialog.schema.factories.action import GreetingAction, SmallTalkAction, RecencyPreferenceAction
-from dialog.schema.factories.grammar import GenericGrammar
-from dialog.schema.factories.inputs import FavoritesInput, DetailsInput, ShowtimesInput, MainSearchCriteriaInput
-from dialog.schema.factories.profile_checks import GenrePreferenceProfileCheck, CertificationPreferenceProfileCheck
+from dialog.schema.factories.action import GreetingAction, SmallTalkAction
+from dialog.schema.factories.inputs import FavoritesInput, DetailsInput, MainSearchCriteriaInput
 
 __author__ = 'robdefeo'
 

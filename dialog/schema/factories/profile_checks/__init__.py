@@ -1,3 +1,3 @@
 __author__ = 'robdefeo'
-from .genre_preference import GenrePreferenceProfileCheck
-from .certification_preference import CertificationPreferenceProfileCheck
+from .style_preference import StylePreferenceProfileCheck
+from .color_preference import ColorPreferenceProfileCheck

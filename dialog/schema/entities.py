@@ -25,15 +25,16 @@ class Entities:
                     ]
                 ).create(),
                 Entity(
-                    "RECENCY", [
-                        Value("Upcoming", "Upcoming", Grammar(items=["coming soon"])),
-                        Value("Current", "Current", Grammar(items=["current", "recent", "now", "new"]))
-                    ]
-                ).create(),
-                Entity(
                     "STYLE", [
                         Value("high heels", "high heels", Grammar(items=["high heels", "high-heels"])),
                         Value("boots", "boots", Grammar(items=["boots", "boot"]))
+                    ]
+                ).create(),
+                Entity(
+                    "COLOR", [
+                        Value("red", "red", Grammar(items=["red"])),
+                        Value("white", "white", Grammar(items=["white"])),
+                        Value("black", "black", Grammar(items=["black"]))
                     ]
                 ).create(),
                 Entity(

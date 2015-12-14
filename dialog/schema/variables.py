@@ -1,4 +1,5 @@
 from dialog.schema.elements import Variable
+from dialog.schema.factories.variables import NAME_RESULTS_COUNT, NAME_PAGE
 
 
 class Variables:
@@ -50,7 +51,7 @@ class Variables:
             "@type": "VAR",
             "var": [
                 Variable("Certification_Preference", "TEXT", description="User's preferred MPAA movie rating"),
-                Variable("Genre_Preference", "TEXT", description="User's preferred movie genre."),
+                # Variable("Genre_Preference", "TEXT", description="User's preferred movie genre."),
                 Variable("Search_Now", "YESNO", init_value="No",
                          description="Tells backend when to call the movie API"),
                 Variable("Selected_Movie", "TEXT"),
@@ -63,10 +64,13 @@ class Variables:
 
     def create_shoe_search(self):
         return {
-            "@name": "Shoe Search",
+            "@name": "Product Search",
             "@type": "VAR",
             "var": [
                 Variable("Style_Preference", "TEXT", description="Style of the shoe being searched for"),
+                Variable("Color_Preference", "TEXT", description="Color of the shoe being searched for"),
+                Variable(NAME_RESULTS_COUNT, "NUMBER", init_value="0", description="number of results found"),
+                Variable(NAME_PAGE, "TEXT", init_value="new", description="For paging search results: new, next, previous, repeat"),
             ]
         }
 

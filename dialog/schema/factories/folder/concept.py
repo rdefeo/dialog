@@ -1,7 +1,6 @@
-from dialog.schema.elements import Concept, Grammar
+from dialog.schema.elements import Concept
+from dialog.schema.factories.concepts import StyleConcept, ColorConcept
 from dialog.schema.factories.folder.cdh import CDHFolder
-from dialog.schema.factories.folder.genre import GenreFolder
-from dialog.schema.factories.folder.style import StyleFolder
 from dialog.schema.factories.grammar import GenericGrammar
 
 
@@ -11,8 +10,8 @@ class ConceptFolder:
         return {
             "@label": "Concepts",
             (0, "folder"): [
-                StyleFolder.create(),
-                GenreFolder.create(),
+                StyleConcept.create(),
+                ColorConcept.create(),
                 CDHFolder.create()
             ],
             (1, "concept"): [

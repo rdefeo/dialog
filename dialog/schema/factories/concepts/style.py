@@ -1,7 +1,7 @@
 from dialog.schema.elements import Concept, Grammar
 
 
-class StyleFolder:
+class StyleConcept:
     @staticmethod
     def create():
         return {

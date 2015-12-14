@@ -1,6 +1,6 @@
 from dialog.schema.elements import Goto
 from dialog.schema.factories.action import TerminalExchangeAction, RequestSuccessAction, TopicAction, \
-    CertificationPreferenceAction, GenrePreferenceAction, RecencyPreferenceAction
+    CertificationPreferenceAction, RecencyPreferenceAction, ColorPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.prompts.generic import GenericPrompt
@@ -48,7 +48,7 @@ class AnythingElseCanHelpWith:
                             TerminalExchangeAction.set_to_blank(),
                             TopicAction.set_to_blank(),
                             CertificationPreferenceAction.set_to_blank(),
-                            GenrePreferenceAction.set_to_blank(),
+                            ColorPreferenceAction.set_to_blank(),
                             RecencyPreferenceAction.set_to_blank()
                         ],
                         (2, "goto"): HowCanHelpYouOutput.goto()

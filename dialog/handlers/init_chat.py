@@ -28,12 +28,14 @@ class InitChat(RequestHandler):
             self.dialog_service.update_profile(
                 self.dialog_id,
                 conversation["conversation_id"],
-                [
-                    {
-                        "name": "First_Time",
-                        "value": "No"
-                    }
-                ]
+                {
+                    "name_values": [
+                        {
+                            "name": "First_Time",
+                            "value": "No"
+                        }
+                    ]
+                }
             )
         self.finish(
             {

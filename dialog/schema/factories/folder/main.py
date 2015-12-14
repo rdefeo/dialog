@@ -1,5 +1,5 @@
 from dialog.schema.elements import Goto
-from dialog.schema.factories.action import RecencyPreferenceAction, CertificationPreferenceAction, GenrePreferenceAction
+from dialog.schema.factories.action import StylePreferenceAction, ColorPreferenceAction
 from dialog.schema.factories.grammar import FeelingGrammar, ProfileGrammar, GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.outputs.start_search import StartSearch
@@ -22,8 +22,7 @@ class MainFolder:
                             (0, "grammar"): {
                                 "item": [
                                     "Movies",
-                                    "$ (GENRE)={Genre_Preference}",
-                                    "$ (CERTIFICATION)={Certification_Preference}",
+                                    "$ (Color)={Color_Preference}",
                                     "$ (Style)={Style_Preference}",
                                     "$ movies",
                                     "$ want to see something",
@@ -40,9 +39,9 @@ class MainFolder:
                                 ]
                             },
                             (1, "action"): [
-                                GenrePreferenceAction.set_to_value(),
-                                CertificationPreferenceAction.set_to_value(),
-                                RecencyPreferenceAction.create_set_to_value(),
+                                ColorPreferenceAction.set_to_value(),
+                                # CertificationPreferenceAction.set_to_value(),
+                                StylePreferenceAction.set_to_value(),
                                 {
                                     "@varName": "Topic",
                                     "@operator": "SET_TO",

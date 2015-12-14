@@ -209,16 +209,16 @@ class GenericGrammar:
         )
 
     @staticmethod
-    def yes_okay():
-        return Grammar(
-            items=[
-                "Yes",
-                "Yes.",
-                "Okay",
-                "Ok",
-                "$ yes"
-            ]
-        )
+    def yes_okay(wildcard=True):
+        items = [
+            "Yes",
+            "Yes.",
+            "Okay",
+            "Ok"
+        ]
+        if wildcard:
+            items.append("$ yes")
+        return Grammar(items=items)
 
 
 class ProfileGrammar:

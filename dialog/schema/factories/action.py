@@ -1,6 +1,5 @@
 from dialog.schema.elements import Action
-
-__author__ = 'robdefeo'
+from dialog.schema.factories.variables import NAME_PAGE
 
 
 class CertificationPreferenceAction:
@@ -14,17 +13,26 @@ class CertificationPreferenceAction:
                       text="{Certification_Preference.value:main}").create()
 
 
-class GenrePreferenceAction:
+class PageAction:
     @staticmethod
-    def set_to_blank():
-        return Action(varName="Genre_Preference", operator="SET_TO_BLANK").create()
+    def set_to_new():
+        return Action(varName=NAME_PAGE, operator="SET_TO", text="new").create()
 
     @staticmethod
-    def set_to_value():
-        return Action(varName="Genre_Preference", operator="SET_TO",
-                      text="{Genre_Preference.value:main}").create()
+    def set_to_repeat():
+        return Action(varName=NAME_PAGE, operator="SET_TO", text="repeat").create()
+
+    @staticmethod
+    def set_to_previous():
+        return Action(varName=NAME_PAGE, operator="SET_TO", text="previous").create()
+
+    @staticmethod
+    def set_to_next():
+        return Action(varName=NAME_PAGE, operator="SET_TO", text="next").create()
 
 
+
+# TODO delete me!
 class RecencyPreferenceAction:
     @staticmethod
     def set_to_blank():
@@ -51,6 +59,16 @@ class StylePreferenceAction:
     @staticmethod
     def set_to_value():
         return Action(varName="Style_Preference", operator="SET_TO", text="{Style_Preference.value:main}").create()
+
+
+class ColorPreferenceAction:
+    @staticmethod
+    def set_to_blank():
+        return Action(varName="Color_Preference", operator="SET_TO_BLANK").create()
+
+    @staticmethod
+    def set_to_value():
+        return Action(varName="Color_Preference", operator="SET_TO", text="{Color_Preference.value:main}").create()
 
 
 class GreetingAction:

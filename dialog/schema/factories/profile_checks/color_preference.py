@@ -1,26 +1,26 @@
 from dialog.schema.elements import Goto, Prompt
-from dialog.schema.factories.action import StylePreferenceAction, PageAction
-from dialog.schema.factories.conditions.style import StyleConditions
+from dialog.schema.factories.action import ColorPreferenceAction, PageAction
+from dialog.schema.factories.conditions import ColorConditions
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.search import PreliminarySequencesSearch
 
 
-class StylePreferenceProfileCheck:
+class ColorPreferenceProfileCheck:
     @staticmethod
     def __id():
-        return "profileCheck_style_preference"
+        return "profileCheck_color_preference"
 
     @staticmethod
     def goto():
-        return Goto(ref=StylePreferenceProfileCheck.__id())
+        return Goto(ref=ColorPreferenceProfileCheck.__id())
 
     @staticmethod
     def create():
         return {
-            "@id": StylePreferenceProfileCheck.__id(),
-            (0, "cond"): StyleConditions.is_blank(),
+            "@id": ColorPreferenceProfileCheck.__id(),
+            (0, "cond"): ColorConditions.is_blank(),
             (1, "output"): {
-                (0, "prompt"): Prompt(items=["Do you prefer a certain style? "]),
+                (0, "prompt"): Prompt(items=["Do you prefer a certain color?"]),
                 (1, "if"): {
                     (0, "cond"): {
                         "@varName": "First_Time",
@@ -28,30 +28,30 @@ class StylePreferenceProfileCheck:
                     },
                     (1, "output"): {
                         (0, "prompt"): {
-                            "item": "<mct:link><b><mct:input>High heels</mct:input></b></mct:link>\n<mct:link><b><mct:input>Boots</mct:input></b></mct:link>\n<mct:link><b><mct:input>Sandals</mct:input></b></mct:link>\n<mct:link><b><mct:input>Trainers</mct:input></b></mct:link>\n<mct:link><b><mct:input>No Preference</mct:input></b></mct:link>",
+                            "item": "<mct:link><b><mct:input>Black</mct:input></b></mct:link>\n<mct:link><b><mct:input>White</mct:input></b></mct:link>\n<mct:link><b><mct:input>Red</mct:input></b></mct:link>\n<mct:link><b><mct:input>Green</mct:input></b></mct:link>\n<mct:link><b><mct:input>No Preference</mct:input></b></mct:link>",
                             "@selectionType": "RANDOM"
                         },
-                        (1, "goto"): StylePreferenceProfileCheckInput.goto()
+                        (1, "goto"): ColorPreferenceProfileCheckInput.goto()
                     }
                 },
-                (2, "getUserInput"): StylePreferenceProfileCheckInput.create()
+                (2, "getUserInput"): ColorPreferenceProfileCheckInput.create()
             }
         }
 
 
-class StylePreferenceProfileCheckInput:
+class ColorPreferenceProfileCheckInput:
     @staticmethod
     def __id():
-        return "getUserInput_profileCheck_style_preference"
+        return "getUserInput_profileCheck_color_preference"
 
     @staticmethod
     def goto():
-        return Goto(ref=StylePreferenceProfileCheckInput.__id())
+        return Goto(ref=ColorPreferenceProfileCheckInput.__id())
 
     @staticmethod
     def create():
         return {
-            "@id": StylePreferenceProfileCheckInput.__id(),
+            "@id": ColorPreferenceProfileCheckInput.__id(),
             (0, "input"): [
                 {
                     (0, "grammar"): {
@@ -65,26 +65,30 @@ class StylePreferenceProfileCheckInput:
                     (1, "input"): {
                         (0, "grammar"): {
                             "item": [
-                                "styles",
+                                "colors",
                                 "$ they",
                                 "$ ones",
                                 "$ choices",
                                 "$ options",
-                                "$ styles",
+                                "$ ratings",
+                                "$ certifications",
                                 "$ what else"
                             ]
                         },
                         (1, "output"): {
-                            (0, "prompt"): Prompt(items=["For example.... Boots, High heels, Sandals, Trainers or Flats <br> <br>"]),
-                            (1, "goto"): StylePreferenceProfileCheckInput.goto()
+                            (0, "prompt"): {
+                                "item": "Black, White, Red, Brown or Green <br> <br>",
+                                "@selectionType": "RANDOM"
+                            },
+                            (1, "goto"): ColorPreferenceProfileCheckInput.goto()
                         }
                     }
                 },
                 {
                     (0, "grammar"): {
                         "item": [
-                            "Style",
-                            "$ (Style)={Style_Preference}"
+                            "Color",
+                            "$ (COLOR)={Color_Preference}"
                         ]
                     },
                     (1, "action"): [
@@ -98,10 +102,12 @@ class StylePreferenceProfileCheckInput:
                             "@varName": "Search_Now",
                             "@operator": "SET_TO_NO"
                         },
-                        StylePreferenceAction.set_to_value()
+                        ColorPreferenceAction.set_to_value()
                     ],
+                    (1.5, "prompt"): Prompt(items=["Ok super cool"]),
                     (2, "goto"): Goto(ref="output_ok_do_search")
                 },
+                # TODO NOT SUPPORTED PATH
                 # {
                 #     (0, "grammar"): {
                 #         "item": [
@@ -114,7 +120,9 @@ class StylePreferenceProfileCheckInput:
                 #             "item": "I'm afraid I cannot look up NC-17-rated movies.",
                 #             "@selectionType": "RANDOM"
                 #         },
-                #         (1, "goto"): StylePreferenceProfileCheckInput.goto()
+                #         (1, "goto"): {
+                #             "@ref": "getUserInput_2443780a"
+                #         }
                 #     }
                 # },
                 {
@@ -147,10 +155,12 @@ class StylePreferenceProfileCheckInput:
                     }
                 },
                 {
-                    (0, "grammar"): GenericGrammar.yes(),
+                    (0, "grammar"): GenericGrammar.yes_okay(wildcard=False),
                     (1, "output"): {
-                        (0, "prompt"): Prompt(items=["What style?", "Please tell me the style you would prefer."]),
-                        (1, "goto"): StylePreferenceProfileCheckInput.goto()
+                        (0, "prompt"): {
+                            "item": "Which one?"
+                        },
+                        (1, "goto"): ColorPreferenceProfileCheckInput.goto()
                     }
                 }
             ],
