@@ -165,9 +165,10 @@ class Conversation(RequestHandler):
                 # do fake search
                 self.dialog_service.update_profile(
                     self.dialog_id,
-                    conversation["conversation_id"],
+                    client_id,
                     {
-                        "name_values":[
+                        "client_id": client_id,
+                        "name_values": [
                             {
                                 "name": NAME_RESULTS_COUNT,
                                 "value": "122"
