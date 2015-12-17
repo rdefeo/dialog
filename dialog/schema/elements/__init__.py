@@ -5,6 +5,7 @@ from .entities import Entities
 from .entity import Entity
 from .grammar import Grammar
 from ._if import If
+from .input import Input
 from .goto import Goto
 from .prompt import Prompt
 from .value import Value

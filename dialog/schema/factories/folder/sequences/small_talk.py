@@ -1,8 +1,7 @@
-from dialog.schema.elements import Goto, Prompt, Grammar
-from dialog.schema.factories.action import SmallTalkAction, CertificationPreferenceAction
+from dialog.schema.elements import Goto, Prompt, Grammar, Input
+from dialog.schema.factories.action import SmallTalkAction
 from dialog.schema.factories.conditions import SmallTalkConditions
 from dialog.schema.factories.conditions.UserConditions import UserConditions
-from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.search import PreliminarySequencesSearch
 
 __author__ = 'robdefeo'
@@ -40,30 +39,34 @@ class SmallTalkSequences:
                         },
                         (2, "getUserInput"): {
                             (0, "input"): [
-                                {
-                                    (0, "grammar"): Grammar(
-                                        items=[
-                                            "Okay",
-                                            "okay",
-                                            "hi",
-                                            "hi jemboo"
-                                        ]
-                                    ),
-                                    (1, "goto"): Goto(ref="output_what_is_name")
-                                },
-                                {
-                                    (0, "grammar"): Grammar(
-                                        items=[
-                                            "My name is",
-                                            "$ my name",
-                                            "$ call me",
-                                            "$ I'm called",
-                                            "$ I am called",
-                                            "$ known as"
-                                        ]
-                                    ),
-                                    (1, "goto"): Goto(ref="input_user_knownas_name")
-                                }
+                                Input(
+                                    children=[
+                                        Grammar(
+                                            items=[
+                                                "Okay",
+                                                "okay",
+                                                "hi",
+                                                "hi jemboo"
+                                            ]
+                                        ),
+                                        Goto(ref="output_what_is_name")
+                                    ]
+                                ),
+                                Input(
+                                    children=[
+                                        Grammar(
+                                            items=[
+                                                "My name is",
+                                                "$ my name",
+                                                "$ call me",
+                                                "$ I'm called",
+                                                "$ I am called",
+                                                "$ known as"
+                                            ]
+                                        ),
+                                        Goto(ref="input_user_knownas_name")
+                                    ]
+                                )
                             ],
                             (1, "goto"): PreliminarySequencesSearch.goto()
                         }
@@ -111,7 +114,7 @@ class SmallTalkSequences:
                     }
                 },
                 {
-                    (0, "grammar"):Grammar(
+                    (0, "grammar"): Grammar(
                         items=[
                             "Do you speak English",
                             "$ speak English",
@@ -122,7 +125,8 @@ class SmallTalkSequences:
                     ),
                     (1, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (2, "output"): {
-                        (0, "prompt"): Prompt(items=["I'm sorry, English is my second language. My native tongue is Binary. 01110011 01101111 01110010 01110010 01111001"]),
+                        (0, "prompt"): Prompt(items=[
+                            "I'm sorry, English is my second language. My native tongue is Binary. 01110011 01101111 01110010 01110010 01111001"]),
                         (1, "getUserInput"): {
                             (0, "input"): [
                                 {

@@ -17,6 +17,6 @@ class Entity(Element):
             doc["@name"] = self.name
 
         if any(self.values):
-            doc["value"] = [x.create() for x in self.values]
+            doc["value"] = self.values
 
         return doc

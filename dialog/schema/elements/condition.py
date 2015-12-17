@@ -1,7 +1,5 @@
 from dialog.schema.elements.element import Element
 
-__author__ = 'robdefeo'
-
 
 class Condition(Element):
     _element_name = "cond"
