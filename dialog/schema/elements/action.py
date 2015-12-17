@@ -4,6 +4,8 @@ __author__ = 'robdefeo'
 
 
 class Action(Element):
+    _element_name = "action"
+
     def __init__(self, varName=None, operator=None, text=None):
         self.varName = varName
         self.operator = operator

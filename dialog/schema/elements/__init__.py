@@ -3,6 +3,7 @@ from .concept import Concept
 from .condition import Condition
 from .entities import Entities
 from .entity import Entity
+from .folder import Folder
 from .get_user_input import GetUserInput
 from .grammar import Grammar
 from ._if import If
