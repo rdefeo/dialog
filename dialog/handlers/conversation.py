@@ -101,6 +101,7 @@ class Conversation(RequestHandler):
             #
             # // 1.Get all the class info from NLC and set appropriate profile variables.
             # List<ClassifiedClass> classInfo = null;
+
             # if(nlcService != null){
             #     if (UtilityFunctions.logger.isTraceEnabled()) {
             #         UtilityFunctions.logger.trace(Messages.getString("WDSBlueMixProxyResource.NLC_SERVICE")); //$NON-NLS-1$

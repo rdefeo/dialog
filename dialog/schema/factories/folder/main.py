@@ -16,7 +16,7 @@ class MainFolder:
                 "@id": "output_what_is_name",
                 (0, "prompt"): GenericPrompt.what_is_your_name(),
                 (1, "getUserInput"): {
-                    "@id": "getUserInput_2508591",
+                    "@id": "getUserInput_what_is_your_name",
                     "input": [
                         {
                             (0, "grammar"): {

@@ -1,3 +1,5 @@
+from dialog.schema.factories.inputs import AfterSearchResults
+
 __author__ = 'robdefeo'
 
 
@@ -30,9 +32,7 @@ class UIActionsSequences:
                                     ],
                                     "@selectionType": "RANDOM"
                                 },
-                                (1, "goto"): {
-                                    "@ref": "getUserInput_2456877"
-                                }
+                                (1, "goto"): AfterSearchResults.goto()
                             }
                         },
                         {
@@ -50,9 +50,7 @@ class UIActionsSequences:
                                     ],
                                     "@selectionType": "RANDOM"
                                 },
-                                (1, "goto"): {
-                                    "@ref": "getUserInput_2456877"
-                                }
+                                (1, "goto"): AfterSearchResults.goto()
                             }
                         }
                     ],
@@ -66,9 +64,7 @@ class UIActionsSequences:
                             ],
                             "@selectionType": "RANDOM"
                         },
-                        (1, "goto"): {
-                            "@ref": "getUserInput_2456877"
-                        }
+                        (1, "goto"): AfterSearchResults.goto()
                     }
                 }
             }

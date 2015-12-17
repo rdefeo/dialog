@@ -17,6 +17,8 @@ class AnythingElseCanHelpWith:
 
     @staticmethod
     def create():
+        from dialog.schema.factories.inputs import AfterSearchResults
+
         return {
             "@id": AnythingElseCanHelpWith.__id(),
             (0, "prompt"): {
@@ -36,9 +38,7 @@ class AnythingElseCanHelpWith:
                         },
                         (1, "output"): {
                             (0, "prompt"): GenericPrompt.ok(),
-                            (1, "goto"): {
-                                "@ref": "getUserInput_2456877"
-                            }
+                            (1, "goto"): AfterSearchResults.goto()
                         }
                     },
                     {
