@@ -2269,45 +2269,6 @@
                         </input>
                         <input>
                             <grammar>
-                                <item>PG</item>
-                                <item>$ PG</item>
-                            </grammar>
-                            <output>
-                                <prompt selectionType="RANDOM">
-                                    <item>PG stands for &lt;i&gt;Parental Guidance&lt;/i&gt;, which means that some
-                                        material may not be suitable for children.
-                                    </item>
-                                </prompt>
-                            </output>
-                        </input>
-                        <input>
-                            <grammar>
-                                <item>NR</item>
-                                <item>$ NR</item>
-                            </grammar>
-                            <output>
-                                <prompt selectionType="RANDOM">
-                                    <item>NR stands for &lt;i&gt;Not Rated&lt;/i&gt; and means that the film has not yet
-                                        been rated by the MPAA.
-                                    </item>
-                                </prompt>
-                            </output>
-                        </input>
-                        <input>
-                            <grammar>
-                                <item>R</item>
-                                <item>$ R</item>
-                            </grammar>
-                            <output>
-                                <prompt selectionType="RANDOM">
-                                    <item>R stands for &lt;i&gt;Restricted&lt;/i&gt; and means that children under 17
-                                        must be accompanied by parent or adult guardian.
-                                    </item>
-                                </prompt>
-                            </output>
-                        </input>
-                        <input>
-                            <grammar>
                                 <item>Current</item>
                                 <item>$ current</item>
                             </grammar>

@@ -1,290 +1,286 @@
-
-__author__ = 'robdefeo'
+from dialog.schema.elements import Prompt, Grammar, Goto, Output, Input, GetUserInput, Folder
+from dialog.schema.factories.action import TopicAction
 
 
 class RepairSequences:
     @staticmethod
     def create():
         from dialog.schema.factories.folder.sequences import SystemInitiatedSequences
-
-        return {
-            "@label": "REPAIR SEQUENCES",
-            (0, "input"): [
-                {
-                    (0, "grammar"): {
-                        "item": [
-                            "Help",
-                            "$ help",
-                            "$ how does this work",
-                            "$ what do I do",
-                            "$ what can I do",
-                            "$ don't know",
-                            "$ I'm not sure"
-                        ]
-                    },
-                    (1, "output"): {
-                        "prompt": {
-                            "item": "Say <i>Never mind</i> or <i>nvm</i> to start over.\nSay <i>okay</i> or <i>thanks</i> if my response is acceptable.\nSay <i>What does X mean?</i> for a definition of X.\nSay <i>got to go</i> or <i>bye</i> when you're finished.",
-                            "@selectionType": "RANDOM"
-                        }
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
-                            "Say that again",
-                            "$ say that again",
-                            "$ say again",
-                            "$ what did you say",
-                            "$ come again",
-                            "$ say what"
-                        ]
-                    },
-                    (1, "output"): {
-                        (0, "prompt"): {
-                            "item": "I said...",
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "goto"): {
-                            "@ref": "##special_DNR_GUI_PREVIOUS_OUTPUT_NODE_ID"
-                        }
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
-                            "Never mind",
-                            "$ Nevermind",
-                            "$ Never mind",
-                            "$ nvm",
-                            "$ start over",
-                            "$ start again",
-                            "$ restart",
-                            "$ redo",
-                            "$ do over",
-                            "$ start from * beginning",
-                            "$ clear * selections"
-                        ]
-                    },
-                    (1, "output"): {
-                        (0, "prompt"): {
-                            "item": "Okay. Whatever you say, {User_Name}!",
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "goto"): SystemInitiatedSequences.goto()
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
-                            "what does * mean",
-                            "$ what does * mean",
-                            "$ what does * stand for",
-                            "$ do you mean by ",
-                            "$ what are examples of",
-                            "$ what is an example of"
-                        ]
-                    },
-                    (1, "input"): [
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "trailers",
-                                    "$ trailer",
-                                    "$ trailers"
-                                ]
-                            },
-                            (1, "output"): {
-                                (0, "prompt"): {
-                                    "item": "<i>Trailers</i> are video previews for movies. <br> <br>",
-                                    "@selectionType": "RANDOM"
-                                },
-                                (1, "getUserInput"): {
-                                    "input": {
-                                        (0, "grammar"): {
-                                            "item": "okay"
-                                        },
-                                        (1, "output"): {
-                                            (0, "prompt"): {
-                                                "item": "Sure, happy to help. <br> <br>",
-                                                "@selectionType": "RANDOM"
-                                            },
-                                            (1, "goto"): {
-                                                "@ref": "##special_DNR_GET_USER_INPUT_NODE_ID"
-                                            }
-                                        }
-                                    }
-                                },
-                                "@isInsertDNRStatement": "true"
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "genre",
-                                    "$ genre",
-                                    "$ genres"
-                                ]
-                            },
-                            (1, "output"): {
-                                "prompt": {
-                                    "item": "The <i>genre</i> is the category of movie, like Drama, Comedy, Action, etc. <br> <br>",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "rating",
-                                    "$ rating",
-                                    "$ ratings",
-                                    "$ mpaa"
-                                ]
-                            },
-                            (1, "output"): {
-                                "prompt": {
-                                    "item": "The <i>rating</i> is a recommendation by the Motion Picture Association of America about the suitability of a movie's content for particular age groups. For example, G is for general audiences, while R is restricted to people 17 and older.<br> <br>",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "G",
-                                    "$ G"
-                                ]
-                            },
-                            (1, "output"): {
-                                "prompt": {
-                                    "item": "G stands for <i>General Audience</i> and is appropriate for everyone.",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "PG-13",
-                                    "$ PG-13"
-                                ]
-                            },
-                            (1, "output"): {
-                                "prompt": {
-                                    "item": "PG-13 means <i>Parents Strongly Cautioned</i> or that some material may not be suitable for children under 13 years old.",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "PG",
-                                    "$ PG"
-                                ]
-                            },
-                            (1, "output"): {
-                                "prompt": {
-                                    "item": "PG stands for <i>Parental Guidance</i>, which means that some material may not be suitable for children.",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "NR",
-                                    "$ NR"
-                                ]
-                            },
-                            (1, "output"): {
-                                "prompt": {
-                                    "item": "NR stands for <i>Not Rated</i> and means that the film has not yet been rated by the MPAA.",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "R",
-                                    "$ R"
-                                ]
-                            },
-                            (1, "output"): {
-                                "prompt": {
-                                    "item": "R stands for <i>Restricted</i> and means that children under 17 must be accompanied by parent or adult guardian.",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "Current",
-                                    "$ current"
-                                ]
-                            },
-                            (1, "output"): {
-                                "prompt": {
-                                    "item": "<i>Current</i> movies are those that have been playing for the past 28 days.",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "Upcoming",
-                                    "$ upcoming"
-                                ]
-                            },
-                            (1, "output"): {
-                                "prompt": {
-                                    "item": "<i>Upcoming</i> movies are those that will come out within the next 6 months.",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        },
-                        {
-                            (0, "grammar"): {
-                                "item": [
-                                    "$ (GENRE)={Topic}",
-                                    "$ (UNSUPPORTED_GENRES)={Topic}"
-                                ]
-                            },
-                            (1, "action"): {
-                                "@varName": "Topic",
-                                "@operator": "SET_TO",
-                                "#text": "{Topic.value:main}"
-                            },
-                            (2, "output"): {
-                                "prompt": {
-                                    "item": "I'm afraid I don't have definitions of the different genres.",
-                                    "@selectionType": "RANDOM"
-                                }
-                            }
-                        }
+        return Folder(
+            label="REPAIR SEQUENCES",
+            children=[
+                Input(
+                    children=[
+                        Grammar(
+                            items=[
+                                "Help",
+                                "$ help",
+                                "$ how does this work",
+                                "$ what do I do",
+                                "$ what can I do",
+                                "$ don't know",
+                                "$ I'm not sure"
+                            ]
+                        ),
+                        Output(
+                            children=[
+                                Prompt(
+                                    items=[
+                                        "Say <i>Never mind</i> or <i>nvm</i> to start over.\nSay <i>okay</i> or <i>thanks</i> if my response is acceptable.\nSay <i>What does X mean?</i> for a definition of X.\nSay <i>got to go</i> or <i>bye</i> when you're finished."
+                                    ]
+                                )
+                            ]
+                        )
                     ]
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
-                            "I already told you!",
-                            "$ already told you",
-                            "$ already said it"
-                        ]
-                    },
-                    (1, "output"): {
-                        (0, "prompt"): {
-                            "item": "I'm sorry, please repeat it for me.",
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "goto"): {
-                            "@ref": "getUserInput_how_can_i_help_you"
-                        }
-                    }
-                }
+                ),
+                Input(
+                    children=[
+                        Grammar(
+                            items=[
+                                "Say that again",
+                                "$ say that again",
+                                "$ say again",
+                                "$ what did you say",
+                                "$ come again",
+                                "$ say what"
+                            ]
+                        ),
+                        Output(
+                            children=[
+                                Prompt(items=["I said..."]),
+                                Goto(ref="##special_DNR_GUI_PREVIOUS_OUTPUT_NODE_ID")
+                            ]
+                        )
+                    ]
+                ),
+                Input(
+                    children=[
+                        Grammar(
+                            items=[
+                                "Never mind",
+                                "$ Nevermind",
+                                "$ Never mind",
+                                "$ nvm",
+                                "$ start over",
+                                "$ start again",
+                                "$ restart",
+                                "$ redo",
+                                "$ do over",
+                                "$ start from * beginning",
+                                "$ clear * selections"
+                            ]
+                        ),
+                        Output(
+                            children=[
+                                Prompt(items=["Okay. Whatever you say, {User_Name}!"]),
+                                SystemInitiatedSequences.goto()
+                            ]
+                        )
+                    ]
+                ),
+                Input(
+                    children=[
+                        Grammar(
+                            items=[
+                                "what does * mean",
+                                "$ what does * mean",
+                                "$ what does * stand for",
+                                "$ do you mean by ",
+                                "$ what are examples of",
+                                "$ what is an example of"
+                            ]
+                        ),
+                        Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "trailers",
+                                        "$ trailer",
+                                        "$ trailers"
+                                    ]
+                                ),
+                                Output(
+                                    children=[
+                                        Prompt(
+                                            items=["<i>Trailers</i> are video previews for movies. <br> <br>"]
+                                        ),
+                                        GetUserInput(
+                                            children=[
+                                                Input(
+                                                    children=[
+                                                        Grammar(items=["okay"]),
+                                                        Output(
+                                                            children=[
+                                                                Prompt(items=["Sure, happy to help. <br> <br>"]),
+                                                                Goto(ref="##special_DNR_GET_USER_INPUT_NODE_ID")
+                                                            ]
+                                                        )
+                                                    ]
+                                                )
+                                            ]
+                                        )
+                                    ],
+                                    is_insert_DNR_statement=True
+                                )
+                            ]
+                        ),
+                        Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "genre",
+                                        "$ genre",
+                                        "$ genres"
+                                    ]
+                                ),
+                                Output(
+                                    children=[
+                                        Prompt(
+                                            items=[
+                                                "The <i>genre</i> is the category of movie, like Drama, Comedy, Action, etc. <br> <br>"
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
+                        Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "rating",
+                                        "$ rating",
+                                        "$ ratings",
+                                        "$ mpaa"
+                                    ]
+                                ),
+                                Output(
+                                    children=[
+                                        Prompt(
+                                            items=[
+                                                "The <i>rating</i> is a recommendation by the Motion Picture Association of America about the suitability of a movie's content for particular age groups. For example, G is for general audiences, while R is restricted to people 17 and older.<br> <br>"]
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
+                        Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "G",
+                                        "$ G"
+                                    ]
+                                ),
+                                Output(
+                                    children=[
+                                        Prompt(
+                                            items=[
+                                                "G stands for <i>General Audience</i> and is appropriate for everyone.", ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
+                        Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "PG-13",
+                                        "$ PG-13"
+                                    ]
+                                ),
+                                Output(
+                                    children=[
+                                        Prompt(
+                                            items=[
+                                                "PG-13 means <i>Parents Strongly Cautioned</i> or that some material may not be suitable for children under 13 years old.",
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
+                        Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "Current",
+                                        "$ current"
+                                    ]
+                                ),
+                                Output(
+                                    children=[
+                                        Prompt(
+                                            items=[
+                                                "<i>Current</i> movies are those that have been playing for the past 28 days."
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
+                        Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "Upcoming",
+                                        "$ upcoming"
+                                    ]
+                                ),
+                                Output(
+                                    children=[
+                                        Prompt(
+                                            items=[
+                                                "<i>Upcoming</i> movies are those that will come out within the next 6 months."
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
+                        Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "$ (GENRE)={Topic}",
+                                        "$ (UNSUPPORTED_GENRES)={Topic}"
+                                    ]
+                                ),
+                                TopicAction.set_to_value(),
+                                Output(
+                                    children=[
+                                        Prompt(
+                                            items=[
+                                                "I'm afraid I don't have definitions of the different genres."
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
+                    ]
+                ),
+                Input(
+                    children=[
+                        Grammar(
+                            items=[
+                                "I already told you!",
+                                "$ already told you",
+                                "$ already said it"
+                            ]
+                        ),
+                        Output(
+                            children=[
+                                Prompt(
+                                    items=["I'm sorry, please repeat it for me."]
+                                ),
+                                Goto(
+                                    ref="getUserInput_how_can_i_help_you"
+                                )
+                            ]
+                        )
+                    ]
+                )
             ]
-        }
+        )
