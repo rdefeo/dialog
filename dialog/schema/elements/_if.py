@@ -1,10 +1,10 @@
 from dialog.schema.elements.element import Element
 from typing import Iterable
 
-__author__ = 'robdefeo'
-
 
 class If(Element):
+    _element_name = "if"
+
     def __init__(self, match_type="ALL", elements=Iterable[Element]):
         self.match_type = match_type
         self.elements = elements

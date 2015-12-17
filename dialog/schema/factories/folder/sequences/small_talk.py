@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto, Prompt, Grammar, Input
+from dialog.schema.elements import Goto, Prompt, Grammar, Input, GetUserInput
 from dialog.schema.factories.action import SmallTalkAction
 from dialog.schema.factories.conditions import SmallTalkConditions
 from dialog.schema.factories.conditions.UserConditions import UserConditions
@@ -37,8 +37,8 @@ class SmallTalkSequences:
                                 (1, "goto"): Goto(ref="getUserInput_what_is_your_name")
                             }
                         },
-                        (2, "getUserInput"): {
-                            (0, "input"): [
+                        (2, "getUserInput"):GetUserInput(
+                            children=[
                                 Input(
                                     children=[
                                         Grammar(
@@ -66,10 +66,10 @@ class SmallTalkSequences:
                                         ),
                                         Goto(ref="input_user_knownas_name")
                                     ]
-                                )
-                            ],
-                            (1, "goto"): PreliminarySequencesSearch.goto()
-                        }
+                                ),
+                                PreliminarySequencesSearch.goto()
+                            ]
+                        )
                     }
                 },
                 {
