@@ -2109,11 +2109,11 @@
                         <grammar>
                             <item>Goodbye</item>
                         </grammar>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="EQUAL_TO_YES" varName="Terminal_Exchange"/>
                             <goto ref="output_end_of_conversation"/>
                         </if>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="EQUAL_TO_NO" varName="Terminal_Exchange"/>
                             <goto ref="output_2449675"/>
                         </if>
