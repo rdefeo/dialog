@@ -8,6 +8,7 @@ from .grammar import Grammar
 from ._if import If
 from .input import Input
 from .goto import Goto
+from .output import Output
 from .prompt import Prompt
 from .value import Value
 from .variable import Variable

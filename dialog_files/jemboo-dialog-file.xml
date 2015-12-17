@@ -2377,7 +2377,7 @@
                             <prompt selectionType="RANDOM">
                                 <item>My name is Jemboo.</item>
                             </prompt>
-                            <if>
+                            <if matchType="ALL">
                                 <cond operator="IS_BLANK" varName="User_Name"/>
                                 <output>
                                     <prompt selectionType="RANDOM">
@@ -2434,7 +2434,7 @@
                                 <getUserInput>
                                     <input>
                                         <grammar>
-                                            <item>Okay.</item>
+                                            <item>Okay</item>
                                             <item>$ sorry</item>
                                         </grammar>
                                         <goto ref="output_help_with_anything_else"/>

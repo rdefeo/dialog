@@ -1,5 +1,5 @@
-from dialog.schema.elements import Goto, Prompt, Grammar, Input, GetUserInput
-from dialog.schema.factories.action import SmallTalkAction
+from dialog.schema.elements import Goto, Prompt, Grammar, Input, GetUserInput, Output, If, Action
+from dialog.schema.factories.action import SmallTalkAction, TopicAction
 from dialog.schema.factories.conditions import SmallTalkConditions
 from dialog.schema.factories.conditions.UserConditions import UserConditions
 from dialog.schema.factories.search import PreliminarySequencesSearch
@@ -17,95 +17,91 @@ class SmallTalkSequences:
             "@label": "SMALL TALK SEQUENCES",
             (0, "action"): SmallTalkAction.create_increment(),
             (1, "input"): [
-                {
-                    (0, "grammar"): Grammar(
-                        items=[
-                            "What is your name?",
-                            "$ your name",
-                            "$ you called",
-                            "$ they call you",
-                            "$ what can I call you"
-                        ]
-                    ),
-                    (1, "if"): SmallTalkConditions.too_much_small_talk_goto(),
-                    (2, "output"): {
-                        (0, "prompt"): Prompt(items=["My name is Jemboo."]),
-                        (1, "if"): {
-                            (0, "cond"): UserConditions.is_blank(),
-                            (1, "output"): {
-                                (0, "prompt"): Prompt(items=["What's your name?"]),
-                                (1, "goto"): Goto(ref="getUserInput_what_is_your_name")
-                            }
-                        },
-                        (2, "getUserInput"):GetUserInput(
+                Input(
+                    children=[
+                        Grammar(
+                            items=[
+                                "What is your name?",
+                                "$ your name",
+                                "$ you called",
+                                "$ they call you",
+                                "$ what can I call you"
+                            ]
+                        ),
+                        SmallTalkConditions.too_much_small_talk_goto(),
+                        Output(
                             children=[
-                                Input(
-                                    children=[
-                                        Grammar(
-                                            items=[
-                                                "Okay",
-                                                "okay",
-                                                "hi",
-                                                "hi jemboo"
+                                Prompt(items=["My name is Jemboo."]),
+                                If(
+                                    elements=[
+                                        UserConditions.is_blank(),
+                                        Output(
+                                            children=[
+                                                Prompt(items=["What's your name?"]),
+                                                Goto(ref="getUserInput_what_is_your_name")
                                             ]
-                                        ),
-                                        Goto(ref="output_what_is_name")
+                                        )
                                     ]
                                 ),
-                                Input(
+                                GetUserInput(
                                     children=[
-                                        Grammar(
-                                            items=[
-                                                "My name is",
-                                                "$ my name",
-                                                "$ call me",
-                                                "$ I'm called",
-                                                "$ I am called",
-                                                "$ known as"
+                                        Input(
+                                            children=[
+                                                Grammar(
+                                                    items=[
+                                                        "Okay",
+                                                        "okay",
+                                                        "hi",
+                                                        "hi jemboo"
+                                                    ]
+                                                ),
+                                                Goto(ref="output_what_is_name")
                                             ]
                                         ),
-                                        Goto(ref="input_user_knownas_name")
+                                        Input(
+                                            children=[
+                                                Grammar(
+                                                    items=[
+                                                        "My name is",
+                                                        "$ my name",
+                                                        "$ call me",
+                                                        "$ I'm called",
+                                                        "$ I am called",
+                                                        "$ known as"
+                                                    ]
+                                                ),
+                                                Goto(ref="input_user_knownas_name")
+                                            ]
+                                        ),
+                                        PreliminarySequencesSearch.goto()
                                     ]
-                                ),
-                                PreliminarySequencesSearch.goto()
+                                )
                             ]
                         )
-                    }
-                },
+                    ]
+                ),
                 {
-                    (0, "grammar"): {
-                        "item": [
-                            "Siri",
-                            "$ (VIRTUAL_AGENTS)={Topic}"
-                        ]
-                    },
-                    (1, "action"): {
-                        "@varName": "Topic",
-                        "@operator": "SET_TO",
-                        "#text": "{Topic.value:main}"
-                    },
+                    (0, "grammar"): Grammar(
+                            items=[
+                                "Siri",
+                                "$ (VIRTUAL_AGENTS)={Topic}"
+                            ]
+                    ),
+                    (1, "action"): TopicAction.set_to_value(),
                     (2, "if"): SmallTalkConditions.too_much_small_talk_goto(),
                     (3, "input"): {
-                        (0, "grammar"): {
-                            "item": [
+                        (0, "grammar"): Grammar(
+                            items=[
                                 "is better",
                                 "$ better",
                                 "$ smarter"
                             ]
-                        },
+                        ),
                         (1, "output"): {
-                            (0, "prompt"): {
-                                "item": "Now you're hurting my feelings.",
-                                "@selectionType": "RANDOM"
-                            },
+                            (0, "prompt"): Prompt(items=["Now you're hurting my feelings."]),
                             (1, "getUserInput"): {
                                 (0, "input"): {
-                                    (0, "grammar"): {
-                                        "item": [
-                                            "Okay.",
-                                            "$ sorry"
-                                        ]
-                                    },
+                                    (0, "grammar"): Grammar(items=["Okay", "$ sorry"]),
                                     (1, "goto"): SystemInitiatedSequences.goto()
                                 },
                                 (1, "goto"): PreliminarySequencesSearch.goto()
