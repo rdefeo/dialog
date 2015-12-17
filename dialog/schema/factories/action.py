@@ -73,7 +73,7 @@ class ColorPreferenceAction:
 
 class GreetingAction:
     @staticmethod
-    def create_reset():
+    def reset():
         return Action(varName="Greeting_Count", operator="SET_TO", text="0")
 
     @staticmethod

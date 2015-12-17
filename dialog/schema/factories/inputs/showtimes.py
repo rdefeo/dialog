@@ -25,7 +25,7 @@ class ShowtimesInput:
             },
             (1, "action"): [
                 StylePreferenceAction.set_to_value(),
-                GreetingAction.create_reset(),
+                GreetingAction.reset(),
                 SmallTalkAction.set_to_zero()
             ],
             (2, "input"): [

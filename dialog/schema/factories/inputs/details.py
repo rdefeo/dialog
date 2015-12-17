@@ -21,7 +21,7 @@ class DetailsInput:
                 ]
             },
             (1, "action"): [
-                GreetingAction.create_reset(),
+                GreetingAction.reset(),
                 SmallTalkAction.set_to_zero()
             ],
             (2, "output"): {

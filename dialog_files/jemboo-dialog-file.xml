@@ -1835,7 +1835,7 @@
                                 <item>Hi.</item>
                                 <item>Hi there.</item>
                             </prompt>
-                            <output id="output_2459184">
+                            <output id="output_how_are_you">
                                 <prompt selectionType="RANDOM">
                                     <item>How are you today?</item>
                                     <item>How are you feeling today?</item>
@@ -1942,7 +1942,7 @@
                             <item>$ what's up</item>
                         </grammar>
                         <action operator="INCREMENT_BY" varName="Greeting_Count">1</action>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Greeting_Count">2</cond>
                             <cond operator="GREATER_THEN" varName="Small_Talk_Count">2</cond>
                             <output id="output_end_of_small_talk">
@@ -2004,17 +2004,17 @@
                                 <item>$ tired</item>
                             </grammar>
                             <output>
-                                <prompt>
+                                <prompt selectionType="RANDOM">
                                     <item>I am doing well, thanks.</item>
                                 </prompt>
                                 <goto ref="output_how_can_i_help_you"/>
                             </output>
                         </input>
                         <output>
-                            <prompt>
+                            <prompt selectionType="RANDOM">
                                 <item>I am doing well, thanks.</item>
                             </prompt>
-                            <goto ref="output_2459184"/>
+                            <goto ref="output_how_are_you"/>
                         </output>
                     </input>
                     <input>
@@ -2024,10 +2024,10 @@
                             <item>$ pleasure to meet you</item>
                             <item>$ make your acquaintance</item>
                         </grammar>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Greeting_Count">2</cond>
                             <output>
-                                <prompt>
+                                <prompt selectionType="RANDOM">
                                     <item>You're very polite, but don't you want me to look up movies for you?</item>
                                 </prompt>
                                 <getUserInput>

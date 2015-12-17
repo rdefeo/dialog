@@ -1,3 +1,4 @@
+from dialog.schema.elements import Prompt
 from dialog.schema.factories.inputs import AfterSearchResults
 
 __author__ = 'robdefeo'
@@ -55,15 +56,14 @@ class UIActionsSequences:
                         }
                     ],
                     (2, "output"): {
-                        (0, "prompt"): {
-                            "item": [
+                        (0, "prompt"): Prompt(
+                            items=[
                                 "Okay.",
                                 "All right.",
                                 "Sure thing!",
                                 "Coming right up!"
-                            ],
-                            "@selectionType": "RANDOM"
-                        },
+                            ]
+                        ),
                         (1, "goto"): AfterSearchResults.goto()
                     }
                 }

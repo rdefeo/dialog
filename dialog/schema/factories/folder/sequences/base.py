@@ -11,7 +11,7 @@ class BaseSequences:
             "@label": "BASE SEQUENCES",
             "@id": "folder_base_sequences",
             (0, "action"): [
-                GreetingAction.create_reset(),
+                GreetingAction.reset(),
                 SmallTalkAction.set_to_zero()
             ],
             (1, "input"): [

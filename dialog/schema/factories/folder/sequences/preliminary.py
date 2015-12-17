@@ -20,7 +20,7 @@ class PreliminarySequencesFolder:
             "@label": "PRELIMINARY SEQUENCES",
             "@id": PreliminarySequencesFolder._id(),
             (0, "action"): [
-                GreetingAction.create_reset(),
+                GreetingAction.reset(),
                 SmallTalkAction.set_to_zero()
             ],
             (1, "input"): {
@@ -37,7 +37,7 @@ class PreliminarySequencesFolder:
                     ]
                 },
                 (1, "action"): [
-                    GreetingAction.create_reset(),
+                    GreetingAction.reset(),
                     SmallTalkAction.set_to_zero()
                 ],
                 (2, "input"): [

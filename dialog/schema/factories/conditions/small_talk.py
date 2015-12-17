@@ -12,3 +12,5 @@ class SmallTalkConditions:
                 Goto(ref="output_too_much_small_talk")
             ]
         )
+
+

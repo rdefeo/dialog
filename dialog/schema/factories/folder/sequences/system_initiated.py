@@ -87,7 +87,7 @@ class SystemInitiatedSequences:
                                         },
                                         (1, "action"): [
                                             TerminalExchangeAction.set_to_yes(),
-                                            GreetingAction.create_reset()
+                                            GreetingAction.reset()
                                         ],
                                         (2, "getUserInput"): {
                                             (0, "input"): {

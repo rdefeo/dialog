@@ -40,7 +40,7 @@ class MainSearchCriteriaInput:
             # },
             # Reset variables
             (1, "action"): [
-                GreetingAction.create_reset(),
+                GreetingAction.reset(),
                 SmallTalkAction.set_to_zero(),
                 {
                     "@varName": "Current_Index",

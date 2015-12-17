@@ -235,7 +235,7 @@ class ProfileGrammar:
                 "$ known as (DYNAMIC_DATA)={User_Name}",
                 "$ (DYNAMIC_DATA)={User_Name}"
             ]
-        ).create()
+        )
 
 
 class FeelingGrammar:
@@ -256,7 +256,7 @@ class FeelingGrammar:
                 "$ do you have information",
                 "$ can I"
             ]
-        ).create()
+        )
 
     @staticmethod
     def create_not_so_good():
@@ -268,7 +268,7 @@ class FeelingGrammar:
                 "$ no * good",
                 "$ not * nice"
             ]
-        ).create()
+        )
 
     @staticmethod
     def create_not_so_bad():
@@ -277,7 +277,7 @@ class FeelingGrammar:
                 "Not so bad",
                 "$ not * bad"
             ]
-        ).create()
+        )
 
     @staticmethod
     def create_feeling_great():
@@ -292,7 +292,7 @@ class FeelingGrammar:
                 "$ fantastic",
                 "$ awesome"
             ]
-        ).create()
+        )
 
     @staticmethod
     def create_feeling_fine():
@@ -305,7 +305,7 @@ class FeelingGrammar:
                 "$ all right",
                 "$ nice"
             ]
-        ).create()
+        )
 
     @staticmethod
     def create_feeling_bad():
@@ -327,4 +327,4 @@ class FeelingGrammar:
                 "$ crap",
                 "$ crappy"
             ]
-        ).create()
+        )
