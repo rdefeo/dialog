@@ -104,7 +104,6 @@ class ColorPreferenceProfileCheckInput:
                         },
                         ColorPreferenceAction.set_to_value()
                     ],
-                    (1.5, "prompt"): Prompt(items=["Ok super cool"]),
                     (2, "goto"): Goto(ref="output_ok_do_search")
                 },
                 # TODO NOT SUPPORTED PATH

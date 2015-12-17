@@ -1,5 +1,5 @@
 from collections import defaultdict
-from dialog.schema.elements import Element
+from dialog.schema.elements.element import Element
 
 
 def etree_to_dict(t):
