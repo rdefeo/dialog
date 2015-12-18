@@ -5,7 +5,7 @@ from typing import Iterable
 class Folder(Element):
     _element_name = "folder"
 
-    def __init__(self, _id: str = None, label: str = None, selection_type=None, children: Iterable[Element] = None, ):
+    def __init__(self, _id: str = None, label: str = None, selection_type=None, children: Iterable[Element] = None):
         """
         Node groups content.
         :param _id: Specifies a unique ID that is used as an anchor point.

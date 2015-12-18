@@ -5,7 +5,7 @@ from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.profile_checks.style_preference import StylePreferenceProfileCheck
 from dialog.schema.factories.prompts.generic import GenericPrompt
 from dialog.schema.factories.search import PreliminarySequencesSearch
-from dialog.schema.factories.variables import NAME_GREETING_COUNT, NAME_SMALL_TALK_COUNT
+from dialog.schema.factories.variables import NAME_GREETING_COUNT, NAME_SMALL_TALK_COUNT, NAME_TERMINAL_EXCHANGE
 
 
 class OpeningSequences:
@@ -21,7 +21,7 @@ class OpeningSequences:
                         GreetingAction.create_increment(),
                         If(
                             elements=[
-                                Condition(name="Terminal_Exchange", operator="EQUAL_TO_YES"),
+                                Condition(name=NAME_TERMINAL_EXCHANGE, operator="EQUAL_TO_YES"),
                                 Goto(ref="output_welcome_back")
                             ]
                         ),
