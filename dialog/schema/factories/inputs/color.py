@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto
+from dialog.schema.elements import Goto, Input, Grammar
 from dialog.schema.factories.action import ColorPreferenceAction
 
 
@@ -11,17 +11,18 @@ class ColorPreferenceInput:
     def __id():
         return "input_color_preference"
 
-
     @staticmethod
     def create(goto: Goto):
-        return {
-            "@id": ColorPreferenceInput.__id(),
-            (0, "grammar"): {
-                "item": [
-                    "rated",  # TODO find out what they were thinking with this
-                    "$(Color)={Color_Preference}"
-                ]
-            },
-            (1, "action"): ColorPreferenceAction.set_to_value(),
-            (2, "goto"): goto
-        }
+        return Input(
+            _id=ColorPreferenceInput.__id(),
+            children=[
+                Grammar(
+                    items=[
+                        "rated",  # TODO find out what they were thinking with this
+                        "$(Color)={Color_Preference}"
+                    ]
+                ),
+                ColorPreferenceAction.set_to_value(),
+                goto
+            ]
+        )

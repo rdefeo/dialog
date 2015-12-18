@@ -1,5 +1,5 @@
 from dialog.schema.elements import Action
-from dialog.schema.factories.variables import NAME_PAGE
+from dialog.schema.factories.variables import NAME_PAGE, NAME_CURRENT_INDEX, NAME_SEARCH_NOW
 
 
 class CertificationPreferenceAction:
@@ -30,6 +30,11 @@ class PageAction:
     def set_to_next():
         return Action(varName=NAME_PAGE, operator="SET_TO", text="next")
 
+
+class CurrentIndexAction:
+    @staticmethod
+    def set_to_zero():
+        return Action(varName=NAME_CURRENT_INDEX, operator="SET_TO", text="0")
 
 
 # TODO delete me!
@@ -79,6 +84,16 @@ class GreetingAction:
     @staticmethod
     def create_increment():
         return Action(varName="Greeting_Count", operator="INCREMENT_BY", text="1")
+
+
+class SearchNowAction:
+    @staticmethod
+    def set_to_no():
+        return Action(varName=NAME_SEARCH_NOW, operator="SET_TO_NO")
+
+    @staticmethod
+    def set_to_yes():
+        return Action(varName=NAME_SEARCH_NOW, operator="SET_TO_YES")
 
 
 class TerminalExchangeAction:

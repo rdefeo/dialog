@@ -1,7 +1,7 @@
 from dialog.schema.elements import Goto, Prompt, Grammar, Input, GetUserInput, Output, If, Folder
 from dialog.schema.factories.action import SmallTalkAction, TopicAction
 from dialog.schema.factories.conditions import SmallTalkConditions
-from dialog.schema.factories.conditions.user_conditions import UserConditions
+from dialog.schema.factories.conditions.user_conditions import UserNameConditions
 from dialog.schema.factories.search import PreliminarySequencesSearch
 
 __author__ = 'robdefeo'
@@ -33,7 +33,7 @@ class SmallTalkSequences:
                                 Prompt(items=["My name is Jemboo."]),
                                 If(
                                     elements=[
-                                        UserConditions.is_blank(),
+                                        UserNameConditions.is_blank(),
                                         Output(
                                             children=[
                                                 Prompt(items=["What's your name?"]),

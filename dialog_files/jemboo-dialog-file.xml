@@ -1091,13 +1091,13 @@
                             </getUserInput>
                         </output>
                     </if>
-                    <if id="profileCheck_color_preference">
+                    <if id="profileCheck_color_preference" matchType="ALL">
                         <cond operator="IS_BLANK" varName="Color_Preference"/>
                         <output>
                             <prompt selectionType="RANDOM">
                                 <item>Do you prefer a certain color?</item>
                             </prompt>
-                            <if>
+                            <if matchType="ALL">
                                 <cond operator="EQUAL_TO_YES" varName="First_Time"/>
                                 <output>
                                     <prompt selectionType="RANDOM">
@@ -1176,7 +1176,7 @@
                                         <item>Ok</item>
                                     </grammar>
                                     <output>
-                                        <prompt>
+                                        <prompt selectionType="RANDOM">
                                             <item>Which one?</item>
                                         </prompt>
                                         <goto ref="getUserInput_profileCheck_color_preference"/>

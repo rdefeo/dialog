@@ -11,3 +11,9 @@ NAME_GREETING_COUNT = "Greeting_Count"
 NAME_SMALL_TALK_COUNT = "Small_Talk_Count"
 
 NAME_TERMINAL_EXCHANGE = "Terminal_Exchange"
+
+NAME_FIRST_TIME = "First_Time"
+
+NAME_CURRENT_INDEX = "Current_Index"
+
+NAME_SEARCH_NOW = "Search_Now"

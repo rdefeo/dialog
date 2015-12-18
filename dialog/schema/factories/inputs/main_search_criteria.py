@@ -6,10 +6,11 @@ from dialog.schema.factories.conditions import ColorConditions, StyleConditions
 from dialog.schema.factories.conditions.results_count import ResultsCountConditions
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.inputs import \
-    ZipcodeInput, RemoveGenreInput, RemoveRatingInput, RemoveAllSearchCriteriaInput
+    RemoveGenreInput, RemoveRatingInput, RemoveAllSearchCriteriaInput
 from dialog.schema.factories.inputs.after_search_results import AfterSearchResults
 from dialog.schema.factories.inputs.color import ColorPreferenceInput
 from dialog.schema.factories.inputs.style import StylePreferenceInput
+from dialog.schema.factories.inputs.zipcode import ZipcodeInput
 from dialog.schema.factories.outputs.anything_else_can_help_with import AnythingElseCanHelpWith
 from dialog.schema.factories.profile_checks import StylePreferenceProfileCheck, ColorPreferenceProfileCheck
 from dialog.schema.factories.prompts.generic import GenericPrompt
