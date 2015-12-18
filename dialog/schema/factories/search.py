@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto
+from dialog.elements import Goto
 
 __author__ = 'robdefeo'
 

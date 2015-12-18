@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto, Prompt, Output, If, Grammar, Input, GetUserInput
+from dialog.elements import Goto, Prompt, Output, If, Grammar, Input, GetUserInput
 from dialog.schema.factories.action import ColorPreferenceAction, PageAction, CurrentIndexAction, SearchNowAction
 from dialog.schema.factories.conditions import ColorConditions
 from dialog.schema.factories.conditions.user_conditions import FirstTimeConditions

@@ -1,4 +1,4 @@
-from dialog.schema.elements import Concept, Grammar
+from dialog.elements import Concept, Grammar
 
 
 class StyleConcept:

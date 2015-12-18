@@ -1,4 +1,4 @@
-from dialog.schema.elements import Grammar, Prompt, Goto, Output, Input, If, Folder
+from dialog.elements import Grammar, Prompt, Goto, Output, Input, If, Folder
 from dialog.schema.factories.conditions.system import TerminalExchangeConditions
 from dialog.schema.factories.prompts.generic import GenericPrompt
 

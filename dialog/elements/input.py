@@ -1,15 +1,15 @@
-from dialog.schema.elements.element import Element
+from dialog.elements.element import Element
 from typing import Iterable
 
 
-class GetUserInput(Element):
-    _element_name = "getUserInput"
+class Input(Element):
+    _element_name = "input"
 
     def __init__(self, _id: str = None, children: Iterable[Element] = None, ):
         """
-        Contains the nodes that contain the system's response to users' input that cannot be matched to output in the dialog.
+        Contains the nodes that contain the text that users submit.
         :param _id: Specifies a unique ID that is used as an anchor point.
-        :param children: any of action | cond | default | folder |function | getUserInput | goto |if | input | output | script | search
+        :param children: any of action | concept | default | folder | function | getUserInput | goto | grammar | if | input | output | search
         """
         self.children = children
         self.id = _id

@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto
+from dialog.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, StylePreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput

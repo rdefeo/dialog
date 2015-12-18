@@ -1,4 +1,4 @@
-from dialog.schema.elements import Grammar, Entity, Value
+from dialog.elements import Grammar, Entity, Value
 
 __author__ = 'robdefeo'
 

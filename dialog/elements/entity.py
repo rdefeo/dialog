@@ -1,5 +1,5 @@
-from dialog.schema.elements.value import Value
-from dialog.schema.elements.element import Element
+from dialog.elements.value import Value
+from dialog.elements.element import Element
 from typing import Iterable
 
 __author__ = 'robdefeo'

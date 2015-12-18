@@ -1,4 +1,4 @@
-from dialog.schema.elements import Action, Goto
+from dialog.elements import Action, Goto
 from dialog.schema.factories.action import TerminalExchangeAction, GreetingAction, SmallTalkAction, \
     CertificationPreferenceAction, StylePreferenceAction, \
     ColorPreferenceAction, PageAction

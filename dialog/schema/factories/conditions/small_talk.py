@@ -1,4 +1,4 @@
-from dialog.schema.elements import If, Condition, Goto
+from dialog.elements import If, Condition, Goto
 
 __author__ = 'robdefeo'
 

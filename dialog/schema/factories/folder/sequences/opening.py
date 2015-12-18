@@ -1,4 +1,4 @@
-from dialog.schema.elements import Condition, If, Goto, Prompt, Output, GetUserInput, Input, Grammar, Folder
+from dialog.elements import Condition, If, Goto, Prompt, Output, GetUserInput, Input, Grammar, Folder
 from dialog.schema.factories.action import GreetingAction
 from dialog.schema.factories.grammar import GenericGrammar, FeelingGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput

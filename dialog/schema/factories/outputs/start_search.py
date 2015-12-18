@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto, Prompt
+from dialog.elements import Goto, Prompt
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.profile_checks.style_preference import StylePreferenceProfileCheckInput

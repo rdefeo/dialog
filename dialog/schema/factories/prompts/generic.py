@@ -1,4 +1,4 @@
-from dialog.schema.elements import Prompt
+from dialog.elements import Prompt
 
 __author__ = 'robdefeo'
 

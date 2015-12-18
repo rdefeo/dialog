@@ -1,4 +1,4 @@
-from dialog.schema.elements.element import Element
+from dialog.elements.element import Element
 
 
 class Grammar(Element):

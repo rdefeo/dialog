@@ -1,7 +1,5 @@
-from dialog.schema.elements.element import Element
-from dialog.schema.elements.grammar import Grammar
-
-__author__ = 'robdefeo'
+from dialog.elements.element import Element
+from dialog.elements.grammar import Grammar
 
 
 class Value(Element):

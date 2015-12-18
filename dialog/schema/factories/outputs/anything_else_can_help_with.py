@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto
+from dialog.elements import Goto
 from dialog.schema.factories.action import TerminalExchangeAction, RequestSuccessAction, TopicAction, \
     CertificationPreferenceAction, RecencyPreferenceAction, ColorPreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar

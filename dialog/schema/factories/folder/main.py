@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto
+from dialog.elements import Goto
 from dialog.schema.factories.action import StylePreferenceAction, ColorPreferenceAction
 from dialog.schema.factories.grammar import FeelingGrammar, ProfileGrammar, GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput

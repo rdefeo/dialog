@@ -1,4 +1,4 @@
-from dialog.schema.elements import If, Condition, Goto
+from dialog.elements import If, Condition, Goto
 from dialog.schema.factories.variables import NAME_USER_NAME, NAME_FIRST_TIME
 
 __author__ = 'robdefeo'

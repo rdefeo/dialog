@@ -1,4 +1,4 @@
-from dialog.schema.elements import Concept
+from dialog.elements import Concept
 from dialog.schema.factories.concepts import StyleConcept, ColorConcept
 from dialog.schema.factories.folder.cdh import CDHFolder
 from dialog.schema.factories.grammar import GenericGrammar

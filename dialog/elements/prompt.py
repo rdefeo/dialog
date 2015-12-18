@@ -1,7 +1,5 @@
-from dialog.schema.elements.element import Element
+from dialog.elements.element import Element
 from typing import Iterable
-
-__author__ = 'robdefeo'
 
 
 class Prompt(Element):

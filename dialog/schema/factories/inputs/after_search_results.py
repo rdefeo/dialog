@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto
+from dialog.elements import Goto
 from dialog.schema.factories.action import PageAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.inputs import RemoveGenreInput, RemoveRatingInput, RemoveAllSearchCriteriaInput

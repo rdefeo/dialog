@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto
+from dialog.elements import Goto
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, RecencyPreferenceAction, \
     CertificationPreferenceAction, StylePreferenceAction, ColorPreferenceAction, PageAction
 from dialog.schema.factories.conditions import ColorConditions, StyleConditions

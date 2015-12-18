@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto, Prompt
+from dialog.elements import Goto, Prompt
 from dialog.schema.factories.action import StylePreferenceAction, PageAction
 from dialog.schema.factories.conditions.style import StyleConditions
 from dialog.schema.factories.grammar import GenericGrammar

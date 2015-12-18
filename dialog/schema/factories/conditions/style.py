@@ -1,4 +1,4 @@
-from dialog.schema.elements import Condition
+from dialog.elements import Condition
 
 __author__ = 'robdefeo'
 

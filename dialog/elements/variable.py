@@ -1,6 +1,4 @@
-from dialog.schema.elements.element import Element
-
-__author__ = 'robdefeo'
+from dialog.elements.element import Element
 
 
 class Variable(Element):

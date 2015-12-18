@@ -1,4 +1,4 @@
-from dialog.schema.elements import Condition
+from dialog.elements import Condition
 from dialog.schema.factories.variables import NAME_RESULTS_COUNT
 
 

@@ -1,4 +1,4 @@
-from dialog.schema.elements import Action
+from dialog.elements import Action
 from dialog.schema.factories.variables import NAME_PAGE, NAME_CURRENT_INDEX, NAME_SEARCH_NOW
 
 

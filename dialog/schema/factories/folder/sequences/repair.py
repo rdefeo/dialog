@@ -1,4 +1,4 @@
-from dialog.schema.elements import Prompt, Grammar, Goto, Output, Input, GetUserInput, Folder
+from dialog.elements import Prompt, Grammar, Goto, Output, Input, GetUserInput, Folder
 from dialog.schema.factories.action import TopicAction
 
 

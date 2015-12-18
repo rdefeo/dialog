@@ -1,4 +1,4 @@
-from dialog.schema.elements import Variable
+from dialog.elements import Variable
 from dialog.schema.factories.variables import NAME_RESULTS_COUNT, NAME_PAGE
 
 

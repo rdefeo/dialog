@@ -1,4 +1,4 @@
-from dialog.schema.elements import Goto, Input, Grammar
+from dialog.elements import Goto, Input, Grammar
 from dialog.schema.factories.action import StylePreferenceAction
 
 
