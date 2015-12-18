@@ -13,6 +13,11 @@ class Flow(Element):
         """
         self.folders = folders
 
+    def _set_dialog(self, value):
+        self.dialog = value
+        for folder in iter(self.folders):
+            folder._set_dialog(value)
+
     def create(self):
         doc = {}
 

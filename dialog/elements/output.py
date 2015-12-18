@@ -15,6 +15,11 @@ class Output(Element):
         self.children = children
         self.id = _id
 
+    def _set_dialog(self, value):
+        self.dialog = value
+        for child in iter(self.children):
+            child._set_dialog(value)
+
     def create(self):
         doc = {}
 

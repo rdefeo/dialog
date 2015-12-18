@@ -7,6 +7,9 @@ class Goto(Element):
     def __init__(self, ref=None):
         self.ref = ref
 
+    def _set_dialog(self, value):
+        self.dialog = value
+
     def create(self):
         doc = {}
 
