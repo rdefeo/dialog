@@ -1,3 +1,6 @@
+from dialog.process import ProcessRequest
+from dialog.process.response import ProcessResponse
+
 __author__ = 'robdefeo'
 
 
@@ -17,4 +20,7 @@ class Element:
         raise NotImplemented()
 
     def create(self):
+        raise NotImplemented()
+
+    def process(self, process_request: ProcessRequest) -> ProcessResponse:
         raise NotImplemented()

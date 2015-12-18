@@ -1,4 +1,5 @@
 from unittest import TestCase
+from unittest.mock import Mock
 
 from dialog.elements import Folder
 from dialog.elements.dialog import Dialog
@@ -11,8 +12,8 @@ class init_Tests(TestCase):
     def test_regular(self):
         actual = Target(
             folders=[
-                Folder(),
-                Folder()
+                Folder(children=[Mock()]),
+                Folder(children=[Mock()])
             ]
         )
 

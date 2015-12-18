@@ -11,6 +11,9 @@ class Action(Element):
         self.operator = operator
         self.text = text
 
+    def _set_dialog(self, value):
+        self.dialog = value
+
     def create(self):
         doc = {}
         if self.varName is not None:

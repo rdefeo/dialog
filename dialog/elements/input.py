@@ -30,3 +30,6 @@ class Input(Element):
                 doc[(i, child._element_name)] = child
 
         return doc
+
+    def process(self):
+        pass
