@@ -17,7 +17,7 @@ class process_Tests(TestCase):
         )
 
         actual = target.process(
-            ProcessRequest("something")
+            ProcessRequest("something", {})
         )
         self.assertEqual(
             GrammarMatchType.exact,
@@ -33,7 +33,7 @@ class process_Tests(TestCase):
         )
 
         actual = target.process(
-            ProcessRequest("something")
+            ProcessRequest("something", {})
         )
         self.assertEqual(
             GrammarMatchType.exact,

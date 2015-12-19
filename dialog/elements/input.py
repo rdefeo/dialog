@@ -1,11 +1,14 @@
+from dialog.elements import Grammar, Action
 from dialog.elements.element import Element
+from dialog.process import ProcessRequest
+from dialog.process.grammar_response import GrammarMatchType
 from typing import Iterable
 
 
 class Input(Element):
     _element_name = "input"
 
-    def __init__(self, _id: str = None, children: Iterable[Element] = None, ):
+    def __init__(self, _id: str = None, children: Iterable[Element] = None):
         """
         Contains the nodes that contain the text that users submit.
         :param _id: Specifies a unique ID that is used as an anchor point.
@@ -31,5 +34,21 @@ class Input(Element):
 
         return doc
 
-    def process(self):
-        pass
+    def process(self, process_request: ProcessRequest):
+        grammar = list(self.children)[0]
+        if not isinstance(grammar, Grammar):
+            raise Exception("grammar not the first item")
+
+        if grammar.process(process_request).match_type == GrammarMatchType.exact:
+            response = {}
+            response["actions"] = []
+            for child in iter(self.children[1:]):
+                if isinstance(child, Action):
+                    response["actions"].append(child.process(process_request))
+                else:
+
+                    pass
+
+            return response
+        else:
+            return None
