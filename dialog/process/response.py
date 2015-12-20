@@ -7,5 +7,4 @@ class ProcessResponseStatus(Enum):
 
 
 class ProcessResponse:
-    def __init__(self, handled: ProcessResponseStatus):
-        self.handled = handled
+    pass

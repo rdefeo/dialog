@@ -8,16 +8,16 @@ from dialog.schema.factories.profile_checks.style_preference import StylePrefere
 from dialog.schema.factories.prompts.generic import GenericPrompt
 from dialog.schema.factories.search import PreliminarySequencesSearch
 
-__author__ = 'robdefeo'
-
 
 class SystemInitiatedSequences:
     @staticmethod
     def __id():
         return "output_help_with_anything_else"
+
     @staticmethod
     def goto():
         return Goto(ref=SystemInitiatedSequences.__id())
+
     @staticmethod
     def create():
         return {
@@ -114,7 +114,7 @@ class SystemInitiatedSequences:
                                                     }
                                                 }
                                             },
-                                            (1, "goto"):HowCanHelpYouOutput.goto()
+                                            (1, "goto"): HowCanHelpYouOutput.goto()
                                         }
                                     }
                                 }

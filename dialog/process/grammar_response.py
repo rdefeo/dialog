@@ -9,5 +9,5 @@ class GrammarMatchType(Enum):
 
 
 class GrammarProcessResponse(ProcessResponse):
-    def __init__(self, match_type: GrammarMatchType): 
+    def __init__(self, match_type: GrammarMatchType):
         self.match_type = match_type

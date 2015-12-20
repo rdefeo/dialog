@@ -7,7 +7,7 @@ from unittest import TestCase
 from unittest.mock import Mock
 
 from dialog.elements import Folder, Goto, Grammar, Action, Output
-from dialog.elements.input import Input as Target
+from dialog.elements.output import Output as Target
 
 
 class init_Tests(TestCase):

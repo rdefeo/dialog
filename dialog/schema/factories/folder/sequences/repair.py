@@ -23,13 +23,11 @@ class RepairSequences:
                             ]
                         ),
                         Output(
-                            children=[
-                                Prompt(
-                                    items=[
-                                        "Say <i>Never mind</i> or <i>nvm</i> to start over.\nSay <i>okay</i> or <i>thanks</i> if my response is acceptable.\nSay <i>What does X mean?</i> for a definition of X.\nSay <i>got to go</i> or <i>bye</i> when you're finished."
-                                    ]
-                                )
-                            ]
+                            Prompt(
+                                items=[
+                                    "Say <i>Never mind</i> or <i>nvm</i> to start over.\nSay <i>okay</i> or <i>thanks</i> if my response is acceptable.\nSay <i>What does X mean?</i> for a definition of X.\nSay <i>got to go</i> or <i>bye</i> when you're finished."
+                                ]
+                            )
                         )
                     ]
                 ),
@@ -46,10 +44,8 @@ class RepairSequences:
                             ]
                         ),
                         Output(
-                            children=[
-                                Prompt(items=["I said..."]),
-                                Goto(ref="##special_DNR_GUI_PREVIOUS_OUTPUT_NODE_ID")
-                            ]
+                            Prompt(items=["I said..."]),
+                            goto=Goto(ref="##special_DNR_GUI_PREVIOUS_OUTPUT_NODE_ID")
                         )
                     ]
                 ),
@@ -71,10 +67,8 @@ class RepairSequences:
                             ]
                         ),
                         Output(
-                            children=[
-                                Prompt(items=["Okay. Whatever you say, {User_Name}!"]),
-                                SystemInitiatedSequences.goto()
-                            ]
+                            Prompt(items=["Okay. Whatever you say, {User_Name}!"]),
+                            goto=SystemInitiatedSequences.goto()
                         )
                     ]
                 ),
@@ -100,26 +94,22 @@ class RepairSequences:
                                     ]
                                 ),
                                 Output(
-                                    children=[
-                                        Prompt(
-                                            items=["<i>Trailers</i> are video previews for movies. <br> <br>"]
-                                        ),
-                                        GetUserInput(
-                                            children=[
-                                                Input(
-                                                    children=[
-                                                        Grammar(items=["okay"]),
-                                                        Output(
-                                                            children=[
-                                                                Prompt(items=["Sure, happy to help. <br> <br>"]),
-                                                                Goto(ref="##special_DNR_GET_USER_INPUT_NODE_ID")
-                                                            ]
-                                                        )
-                                                    ]
-                                                )
-                                            ]
-                                        )
-                                    ],
+                                    Prompt(
+                                        items=["<i>Trailers</i> are video previews for movies. <br> <br>"]
+                                    ),
+                                    get_user_input=GetUserInput(
+                                        children=[
+                                            Input(
+                                                children=[
+                                                    Grammar(items=["okay"]),
+                                                    Output(
+                                                        Prompt(items=["Sure, happy to help. <br> <br>"]),
+                                                        goto=Goto(ref="##special_DNR_GET_USER_INPUT_NODE_ID")
+                                                    )
+                                                ]
+                                            )
+                                        ]
+                                    ),
                                     is_insert_DNR_statement=True
                                 )
                             ]
@@ -134,13 +124,11 @@ class RepairSequences:
                                     ]
                                 ),
                                 Output(
-                                    children=[
-                                        Prompt(
-                                            items=[
-                                                "The <i>genre</i> is the category of movie, like Drama, Comedy, Action, etc. <br> <br>"
-                                            ]
-                                        )
-                                    ]
+                                    Prompt(
+                                        items=[
+                                            "The <i>genre</i> is the category of movie, like Drama, Comedy, Action, etc. <br> <br>"
+                                        ]
+                                    )
                                 )
                             ]
                         ),
@@ -155,12 +143,10 @@ class RepairSequences:
                                     ]
                                 ),
                                 Output(
-                                    children=[
-                                        Prompt(
-                                            items=[
-                                                "The <i>rating</i> is a recommendation by the Motion Picture Association of America about the suitability of a movie's content for particular age groups. For example, G is for general audiences, while R is restricted to people 17 and older.<br> <br>"]
-                                        )
-                                    ]
+                                    Prompt(
+                                        items=[
+                                            "The <i>rating</i> is a recommendation by the Motion Picture Association of America about the suitability of a movie's content for particular age groups. For example, G is for general audiences, while R is restricted to people 17 and older.<br> <br>"]
+                                    )
                                 )
                             ]
                         ),
@@ -173,12 +159,10 @@ class RepairSequences:
                                     ]
                                 ),
                                 Output(
-                                    children=[
-                                        Prompt(
-                                            items=[
-                                                "G stands for <i>General Audience</i> and is appropriate for everyone.", ]
-                                        )
-                                    ]
+                                    Prompt(
+                                        items=[
+                                            "G stands for <i>General Audience</i> and is appropriate for everyone.", ]
+                                    )
                                 )
                             ]
                         ),
@@ -191,13 +175,11 @@ class RepairSequences:
                                     ]
                                 ),
                                 Output(
-                                    children=[
-                                        Prompt(
-                                            items=[
-                                                "PG-13 means <i>Parents Strongly Cautioned</i> or that some material may not be suitable for children under 13 years old.",
-                                            ]
-                                        )
-                                    ]
+                                    Prompt(
+                                        items=[
+                                            "PG-13 means <i>Parents Strongly Cautioned</i> or that some material may not be suitable for children under 13 years old.",
+                                        ]
+                                    )
                                 )
                             ]
                         ),
@@ -210,13 +192,11 @@ class RepairSequences:
                                     ]
                                 ),
                                 Output(
-                                    children=[
-                                        Prompt(
-                                            items=[
-                                                "<i>Current</i> movies are those that have been playing for the past 28 days."
-                                            ]
-                                        )
-                                    ]
+                                    Prompt(
+                                        items=[
+                                            "<i>Current</i> movies are those that have been playing for the past 28 days."
+                                        ]
+                                    )
                                 )
                             ]
                         ),
@@ -229,13 +209,11 @@ class RepairSequences:
                                     ]
                                 ),
                                 Output(
-                                    children=[
-                                        Prompt(
-                                            items=[
-                                                "<i>Upcoming</i> movies are those that will come out within the next 6 months."
-                                            ]
-                                        )
-                                    ]
+                                    Prompt(
+                                        items=[
+                                            "<i>Upcoming</i> movies are those that will come out within the next 6 months."
+                                        ]
+                                    )
                                 )
                             ]
                         ),
@@ -249,13 +227,11 @@ class RepairSequences:
                                 ),
                                 TopicAction.set_to_value(),
                                 Output(
-                                    children=[
-                                        Prompt(
-                                            items=[
-                                                "I'm afraid I don't have definitions of the different genres."
-                                            ]
-                                        )
-                                    ]
+                                    Prompt(
+                                        items=[
+                                            "I'm afraid I don't have definitions of the different genres."
+                                        ]
+                                    )
                                 )
                             ]
                         )
@@ -271,14 +247,12 @@ class RepairSequences:
                             ]
                         ),
                         Output(
-                            children=[
-                                Prompt(
-                                    items=["I'm sorry, please repeat it for me."]
-                                ),
-                                Goto(
-                                    ref="getUserInput_how_can_i_help_you"
-                                )
-                            ]
+                            Prompt(
+                                items=["I'm sorry, please repeat it for me."]
+                            ),
+                            goto=Goto(
+                                ref="getUserInput_how_can_i_help_you"
+                            )
                         )
                     ]
                 )

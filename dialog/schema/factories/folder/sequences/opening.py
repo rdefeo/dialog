@@ -34,98 +34,89 @@ class OpeningSequences:
                             ]
                         ),
                         Output(
-                            children=[
-                                Prompt(
+                            Prompt(
+                                items=[
+                                    "Hello.",
+                                    "Hi.",
+                                    "Hi there."
+                                ]
+                            ),
+                            output=Output(
+                                _id="output_how_are_you",
+                                prompt=Prompt(
                                     items=[
-                                        "Hello.",
-                                        "Hi.",
-                                        "Hi there."
+                                        "How are you today?",
+                                        "How are you feeling today?",
+                                        "How is it going?"
                                     ]
                                 ),
-                                Output(
-                                    _id="output_how_are_you",
+                                get_user_input=GetUserInput(
                                     children=[
-                                        Prompt(
-                                            items=[
-                                                "How are you today?",
-                                                "How are you feeling today?",
-                                                "How is it going?"
+                                        Input(
+                                            children=[
+                                                Grammar(
+                                                    items=[
+                                                        "Movies",
+                                                        "$ (STYLE)={Style_Preference}",
+                                                        "$ (COLOR)={Color_Preference}",
+                                                        "$ movies"
+                                                    ]
+                                                ),
+                                                Goto(ref="input_main_search_criteria")
                                             ]
                                         ),
-                                        GetUserInput(
+                                        Input(
                                             children=[
-                                                Input(
-                                                    children=[
-                                                        Grammar(
-                                                            items=[
-                                                                "Movies",
-                                                                "$ (STYLE)={Style_Preference}",
-                                                                "$ (COLOR)={Color_Preference}",
-                                                                "$ movies"
-                                                            ]
-                                                        ),
-                                                        Goto(ref="input_main_search_criteria")
-                                                    ]
-                                                ),
-                                                Input(
-                                                    children=[
-                                                        FeelingGrammar.create_not_so_good(),
-                                                        Goto(ref="output_sorry_to_hear_that")
-                                                    ]
-                                                ),
-                                                Input(
-                                                    children=[
-                                                        FeelingGrammar.create_not_so_bad(),
-                                                        Goto(ref="output_good_to_hear")
-                                                    ]
-                                                ),
-                                                Input(
-                                                    children=[
-                                                        FeelingGrammar.create_feeling_fine(),
-                                                        Output(
-                                                            _id="output_good_to_hear",
-                                                            children=[
-                                                                Prompt(
-                                                                    items=["Good to hear! <br> <br>"]
-                                                                ),
-                                                                HowCanHelpYouOutput.goto()
-                                                            ]
-                                                        )
-                                                    ]
-                                                ),
-                                                Input(
-                                                    children=[
-                                                        FeelingGrammar.create_feeling_great(),
-                                                        Output(
-                                                            children=[
-                                                                Prompt(
-                                                                    items=["Fantastic! So glad to hear it. <br> <br>"]
-                                                                ),
-                                                                HowCanHelpYouOutput.goto()
-                                                            ]
-                                                        )
-                                                    ]
-                                                ),
-                                                Input(
-                                                    children=[
-                                                        FeelingGrammar.create_feeling_bad(),
-                                                        Output(
-                                                            _id="output_sorry_to_hear_that",
-                                                            children=[
-                                                                Prompt(
-                                                                    items=["I'm sorry to hear that. <br> <br>"]
-                                                                ),
-                                                                HowCanHelpYouOutput.goto()
-                                                            ]
-                                                        )
-                                                    ]
-                                                ),
-                                                PreliminarySequencesSearch.goto()
+                                                FeelingGrammar.create_not_so_good(),
+                                                Goto(ref="output_sorry_to_hear_that")
                                             ]
-                                        )
+                                        ),
+                                        Input(
+                                            children=[
+                                                FeelingGrammar.create_not_so_bad(),
+                                                Goto(ref="output_good_to_hear")
+                                            ]
+                                        ),
+                                        Input(
+                                            children=[
+                                                FeelingGrammar.create_feeling_fine(),
+                                                Output(
+                                                    _id="output_good_to_hear",
+                                                    prompt=Prompt(
+                                                        items=["Good to hear! <br> <br>"]
+                                                    ),
+                                                    goto=HowCanHelpYouOutput.goto()
+                                                )
+                                            ]
+                                        ),
+                                        Input(
+                                            children=[
+                                                FeelingGrammar.create_feeling_great(),
+                                                Output(
+                                                    Prompt(
+                                                        items=["Fantastic! So glad to hear it. <br> <br>"]
+                                                    ),
+                                                    goto=HowCanHelpYouOutput.goto()
+                                                )
+                                            ]
+                                        ),
+                                        Input(
+                                            children=[
+                                                FeelingGrammar.create_feeling_bad(),
+                                                Output(
+                                                    _id="output_sorry_to_hear_that",
+                                                    prompt=Prompt(
+                                                        items=["I'm sorry to hear that. <br> <br>"]
+                                                    ),
+                                                    goto=HowCanHelpYouOutput.goto()
+                                                )
+                                            ]
+                                        ),
+                                        PreliminarySequencesSearch.goto()
                                     ]
                                 )
-                            ]
+
+                            )
                         )
                     ]
                 ),
@@ -148,40 +139,36 @@ class OpeningSequences:
                                 Condition(name=NAME_SMALL_TALK_COUNT, operator="GREATER_THEN", root_text="2"),
                                 Output(
                                     _id="output_end_of_small_talk",
-                                    children=[
-                                        Prompt(
-                                            items=[
-                                                "You're very polite, but don't you want me to look up movies for you?"]
-                                        ),
-                                        GetUserInput(
-                                            children=[
-                                                Input(
-                                                    children=[
-                                                        GenericGrammar.yes(),
-                                                        StylePreferenceProfileCheck.goto()
-                                                    ]
-                                                ),
-                                                Input(
-                                                    children=[
-                                                        GenericGrammar.no(),
-                                                        GreetingAction.reset(),
-                                                        Output(
-                                                            children=[
-                                                                GenericPrompt.ok_fine()
-                                                            ]
-                                                        )
-                                                    ]
-                                                ),
-                                                Input(
-                                                    children=[
-                                                        GenericGrammar.ok(),
-                                                        StylePreferenceProfileCheck.goto()
-                                                    ]
-                                                ),
-                                                PreliminarySequencesSearch.goto()
-                                            ]
-                                        )
-                                    ]
+                                    prompt=Prompt(
+                                        items=[
+                                            "You're very polite, but don't you want me to look up movies for you?"]
+                                    ),
+                                    get_user_input=GetUserInput(
+                                        children=[
+                                            Input(
+                                                children=[
+                                                    GenericGrammar.yes(),
+                                                    StylePreferenceProfileCheck.goto()
+                                                ]
+                                            ),
+                                            Input(
+                                                children=[
+                                                    GenericGrammar.no(),
+                                                    GreetingAction.reset(),
+                                                    Output(
+                                                        GenericPrompt.ok_fine()
+                                                    )
+                                                ]
+                                            ),
+                                            Input(
+                                                children=[
+                                                    GenericGrammar.ok(),
+                                                    StylePreferenceProfileCheck.goto()
+                                                ]
+                                            ),
+                                            PreliminarySequencesSearch.goto()
+                                        ]
+                                    )
                                 )
                             ]
                         ),
@@ -210,19 +197,16 @@ class OpeningSequences:
                                         "$ hungry",
                                         "$ tired"
                                     ]
-                                ), Output(
-                                    children=[
-                                        Prompt(items=["I am doing well, thanks."]),
-                                        HowCanHelpYouOutput.goto()
-                                    ]
+                                ),
+                                Output(
+                                    Prompt(items=["I am doing well, thanks."]),
+                                    goto=HowCanHelpYouOutput.goto()
                                 )
                             ]
                         ),
                         Output(
-                            children=[
-                                Prompt(items=["I am doing well, thanks."]),
-                                Goto(ref="output_how_are_you")
-                            ]
+                            Prompt(items=["I am doing well, thanks."]),
+                            goto=Goto(ref="output_how_are_you")
                         )
                     ]
                 ),
@@ -240,48 +224,42 @@ class OpeningSequences:
                             elements=[
                                 Condition(name="Greeting_Count", operator="GREATER_THEN", root_text="2"),
                                 Output(
-                                    children=[
-                                        Prompt(
-                                            items=[
-                                                "You're very polite, but don't you want me to look up movies for you?"]
-                                        ),
-                                        GetUserInput(
-                                            children=[
-                                                Input(
-                                                    children=[
-                                                        GenericGrammar.yes(),
-                                                        StylePreferenceProfileCheck.goto()
-                                                    ]
-                                                ),
-                                                Input(
-                                                    children=[
-                                                        GenericGrammar.no(),
-                                                        GreetingAction.reset(),
-                                                        Output(
-                                                            children=[
-                                                                GenericPrompt.ok_fine()
-                                                            ]
-                                                        )
-                                                    ]
-                                                ),
-                                                Input(
-                                                    children=[
-                                                        GenericGrammar.ok(),
-                                                        StylePreferenceProfileCheck.goto()
-                                                    ]
-                                                ),
-                                                PreliminarySequencesSearch.goto()
-                                            ]
-                                        )
-                                    ]
+                                    Prompt(
+                                        items=[
+                                            "You're very polite, but don't you want me to look up movies for you?"]
+                                    ),
+                                    get_user_input=GetUserInput(
+                                        children=[
+                                            Input(
+                                                children=[
+                                                    GenericGrammar.yes(),
+                                                    StylePreferenceProfileCheck.goto()
+                                                ]
+                                            ),
+                                            Input(
+                                                children=[
+                                                    GenericGrammar.no(),
+                                                    GreetingAction.reset(),
+                                                    Output(
+                                                        GenericPrompt.ok_fine()
+                                                    )
+                                                ]
+                                            ),
+                                            Input(
+                                                children=[
+                                                    GenericGrammar.ok(),
+                                                    StylePreferenceProfileCheck.goto()
+                                                ]
+                                            ),
+                                            PreliminarySequencesSearch.goto()
+                                        ]
+                                    )
                                 )
                             ]
                         ),
                         Output(
-                            children=[
-                                Prompt(items=["Nice to meet you too, {User_Name}!"]),
-                                HowCanHelpYouOutput.goto()
-                            ]
+                            Prompt(items=["Nice to meet you too, {User_Name}!"]),
+                            goto=HowCanHelpYouOutput.goto()
                         )
                     ]
                 )

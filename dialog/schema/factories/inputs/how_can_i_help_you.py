@@ -1,8 +1,6 @@
 from dialog.elements import Goto
 from dialog.schema.factories.search import PreliminarySequencesSearch
 
-__author__ = 'robdefeo'
-
 
 class HowCanHelpYouInput:
     @staticmethod

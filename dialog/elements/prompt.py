@@ -1,4 +1,7 @@
+from random import choice
+
 from dialog.elements.element import Element
+from dialog.process import ProcessRequest
 from typing import Iterable
 
 
@@ -19,3 +22,9 @@ class Prompt(Element):
             doc["item"] = self.items
 
         return doc
+
+    def process(self, process_request: ProcessRequest):
+        if self.selection_type == "RANDOM":
+            return choice(self.items)
+        else:
+            raise NotImplemented()

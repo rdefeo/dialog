@@ -29,10 +29,8 @@ class ClosingSequences:
                         ),
                         Output(
                             _id="output_2449675",
-                            children=[
-                                GenericPrompt.ok(),
-                                Goto(ref="output_did_find_what_looking_for")
-                            ]
+                            prompt=GenericPrompt.ok(),
+                            goto=Goto(ref="output_did_find_what_looking_for")
                         )
                     ]
                 ),
@@ -46,12 +44,10 @@ class ClosingSequences:
                             ]
                         ),
                         Output(
-                            children=[
-                                Prompt(
-                                    items=["You are welcome."]
-                                ),
-                                Goto(ref="output_did_find_what_looking_for")
-                            ]
+                            Prompt(
+                                items=["You are welcome."]
+                            ),
+                            goto=Goto(ref="output_did_find_what_looking_for")
                         )
                     ]
                 ),

@@ -29,53 +29,49 @@ class SmallTalkSequences:
                         ),
                         SmallTalkConditions.too_much_small_talk_goto(),
                         Output(
-                            children=[
-                                Prompt(items=["My name is Jemboo."]),
-                                If(
-                                    elements=[
-                                        UserNameConditions.is_blank(),
-                                        Output(
-                                            children=[
-                                                Prompt(items=["What's your name?"]),
-                                                Goto(ref="getUserInput_what_is_your_name")
-                                            ]
-                                        )
-                                    ]
-                                ),
-                                GetUserInput(
-                                    children=[
-                                        Input(
-                                            children=[
-                                                Grammar(
-                                                    items=[
-                                                        "Okay",
-                                                        "okay",
-                                                        "hi",
-                                                        "hi jemboo"
-                                                    ]
-                                                ),
-                                                Goto(ref="output_what_is_name")
-                                            ]
-                                        ),
-                                        Input(
-                                            children=[
-                                                Grammar(
-                                                    items=[
-                                                        "My name is",
-                                                        "$ my name",
-                                                        "$ call me",
-                                                        "$ I'm called",
-                                                        "$ I am called",
-                                                        "$ known as"
-                                                    ]
-                                                ),
-                                                Goto(ref="input_user_knownas_name")
-                                            ]
-                                        ),
-                                        PreliminarySequencesSearch.goto()
-                                    ]
-                                )
-                            ]
+                            Prompt(items=["My name is Jemboo."]),
+                            _if=If(
+                                elements=[
+                                    UserNameConditions.is_blank(),
+                                    Output(
+                                        Prompt(items=["What's your name?"]),
+                                        goto=Goto(ref="getUserInput_what_is_your_name")
+                                    )
+                                ]
+                            ),
+                            get_user_input=GetUserInput(
+                                children=[
+                                    Input(
+                                        children=[
+                                            Grammar(
+                                                items=[
+                                                    "Okay",
+                                                    "okay",
+                                                    "hi",
+                                                    "hi jemboo"
+                                                ]
+                                            ),
+                                            Goto(ref="output_what_is_name")
+                                        ]
+                                    ),
+                                    Input(
+                                        children=[
+                                            Grammar(
+                                                items=[
+                                                    "My name is",
+                                                    "$ my name",
+                                                    "$ call me",
+                                                    "$ I'm called",
+                                                    "$ I am called",
+                                                    "$ known as"
+                                                ]
+                                            ),
+                                            Goto(ref="input_user_knownas_name")
+                                        ]
+                                    ),
+                                    PreliminarySequencesSearch.goto()
+                                ]
+                            )
                         )
                     ]
                 ),
@@ -99,20 +95,18 @@ class SmallTalkSequences:
                                     ]
                                 ),
                                 Output(
-                                    children=[
-                                        Prompt(items=["Now you're hurting my feelings."]),
-                                        GetUserInput(
-                                            children=[
-                                                Input(
-                                                    children=[
-                                                        Grammar(items=["Okay", "$ sorry"]),
-                                                        SystemInitiatedSequences.goto()
-                                                    ]
-                                                ),
-                                                PreliminarySequencesSearch.goto()
-                                            ]
-                                        )
-                                    ]
+                                    Prompt(items=["Now you're hurting my feelings."]),
+                                    get_user_input=GetUserInput(
+                                        children=[
+                                            Input(
+                                                children=[
+                                                    Grammar(items=["Okay", "$ sorry"]),
+                                                    SystemInitiatedSequences.goto()
+                                                ]
+                                            ),
+                                            PreliminarySequencesSearch.goto()
+                                        ]
+                                    )
                                 )
                             ]
                         )
@@ -131,39 +125,36 @@ class SmallTalkSequences:
                         ),
                         SmallTalkConditions.too_much_small_talk_goto(),
                         Output(
-                            children=[
-                                Prompt(items=[
-                                    "I'm sorry, English is my second language. My native tongue is Binary. 01110011 01101111 01110010 01110010 01111001"]
-                                ),
-                                GetUserInput(
-                                    children=[
-                                        Input(
-                                            children=[
-                                                Grammar(items=["haha", "ok"]),
-                                                SystemInitiatedSequences.goto()
-                                            ]
-                                        ),
-                                        Input(
-                                            children=[
-                                                Grammar(
-                                                    items=[
-                                                        "01101110 01110000",
-                                                        "01101110 01101111 00100000 01110000 01110010 01101111 01100010 01101100 01100101 01101101",
-                                                        "01101110 01110000",
-                                                        "01100100 01101111 01101110 00100111 01110100 00100000 01110111 01101111 01110010 01110010 01111001"
-                                                    ]
-                                                ), Output(
-                                                    children=[
-                                                        Prompt(items=["haha, you're good!"]),
-                                                        SystemInitiatedSequences.goto()
-                                                    ]
-                                                )
-                                            ]
-                                        ),
-                                        PreliminarySequencesSearch.goto()
-                                    ]
-                                )
-                            ]
+                            Prompt(items=[
+                                "I'm sorry, English is my second language. My native tongue is Binary. 01110011 01101111 01110010 01110010 01111001"]
+                            ),
+                            get_user_input=GetUserInput(
+                                children=[
+                                    Input(
+                                        children=[
+                                            Grammar(items=["haha", "ok"]),
+                                            SystemInitiatedSequences.goto()
+                                        ]
+                                    ),
+                                    Input(
+                                        children=[
+                                            Grammar(
+                                                items=[
+                                                    "01101110 01110000",
+                                                    "01101110 01101111 00100000 01110000 01110010 01101111 01100010 01101100 01100101 01101101",
+                                                    "01101110 01110000",
+                                                    "01100100 01101111 01101110 00100111 01110100 00100000 01110111 01101111 01110010 01110010 01111001"
+                                                ]
+                                            ),
+                                            Output(
+                                                Prompt(items=["haha, you're good!"]),
+                                                goto=SystemInitiatedSequences.goto()
+                                            )
+                                        ]
+                                    ),
+                                    PreliminarySequencesSearch.goto()
+                                ]
+                            )
                         )
                     ]
                 )

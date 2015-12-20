@@ -1,4 +1,6 @@
-from dialog.elements import Grammar, Action
+from dialog.elements.grammar import Grammar
+from dialog.elements.output import Output
+from dialog.elements.action import Action
 from dialog.elements.element import Element
 from dialog.process import ProcessRequest
 from dialog.process.grammar_response import GrammarMatchType
@@ -40,11 +42,15 @@ class Input(Element):
             raise Exception("grammar not the first item")
 
         if grammar.process(process_request).match_type == GrammarMatchType.exact:
-            response = {}
-            response["actions"] = []
+            response = {
+                "actions": [],
+                "outputs": []
+            }
             for child in iter(self.children[1:]):
                 if isinstance(child, Action):
                     response["actions"].append(child.process(process_request))
+                elif isinstance(child, Output):
+                    response["outputs"].append(child.process(process_request))
                 else:
 
                     pass

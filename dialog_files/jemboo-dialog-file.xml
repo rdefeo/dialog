@@ -1025,9 +1025,7 @@
                                     </grammar>
                                     <input>
                                         <grammar>
-                                            <item>
-                                                styles
-                                            </item>
+                                            <item>styles</item>
                                             <item>$ they</item>
                                             <item>$ ones</item>
                                             <item>$ choices</item>
