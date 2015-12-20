@@ -45,7 +45,7 @@ class RepairSequences:
                         ),
                         Output(
                             Prompt(items=["I said..."]),
-                            goto=Goto(ref="##special_DNR_GUI_PREVIOUS_OUTPUT_NODE_ID")
+                            children=[Goto(ref="##special_DNR_GUI_PREVIOUS_OUTPUT_NODE_ID")]
                         )
                     ]
                 ),
@@ -68,7 +68,7 @@ class RepairSequences:
                         ),
                         Output(
                             Prompt(items=["Okay. Whatever you say, {User_Name}!"]),
-                            goto=SystemInitiatedSequences.goto()
+                            children=[SystemInitiatedSequences.goto()]
                         )
                     ]
                 ),
@@ -97,19 +97,19 @@ class RepairSequences:
                                     Prompt(
                                         items=["<i>Trailers</i> are video previews for movies. <br> <br>"]
                                     ),
-                                    get_user_input=GetUserInput(
+                                    children=[GetUserInput(
                                         children=[
                                             Input(
                                                 children=[
                                                     Grammar(items=["okay"]),
                                                     Output(
                                                         Prompt(items=["Sure, happy to help. <br> <br>"]),
-                                                        goto=Goto(ref="##special_DNR_GET_USER_INPUT_NODE_ID")
+                                                        children=[Goto(ref="##special_DNR_GET_USER_INPUT_NODE_ID")]
                                                     )
                                                 ]
                                             )
                                         ]
-                                    ),
+                                    )],
                                     is_insert_DNR_statement=True
                                 )
                             ]
@@ -250,9 +250,7 @@ class RepairSequences:
                             Prompt(
                                 items=["I'm sorry, please repeat it for me."]
                             ),
-                            goto=Goto(
-                                ref="getUserInput_how_can_i_help_you"
-                            )
+                            children=[Goto(ref="getUserInput_how_can_i_help_you")]
                         )
                     ]
                 )

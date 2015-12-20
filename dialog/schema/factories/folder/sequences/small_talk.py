@@ -30,16 +30,16 @@ class SmallTalkSequences:
                         SmallTalkConditions.too_much_small_talk_goto(),
                         Output(
                             Prompt(items=["My name is Jemboo."]),
-                            _if=If(
+                            children=[If(
                                 elements=[
                                     UserNameConditions.is_blank(),
                                     Output(
                                         Prompt(items=["What's your name?"]),
-                                        goto=Goto(ref="getUserInput_what_is_your_name")
+                                        children=[Goto(ref="getUserInput_what_is_your_name")]
                                     )
                                 ]
                             ),
-                            get_user_input=GetUserInput(
+                            GetUserInput(
                                 children=[
                                     Input(
                                         children=[
@@ -71,7 +71,7 @@ class SmallTalkSequences:
                                     ),
                                     PreliminarySequencesSearch.goto()
                                 ]
-                            )
+                            )]
                         )
                     ]
                 ),
@@ -96,7 +96,7 @@ class SmallTalkSequences:
                                 ),
                                 Output(
                                     Prompt(items=["Now you're hurting my feelings."]),
-                                    get_user_input=GetUserInput(
+                                    children=[GetUserInput(
                                         children=[
                                             Input(
                                                 children=[
@@ -106,7 +106,7 @@ class SmallTalkSequences:
                                             ),
                                             PreliminarySequencesSearch.goto()
                                         ]
-                                    )
+                                    )]
                                 )
                             ]
                         )
@@ -128,7 +128,7 @@ class SmallTalkSequences:
                             Prompt(items=[
                                 "I'm sorry, English is my second language. My native tongue is Binary. 01110011 01101111 01110010 01110010 01111001"]
                             ),
-                            get_user_input=GetUserInput(
+                            children=[GetUserInput(
                                 children=[
                                     Input(
                                         children=[
@@ -148,13 +148,13 @@ class SmallTalkSequences:
                                             ),
                                             Output(
                                                 Prompt(items=["haha, you're good!"]),
-                                                goto=SystemInitiatedSequences.goto()
+                                                children=[SystemInitiatedSequences.goto()]
                                             )
                                         ]
                                     ),
                                     PreliminarySequencesSearch.goto()
                                 ]
-                            )
+                            )]
                         )
                     ]
                 )

@@ -41,7 +41,7 @@ class OpeningSequences:
                                     "Hi there."
                                 ]
                             ),
-                            output=Output(
+                            children=[Output(
                                 _id="output_how_are_you",
                                 prompt=Prompt(
                                     items=[
@@ -50,7 +50,7 @@ class OpeningSequences:
                                         "How is it going?"
                                     ]
                                 ),
-                                get_user_input=GetUserInput(
+                                children=[GetUserInput(
                                     children=[
                                         Input(
                                             children=[
@@ -85,7 +85,7 @@ class OpeningSequences:
                                                     prompt=Prompt(
                                                         items=["Good to hear! <br> <br>"]
                                                     ),
-                                                    goto=HowCanHelpYouOutput.goto()
+                                                    children=[HowCanHelpYouOutput.goto()]
                                                 )
                                             ]
                                         ),
@@ -96,7 +96,7 @@ class OpeningSequences:
                                                     Prompt(
                                                         items=["Fantastic! So glad to hear it. <br> <br>"]
                                                     ),
-                                                    goto=HowCanHelpYouOutput.goto()
+                                                    children=[HowCanHelpYouOutput.goto()]
                                                 )
                                             ]
                                         ),
@@ -108,15 +108,15 @@ class OpeningSequences:
                                                     prompt=Prompt(
                                                         items=["I'm sorry to hear that. <br> <br>"]
                                                     ),
-                                                    goto=HowCanHelpYouOutput.goto()
+                                                    children=[HowCanHelpYouOutput.goto()]
                                                 )
                                             ]
                                         ),
                                         PreliminarySequencesSearch.goto()
                                     ]
                                 )
-
-                            )
+                                ]
+                            )]
                         )
                     ]
                 ),
@@ -143,7 +143,7 @@ class OpeningSequences:
                                         items=[
                                             "You're very polite, but don't you want me to look up movies for you?"]
                                     ),
-                                    get_user_input=GetUserInput(
+                                    children=[GetUserInput(
                                         children=[
                                             Input(
                                                 children=[
@@ -169,6 +169,7 @@ class OpeningSequences:
                                             PreliminarySequencesSearch.goto()
                                         ]
                                     )
+                                    ]
                                 )
                             ]
                         ),
@@ -200,13 +201,13 @@ class OpeningSequences:
                                 ),
                                 Output(
                                     Prompt(items=["I am doing well, thanks."]),
-                                    goto=HowCanHelpYouOutput.goto()
+                                    children=[HowCanHelpYouOutput.goto()]
                                 )
                             ]
                         ),
                         Output(
                             Prompt(items=["I am doing well, thanks."]),
-                            goto=Goto(ref="output_how_are_you")
+                            children=[Goto(ref="output_how_are_you")]
                         )
                     ]
                 ),
@@ -228,7 +229,7 @@ class OpeningSequences:
                                         items=[
                                             "You're very polite, but don't you want me to look up movies for you?"]
                                     ),
-                                    get_user_input=GetUserInput(
+                                    children=[GetUserInput(
                                         children=[
                                             Input(
                                                 children=[
@@ -254,12 +255,13 @@ class OpeningSequences:
                                             PreliminarySequencesSearch.goto()
                                         ]
                                     )
+                                    ]
                                 )
                             ]
                         ),
                         Output(
                             Prompt(items=["Nice to meet you too, {User_Name}!"]),
-                            goto=HowCanHelpYouOutput.goto()
+                            children=[HowCanHelpYouOutput.goto()]
                         )
                     ]
                 )

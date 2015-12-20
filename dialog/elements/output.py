@@ -9,10 +9,7 @@ from dialog.process import ProcessRequest
 class Output(Element):
     _element_name = "output"
 
-    def __init__(self, prompt: Prompt, _if: If = None, output: Element = None, get_user_input: GetUserInput = None,
-                 goto: Goto = None,
-                 _id: str = None, is_insert_DNR_statement=False
-                 ):
+    def __init__(self, prompt: Prompt, children = None, _id: str = None, is_insert_DNR_statement=False):
 
         """
         Contains the nodes that contain the system's response to user input.
@@ -25,10 +22,10 @@ class Output(Element):
         if prompt is None:
             raise Exception()
         self.prompt = prompt
-        self._if = _if
-        self.output = output
-        self.goto = goto
-        self.get_user_input = get_user_input
+        if children is not None:
+            self.children = [self.prompt] + children
+        else:
+            self.children = [self.prompt]
 
         self.is_insert_DNR_statement = is_insert_DNR_statement
         self.id = _id
@@ -36,17 +33,8 @@ class Output(Element):
     def _set_dialog(self, value):
         self.dialog = value
         self.prompt._set_dialog(value)
-        if self._if is not None:
-            self._if._set_dialog(value)
-
-        if self.goto is not None:
-            self.goto._set_dialog(value)
-
-        if self.output is not None:
-            self.output._set_dialog(value)
-
-        if self.get_user_input is not None:
-            self.get_user_input._set_dialog(value)
+        for x in self.children:
+            x._set_dialog(value)
 
     def create(self):
         doc = {}
@@ -57,18 +45,7 @@ class Output(Element):
         if self.is_insert_DNR_statement:
             doc["@isInsertDNRStatement"] = "true"
 
-        children = []
-        children.append(self.prompt)
-        if self._if is not None:
-            children.append(self._if)
-        if self.output is not None:
-            children.append(self.output)
-        if self.get_user_input is not None:
-            children.append(self.get_user_input)
-        if self.goto is not None:
-            children.append(self.goto)
-
-        for i, child in enumerate(children):
+        for i, child in enumerate(self.children):
             doc[(i, child._element_name)] = child
 
         return doc

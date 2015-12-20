@@ -30,7 +30,7 @@ class ClosingSequences:
                         Output(
                             _id="output_2449675",
                             prompt=GenericPrompt.ok(),
-                            goto=Goto(ref="output_did_find_what_looking_for")
+                            children=[Goto(ref="output_did_find_what_looking_for")]
                         )
                     ]
                 ),
@@ -47,7 +47,7 @@ class ClosingSequences:
                             Prompt(
                                 items=["You are welcome."]
                             ),
-                            goto=Goto(ref="output_did_find_what_looking_for")
+                            children=[Goto(ref="output_did_find_what_looking_for")]
                         )
                     ]
                 ),

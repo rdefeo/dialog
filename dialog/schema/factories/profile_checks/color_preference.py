@@ -23,19 +23,23 @@ class ColorPreferenceProfileCheck:
                 ColorConditions.is_blank(),
                 Output(
                     prompt=Prompt(items=["Do you prefer a certain color?"]),
-                    _if=If(
-                        elements=[
-                            FirstTimeConditions.is_yes(),
-                            Output(
-                                prompt=Prompt(
-                                    items=[
-                                        "<mct:link><b><mct:input>Black</mct:input></b></mct:link>\n<mct:link><b><mct:input>White</mct:input></b></mct:link>\n<mct:link><b><mct:input>Red</mct:input></b></mct:link>\n<mct:link><b><mct:input>Green</mct:input></b></mct:link>\n<mct:link><b><mct:input>No Preference</mct:input></b></mct:link>"]
-                                ),
-                                goto=ColorPreferenceProfileCheckInput.goto()
-                            )
-                        ]
-                    ),
-                    get_user_input=ColorPreferenceProfileCheckInput.create()
+                    children=[
+                        If(
+                            elements=[
+                                FirstTimeConditions.is_yes(),
+                                Output(
+                                    prompt=Prompt(
+                                        items=[
+                                            "<mct:link><b><mct:input>Black</mct:input></b></mct:link>\n<mct:link><b><mct:input>White</mct:input></b></mct:link>\n<mct:link><b><mct:input>Red</mct:input></b></mct:link>\n<mct:link><b><mct:input>Green</mct:input></b></mct:link>\n<mct:link><b><mct:input>No Preference</mct:input></b></mct:link>"]
+                                    ),
+                                    children=[
+                                        ColorPreferenceProfileCheckInput.goto()
+                                    ]
+                                )
+                            ]
+                        ),
+                        ColorPreferenceProfileCheckInput.create()
+                    ]
                 )
             ]
         )
@@ -83,7 +87,7 @@ class ColorPreferenceProfileCheckInput:
                                     Prompt(
                                         items=["Black, White, Red, Brown or Green <br> <br>"]
                                     ),
-                                    goto=ColorPreferenceProfileCheckInput.goto()
+                                    children=[ColorPreferenceProfileCheckInput.goto()]
                                 )
                             ]
                         )
@@ -150,8 +154,7 @@ class ColorPreferenceProfileCheckInput:
                         GenericGrammar.yes_okay(wildcard=False),
                         Output(
                             Prompt(items=["Which one?"]),
-                            goto=ColorPreferenceProfileCheckInput.goto()
-
+                            children=[ColorPreferenceProfileCheckInput.goto()]
                         )
                     ]
                 ),

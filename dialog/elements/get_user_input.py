@@ -5,7 +5,7 @@ from typing import Iterable
 class GetUserInput(Element):
     _element_name = "getUserInput"
 
-    def __init__(self, _id: str = None, children: Iterable[Element] = None, ):
+    def __init__(self, _id: str = None, children: Iterable[Element] = None ):
         """
         Contains the nodes that contain the system's response to users' input that cannot be matched to output in the dialog.
         :param _id: Specifies a unique ID that is used as an anchor point.
