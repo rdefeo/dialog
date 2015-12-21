@@ -26,6 +26,9 @@ class Prompt(Element):
 
         return doc
 
+    def _set_dialog(self, value):
+        self.dialog = value
+
     @property
     def selection_type(self):
         return self.settings["selection_type"]

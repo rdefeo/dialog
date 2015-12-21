@@ -11,12 +11,12 @@ from dialog.schema.factories.folder.sequences import SystemInitiatedSequences, P
 dialog = Dialog(
     flow=Flow(
         folders=[
-            MainFolder,
+            MainFolder.create(),
             Folder(
                 label="Library",
                 children=[
-                    SystemInitiatedSequences,
-                    GlobalSequences,
+                    SystemInitiatedSequences.create(),
+                    GlobalSequences.create(),
                     Folder(label="Storage")
                 ]
             ),
@@ -31,7 +31,7 @@ dialog = Dialog(
             #         # Folder(label="Storage").create()
             #     ]
             # },
-            GlobalFolder,
+            GlobalFolder.create(),
         ]
         # {
         #     "folder": [

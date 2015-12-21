@@ -19,7 +19,7 @@ class GenericPrompt:
     @staticmethod
     def what_is_your_name():
         return Prompt(
-            selection_type="SEQUENTIAL",
+            selection_type="RANDOM",
             items=[
                 "What can I call you?",
                 "What's your name?"

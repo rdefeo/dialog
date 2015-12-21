@@ -9,6 +9,9 @@ class Condition(Element):
         self.operator = operator
         self.root_text = root_text
 
+    def _set_dialog(self, value):
+        self.dialog = value
+
     def create(self):
         doc = {}
 
