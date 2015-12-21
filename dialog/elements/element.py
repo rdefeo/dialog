@@ -7,6 +7,12 @@ __author__ = 'robdefeo'
 class Element:
     _element_name = None
     dialog = None
+    settings = {}
+    children = []
+    
+    def __init__(self, settings: dict, children: list):
+        self.settings = settings
+        self.children = children
 
     # @property
     # def dialog(self):

@@ -28,7 +28,7 @@
                         </grammar>
                         <action operator="SET_TO" varName="Color_Preference">{Color_Preference.value:main}</action>
                         <action operator="SET_TO" varName="Style_Preference">{Style_Preference.value:main}</action>
-                        <action operator="SET_TO" varName="Topic">movies</action>
+                        <action operator="SET_TO" varName="Topic">shoes</action>
                         <goto ref="search_preliminary_sequences"/>
                     </input>
                     <input>

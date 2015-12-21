@@ -1,5 +1,5 @@
 from dialog.elements import Action
-from dialog.schema.factories.variables import NAME_PAGE, NAME_CURRENT_INDEX, NAME_SEARCH_NOW
+from dialog.schema.factories.variables import NAME_PAGE, NAME_CURRENT_INDEX, NAME_SEARCH_NOW, NAME_USER_NAME
 
 
 class CertificationPreferenceAction:
@@ -11,6 +11,12 @@ class CertificationPreferenceAction:
     def set_to_value():
         return Action(varName="Certification_Preference", operator="SET_TO",
                       text="{Certification_Preference.value:main}")
+
+
+class UserNameAction:
+    @staticmethod
+    def set_to_source():
+        return Action(varName=NAME_USER_NAME, operator="SET_TO", text="{User_Name.source}")
 
 
 class PageAction:
@@ -118,6 +124,10 @@ class TopicAction:
     @staticmethod
     def set_to_value():
         return Action(varName="Topic", operator="SET_TO", text="{Topic.value:main}")
+
+    @staticmethod
+    def set_to_shoes():
+        return Action(varName="Topic", operator="SET_TO", text="shoes")
 
 
 class RequestSuccessAction:

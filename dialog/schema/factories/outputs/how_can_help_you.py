@@ -1,4 +1,4 @@
-from dialog.elements import Goto
+from dialog.elements import Goto, Prompt, Output
 
 
 class HowCanHelpYouOutput:
@@ -13,14 +13,13 @@ class HowCanHelpYouOutput:
     @staticmethod
     def create():
         from dialog.schema.factories.inputs.how_can_i_help_you import HowCanHelpYouInput
-        return {
-            "@id": HowCanHelpYouOutput.__id(),
-            (0, "prompt"): {
-                "item": [
+        return Output(
+            _id=HowCanHelpYouOutput.__id(),
+            prompt=Prompt(
+                items=[
                     "How can I help you?",
                     "What can I do for you?"
-                ],
-                "@selectionType": "RANDOM"
-            },
-            (1, "getUserInput"): HowCanHelpYouInput.create()
-        }
+                ]
+            ),
+            children=[HowCanHelpYouInput.create()]
+        )

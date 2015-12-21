@@ -7,15 +7,20 @@ class Folder(Element):
 
     def __init__(self, _id: str = None, label: str = None, selection_type=None, children: Iterable[Element] = None):
         """
-        Node groups content.
-        :param _id: Specifies a unique ID that is used as an anchor point.
-        :param label: Specifies a unique name for a node.
-        :param children: action | autoLearnVariations | concept | default | folder | function | getUserInput | goto | if | input | output | random | search
-        """
-        self.selection_type = selection_type
-        self.label = label
-        self.children = children
-        self.id = _id
+            Node groups content.
+            :param _id: Specifies a unique ID that is used as an anchor point.
+            :param label: Specifies a unique name for a node.
+            :param children: action | autoLearnVariations | concept | default | folder | function | getUserInput | goto | if | input | output | random | search
+            """
+        settings = {}
+        if selection_type is not None:
+            settings["selection_type"] = selection_type
+        if label is not None:
+            settings["label"] = label
+        if _id is not None:
+            settings["id"] = _id
+        super().__init__(settings, list(children))
+
 
     def _set_dialog(self, value):
         self.dialog = value
@@ -25,14 +30,14 @@ class Folder(Element):
     def create(self):
         doc = {}
 
-        if self.id is not None:
-            doc["@id"] = self.id
+        if "id" in self.settings:
+            doc["@id"] = self.settings["id"]
 
-        if self.label is not None:
-            doc["@label"] = self.label
+        if "label" in self.settings:
+            doc["@label"] = self.settings["label"]
 
-        if self.selection_type is not None:
-            doc["@selectionType"] = self.selection_type
+        if "selection_type" in self.settings:
+            doc["@selectionType"] = self.settings["selection_type"]
 
         if any(self.children):
             for i, child in enumerate(self.children):

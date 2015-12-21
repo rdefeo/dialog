@@ -1,4 +1,5 @@
 from dialog.elements import Goto
+from dialog.elements.search import Search
 
 __author__ = 'robdefeo'
 
@@ -16,7 +17,7 @@ class PreliminarySequencesSearch:
     def create():
         from dialog.schema.factories.folder.sequences import PreliminarySequencesFolder
 
-        return {
-            "@id": PreliminarySequencesSearch._id(),
-            "@ref": PreliminarySequencesFolder._id()
-        }
+        return Search(
+            _id=PreliminarySequencesSearch._id(),
+            ref=PreliminarySequencesFolder._id()
+        )

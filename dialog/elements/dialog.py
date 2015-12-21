@@ -1,13 +1,12 @@
 from dialog.elements.entities import Entities
 from dialog.elements.flow import Flow
 from dialog.elements.element import Element
-from typing import Iterable
 
 
 class Dialog(Element):
-    _element_name = "folder"
+    _element_name = "dialog"
 
-    def __init__(self, flow: Flow = None, entities: Entities=None):
+    def __init__(self, flow: Flow = None, entities: Entities = None):
         """
         Node defines a top-level container for the dialog that you design.
         :param flow: flow
@@ -25,12 +24,3 @@ class Dialog(Element):
     @property
     def entities(self):
         return self.__entities
-
-    # def create(self):
-    #     doc = {}
-    #
-    #     if any(self.children):
-    #         for i, child in enumerate(self.children):
-    #             doc[(i, child._element_name)] = child
-    #
-    #     return doc

@@ -17,3 +17,4 @@ NAME_FIRST_TIME = "First_Time"
 NAME_CURRENT_INDEX = "Current_Index"
 
 NAME_SEARCH_NOW = "Search_Now"
+

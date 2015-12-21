@@ -1,4 +1,6 @@
-from dialog.elements import Goto
+from dialog.elements import Goto, Prompt, Output, GetUserInput
+from dialog.elements.default import Default
+from dialog.elements.search import Search
 from dialog.schema.factories.search import PreliminarySequencesSearch
 
 
@@ -13,28 +15,28 @@ class HowCanHelpYouInput:
 
     @staticmethod
     def create():
-        return {
-            "@id": HowCanHelpYouInput.__id(),
-            (0, "search"): [
+        return GetUserInput(
+            _id=HowCanHelpYouInput.__id(),
+            children=[
                 PreliminarySequencesSearch.create(),
-                {
-                    "@ref": "folder_routing_sequences"
-                },
-                {
-                    "@id": "search_2414740",
-                    "@ref": "folder_base_sequences"
-                }
-            ],
-            (1, "default"): {
-                (0, "output"): {
-                    "@isInsertDNRStatement": "true",
-                    (0, "prompt"): {
-                        "item": "I'm not sure what you mean. I can understand things like <i>Show me recent PG13-rated Action movies.</i>",
-                        "@selectionType": "RANDOM"
-                    },
-                    (1, "goto"): {
-                        "@ref": "##special_DNR_GET_USER_INPUT_NODE_ID"
-                    }
-                }
-            }
-        }
+                Search(
+                    ref="folder_routing_sequences"
+                ),
+                Search(
+                    _id="search_2414740",
+                    ref="folder_base_sequences"
+                ),
+                Default(
+                    children=[
+                        Output(
+                            is_insert_DNR_statement=True,
+                            prompt=Prompt(
+                                items=[
+                                    "I'm not sure what you mean. I can understand things like <i>Show me recent PG13-rated Action movies.</i>"]
+                            ),
+                            children=[Goto(ref="##special_DNR_GET_USER_INPUT_NODE_ID")]
+                        )
+                    ]
+                )
+            ]
+        )
