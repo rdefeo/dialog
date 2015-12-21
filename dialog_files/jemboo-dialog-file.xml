@@ -430,7 +430,7 @@
                             <goto ref="output_2503370"/>
                         </input>
                         <output>
-                            <prompt>
+                            <prompt selectionType="RANDOM">
                                 <item>No.</item>
                             </prompt>
                             <output id="output_2503370">
@@ -476,41 +476,6 @@
                                     <input>
                                         <grammar>
                                             <item>Okay.</item>
-                                        </grammar>
-                                        <goto ref="output_how_can_i_help_you"/>
-                                    </input>
-                                    <goto ref="search_preliminary_sequences"/>
-                                </getUserInput>
-                            </output>
-                        </output>
-                    </input>
-                    <input>
-                        <grammar>
-                            <item>showtimes</item>
-                            <item>$ showtimes</item>
-                        </grammar>
-                        <input>
-                            <grammar>
-                                <item>what</item>
-                                <item>$ what</item>
-                            </grammar>
-                            <goto ref="output_2459443"/>
-                        </input>
-                        <output>
-                            <prompt selectionType="RANDOM">
-                                <item>No.</item>
-                            </prompt>
-                            <output id="output_2459443">
-                                <prompt selectionType="RANDOM">
-                                    <item>I'm afraid I cannot look up showtimes myself, but I can give you a link to
-                                        Fandango.com where you can buy tickets in your ZIP code.
-                                    </item>
-                                </prompt>
-                                <getUserInput>
-                                    <input>
-                                        <grammar>
-                                            <item>okay</item>
-                                            <item>ok</item>
                                         </grammar>
                                         <goto ref="output_how_can_i_help_you"/>
                                     </input>
@@ -792,11 +757,11 @@
                             <goto ref="output_2497989"/>
                         </input>
                         <output>
-                            <prompt>
+                            <prompt selectionType="RANDOM">
                                 <item>No.</item>
                             </prompt>
                             <output id="output_2497989">
-                                <prompt>
+                                <prompt selectionType="RANDOM">
                                     <item>I'm afraid I don't know much about {Topic}. Just movies.</item>
                                 </prompt>
                                 <getUserInput>

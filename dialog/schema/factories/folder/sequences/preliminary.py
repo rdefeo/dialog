@@ -1,4 +1,5 @@
-from dialog.schema.factories.action import GreetingAction, SmallTalkAction, StylePreferenceAction, ColorPreferenceAction
+from dialog.elements import Grammar, Goto, Input, Prompt, GetUserInput, Output
+from dialog.schema.factories.action import GreetingAction, SmallTalkAction, StylePreferenceAction, TopicAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.profile_checks.style_preference import StylePreferenceProfileCheck
@@ -9,7 +10,6 @@ __author__ = 'robdefeo'
 
 
 class PreliminarySequencesFolder:
-
     @staticmethod
     def _id():
         return "folder_preliminary_sequences"
@@ -24,8 +24,8 @@ class PreliminarySequencesFolder:
                 SmallTalkAction.set_to_zero()
             ],
             (1, "input"): {
-                (0, "grammar"): {
-                    "item": [
+                (0, "grammar"): Grammar(
+                    items=[
                         "Do you know",
                         "$ do you know",
                         "$ can you",
@@ -35,101 +35,113 @@ class PreliminarySequencesFolder:
                         "$ what kind of",
                         "$ what else do you know"
                     ]
-                },
+                ),
                 (1, "action"): [
                     GreetingAction.reset(),
                     SmallTalkAction.set_to_zero()
                 ],
                 (2, "input"): [
-                    {
-                        (0, "grammar"): {
-                            "item": [
-                                "out-of-scope movie topics",
-                                "$ (OTHER_MOVIE)={Topic}"
-                            ]
-                        },
-                        (1, "action"): {
-                            "@varName": "Topic",
-                            "@operator": "SET_TO",
-                            "#text": "{Topic.value:main}"
-                        },
-                        (2, "input"): {
-                            (0, "grammar"): {
-                                "item": [
-                                    "what",
-                                    "$ what"
+                    Input(
+                        children=[
+                            Grammar(
+                                items=[
+                                    "out-of-scope movie topics",
+                                    "$ (OTHER_MOVIE)={Topic}"
                                 ]
-                            },
-                            (1, "goto"): {
-                                "@ref": "output_no_topic_lookup"
-                            }
-                        },
-                        (3, "output"): {
-                            (0, "prompt"): {
-                                "item": "No.",
-                                "@selectionType": "RANDOM"
-                            },
-                            (1, "output"): {
-                                "@id": "output_no_topic_lookup",
-                                (0, "prompt"): {
-                                    "item": "I'm afraid I can't look up movies by {Topic}, only by Genre or MPAA Rating.",
-                                    "@selectionType": "RANDOM"
-                                },
-                                (1, "getUserInput"): {
-                                    (0, "input"): {
-                                        (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYouOutput.goto()
-                                    },
-                                    (1, "goto"): PreliminarySequencesSearch.goto()
-                                }
-                            }
-                        }
-                    },
-                    {
-                        (0, "grammar"): {
-                            "item": [
-                                "by out-of-scope movie topics",
-                                "$ (BY_OTHER_MOVIE)={Topic}"
-                            ]
-                        },
-                        (1, "action"): {
-                            "@varName": "Topic",
-                            "@operator": "SET_TO",
-                            "#text": "{Topic.value:main}"
-                        },
-                        (2, "input"): {
-                            (0, "grammar"): {
-                                "item": [
-                                    "what",
-                                    "$ what"
+                            ),
+                            TopicAction.set_to_value(),
+                            Input(
+                                children=[
+                                    Grammar(
+                                        items=[
+                                            "what",
+                                            "$ what"
+                                        ]
+                                    ),
+                                    Goto(ref="output_no_topic_lookup")
                                 ]
-                            },
-                            (1, "goto"): {
-                                "@ref": "output_2503370"
-                            }
-                        },
-                        (3, "output"): {
-                            (0, "prompt"): {
-                                "item": "No."
-                            },
-                            (1, "output"): {
-                                (0, "prompt"): {
-                                    "item": "I'm afraid I can't look up {Topic}, only Current and Upcoming movies by Genre or MPAA Rating.",
-                                    "@selectionType": "RANDOM"
-                                },
-                                (1, "getUserInput"): {
-                                    (0, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "Okay."
-                                        },
-                                        (1, "goto"): HowCanHelpYouOutput.goto()
-                                    },
-                                    (1, "goto"): PreliminarySequencesSearch.goto()
-                                },
-                                "@id": "output_2503370"
-                            }
-                        }
-                    },
+                            ),
+                            Output(
+                                Prompt(
+                                    items=["No."]
+                                ),
+                                children=[
+                                    Output(
+                                        _id="output_no_topic_lookup",
+                                        prompt=Prompt(
+                                            items=[
+                                                "I'm afraid I can't look up movies by {Topic}, only by Genre or MPAA Rating."]
+                                        ),
+                                        children=[
+                                            GetUserInput(
+                                                children=[
+                                                    Input(
+                                                        children=[
+                                                            GenericGrammar.ok(),
+                                                            HowCanHelpYouOutput.goto()
+                                                        ]
+                                                    ),
+                                                    PreliminarySequencesSearch.goto()
+                                                ]
+                                            )
+                                        ]
+                                    )
+                                ]
+                            )
+                        ]
+                    ),
+                    Input(
+                        children=[
+                            Grammar(
+                                items=[
+                                    "by out-of-scope movie topics",
+                                    "$ (BY_OTHER_MOVIE)={Topic}"
+                                ]
+                            ),
+                            TopicAction.set_to_value(),
+                            Input(
+                                children=[
+                                    Grammar(
+                                        items=[
+                                            "what",
+                                            "$ what"
+                                        ]
+                                    ),
+                                    Goto(ref="output_2503370"),
+
+                                ]
+                            ),
+                            Output(
+                                Prompt(
+                                    items=["No."]
+                                ),
+                                children=[
+                                    Output(
+                                        _id="output_2503370",
+                                        prompt=Prompt(
+                                            items=[
+                                                "I'm afraid I can't look up {Topic}, only Current and Upcoming movies by Genre or MPAA Rating.", ]
+                                        ),
+                                        children=[
+                                            GetUserInput(
+                                                children=[
+                                                    Input(
+                                                        children=[
+                                                            Grammar(
+                                                                items=["Okay."]
+                                                            ),
+                                                            HowCanHelpYouOutput.goto()
+                                                        ]
+                                                    ),
+                                                    PreliminarySequencesSearch.goto()
+                                                ]
+                                            )
+                                        ]
+                                    )
+                                ]
+                            )
+                        ]
+                    ),
                     {
                         (0, "grammar"): {
                             "item": [
@@ -173,45 +185,6 @@ class PreliminarySequencesFolder:
                                     },
                                     (1, "goto"): PreliminarySequencesSearch.goto()
                                 }
-                            }
-                        }
-                    },
-                    {
-                        (0, "grammar"): {
-                            "item": [
-                                "showtimes",
-                                "$ showtimes"
-                            ]
-                        },
-                        (1, "input"): {
-                            (0, "grammar"): {
-                                "item": [
-                                    "what",
-                                    "$ what"
-                                ]
-                            },
-                            (1, "goto"): {
-                                "@ref": "output_2459443"
-                            }
-                        },
-                        (2, "output"): {
-                            (0, "prompt"): {
-                                "item": "No.",
-                                "@selectionType": "RANDOM"
-                            },
-                            (1, "output"): {
-                                (0, "prompt"): {
-                                    "item": "I'm afraid I cannot look up showtimes myself, but I can give you a link to Fandango.com where you can buy tickets in your ZIP code. ",
-                                    "@selectionType": "RANDOM"
-                                },
-                                (1, "getUserInput"): {
-                                    (0, "input"): {
-                                        (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYouOutput.goto()
-                                    },
-                                    (1, "goto"): PreliminarySequencesSearch.goto()
-                                },
-                                "@id": "output_2459443"
                             }
                         }
                     },
@@ -385,37 +358,44 @@ class PreliminarySequencesFolder:
                             "@operator": "SET_TO",
                             "#text": "movies"
                         },
-                        (2, "input"): {
-                            (0, "grammar"): {
-                                "item": [
-                                    "what",
-                                    "$ what"
-                                ]
-                            },
-                            (1, "goto"): {
-                                "@ref": "output_what_jemboo_knows"
-                            }
-                        },
-                        (3, "output"): {
-                            (0, "prompt"): {
-                                "item": "Yes.",
-                                "@selectionType": "RANDOM"
-                            },
-                            (1, "output"): {
-                                "@id": "output_what_jemboo_knows",
-                                (0, "prompt"): {
-                                    "item": "I can look up current and upcoming movies by Genre or MPAA Rating and show you trailers for them. But I'm afraid I cannot search by number of stars or by movie titles or actor and director names at this time.",
-                                    "@selectionType": "RANDOM"
-                                },
-                                (1, "getUserInput"): {
-                                    (0, "input"): {
-                                        (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYouOutput.goto()
-                                    },
-                                    (1, "goto"): PreliminarySequencesSearch.goto()
-                                }
-                            }
-                        }
+                        (2, "input"): Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "what",
+                                        "$ what"
+                                    ]
+                                ),
+                                Goto(ref="output_what_jemboo_knows")
+                            ]
+                        ),
+                        (3, "output"): Output(
+                            prompt=Prompt(
+                                items=["Yes."]
+                            ),
+                            children=[
+                                Output(
+                                    _id="output_what_jemboo_knows",
+                                    prompt=Prompt(
+                                        items=[
+                                            "I can look up current and upcoming movies by Genre or MPAA Rating and show you trailers for them. But I'm afraid I cannot search by number of stars or by movie titles or actor and director names at this time.", ]
+                                    ),
+                                    children=[
+                                        GetUserInput(
+                                            children=[
+                                                Input(
+                                                    children=[
+                                                        GenericGrammar.ok(),
+                                                        HowCanHelpYouOutput.goto()
+                                                    ]
+                                                ),
+                                                PreliminarySequencesSearch.goto()
+                                            ]
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
                     },
                     {
                         (0, "grammar"): {
@@ -520,34 +500,31 @@ class PreliminarySequencesFolder:
                                     "$ what"
                                 ]
                             },
-                            (1, "goto"): {
-                                "@ref": "output_2497989"
-                            }
+                            (1, "goto"): Goto(ref="output_2497989")
                         },
                         (4, "output"): {
-                            (0, "prompt"): {
-                                "item": "No."
-                            },
+                            (0, "prompt"): Prompt(items=["No."]),
                             (1, "output"): {
-                                (0, "prompt"): {
-                                    "item": "I'm afraid I don't know much about {Topic}. Just movies."
-                                },
-                                (1, "getUserInput"): {
-                                    (0, "input"): {
-                                        (0, "grammar"): {
-                                            "item": "Okay."
-                                        },
-                                        (1, "goto"): HowCanHelpYouOutput.goto()
-                                    },
-                                    (1, "goto"): PreliminarySequencesSearch.goto()
-                                },
-                                "@id": "output_2497989"
+                                "@id": "output_2497989",
+                                (0, "prompt"): Prompt(
+                                    items=["I'm afraid I don't know much about {Topic}. Just movies."]),
+                                (1, "getUserInput"): GetUserInput(
+                                    children=[
+                                        Input(
+                                            children=[
+                                                Grammar(
+                                                    items=["Okay."]
+                                                ),
+                                                HowCanHelpYouOutput.goto()
+                                            ]
+                                        ),
+                                        PreliminarySequencesSearch.goto()
+                                    ]
+                                )
                             }
                         }
                     }
                 ],
-                (3, "goto"): {
-                    "@ref": "output_what_jemboo_knows"
-                }
+                (3, "goto"): Goto(ref="output_what_jemboo_knows")
             }
         }
