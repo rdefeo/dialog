@@ -1,4 +1,4 @@
-from dialog.elements import Grammar, Goto, Input, Prompt, GetUserInput, Output
+from dialog.elements import Grammar, Goto, Input, Prompt, GetUserInput, Output, Action
 from dialog.schema.factories.action import GreetingAction, SmallTalkAction, StylePreferenceAction, TopicAction
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.outputs import HowCanHelpYouOutput
@@ -463,66 +463,76 @@ class PreliminarySequencesFolder:
                                 "@operator": "GREATER_THEN",
                                 "#text": "2"
                             },
-                            (1, "output"): {
-                                (0, "prompt"): {
-                                    "item": "I'm sorry I don't know about that. Can I look up some movies for you?"
-                                },
-                                (1, "getUserInput"): {
-                                    (0, "input"): [
-                                        {
-                                            (0, "grammar"): GenericGrammar.yes(),
-                                            (1, "goto"): StylePreferenceProfileCheck.goto()
-                                        },
-                                        {
-                                            (0, "grammar"): GenericGrammar.no(),
-                                            (1, "action"): {
-                                                "@varName": "Out-of-Scope_Count",
-                                                "@operator": "SET_TO",
-                                                "#text": "0"
-                                            },
-                                            (2, "output"): {
-                                                "prompt": GenericPrompt.ok_fine()
-                                            }
-                                        },
-                                        {
-                                            (0, "grammar"): GenericGrammar.ok(),
-                                            (1, "goto"): StylePreferenceProfileCheck.goto()
-                                        }
-                                    ],
-                                    (1, "goto"): PreliminarySequencesSearch.goto()
-                                }
-                            }
-                        },
-                        (3, "input"): {
-                            (0, "grammar"): {
-                                "item": [
-                                    "what",
-                                    "$ what"
+                            (1, "output"): Output(
+                                Prompt(
+                                    items=["I'm sorry I don't know about that. Can I look up some movies for you?"]
+                                ),
+                                children=[
+                                    GetUserInput(
+                                        children=[
+                                            Input(
+                                                children=[
+                                                    GenericGrammar.yes(),
+                                                    StylePreferenceProfileCheck.goto()
+                                                ]
+                                            ),
+                                            Input(
+                                                children=[
+                                                    GenericGrammar.no(),
+                                                    Action(varName="Out-of-Scope_Count", operator="SET_TO", text="0"),
+                                                    Output(
+                                                        prompt=GenericPrompt.ok_fine()
+                                                    )
+                                                ]
+                                            ),
+                                            Input(
+                                                children=[
+                                                    GenericGrammar.ok(),
+                                                    StylePreferenceProfileCheck.goto()
+                                                ]
+                                            ),
+                                            PreliminarySequencesSearch.goto()
+                                        ]
+                                    )
                                 ]
-                            },
-                            (1, "goto"): Goto(ref="output_2497989")
+                            )
                         },
-                        (4, "output"): {
-                            (0, "prompt"): Prompt(items=["No."]),
-                            (1, "output"): {
-                                "@id": "output_2497989",
-                                (0, "prompt"): Prompt(
-                                    items=["I'm afraid I don't know much about {Topic}. Just movies."]),
-                                (1, "getUserInput"): GetUserInput(
+                        (3, "input"): Input(
+                            children=[
+                                Grammar(
+                                    items=[
+                                        "what",
+                                        "$ what"
+                                    ]
+                                ),
+                                Goto(ref="output_2497989")
+                            ]
+                        ),
+                        (4, "output"): Output(
+                            Prompt(items=["No."]),
+                            children=[
+
+                                Output(
+                                    _id="output_2497989",
+                                    prompt=Prompt(items=["I'm afraid I don't know much about {Topic}. Just movies."]),
                                     children=[
-                                        Input(
+                                        GetUserInput(
                                             children=[
-                                                Grammar(
-                                                    items=["Okay."]
+                                                Input(
+                                                    children=[
+                                                        Grammar(
+                                                            items=["Okay."]
+                                                        ),
+                                                        HowCanHelpYouOutput.goto()
+                                                    ]
                                                 ),
-                                                HowCanHelpYouOutput.goto()
+                                                PreliminarySequencesSearch.goto()
                                             ]
-                                        ),
-                                        PreliminarySequencesSearch.goto()
+                                        )
                                     ]
                                 )
-                            }
-                        }
+                            ]
+                        )
                     }
                 ],
                 (3, "goto"): Goto(ref="output_what_jemboo_knows")

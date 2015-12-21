@@ -1,3 +1,4 @@
+from dialog.elements import Folder
 from dialog.schema.factories.folder.sequences import BaseSequences, GlobalSequences, PreliminarySequencesFolder, \
     RoutingSequences, SystemInitiatedSequences
 
@@ -13,8 +14,6 @@ class LibraryFolder:
                 RoutingSequences.create(),
                 BaseSequences.create(),
                 GlobalSequences.create(),
-                {
-                    "@label": "Storage"
-                }
+                Folder(label="Storage").create()
             ]
         }

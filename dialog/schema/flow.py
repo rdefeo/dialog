@@ -12,6 +12,5 @@ class Flow:
                 LibraryFolder.create(),
                 GlobalFolder.create(),
                 ConceptFolder.create()
-
             ]
         }

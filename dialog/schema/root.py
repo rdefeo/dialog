@@ -2,8 +2,6 @@ from dialog.schema.entities import Entities
 from dialog.schema.flow import Flow
 from dialog.schema.variables import Variables
 
-__author__ = 'robdefeo'
-
 
 class Dialog:
     def create(self):

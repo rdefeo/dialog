@@ -19,7 +19,7 @@ class Folder(Element):
             settings["label"] = label
         if _id is not None:
             settings["id"] = _id
-        super().__init__(settings, list(children))
+        super().__init__(settings, list(children if children is not None else []))
 
 
     def _set_dialog(self, value):

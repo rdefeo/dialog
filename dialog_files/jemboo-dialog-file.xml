@@ -715,7 +715,7 @@
                         <if>
                             <cond operator="GREATER_THEN" varName="Out-of-Scope_Count">2</cond>
                             <output>
-                                <prompt>
+                                <prompt selectionType="RANDOM">
                                     <item>I'm sorry I don't know about that. Can I look up some movies for you?</item>
                                 </prompt>
                                 <getUserInput>
@@ -1725,17 +1725,17 @@
                     </output>
                 </input>
             </folder>
-            <folder id="folder_global_sequences" label="GLOBAL SEQUENCES" selectionType="RANDOM">
+            <folder id="folder_global_sequences" label="GLOBAL SEQUENCES">
                 <folder label="UI ACTIONS">
                     <input>
                         <grammar>
                             <item>USER CLICKS BOX</item>
                         </grammar>
                         <output>
-                            <prompt>
+                            <prompt selectionType="RANDOM">
                                 <item>{Selected_Movie}.</item>
                             </prompt>
-                            <if>
+                            <if matchType="ALL">
                                 <cond operator="GREATER_THEN" varName="Popularity_Score">6.9</cond>
                                 <output>
                                     <prompt selectionType="RANDOM">
@@ -1746,7 +1746,7 @@
                                     <goto ref="getUserInput_after_search_results"/>
                                 </output>
                             </if>
-                            <if>
+                            <if matchType="ALL">
                                 <cond operator="LESS_THEN" varName="Popularity_Score">4</cond>
                                 <output>
                                     <prompt selectionType="RANDOM">
