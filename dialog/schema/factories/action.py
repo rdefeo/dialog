@@ -135,6 +135,14 @@ class RequestSuccessAction:
     def set_to_blank():
         return Action(varName="Request_Success", operator="SET_TO_BLANK")
 
+    @staticmethod
+    def set_to_yes():
+        return Action(varName="Request_Success", operator="SET_TO_YES")
+
+    @staticmethod
+    def set_to_no():
+        return Action(varName="Request_Success", operator="SET_TO_NO")
+
 
 class SmallTalkAction:
     @staticmethod

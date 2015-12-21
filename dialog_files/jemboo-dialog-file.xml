@@ -254,11 +254,11 @@
                             </grammar>
                             <action operator="SET_TO_YES" varName="Request_Success"/>
                             <output>
-                                <prompt>
+                                <prompt selectionType="RANDOM">
                                     <item>Great!</item>
                                 </prompt>
                                 <output id="output_goodbye">
-                                    <prompt>
+                                    <prompt selectionType="RANDOM">
                                         <item>Goodbye.&lt;br&gt; &lt;br&gt;</item>
                                     </prompt>
                                     <action operator="SET_TO_YES" varName="Terminal_Exchange"/>
@@ -271,11 +271,12 @@
                                             </grammar>
                                             <output id="output_end_of_conversation">
                                                 <prompt selectionType="RANDOM">
-                                                    <item>&lt;i&gt;Say anything to continue.&lt;/i&gt;</item>
+                                                    <item>&amp;lt;i&amp;gt;Say anything to continue.&amp;lt;/i&amp;gt;
+                                                    </item>
                                                 </prompt>
                                                 <getUserInput>
                                                     <output id="output_welcome_back">
-                                                        <prompt>
+                                                        <prompt selectionType="RANDOM">
                                                             <item>Welcome back!</item>
                                                         </prompt>
                                                         <goto ref="output_how_can_i_help_you"/>
@@ -294,7 +295,7 @@
                             </grammar>
                             <action operator="SET_TO_NO" varName="Request_Success"/>
                             <output>
-                                <prompt>
+                                <prompt selectionType="RANDOM">
                                     <item>Oh no. Do you want to try again?</item>
                                 </prompt>
                                 <getUserInput>
@@ -317,7 +318,7 @@
                                             <item>$ yes</item>
                                         </grammar>
                                         <output>
-                                            <prompt>
+                                            <prompt selectionType="RANDOM">
                                                 <item>Okay. What can I do for you?</item>
                                             </prompt>
                                             <goto ref="getUserInput_how_can_i_help_you"/>
