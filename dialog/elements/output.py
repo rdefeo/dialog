@@ -33,6 +33,9 @@ class Output(Element):
 
     def _set_dialog(self, value):
         self.dialog = value
+        if "id" in self.settings:
+            self.dialog.ref_ids[self.settings["id"]] = self
+
         if self.children is not None:
             for x in self.children:
                 x._set_dialog(value)

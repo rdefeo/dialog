@@ -4,6 +4,7 @@ from collections import deque
 class Conversation:
     conversation_id = None
     flow_position = None
+    flow_goto_position = None
     user_input = None
     current_input_context = None
     profile = {}

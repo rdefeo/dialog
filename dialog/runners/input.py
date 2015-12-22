@@ -10,6 +10,8 @@ from dialog.runners.prompt import PromptRunner
 class InputRunner:
     @staticmethod
     def run(dialog: Dialog, conversation: Conversation, _input: Input):
+        from dialog.runners.output import OutputRunner
+
         handled = False
         conversation.flow_position.append(_input._id)
         goto_position = conversation.get_first_goto_position()
@@ -24,6 +26,8 @@ class InputRunner:
                     conversation.flow_position.append(index)
                     if isinstance(child,  Action):
                         ActionRunner.run(dialog, conversation, child)
+                    elif isinstance(child,  Output):
+                        OutputRunner.run(dialog, conversation, child)
                     else:
                         raise NotImplemented(type(child))
                     conversation.flow_position.pop()

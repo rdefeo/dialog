@@ -1,9 +1,9 @@
 from dialog.elements.entities import Entities
-from dialog.elements.flow import Flow
 from dialog.elements.element import Element
 
 
 class Dialog(Element):
+    from dialog.elements.flow import Flow
     _element_name = "dialog"
 
     def __init__(self, flow: Flow = None, entities: Entities = None):
@@ -21,6 +21,7 @@ class Dialog(Element):
         super().__init__(settings, [flow, entities])
         self.entities = entities
         self.flow = flow
+        self.ref_ids = {}
         if self.flow is not None:
             self.flow = flow
             self.flow._set_dialog(self)

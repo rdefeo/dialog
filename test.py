@@ -50,5 +50,7 @@ dialog = Dialog(
 user_input = DialogRunner.run(dialog, Conversation())
 
 user_input.conversation.user_input = "My name is Rob"
-test = DialogRunner.run(dialog, user_input.conversation)
+after_name_input = DialogRunner.run(dialog, user_input.conversation)
+user_input.conversation.user_input = "Yes"
+after_yes_shoes_input = DialogRunner.run(dialog, user_input.conversation)
 pass

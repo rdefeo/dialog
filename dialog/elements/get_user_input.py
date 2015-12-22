@@ -19,6 +19,8 @@ class GetUserInput(Element):
 
     def _set_dialog(self, value):
         self.dialog = value
+        if "id" in self.settings:
+            self.dialog.ref_ids[self.settings["id"]] = self
         for child in iter(self.children):
             child._set_dialog(value)
 

@@ -1,7 +1,8 @@
-from dialog.elements import Output, Prompt, GetUserInput
+from dialog.elements import Output, Prompt, GetUserInput, Goto
 from dialog.elements.dialog import Dialog
 from dialog.runners.conversation import Conversation
 from dialog.runners.get_user_input import GetUserInputRunner
+from dialog.runners.goto import GotoRunner
 from dialog.runners.prompt import PromptRunner
 
 
@@ -17,17 +18,18 @@ class OutputRunner:
                 raise Exception()
 
         for index, child in enumerate(output.children):
-            if goto_position is None or index >=goto_position :
+            if goto_position is None or index >= goto_position:
                 conversation.flow_position.append(index)
-                if isinstance(child,  Prompt):
+                if isinstance(child, Prompt):
                     PromptRunner.run(dialog, conversation, child)
-                elif isinstance(child,  GetUserInput):
+                elif isinstance(child, GetUserInput):
                     GetUserInputRunner.run(dialog, conversation, child)
-                elif isinstance(child,  Output):
+                elif isinstance(child, Output):
                     OutputRunner.run(dialog, conversation, child)
+                elif isinstance(child, Goto):
+                    GotoRunner.run(dialog, conversation, child)
                 else:
-                    raise NotImplemented(type(child))
+                    raise NotImplementedError(child)
                 conversation.flow_position.pop()
 
         conversation.flow_position.pop()
-

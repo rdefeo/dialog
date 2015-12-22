@@ -3,6 +3,7 @@ from typing import Iterable
 
 
 class Folder(Element):
+    from dialog.elements.dialog import Dialog
     _element_name = "folder"
 
     def __init__(self, _id: str = None, label: str = None, selection_type=None, children: Iterable[Element] = None):
@@ -24,6 +25,8 @@ class Folder(Element):
 
     def _set_dialog(self, value):
         self.dialog = value
+        if "id" in self.settings:
+            self.dialog.ref_ids[self.settings["id"]] = self
         for child in iter(self.children):
             child._set_dialog(value)
 
