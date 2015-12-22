@@ -16,6 +16,7 @@ dialog = Dialog(
                 label="Library",
                 children=[
                     SystemInitiatedSequences.create(),
+                    PreliminarySequencesFolder.create(),
                     GlobalSequences.create(),
                     Folder(label="Storage")
                 ]
@@ -24,7 +25,7 @@ dialog = Dialog(
             #     "@label": "Library",
             #     "folder": [
             #         # SystemInitiatedSequences.create(),
-            #         # PreliminarySequencesFolder.create(),
+            #         PreliminarySequencesFolder.create(),
             #         # RoutingSequences.create(),
             #         # BaseSequences.create(),
             #         # GlobalSequences.create(),

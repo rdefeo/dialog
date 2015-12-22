@@ -1,5 +1,12 @@
 from dialog.elements import Action
-from dialog.schema.factories.variables import NAME_PAGE, NAME_CURRENT_INDEX, NAME_SEARCH_NOW, NAME_USER_NAME
+from dialog.schema.factories.variables import NAME_PAGE, NAME_CURRENT_INDEX, NAME_SEARCH_NOW, NAME_USER_NAME, \
+    NAME_OUT_OF_SCOPE_COUNT
+
+
+class OutOfScopeCountAction:
+    @staticmethod
+    def increment():
+        return Action(var_name=NAME_OUT_OF_SCOPE_COUNT, operator="INCREMENT_BY", text="1")
 
 
 class CertificationPreferenceAction:

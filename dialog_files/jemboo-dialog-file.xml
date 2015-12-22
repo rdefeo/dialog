@@ -486,42 +486,6 @@
                     </input>
                     <input>
                         <grammar>
-                            <item>theaters</item>
-                            <item>$ theaters</item>
-                            <item>$ fandango</item>
-                        </grammar>
-                        <input>
-                            <grammar>
-                                <item>what</item>
-                                <item>$ what</item>
-                            </grammar>
-                            <goto ref="output_2503320"/>
-                        </input>
-                        <output>
-                            <prompt>
-                                <item>No.</item>
-                            </prompt>
-                            <output id="output_2503320">
-                                <prompt selectionType="RANDOM">
-                                    <item>I'm afraid I cannot look up theaters myself, but I can give you a link to
-                                        Fandango.com where you can buy tickets in your ZIP code.
-                                    </item>
-                                </prompt>
-                                <getUserInput>
-                                    <input>
-                                        <grammar>
-                                            <item>okay</item>
-                                            <item>ok</item>
-                                        </grammar>
-                                        <goto ref="output_how_can_i_help_you"/>
-                                    </input>
-                                    <goto ref="search_preliminary_sequences"/>
-                                </getUserInput>
-                            </output>
-                        </output>
-                    </input>
-                    <input>
-                        <grammar>
                             <item>$ (STYLE)={Style_Preference}</item>
                         </grammar>
                         <action operator="SET_TO" varName="Style_Preference">{Style_Preference.value:main}</action>
@@ -552,46 +516,10 @@
                     </input>
                     <input>
                         <grammar>
-                            <item>old movies</item>
-                            <item>$ old movies</item>
-                            <item>$ classic movies</item>
-                            <item>$ oldies</item>
-                            <item>$ classics</item>
+                            <item>shoes</item>
+                            <item>$ shoes</item>
                         </grammar>
-                        <input>
-                            <grammar>
-                                <item>what</item>
-                                <item>$ what</item>
-                            </grammar>
-                            <goto ref="output_2503380"/>
-                        </input>
-                        <output>
-                            <prompt>
-                                <item>No.</item>
-                            </prompt>
-                            <output id="output_2503380">
-                                <prompt selectionType="RANDOM">
-                                    <item>I'm afraid I cannot look up Old Movies, only Current and Upcoming.</item>
-                                </prompt>
-                                <getUserInput>
-                                    <input>
-                                        <grammar>
-                                            <item>okay</item>
-                                            <item>ok</item>
-                                        </grammar>
-                                        <goto ref="output_how_can_i_help_you"/>
-                                    </input>
-                                    <goto ref="search_preliminary_sequences"/>
-                                </getUserInput>
-                            </output>
-                        </output>
-                    </input>
-                    <input>
-                        <grammar>
-                            <item>movies</item>
-                            <item>$ movies</item>
-                        </grammar>
-                        <action operator="SET_TO" varName="Topic">movies</action>
+                        <action operator="SET_TO" varName="Topic">shoes</action>
                         <input>
                             <grammar>
                                 <item>what</item>
@@ -625,42 +553,6 @@
                     </input>
                     <input>
                         <grammar>
-                            <item>trailer</item>
-                            <item>$ trailer</item>
-                            <item>$ trailers</item>
-                        </grammar>
-                        <input>
-                            <grammar>
-                                <item>what</item>
-                                <item>$ what</item>
-                            </grammar>
-                            <goto ref="output_2510290"/>
-                        </input>
-                        <output>
-                            <prompt>
-                                <item>Yes.</item>
-                            </prompt>
-                            <output id="output_2510290">
-                                <prompt selectionType="RANDOM">
-                                    <item>After searching for movies, you can click on a particular movie result to
-                                        watch its &lt;i&gt;trailer&lt;/i&gt;, or video preview.
-                                    </item>
-                                </prompt>
-                                <getUserInput>
-                                    <input>
-                                        <grammar>
-                                            <item>okay</item>
-                                            <item>ok</item>
-                                        </grammar>
-                                        <goto ref="output_how_can_i_help_you"/>
-                                    </input>
-                                    <goto ref="search_preliminary_sequences"/>
-                                </getUserInput>
-                            </output>
-                        </output>
-                    </input>
-                    <input>
-                        <grammar>
                             <item>out-of-scope topics</item>
                             <item>$ (DINING)={Topic}</item>
                             <item>$ (WEATHER)={Topic}</item>
@@ -668,11 +560,11 @@
                         </grammar>
                         <action operator="SET_TO" varName="Topic">{Topic.value:main}</action>
                         <action operator="INCREMENT_BY" varName="Out-of-Scope_Count">1</action>
-                        <if>
+                        <if matchType="ALL">
                             <cond operator="GREATER_THEN" varName="Out-of-Scope_Count">2</cond>
                             <output>
                                 <prompt selectionType="RANDOM">
-                                    <item>I'm sorry I don't know about that. Can I look up some movies for you?</item>
+                                    <item>I'm sorry I don't know about that. Can I look up some shoes for you?</item>
                                 </prompt>
                                 <getUserInput>
                                     <input>

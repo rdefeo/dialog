@@ -18,3 +18,4 @@ NAME_CURRENT_INDEX = "Current_Index"
 
 NAME_SEARCH_NOW = "Search_Now"
 
+NAME_OUT_OF_SCOPE_COUNT = "Out-of-Scope_Count"

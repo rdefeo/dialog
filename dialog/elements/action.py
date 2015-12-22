@@ -42,7 +42,7 @@ class Action(Element):
         if "operator" in self.settings:
             doc["@operator"] = self.settings["operator"]
         if "text" in self.settings:
-            doc["#text"] = self.settings["operator"]
+            doc["#text"] = self.settings["text"]
 
         return doc
 
