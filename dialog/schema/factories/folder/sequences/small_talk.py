@@ -18,7 +18,7 @@ class SmallTalkSequences:
                     SmallTalkAction.create_increment(),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "What is your name?",
                                         "$ your name",
                                         "$ you called",
@@ -43,7 +43,7 @@ class SmallTalkSequences:
                                                     children=[
                                                         Input(
                                                                 Grammar(
-                                                                        items=[
+                                                                        watson_items=[
                                                                             "Okay",
                                                                             "okay",
                                                                             "hi",
@@ -56,7 +56,7 @@ class SmallTalkSequences:
                                                         ),
                                                         Input(
                                                                 Grammar(
-                                                                        items=[
+                                                                        watson_items=[
                                                                             "My name is",
                                                                             "$ my name",
                                                                             "$ call me",
@@ -77,7 +77,7 @@ class SmallTalkSequences:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "Siri",
                                         "$ (VIRTUAL_AGENTS)={Topic}"
                                     ]
@@ -88,7 +88,7 @@ class SmallTalkSequences:
                                 SmallTalkConditions.too_much_small_talk_goto(),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "is better",
                                                     "$ better",
                                                     "$ smarter"
@@ -100,7 +100,7 @@ class SmallTalkSequences:
                                                     children=[GetUserInput(
                                                             children=[
                                                                 Input(
-                                                                        Grammar(items=["Okay", "$ sorry"]),
+                                                                        Grammar(watson_items=["Okay", "$ sorry"]),
                                                                         children=[SystemInitiatedSequences.goto()]
                                                                 ),
                                                                 PreliminarySequencesSearch.goto()
@@ -113,7 +113,7 @@ class SmallTalkSequences:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "Do you speak English",
                                         "$ speak English",
                                         "$ understand English",
@@ -130,12 +130,12 @@ class SmallTalkSequences:
                                         children=[GetUserInput(
                                                 children=[
                                                     Input(
-                                                            Grammar(items=["haha", "ok"]),
+                                                            Grammar(watson_items=["haha", "ok"]),
                                                             children=[SystemInitiatedSequences.goto()]
                                                     ),
                                                     Input(
                                                             Grammar(
-                                                                    items=[
+                                                                    watson_items=[
                                                                         "01101110 01110000",
                                                                         "01101110 01101111 00100000 01110000 01110010 01101111 01100010 01101100 01100101 01101101",
                                                                         "01101110 01110000",

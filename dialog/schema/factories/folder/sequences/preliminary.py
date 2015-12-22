@@ -25,7 +25,7 @@ class PreliminarySequencesFolder:
             ],
             (1, "input"): {
                 (0, "grammar"): Grammar(
-                        items=[
+                        watson_items=[
                             "Do you know",
                             "$ do you know",
                             "$ can you",
@@ -43,7 +43,7 @@ class PreliminarySequencesFolder:
                 (2, "input"): [
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "out-of-scope movie topics",
                                         "$ (OTHER_MOVIE)={Topic}"
                                     ]
@@ -52,7 +52,7 @@ class PreliminarySequencesFolder:
                                 TopicAction.set_to_value(),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "what",
                                                     "$ what"
                                                 ]
@@ -88,7 +88,7 @@ class PreliminarySequencesFolder:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "by out-of-scope movie topics",
                                         "$ (BY_OTHER_MOVIE)={Topic}"
                                     ]
@@ -97,7 +97,7 @@ class PreliminarySequencesFolder:
                                 TopicAction.set_to_value(),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "what",
                                                     "$ what"
                                                 ]
@@ -119,7 +119,7 @@ class PreliminarySequencesFolder:
                                                         GetUserInput(
                                                                 children=[
                                                                     Input(
-                                                                            Grammar(items=["Okay."]),
+                                                                            Grammar(watson_items=["Okay."]),
                                                                             children=[HowCanHelpYouOutput.goto()]
                                                                     ),
                                                                     PreliminarySequencesSearch.goto()
@@ -218,54 +218,6 @@ class PreliminarySequencesFolder:
                     },
                     {
                         (0, "grammar"): {
-                            "item": [
-                                "reviews",
-                                "$ reviews",
-                                "$ highest rating",
-                                "$ highest rated",
-                                "$ best rating",
-                                "$ best rated",
-                                "$ lowest rating",
-                                "$ lowest rated",
-                                "$ oscar winners",
-                                "$ best movie",
-                                "$ best movies"
-                            ]
-                        },
-                        (1, "input"): {
-                            (0, "grammar"): {
-                                "item": [
-                                    "what",
-                                    "$ what"
-                                ]
-                            },
-                            (1, "goto"): {
-                                "@ref": "output_2469539"
-                            }
-                        },
-                        (2, "output"): {
-                            (0, "prompt"): {
-                                "item": "No.",
-                                "@selectionType": "RANDOM"
-                            },
-                            (1, "output"): {
-                                "@id": "output_2469539",
-                                (0, "prompt"): {
-                                    "item": "I'm afraid I cannot find movie reviews or search by number of stars at this time.",
-                                    "@selectionType": "RANDOM"
-                                },
-                                (1, "getUserInput"): {
-                                    (0, "input"): {
-                                        (0, "grammar"): GenericGrammar.ok(),
-                                        (1, "goto"): HowCanHelpYouOutput.goto()
-                                    },
-                                    (1, "goto"): PreliminarySequencesSearch.goto()
-                                }
-                            }
-                        }
-                    },
-                    {
-                        (0, "grammar"): {
                             "item": "$ (STYLE)={Style_Preference}"
                         },
                         (1, "action"): StylePreferenceAction.set_to_value(),
@@ -349,7 +301,7 @@ class PreliminarySequencesFolder:
                         },
                         (2, "input"): Input(
                                 Grammar(
-                                        items=[
+                                        watson_items=[
                                             "what",
                                             "$ what"
                                         ]
@@ -467,7 +419,7 @@ class PreliminarySequencesFolder:
                                                     Input(
                                                             GenericGrammar.no(),
                                                             children=[
-                                                                Action(varName="Out-of-Scope_Count", operator="SET_TO",
+                                                                Action(var_name="Out-of-Scope_Count", operator="SET_TO",
                                                                        text="0"),
                                                                 Output(
                                                                         prompt=GenericPrompt.ok_fine()
@@ -488,7 +440,7 @@ class PreliminarySequencesFolder:
                         },
                         (3, "input"): Input(
                                 Grammar(
-                                        items=[
+                                        watson_items=[
                                             "what",
                                             "$ what"
                                         ]
@@ -507,7 +459,7 @@ class PreliminarySequencesFolder:
                                                 GetUserInput(
                                                         children=[
                                                             Input(
-                                                                    Grammar(items=["Okay."]),
+                                                                    Grammar(watson_items=["Okay."]),
                                                                     children=[HowCanHelpYouOutput.goto()]
                                                             ),
                                                             PreliminarySequencesSearch.goto()

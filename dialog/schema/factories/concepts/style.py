@@ -10,13 +10,13 @@ class StyleConcept:
                 Concept(
                     id="high heels",
                     grammars=[
-                        Grammar(items=["high heels", "high-heels"])
+                        Grammar(watson_items=["high heels", "high-heels"])
                     ]
                 ),
                 Concept(
                     id="boots",
                     grammars=[
-                        Grammar(items=["boots", "boot"])
+                        Grammar(watson_items=["boots", "boot"])
                     ]
                 )
             ]

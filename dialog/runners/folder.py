@@ -16,7 +16,7 @@ class FolderRunner:
                 raise Exception()
 
         for index, child in enumerate(folder.children):
-            if goto_position is None or index >=goto_position :
+            if goto_position is None or index >= goto_position:
                 conversation.flow_position.append(index)
                 if isinstance(child, Output):
                     OutputRunner.run(dialog, conversation, child)

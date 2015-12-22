@@ -9,7 +9,7 @@ class UIActionsSequences:
             label="UI ACTIONS",
             children=[
                 Input(
-                    Grammar(items=["USER CLICKS BOX"]),
+                    Grammar(watson_items=["USER CLICKS BOX"]),
                     children=[
                         Output(
                             prompt=Prompt(

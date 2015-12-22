@@ -12,7 +12,7 @@ class RepairSequences:
                 children=[
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "Help",
                                         "$ help",
                                         "$ how does this work",
@@ -34,7 +34,7 @@ class RepairSequences:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "Say that again",
                                         "$ say that again",
                                         "$ say again",
@@ -52,7 +52,7 @@ class RepairSequences:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "Never mind",
                                         "$ Nevermind",
                                         "$ Never mind",
@@ -75,7 +75,7 @@ class RepairSequences:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "what does * mean",
                                         "$ what does * mean",
                                         "$ what does * stand for",
@@ -87,7 +87,7 @@ class RepairSequences:
                             children=[
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "trailers",
                                                     "$ trailer",
                                                     "$ trailers"
@@ -103,7 +103,7 @@ class RepairSequences:
                                                         GetUserInput(
                                                                 children=[
                                                                     Input(
-                                                                            Grammar(items=["okay"]),
+                                                                            Grammar(watson_items=["okay"]),
                                                                             children=[
                                                                                 Output(
                                                                                         Prompt(items=[
@@ -122,7 +122,7 @@ class RepairSequences:
                                 ),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "genre",
                                                     "$ genre",
                                                     "$ genres"
@@ -140,7 +140,7 @@ class RepairSequences:
                                 ),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "rating",
                                                     "$ rating",
                                                     "$ ratings",
@@ -158,7 +158,7 @@ class RepairSequences:
                                 ),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "G",
                                                     "$ G"
                                                 ]
@@ -174,7 +174,7 @@ class RepairSequences:
                                 ),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "PG-13",
                                                     "$ PG-13"
                                                 ]
@@ -191,7 +191,7 @@ class RepairSequences:
                                 ),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "Current",
                                                     "$ current"
                                                 ]
@@ -208,7 +208,7 @@ class RepairSequences:
                                 ),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "Upcoming",
                                                     "$ upcoming"
                                                 ]
@@ -225,7 +225,7 @@ class RepairSequences:
                                 ),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "$ (GENRE)={Topic}",
                                                     "$ (UNSUPPORTED_GENRES)={Topic}"
                                                 ]
@@ -245,7 +245,7 @@ class RepairSequences:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "I already told you!",
                                         "$ already told you",
                                         "$ already said it"

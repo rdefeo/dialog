@@ -15,7 +15,7 @@ class ColorPreferenceInput:
     def create(goto: Goto):
         return Input(
             Grammar(
-                    items=[
+                    watson_items=[
                         "rated",  # TODO find out what they were thinking with this
                         "$(Color)={Color_Preference}"
                     ]

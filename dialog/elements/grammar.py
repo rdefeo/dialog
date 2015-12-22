@@ -1,13 +1,11 @@
 from dialog.elements.element import Element
-from dialog.process import ProcessRequest, GrammarProcessResponse
-from dialog.process.grammar_response import GrammarMatchType
 
 
 class Grammar(Element):
     _element_name = "grammar"
 
-    def __init__(self, items: list = None):
-        self.items = items
+    def __init__(self, watson_items: list = None, items: list=None):
+        self.watson_items = watson_items
 
     def _set_dialog(self, value):
         self.dialog = value
@@ -15,14 +13,14 @@ class Grammar(Element):
     def create(self):
         doc = {}
 
-        if self.items is not None:
-            doc["item"] = self.items
+        if self.watson_items is not None:
+            doc["item"] = self.watson_items
 
         return doc
 
-    def process(self, process_request: ProcessRequest) -> GrammarProcessResponse:
-        for x in iter(self.items):
-            if x == process_request.user_text_input:
-                return GrammarProcessResponse(GrammarMatchType.exact)
-
-        return GrammarProcessResponse(GrammarMatchType.none)
+        # def process(self, process_request: ProcessRequest) -> GrammarProcessResponse:
+        #     for x in iter(self.watson_items):
+        #         if x == process_request.user_text_input:
+        #             return GrammarProcessResponse(GrammarMatchType.exact)
+        #
+        #     return GrammarProcessResponse(GrammarMatchType.none)

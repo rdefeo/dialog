@@ -8,7 +8,7 @@ from dialog.runners.prompt import PromptRunner
 class GrammarRunner:
     @staticmethod
     def run(dialog: Dialog, conversation: Conversation, grammar: Grammar):
-        for x in grammar.items:
+        for x in grammar.watson_items:
             if x == conversation.user_input.strip():
                 return True
 

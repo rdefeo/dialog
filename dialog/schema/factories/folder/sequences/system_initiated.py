@@ -31,20 +31,20 @@ class SystemInitiatedSequences:
                             ),
                             children=[
                                 PageAction.set_to_new(),
-                                Action(varName="Current_Index", operator="SET_TO", text="0"),
+                                Action(var_name="Current_Index", operator="SET_TO", text="0"),
                                 CertificationPreferenceAction.set_to_blank(),
                                 ColorPreferenceAction.set_to_blank(),
                                 # RecencyPreferenceAction.set_to_blank(),
                                 StylePreferenceAction.set_to_blank(),
-                                Action(varName="Search_Now", operator="SET_TO_NO"),
-                                Action(varName="Terminal_Exchange", operator="SET_TO_BLANK"),
-                                Action(varName="Topic", operator="SET_TO_BLANK"),
-                                Action(varName="ZIP_Code_Preference", operator="SET_TO_BLANK"),
-                                Action(varName="Display_Trailer", operator="SET_TO_NO"),
-                                Action(varName="Selected_Movie", operator="SET_TO_BLANK"),
-                                Action(varName="Display_Movie_Details", operator="SET_TO_NO"),
-                                Action(varName="Display_Reviews", operator="SET_TO_NO"),
-                                Action(varName="Popularity_Score", operator="SET_TO", text="0.5"),
+                                Action(var_name="Search_Now", operator="SET_TO_NO"),
+                                Action(var_name="Terminal_Exchange", operator="SET_TO_BLANK"),
+                                Action(var_name="Topic", operator="SET_TO_BLANK"),
+                                Action(var_name="ZIP_Code_Preference", operator="SET_TO_BLANK"),
+                                Action(var_name="Display_Trailer", operator="SET_TO_NO"),
+                                Action(var_name="Selected_Movie", operator="SET_TO_BLANK"),
+                                Action(var_name="Display_Movie_Details", operator="SET_TO_NO"),
+                                Action(var_name="Display_Reviews", operator="SET_TO_NO"),
+                                Action(var_name="Popularity_Score", operator="SET_TO", text="0.5"),
                                 GetUserInput(
                                         children=[
                                             Input(
@@ -94,7 +94,7 @@ class SystemInitiatedSequences:
                                                                                         children=[
                                                                                             Input(
                                                                                                     Grammar(
-                                                                                                            items=[
+                                                                                                            watson_items=[
                                                                                                                 "Goodbye",
                                                                                                                 "$ goodbye"
                                                                                                             ]

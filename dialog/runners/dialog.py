@@ -22,5 +22,6 @@ class DialogRunner:
 
     @staticmethod
     def write_to_user(conversation: Conversation, text):
-        conversation.conversation_id
+        print(text)
+        # conversation.conversation_id
         pass

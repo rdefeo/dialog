@@ -27,5 +27,5 @@ class OutputRunner:
                     raise NotImplemented(type(child))
                 conversation.flow_position.pop()
 
-        conversation.flow_position.append(output._id)
+        conversation.flow_position.pop()
 

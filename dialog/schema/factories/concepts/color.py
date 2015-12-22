@@ -10,19 +10,19 @@ class ColorConcept:
                 Concept(
                     id="red",
                     grammars=[
-                        Grammar(items=["red"])
+                        Grammar(watson_items=["red"])
                     ]
                 ),
                 Concept(
                     id="white",
                     grammars=[
-                        Grammar(items=["white"])
+                        Grammar(watson_items=["white"])
                     ]
                 ),
                 Concept(
                     id="black",
                     grammars=[
-                        Grammar(items=["black"])
+                        Grammar(watson_items=["black"])
                     ]
                 )
             ]

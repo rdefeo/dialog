@@ -522,50 +522,6 @@
                     </input>
                     <input>
                         <grammar>
-                            <item>reviews</item>
-                            <item>$ reviews</item>
-                            <item>$ highest rating</item>
-                            <item>$ highest rated</item>
-                            <item>$ best rating</item>
-                            <item>$ best rated</item>
-                            <item>$ lowest rating</item>
-                            <item>$ lowest rated</item>
-                            <item>$ oscar winners</item>
-                            <item>$ best movie</item>
-                            <item>$ best movies</item>
-                        </grammar>
-                        <input>
-                            <grammar>
-                                <item>what</item>
-                                <item>$ what</item>
-                            </grammar>
-                            <goto ref="output_2469539"/>
-                        </input>
-                        <output>
-                            <prompt selectionType="RANDOM">
-                                <item>No.</item>
-                            </prompt>
-                            <output id="output_2469539">
-                                <prompt selectionType="RANDOM">
-                                    <item>I'm afraid I cannot find movie reviews or search by number of stars at this
-                                        time.
-                                    </item>
-                                </prompt>
-                                <getUserInput>
-                                    <input>
-                                        <grammar>
-                                            <item>okay</item>
-                                            <item>ok</item>
-                                        </grammar>
-                                        <goto ref="output_how_can_i_help_you"/>
-                                    </input>
-                                    <goto ref="search_preliminary_sequences"/>
-                                </getUserInput>
-                            </output>
-                        </output>
-                    </input>
-                    <input>
-                        <grammar>
                             <item>$ (STYLE)={Style_Preference}</item>
                         </grammar>
                         <action operator="SET_TO" varName="Style_Preference">{Style_Preference.value:main}</action>

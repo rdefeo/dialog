@@ -55,7 +55,7 @@ class OpeningSequences:
                                                         children=[
                                                             Input(
                                                                     Grammar(
-                                                                            items=[
+                                                                            watson_items=[
                                                                                 "Movies",
                                                                                 "$ (STYLE)={Style_Preference}",
                                                                                 "$ (COLOR)={Color_Preference}",
@@ -126,7 +126,7 @@ class OpeningSequences:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "How are you",
                                         "$ how have you been doing",
                                         "$ how is it going",
@@ -180,7 +180,7 @@ class OpeningSequences:
                                 ),
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "Fine",
                                                     "$ excellent",
                                                     "$ outstanding",
@@ -218,7 +218,7 @@ class OpeningSequences:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "Nice to meet you",
                                         "$ nice to meet you",
                                         "$ pleasure to meet you",

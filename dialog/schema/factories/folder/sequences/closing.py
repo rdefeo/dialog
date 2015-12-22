@@ -11,7 +11,7 @@ class ClosingSequences:
             children=[
                 Input(
                     Grammar(
-                            items=[
+                            watson_items=[
                                 "I should be going",
                                 "$ should be going",
                                 "$ should go",
@@ -36,7 +36,7 @@ class ClosingSequences:
                 ),
                 Input(
                     Grammar(
-                            items=[
+                            watson_items=[
                                 "Thanks for your help",
                                 "$ thank you for your help",
                                 "$ thanks for your help"
@@ -52,7 +52,7 @@ class ClosingSequences:
                     ]
                 ),
                 Input(
-                    Grammar(items=["Goodbye"]),
+                    Grammar(watson_items=["Goodbye"]),
                         children=[
                         If(
                             elements=[

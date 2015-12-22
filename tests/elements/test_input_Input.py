@@ -16,7 +16,7 @@ class init_Tests(TestCase):
     def test_regular(self):
         actual = Target(
             children=[
-                Grammar(items=[Mock()]),
+                Grammar(watson_items=[Mock()]),
                 Action(),
                 Goto()
             ]

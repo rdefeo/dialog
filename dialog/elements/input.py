@@ -3,7 +3,6 @@ from dialog.elements.output import Output
 from dialog.elements.action import Action
 from dialog.elements.element import Element
 from dialog.process import ProcessRequest
-from dialog.process.grammar_response import GrammarMatchType
 from typing import Iterable
 
 
@@ -37,25 +36,25 @@ class Input(Element):
 
         return doc
 
-    def process(self, process_request: ProcessRequest):
-        grammar = list(self.children)[0]
-        if not isinstance(grammar, Grammar):
-            raise Exception("grammar not the first item")
-
-        if grammar.process(process_request).match_type == GrammarMatchType.exact:
-            response = {
-                "actions": [],
-                "outputs": []
-            }
-            for child in iter(self.children[1:]):
-                if isinstance(child, Action):
-                    response["actions"].append(child.process(process_request))
-                elif isinstance(child, Output):
-                    response["outputs"].append(child.process(process_request))
-                else:
-
-                    pass
-
-            return response
-        else:
-            return None
+    # def process(self, process_request: ProcessRequest):
+    #     grammar = list(self.children)[0]
+    #     if not isinstance(grammar, Grammar):
+    #         raise Exception("grammar not the first item")
+    #
+    #     if grammar.process(process_request).match_type == GrammarMatchType.exact:
+    #         response = {
+    #             "actions": [],
+    #             "outputs": []
+    #         }
+    #         for child in iter(self.children[1:]):
+    #             if isinstance(child, Action):
+    #                 response["actions"].append(child.process(process_request))
+    #             elif isinstance(child, Output):
+    #                 response["outputs"].append(child.process(process_request))
+    #             else:
+    #
+    #                 pass
+    #
+    #         return response
+    #     else:
+    #         return None

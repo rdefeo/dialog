@@ -40,7 +40,7 @@ class StartSearch:
                         # },
                         Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "neither",
                                         "neither",
                                         "$ either",
@@ -70,7 +70,7 @@ class StartSearch:
                         ),
                         Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "My name is",
                                         "$ my name is",
                                         "$ I am",

@@ -61,7 +61,7 @@ class ColorPreferenceProfileCheckInput:
                 children=[
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "What",
                                         "$ what",
                                         "$ which",
@@ -71,7 +71,7 @@ class ColorPreferenceProfileCheckInput:
                             children=[
                                 Input(
                                         Grammar(
-                                                items=[
+                                                watson_items=[
                                                     "colors",
                                                     "$ they",
                                                     "$ ones",
@@ -95,7 +95,7 @@ class ColorPreferenceProfileCheckInput:
                     ),
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "Color",
                                         "$ (COLOR)={Color_Preference}"
                                     ]
@@ -128,7 +128,7 @@ class ColorPreferenceProfileCheckInput:
                     # },
                     Input(
                             Grammar(
-                                    items=[
+                                    watson_items=[
                                         "No",
                                         "$ don't care",
                                         "$ don't know",

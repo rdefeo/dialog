@@ -9,32 +9,32 @@ class Entities:
             "entity": [
                 Entity(
                     "CERTIFICATION", [
-                        Value("G", "G", Grammar(items=["G Rated", "G-Rated"])),
-                        Value("PG", "PG", Grammar(items=["PG Rated", "PG-Rated"]))
+                        Value("G", "G", Grammar(watson_items=["G Rated", "G-Rated"])),
+                        Value("PG", "PG", Grammar(watson_items=["PG Rated", "PG-Rated"]))
                     ]
                 ).create(),
                 Entity(
                     "GENRE", [
-                        Value("Action", "Action", Grammar(items=["Action"])),
-                        Value("Adventure", "Adventure", Grammar(items=["Adventure"]))
+                        Value("Action", "Action", Grammar(watson_items=["Action"])),
+                        Value("Adventure", "Adventure", Grammar(watson_items=["Adventure"]))
                     ]
                 ).create(),
                 Entity(
                     "DYNAMIC_DATA", [
-                        Value("DataCapture", "DataCapture", Grammar(items=["*"]))
+                        Value("DataCapture", "DataCapture", Grammar(watson_items=["*"]))
                     ]
                 ).create(),
                 Entity(
                     "STYLE", [
-                        Value("high heels", "high heels", Grammar(items=["high heels", "high-heels"])),
-                        Value("boots", "boots", Grammar(items=["boots", "boot"]))
+                        Value("high heels", "high heels", Grammar(watson_items=["high heels", "high-heels"])),
+                        Value("boots", "boots", Grammar(watson_items=["boots", "boot"]))
                     ]
                 ).create(),
                 Entity(
                     "COLOR", [
-                        Value("red", "red", Grammar(items=["red"])),
-                        Value("white", "white", Grammar(items=["white"])),
-                        Value("black", "black", Grammar(items=["black"]))
+                        Value("red", "red", Grammar(watson_items=["red"])),
+                        Value("white", "white", Grammar(watson_items=["white"])),
+                        Value("black", "black", Grammar(watson_items=["black"]))
                     ]
                 ).create(),
                 Entity(
