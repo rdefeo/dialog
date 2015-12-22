@@ -3,7 +3,7 @@
     <flow>
         <folder label="Main">
             <output id="output_what_is_name">
-                <prompt selectionType="SEQUENTIAL">
+                <prompt selectionType="RANDOM">
                     <item>What can I call you?</item>
                     <item>What's your name?</item>
                 </prompt>

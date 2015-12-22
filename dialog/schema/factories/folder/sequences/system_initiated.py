@@ -22,197 +22,197 @@ class SystemInitiatedSequences:
     def create():
         # Folder
         return Folder(
-            label="SYSTEM INITIATED SEQUENCES",
-            children=[
-                Output(
-                    _id=SystemInitiatedSequences.__id(),
-                    prompt=Prompt(
-                        items=["Is there anything else I can help you with?"]
-                    ),
-                    children=[
-                        PageAction.set_to_new(),
-                        Action(varName="Current_Index", operator="SET_TO", text="0"),
-                        CertificationPreferenceAction.set_to_blank(),
-                        ColorPreferenceAction.set_to_blank(),
-                        # RecencyPreferenceAction.set_to_blank(),
-                        StylePreferenceAction.set_to_blank(),
-                        Action(varName="Search_Now", operator="SET_TO_NO"),
-                        Action(varName="Terminal_Exchange", operator="SET_TO_BLANK"),
-                        Action(varName="Topic", operator="SET_TO_BLANK"),
-                        Action(varName="ZIP_Code_Preference", operator="SET_TO_BLANK"),
-                        Action(varName="Display_Trailer", operator="SET_TO_NO"),
-                        Action(varName="Selected_Movie", operator="SET_TO_BLANK"),
-                        Action(varName="Display_Movie_Details", operator="SET_TO_NO"),
-                        Action(varName="Display_Reviews", operator="SET_TO_NO"),
-                        Action(varName="Popularity_Score", operator="SET_TO", text="0.5"),
-                        GetUserInput(
+                label="SYSTEM INITIATED SEQUENCES",
+                children=[
+                    Output(
+                            _id=SystemInitiatedSequences.__id(),
+                            prompt=Prompt(
+                                    items=["Is there anything else I can help you with?"]
+                            ),
                             children=[
-                                Input(
-                                    children=[
-                                        GenericGrammar.yes(),
-                                        HowCanHelpYouOutput.goto()
-                                    ]
-                                ),
-                                Input(
-                                    children=[
-                                        GenericGrammar.no(),
-                                        Output(
-                                            prompt=GenericPrompt.ok(),
-                                            children=[Goto(ref="output_did_find_what_looking_for")]
-                                        )
-                                    ]
-                                ),
-                                PreliminarySequencesSearch.goto()
-                            ]
-                        )
-                    ]
-                ),
-                Output(
-                    _id="output_did_find_what_looking_for",
-                    prompt=Prompt(
-                        items=["Did you find what you were looking for, {User_Name}?"]
-                    ),
-                    children=[
-                        GetUserInput(
-                            children=[
-                                Input(
-                                    children=[
-                                        GenericGrammar().yes(),
-                                        RequestSuccessAction.set_to_yes(),
-                                        Output(
-                                            prompt=Prompt(
-                                                items=["Great!"]
+                                PageAction.set_to_new(),
+                                Action(varName="Current_Index", operator="SET_TO", text="0"),
+                                CertificationPreferenceAction.set_to_blank(),
+                                ColorPreferenceAction.set_to_blank(),
+                                # RecencyPreferenceAction.set_to_blank(),
+                                StylePreferenceAction.set_to_blank(),
+                                Action(varName="Search_Now", operator="SET_TO_NO"),
+                                Action(varName="Terminal_Exchange", operator="SET_TO_BLANK"),
+                                Action(varName="Topic", operator="SET_TO_BLANK"),
+                                Action(varName="ZIP_Code_Preference", operator="SET_TO_BLANK"),
+                                Action(varName="Display_Trailer", operator="SET_TO_NO"),
+                                Action(varName="Selected_Movie", operator="SET_TO_BLANK"),
+                                Action(varName="Display_Movie_Details", operator="SET_TO_NO"),
+                                Action(varName="Display_Reviews", operator="SET_TO_NO"),
+                                Action(varName="Popularity_Score", operator="SET_TO", text="0.5"),
+                                GetUserInput(
+                                        children=[
+                                            Input(
+                                                    GenericGrammar.yes(),
+                                                    children=[HowCanHelpYouOutput.goto()]
                                             ),
-                                            children=[
-                                                Output(
-                                                    _id="output_goodbye",
-                                                    prompt=Prompt(
-                                                        items=["Goodbye.<br> <br>"]
-                                                    ),
+                                            Input(
+                                                    GenericGrammar.no(),
                                                     children=[
-                                                        TerminalExchangeAction.set_to_yes(),
-                                                        GreetingAction.reset(),
-                                                        GetUserInput(
-                                                            children=[
-                                                                Input(
-                                                                    children=[
-                                                                        Grammar(
-                                                                            items=[
-                                                                                "Goodbye",
-                                                                                "$ goodbye"
-                                                                            ]
-                                                                        ),
-                                                                        Output(
-                                                                            _id="output_end_of_conversation",
+                                                        Output(
+                                                                prompt=GenericPrompt.ok(),
+                                                                children=[Goto(ref="output_did_find_what_looking_for")]
+                                                        )
+                                                    ]
+                                            ),
+                                            PreliminarySequencesSearch.goto()
+                                        ]
+                                )
+                            ]
+                    ),
+                    Output(
+                            _id="output_did_find_what_looking_for",
+                            prompt=Prompt(
+                                    items=["Did you find what you were looking for, {User_Name}?"]
+                            ),
+                            children=[
+                                GetUserInput(
+                                        children=[
+                                            Input(
+                                                    GenericGrammar().yes(),
+                                                    children=[
+                                                        RequestSuccessAction.set_to_yes(),
+                                                        Output(
+                                                                prompt=Prompt(
+                                                                        items=["Great!"]
+                                                                ),
+                                                                children=[
+                                                                    Output(
+                                                                            _id="output_goodbye",
                                                                             prompt=Prompt(
-                                                                                items="&lt;i&gt;Say anything to continue.&lt;/i&gt;"
+                                                                                    items=["Goodbye.<br> <br>"]
                                                                             ),
                                                                             children=[
+                                                                                TerminalExchangeAction.set_to_yes(),
+                                                                                GreetingAction.reset(),
                                                                                 GetUserInput(
-                                                                                    children=[
-                                                                                        Output(
-                                                                                            _id="output_welcome_back",
-                                                                                            prompt=Prompt(
-                                                                                                items=["Welcome back!"]
+                                                                                        children=[
+                                                                                            Input(
+                                                                                                    Grammar(
+                                                                                                            items=[
+                                                                                                                "Goodbye",
+                                                                                                                "$ goodbye"
+                                                                                                            ]
+                                                                                                    ),
+                                                                                                    children=[
+                                                                                                        Output(
+                                                                                                                _id="output_end_of_conversation",
+                                                                                                                prompt=Prompt(
+                                                                                                                        items="&lt;i&gt;Say anything to continue.&lt;/i&gt;"
+                                                                                                                ),
+                                                                                                                children=[
+                                                                                                                    GetUserInput(
+                                                                                                                            children=[
+                                                                                                                                Output(
+                                                                                                                                        _id="output_welcome_back",
+                                                                                                                                        prompt=Prompt(
+                                                                                                                                                items=[
+                                                                                                                                                    "Welcome back!"]
+                                                                                                                                        ),
+                                                                                                                                        children=[HowCanHelpYouOutput.goto()]
+                                                                                                                                )
+                                                                                                                            ]
+                                                                                                                    )
+                                                                                                                ]
+                                                                                                        ),
+
+                                                                                                    ]
                                                                                             ),
-                                                                                            children=[
-                                                                                                HowCanHelpYouOutput.goto()
-                                                                                            ]
-                                                                                        )
-                                                                                    ]
+                                                                                            HowCanHelpYouOutput.goto()
+                                                                                        ]
                                                                                 )
                                                                             ]
-                                                                        ),
-
-                                                                    ]
-                                                                ),
-                                                                HowCanHelpYouOutput.goto()
-                                                            ]
+                                                                    )
+                                                                ]
                                                         )
                                                     ]
-                                                )
-                                            ]
-                                        )
-                                    ]
-                                ),
-                                Input(
-                                    children=[
-                                        GenericGrammar.no(),
-                                        RequestSuccessAction.set_to_no(),
-                                        Output(
-                                            prompt=Prompt(
-                                                items=["Oh no. Do you want to try again?"]
                                             ),
-                                            children=[
-                                                GetUserInput(
+                                            Input(
+                                                    GenericGrammar.no(),
                                                     children=[
-                                                        Input(
-                                                            children=[
-                                                                GenericGrammar.no(),
-                                                                TerminalExchangeAction.set_to_no(),
-                                                                Output(
-                                                                    prompt=GenericPrompt.ok(),
-                                                                    children=[Goto(ref="output_goodbye")]
-                                                                )
-                                                            ]
-                                                        ),
-                                                        Input(
-                                                            children=[
-                                                                GenericGrammar.yes(),
-                                                                Output(
-                                                                    prompt=Prompt(
-                                                                        items=["Okay. What can I do for you?"]
-                                                                    ),
-                                                                    children=[
-                                                                        Goto("getUserInput_how_can_i_help_you")
-                                                                    ]
-                                                                )
-                                                            ]
+                                                        RequestSuccessAction.set_to_no(),
+                                                        Output(
+                                                                prompt=Prompt(
+                                                                        items=["Oh no. Do you want to try again?"]
+                                                                ),
+                                                                children=[
+                                                                    GetUserInput(
+                                                                            children=[
+                                                                                Input(
+                                                                                        GenericGrammar.no(),
+                                                                                        children=[
+                                                                                            TerminalExchangeAction.set_to_no(),
+                                                                                            Output(
+                                                                                                    prompt=GenericPrompt.ok(),
+                                                                                                    children=[Goto(
+                                                                                                            ref="output_goodbye")]
+                                                                                            )
+                                                                                        ]
+                                                                                ),
+                                                                                Input(
+                                                                                        GenericGrammar.yes(),
+                                                                                        children=[
+                                                                                            Output(
+                                                                                                    prompt=Prompt(
+                                                                                                            items=[
+                                                                                                                "Okay. What can I do for you?"]
+                                                                                                    ),
+                                                                                                    children=[
+                                                                                                        Goto(
+                                                                                                                "getUserInput_how_can_i_help_you")
+                                                                                                    ]
+                                                                                            )
+                                                                                        ]
+                                                                                )
+                                                                            ]
+                                                                    )
+                                                                ]
                                                         )
                                                     ]
-                                                )
-                                            ]
-                                        )
-                                    ]
-                                ),
-                                PreliminarySequencesSearch.goto()
+                                            ),
+                                            PreliminarySequencesSearch.goto()
+                                        ]
+                                )
                             ]
-                        )
-                    ]
-                ),
-                Output(
-                    _id="output_too_much_small_talk",
-                    prompt=Prompt(
-                        items=["This is fun, but wouldn't you like to look up some movies?"]
                     ),
-                    children=[
-                        GetUserInput(
+                    Output(
+                            _id="output_too_much_small_talk",
+                            prompt=Prompt(
+                                    items=["This is fun, but wouldn't you like to look up some movies?"]
+                            ),
                             children=[
-                                Input(
-                                    children=[
-                                        GenericGrammar.yes(),
-                                        StylePreferenceProfileCheck.goto()
-                                    ]
-                                ),
-                                Input(
-                                    children=[
-                                        GenericGrammar.no(),
-                                        SmallTalkAction.set_to_zero(),
-                                        Output(
-                                            GenericPrompt.ok_fine()
-                                        )
-                                    ]
-                                ),
-                                Input(
-                                    children=[
-                                        GenericGrammar.ok(),
-                                        StylePreferenceProfileCheck.goto()
-                                    ]
-                                ),
-                                PreliminarySequencesSearch.goto()
+                                GetUserInput(
+                                        children=[
+                                            Input(
+                                                    GenericGrammar.yes(),
+                                                    children=[
+                                                        StylePreferenceProfileCheck.goto()
+                                                    ]
+                                            ),
+                                            Input(
+                                                    GenericGrammar.no(),
+                                                    children=[
+                                                        SmallTalkAction.set_to_zero(),
+                                                        Output(
+                                                                GenericPrompt.ok_fine()
+                                                        )
+                                                    ]
+                                            ),
+                                            Input(
+                                                    GenericGrammar.ok(),
+                                                    children=[
+                                                        StylePreferenceProfileCheck.goto()
+                                                    ]
+                                            ),
+                                            PreliminarySequencesSearch.goto()
+                                        ]
+                                )
                             ]
-                        )
-                    ]
-                )
-            ]
+                    )
+                ]
         )

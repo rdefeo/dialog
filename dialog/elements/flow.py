@@ -1,12 +1,11 @@
 from dialog.elements.folder import Folder
 from dialog.elements.element import Element
-from typing import Iterable
 
 
 class Flow(Element):
     _element_name = "flow"
 
-    def __init__(self, folders: Iterable[Folder] = None):
+    def __init__(self, folders: list = None):
         """
         Is a container for the main content of a dialog flow.
         :param folders: only <Folder>

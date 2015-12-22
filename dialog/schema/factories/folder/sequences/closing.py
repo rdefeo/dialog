@@ -10,8 +10,7 @@ class ClosingSequences:
             label="CLOSING SEQUENCES",
             children=[
                 Input(
-                    children=[
-                        Grammar(
+                    Grammar(
                             items=[
                                 "I should be going",
                                 "$ should be going",
@@ -27,6 +26,7 @@ class ClosingSequences:
                                 "$ gtg"
                             ]
                         ),
+                    children=[
                         Output(
                             _id="output_2449675",
                             prompt=GenericPrompt.ok(),
@@ -35,14 +35,14 @@ class ClosingSequences:
                     ]
                 ),
                 Input(
-                    children=[
-                        Grammar(
+                    Grammar(
                             items=[
                                 "Thanks for your help",
                                 "$ thank you for your help",
                                 "$ thanks for your help"
                             ]
                         ),
+                    children=[
                         Output(
                             Prompt(
                                 items=["You are welcome."]
@@ -52,8 +52,8 @@ class ClosingSequences:
                     ]
                 ),
                 Input(
-                    children=[
-                        Grammar(items=["Goodbye"]),
+                    Grammar(items=["Goodbye"]),
+                        children=[
                         If(
                             elements=[
                                 TerminalExchangeConditions.is_yes(),

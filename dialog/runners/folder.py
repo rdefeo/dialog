@@ -7,11 +7,22 @@ from dialog.runners.output import OutputRunner
 class FolderRunner:
     @staticmethod
     def run(dialog: Dialog, conversation: Conversation, folder: Folder):
-        for index, child in enumerate(folder.children):
-            conversation.flow_position.append(index)
-            if isinstance(child, Output):
-                OutputRunner.run(dialog, conversation, child)
+        conversation.flow_position.append(folder._id)
+        goto_position = conversation.get_first_goto_position()
+        if goto_position is not None:
+            if goto_position == folder._id:
+                goto_position = conversation.get_first_goto_position()
             else:
-                raise NotImplemented(type(child))
+                raise Exception()
 
-            conversation.flow_position.pop()
+        for index, child in enumerate(folder.children):
+            if goto_position is None or index >=goto_position :
+                conversation.flow_position.append(index)
+                if isinstance(child, Output):
+                    OutputRunner.run(dialog, conversation, child)
+                else:
+                    raise NotImplemented(type(child))
+
+                conversation.flow_position.pop()
+
+        conversation.flow_position.pop()

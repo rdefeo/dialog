@@ -9,8 +9,8 @@ class UIActionsSequences:
             label="UI ACTIONS",
             children=[
                 Input(
+                    Grammar(items=["USER CLICKS BOX"]),
                     children=[
-                        Grammar(items=["USER CLICKS BOX"]),
                         Output(
                             prompt=Prompt(
                                 items=["{Selected_Movie}."]

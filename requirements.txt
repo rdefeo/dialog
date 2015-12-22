@@ -1,5 +1,7 @@
 tornado
 requests
+typing
 pypandoc
 watson-developer-cloud
-
+pymongo
+mock

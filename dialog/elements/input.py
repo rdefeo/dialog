@@ -10,12 +10,13 @@ from typing import Iterable
 class Input(Element):
     _element_name = "input"
 
-    def __init__(self, _id: str = None, children: Iterable[Element] = None):
+    def __init__(self, grammar: Grammar, children: Iterable[Element] = None, _id: str = None):
         """
         Contains the nodes that contain the text that users submit.
         :param _id: Specifies a unique ID that is used as an anchor point.
         :param children: any of action | concept | default | folder | function | getUserInput | goto | grammar | if | input | output | search
         """
+        self.grammar = grammar
         self.children = children
         self.id = _id
 
@@ -29,9 +30,9 @@ class Input(Element):
 
         if self.id is not None:
             doc["@id"] = self.id
-
-        if any(self.children):
-            for i, child in enumerate(self.children):
+        children = [self.grammar] + self.children
+        if any(children):
+            for i, child in enumerate(children):
                 doc[(i, child._element_name)] = child
 
         return doc

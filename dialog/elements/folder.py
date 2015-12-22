@@ -7,11 +7,11 @@ class Folder(Element):
 
     def __init__(self, _id: str = None, label: str = None, selection_type=None, children: Iterable[Element] = None):
         """
-            Node groups content.
-            :param _id: Specifies a unique ID that is used as an anchor point.
-            :param label: Specifies a unique name for a node.
-            :param children: action | autoLearnVariations | concept | default | folder | function | getUserInput | goto | if | input | output | random | search
-            """
+        Node groups content.
+        :param _id: Specifies a unique ID that is used as an anchor point.
+        :param label: Specifies a unique name for a node.
+        :param children: action | autoLearnVariations | concept | default | folder | function | getUserInput | goto | if | input | output | random | search
+        """
         settings = {}
         if selection_type is not None:
             settings["selection_type"] = selection_type
@@ -19,8 +19,8 @@ class Folder(Element):
             settings["label"] = label
         if _id is not None:
             settings["id"] = _id
-        super().__init__(settings, list(children if children is not None else []))
 
+        super().__init__(settings, list(children if children is not None else []))
 
     def _set_dialog(self, value):
         self.dialog = value

@@ -25,16 +25,16 @@ class PreliminarySequencesFolder:
             ],
             (1, "input"): {
                 (0, "grammar"): Grammar(
-                    items=[
-                        "Do you know",
-                        "$ do you know",
-                        "$ can you",
-                        "$ do you have information",
-                        "$ can I",
-                        "$ can you tell",
-                        "$ what kind of",
-                        "$ what else do you know"
-                    ]
+                        items=[
+                            "Do you know",
+                            "$ do you know",
+                            "$ can you",
+                            "$ do you have information",
+                            "$ can I",
+                            "$ can you tell",
+                            "$ what kind of",
+                            "$ what else do you know"
+                        ]
                 ),
                 (1, "action"): [
                     GreetingAction.reset(),
@@ -42,105 +42,94 @@ class PreliminarySequencesFolder:
                 ],
                 (2, "input"): [
                     Input(
-                        children=[
                             Grammar(
-                                items=[
-                                    "out-of-scope movie topics",
-                                    "$ (OTHER_MOVIE)={Topic}"
-                                ]
+                                    items=[
+                                        "out-of-scope movie topics",
+                                        "$ (OTHER_MOVIE)={Topic}"
+                                    ]
                             ),
-                            TopicAction.set_to_value(),
-                            Input(
-                                children=[
-                                    Grammar(
-                                        items=[
-                                            "what",
-                                            "$ what"
-                                        ]
-                                    ),
-                                    Goto(ref="output_no_topic_lookup")
-                                ]
-                            ),
-                            Output(
-                                Prompt(
-                                    items=["No."]
-                                ),
-                                children=[
-                                    Output(
-                                        _id="output_no_topic_lookup",
-                                        prompt=Prompt(
-                                            items=[
-                                                "I'm afraid I can't look up movies by {Topic}, only by Genre or MPAA Rating."]
-                                        ),
-                                        children=[
-                                            GetUserInput(
-                                                children=[
-                                                    Input(
-                                                        children=[
-                                                            GenericGrammar.ok(),
-                                                            HowCanHelpYouOutput.goto()
-                                                        ]
-                                                    ),
-                                                    PreliminarySequencesSearch.goto()
+                            children=[
+                                TopicAction.set_to_value(),
+                                Input(
+                                        Grammar(
+                                                items=[
+                                                    "what",
+                                                    "$ what"
                                                 ]
+                                        ),
+                                        children=[Goto(ref="output_no_topic_lookup")]
+                                ),
+                                Output(
+                                        Prompt(items=["No."]),
+                                        children=[
+                                            Output(
+                                                    _id="output_no_topic_lookup",
+                                                    prompt=Prompt(
+                                                            items=[
+                                                                "I'm afraid I can't look up movies by {Topic}, only by Genre or MPAA Rating."]
+                                                    ),
+                                                    children=[
+                                                        GetUserInput(
+                                                                children=[
+                                                                    Input(
+                                                                            GenericGrammar.ok(),
+                                                                            children=[
+                                                                                HowCanHelpYouOutput.goto()
+                                                                            ]
+                                                                    ),
+                                                                    PreliminarySequencesSearch.goto()
+                                                                ]
+                                                        )
+                                                    ]
                                             )
                                         ]
-                                    )
-                                ]
-                            )
-                        ]
+                                )
+                            ]
                     ),
                     Input(
-                        children=[
                             Grammar(
-                                items=[
-                                    "by out-of-scope movie topics",
-                                    "$ (BY_OTHER_MOVIE)={Topic}"
-                                ]
+                                    items=[
+                                        "by out-of-scope movie topics",
+                                        "$ (BY_OTHER_MOVIE)={Topic}"
+                                    ]
                             ),
-                            TopicAction.set_to_value(),
-                            Input(
-                                children=[
-                                    Grammar(
-                                        items=[
-                                            "what",
-                                            "$ what"
-                                        ]
-                                    ),
-                                    Goto(ref="output_2503370"),
-
-                                ]
-                            ),
-                            Output(
-                                Prompt(
-                                    items=["No."]
+                            children=[
+                                TopicAction.set_to_value(),
+                                Input(
+                                        Grammar(
+                                                items=[
+                                                    "what",
+                                                    "$ what"
+                                                ]
+                                        ),
+                                        children=[Goto(ref="output_2503370")]
                                 ),
-                                children=[
-                                    Output(
-                                        _id="output_2503370",
-                                        prompt=Prompt(
-                                            items=[
-                                                "I'm afraid I can't look up {Topic}, only Current and Upcoming movies by Genre or MPAA Rating.", ]
+                                Output(
+                                        Prompt(
+                                                items=["No."]
                                         ),
                                         children=[
-                                            GetUserInput(
-                                                children=[
-                                                    Input(
-                                                        children=[
-                                                            Grammar(
-                                                                items=["Okay."]
-                                                            ),
-                                                            HowCanHelpYouOutput.goto()
-                                                        ]
+                                            Output(
+                                                    _id="output_2503370",
+                                                    prompt=Prompt(
+                                                            items=[
+                                                                "I'm afraid I can't look up {Topic}, only Current and Upcoming movies by Genre or MPAA Rating.", ]
                                                     ),
-                                                    PreliminarySequencesSearch.goto()
-                                                ]
+                                                    children=[
+                                                        GetUserInput(
+                                                                children=[
+                                                                    Input(
+                                                                            Grammar(items=["Okay."]),
+                                                                            children=[HowCanHelpYouOutput.goto()]
+                                                                    ),
+                                                                    PreliminarySequencesSearch.goto()
+                                                                ]
+                                                        )
+                                                    ]
                                             )
                                         ]
-                                    )
-                                ]
-                            )
-                        ]
+                                )
+                            ]
                     ),
                     {
                         (0, "grammar"): {
@@ -359,42 +348,40 @@ class PreliminarySequencesFolder:
                             "#text": "movies"
                         },
                         (2, "input"): Input(
-                            children=[
                                 Grammar(
-                                    items=[
-                                        "what",
-                                        "$ what"
-                                    ]
+                                        items=[
+                                            "what",
+                                            "$ what"
+                                        ]
                                 ),
-                                Goto(ref="output_what_jemboo_knows")
-                            ]
+                                children=[
+                                    Goto(ref="output_what_jemboo_knows")
+                                ]
                         ),
                         (3, "output"): Output(
-                            prompt=Prompt(
-                                items=["Yes."]
-                            ),
-                            children=[
-                                Output(
-                                    _id="output_what_jemboo_knows",
-                                    prompt=Prompt(
-                                        items=[
-                                            "I can look up current and upcoming movies by Genre or MPAA Rating and show you trailers for them. But I'm afraid I cannot search by number of stars or by movie titles or actor and director names at this time.", ]
-                                    ),
-                                    children=[
-                                        GetUserInput(
+                                prompt=Prompt(
+                                        items=["Yes."]
+                                ),
+                                children=[
+                                    Output(
+                                            _id="output_what_jemboo_knows",
+                                            prompt=Prompt(
+                                                    items=[
+                                                        "I can look up current and upcoming movies by Genre or MPAA Rating and show you trailers for them. But I'm afraid I cannot search by number of stars or by movie titles or actor and director names at this time.", ]
+                                            ),
                                             children=[
-                                                Input(
-                                                    children=[
-                                                        GenericGrammar.ok(),
-                                                        HowCanHelpYouOutput.goto()
-                                                    ]
-                                                ),
-                                                PreliminarySequencesSearch.goto()
+                                                GetUserInput(
+                                                        children=[
+                                                            Input(
+                                                                    GenericGrammar.ok(),
+                                                                    children=[HowCanHelpYouOutput.goto()]
+                                                            ),
+                                                            PreliminarySequencesSearch.goto()
+                                                        ]
+                                                )
                                             ]
-                                        )
-                                    ]
-                                )
-                            ]
+                                    )
+                                ]
                         )
                     },
                     {
@@ -464,74 +451,71 @@ class PreliminarySequencesFolder:
                                 "#text": "2"
                             },
                             (1, "output"): Output(
-                                Prompt(
-                                    items=["I'm sorry I don't know about that. Can I look up some movies for you?"]
-                                ),
-                                children=[
-                                    GetUserInput(
-                                        children=[
-                                            Input(
+                                    Prompt(
+                                            items=[
+                                                "I'm sorry I don't know about that. Can I look up some movies for you?"]
+                                    ),
+                                    children=[
+                                        GetUserInput(
                                                 children=[
-                                                    GenericGrammar.yes(),
-                                                    StylePreferenceProfileCheck.goto()
+                                                    Input(
+                                                            GenericGrammar.yes(),
+                                                            children=[
+                                                                StylePreferenceProfileCheck.goto()
+                                                            ]
+                                                    ),
+                                                    Input(
+                                                            GenericGrammar.no(),
+                                                            children=[
+                                                                Action(varName="Out-of-Scope_Count", operator="SET_TO",
+                                                                       text="0"),
+                                                                Output(
+                                                                        prompt=GenericPrompt.ok_fine()
+                                                                )
+                                                            ]
+                                                    ),
+                                                    Input(
+                                                            GenericGrammar.ok(),
+                                                            children=[
+                                                                StylePreferenceProfileCheck.goto()
+                                                            ]
+                                                    ),
+                                                    PreliminarySequencesSearch.goto()
                                                 ]
-                                            ),
-                                            Input(
-                                                children=[
-                                                    GenericGrammar.no(),
-                                                    Action(varName="Out-of-Scope_Count", operator="SET_TO", text="0"),
-                                                    Output(
-                                                        prompt=GenericPrompt.ok_fine()
-                                                    )
-                                                ]
-                                            ),
-                                            Input(
-                                                children=[
-                                                    GenericGrammar.ok(),
-                                                    StylePreferenceProfileCheck.goto()
-                                                ]
-                                            ),
-                                            PreliminarySequencesSearch.goto()
-                                        ]
-                                    )
-                                ]
+                                        )
+                                    ]
                             )
                         },
                         (3, "input"): Input(
-                            children=[
                                 Grammar(
-                                    items=[
-                                        "what",
-                                        "$ what"
-                                    ]
+                                        items=[
+                                            "what",
+                                            "$ what"
+                                        ]
                                 ),
-                                Goto(ref="output_2497989")
-                            ]
+                                children=[Goto(ref="output_2497989")]
                         ),
                         (4, "output"): Output(
-                            Prompt(items=["No."]),
-                            children=[
+                                Prompt(items=["No."]),
+                                children=[
 
-                                Output(
-                                    _id="output_2497989",
-                                    prompt=Prompt(items=["I'm afraid I don't know much about {Topic}. Just movies."]),
-                                    children=[
-                                        GetUserInput(
+                                    Output(
+                                            _id="output_2497989",
+                                            prompt=Prompt(
+                                                    items=["I'm afraid I don't know much about {Topic}. Just movies."]),
                                             children=[
-                                                Input(
-                                                    children=[
-                                                        Grammar(
-                                                            items=["Okay."]
-                                                        ),
-                                                        HowCanHelpYouOutput.goto()
-                                                    ]
-                                                ),
-                                                PreliminarySequencesSearch.goto()
+                                                GetUserInput(
+                                                        children=[
+                                                            Input(
+                                                                    Grammar(items=["Okay."]),
+                                                                    children=[HowCanHelpYouOutput.goto()]
+                                                            ),
+                                                            PreliminarySequencesSearch.goto()
+                                                        ]
+                                                )
                                             ]
-                                        )
-                                    ]
-                                )
-                            ]
+                                    )
+                                ]
                         )
                     }
                 ],

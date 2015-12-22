@@ -1,7 +1,6 @@
+from bson import ObjectId
 from dialog.process import ProcessRequest
 from dialog.process.response import ProcessResponse
-
-__author__ = 'robdefeo'
 
 
 class Element:
@@ -9,10 +8,12 @@ class Element:
     dialog = None
     settings = {}
     children = []
+    _id = None
     
     def __init__(self, settings: dict, children: list):
         self.settings = settings
         self.children = children
+        self._id = ObjectId()
 
     # @property
     # def dialog(self):

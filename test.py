@@ -47,4 +47,8 @@ dialog = Dialog(
 )
 
 
-DialogRunner.run(dialog, Conversation())
+user_input = DialogRunner.run(dialog, Conversation())
+
+user_input.conversation.user_input = "Movies"
+test = DialogRunner.run(dialog, user_input.conversation)
+pass

@@ -14,14 +14,14 @@ class ColorPreferenceInput:
     @staticmethod
     def create(goto: Goto):
         return Input(
-            _id=ColorPreferenceInput.__id(),
-            children=[
-                Grammar(
+            Grammar(
                     items=[
                         "rated",  # TODO find out what they were thinking with this
                         "$(Color)={Color_Preference}"
                     ]
                 ),
+            _id=ColorPreferenceInput.__id(),
+            children=[
                 ColorPreferenceAction.set_to_value(),
                 goto
             ]

@@ -39,8 +39,7 @@ class StartSearch:
                         #     (2, "goto"): Goto(ref="input_date_time")
                         # },
                         Input(
-                            children=[
-                                Grammar(
+                            Grammar(
                                     items=[
                                         "neither",
                                         "neither",
@@ -48,6 +47,7 @@ class StartSearch:
                                         "no"
                                     ]
                                 ),
+                            children=[
                                 Output(
                                     prompt=GenericPrompt.ok(),
                                     children=[HowCanHelpYouOutput.goto()]
@@ -55,8 +55,8 @@ class StartSearch:
                             ]
                         ),
                         Input(
+                            GenericGrammar.yes_okay(wildcard=False),
                             children=[
-                                GenericGrammar.yes_okay(wildcard=False),
                                 Output(
                                     Prompt(
                                         items=[
@@ -69,8 +69,7 @@ class StartSearch:
                             ]
                         ),
                         Input(
-                            children=[
-                                Grammar(
+                            Grammar(
                                     items=[
                                         "My name is",
                                         "$ my name is",
@@ -81,6 +80,7 @@ class StartSearch:
                                         "$ known as"
                                     ]
                                 ),
+                            children=[
                                 Output(
                                     prompt=Prompt(items=["Sorry."]),
                                     children=[
