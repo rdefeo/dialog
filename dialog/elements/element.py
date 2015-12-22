@@ -29,5 +29,3 @@ class Element:
     def create(self):
         raise NotImplemented()
 
-    def process(self, process_request: ProcessRequest) -> ProcessResponse:
-        raise NotImplemented()

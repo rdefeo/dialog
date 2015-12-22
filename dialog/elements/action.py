@@ -29,7 +29,8 @@ class Action(Element):
         }
         children = []
         super().__init__(settings, children)
-        self.text = text
+        if text is not None:
+            settings["text"] = text
 
     def _set_dialog(self, value):
         self.dialog = value
@@ -40,10 +41,18 @@ class Action(Element):
             doc["@varName"] = self.settings["var_name"]
         if "operator" in self.settings:
             doc["@operator"] = self.settings["operator"]
-        if self.text is not None:
-            doc["#text"] = self.text
+        if "text" in self.settings:
+            doc["#text"] = self.settings["operator"]
 
         return doc
+
+    @property
+    def operator(self):
+        return self.settings["operator"]
+
+    @property
+    def var_name(self):
+        return self.settings["var_name"]
 
     # def process(self, process_request: ProcessRequest):
     #     if self.operator == ACTION_SET_TO_NO:

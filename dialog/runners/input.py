@@ -1,5 +1,6 @@
 from dialog.elements import Output, Prompt, GetUserInput, Input, Grammar, Action
 from dialog.elements.dialog import Dialog
+from dialog.runners.action import ActionRunner
 from dialog.runners.conversation import Conversation
 from dialog.runners.grammar import GrammarRunner
 
@@ -22,8 +23,7 @@ class InputRunner:
                 if goto_position is None or index >=goto_position :
                     conversation.flow_position.append(index)
                     if isinstance(child,  Action):
-                        raise Exception()
-                        # ActionRunner.run(dialog, conversation, child)
+                        ActionRunner.run(dialog, conversation, child)
                     else:
                         raise NotImplemented(type(child))
                     conversation.flow_position.pop()

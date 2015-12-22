@@ -1,4 +1,5 @@
 from dialog.elements import Grammar
+from dialog.elements.grammar_item import RegExGrammarItem
 
 __author__ = 'robdefeo'
 
@@ -235,7 +236,19 @@ class ProfileGrammar:
                 "$ known as (DYNAMIC_DATA)={User_Name}",
                 "$ (DYNAMIC_DATA)={User_Name}"
             ],
-
+            items=[
+                RegExGrammarItem(pattern=r"\w*My name is (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*My name (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*I am called (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*I am (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*I'm called (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*I'm (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*called (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*call me (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*call me (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*known as (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"(\w{1})", dynamic_field_assignments=["User_Name"])
+            ]
         )
 
 

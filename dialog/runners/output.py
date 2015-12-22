@@ -23,6 +23,8 @@ class OutputRunner:
                     PromptRunner.run(dialog, conversation, child)
                 elif isinstance(child,  GetUserInput):
                     GetUserInputRunner.run(dialog, conversation, child)
+                elif isinstance(child,  Output):
+                    OutputRunner.run(dialog, conversation, child)
                 else:
                     raise NotImplemented(type(child))
                 conversation.flow_position.pop()

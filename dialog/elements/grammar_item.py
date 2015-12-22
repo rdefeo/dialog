@@ -1,5 +1,6 @@
-from enum import Enum
 import re
+from enum import Enum
+
 
 class GrammarItemMatchType(Enum):
     none = 1
@@ -15,5 +16,7 @@ class GrammarItem:
 
 
 class RegExGrammarItem(GrammarItem):
-    def __init__(self, pattern):
+    def __init__(self, pattern, dynamic_field_assignments: list = None, flags=re.IGNORECASE):
+        self.dynamic_field_assignments = dynamic_field_assignments
         self.pattern = pattern
+        self.flags = flags
