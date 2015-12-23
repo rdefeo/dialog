@@ -6,13 +6,15 @@ __author__ = 'robdefeo'
 
 
 class Concept(Element):
-    def __init__(self, id=None, grammars: Iterable[Grammar] = None, grammar: Grammar = None):
+    _element_name = "concept"
+
+    def __init__(self, _id=None, grammars: Iterable[Grammar] = None, grammar: Grammar = None):
         if grammars is not None:
             self.grammars = grammars
         elif grammar is not None:
             self.grammars = [grammar]
 
-        self.id = id
+        self.id = _id
 
     def create(self):
         doc = {}

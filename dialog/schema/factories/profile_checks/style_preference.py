@@ -1,5 +1,5 @@
-from dialog.elements import Goto, Prompt
-from dialog.schema.factories.action import StylePreferenceAction, PageAction
+from dialog.elements import Goto, Prompt, Output, Condition, If, Grammar, Input, GetUserInput
+from dialog.schema.factories.action import StylePreferenceAction, PageAction, CurrentIndexAction, SearchNowAction
 from dialog.schema.factories.conditions.style import StyleConditions
 from dialog.schema.factories.grammar import GenericGrammar
 from dialog.schema.factories.search import PreliminarySequencesSearch
@@ -16,27 +16,30 @@ class StylePreferenceProfileCheck:
 
     @staticmethod
     def create():
-        return {
-            "@id": StylePreferenceProfileCheck.__id(),
-            (0, "cond"): StyleConditions.is_blank(),
-            (1, "output"): {
-                (0, "prompt"): Prompt(items=["Do you prefer a certain style? "]),
-                (1, "if"): {
-                    (0, "cond"): {
-                        "@varName": "First_Time",
-                        "@operator": "EQUAL_TO_YES"
-                    },
-                    (1, "output"): {
-                        (0, "prompt"): {
-                            "item": "<mct:link><b><mct:input>High heels</mct:input></b></mct:link>\n<mct:link><b><mct:input>Boots</mct:input></b></mct:link>\n<mct:link><b><mct:input>Sandals</mct:input></b></mct:link>\n<mct:link><b><mct:input>Trainers</mct:input></b></mct:link>\n<mct:link><b><mct:input>No Preference</mct:input></b></mct:link>",
-                            "@selectionType": "RANDOM"
-                        },
-                        (1, "goto"): StylePreferenceProfileCheckInput.goto()
-                    }
-                },
-                (2, "getUserInput"): StylePreferenceProfileCheckInput.create()
-            }
-        }
+        return If(
+            _id=StylePreferenceProfileCheck.__id(),
+            elements=[
+                StyleConditions.is_blank(),
+                Output(
+                    Prompt(items=["Do you prefer a certain style? "]),
+                    children=[
+                        If(
+                            elements=[
+                                Condition(name="First_Time", operator="EQUAL_TO_YES"),
+                                Output(
+                                    Prompt(
+                                        items=[
+                                            "<mct:link><b><mct:input>High heels</mct:input></b></mct:link>\n<mct:link><b><mct:input>Boots</mct:input></b></mct:link>\n<mct:link><b><mct:input>Sandals</mct:input></b></mct:link>\n<mct:link><b><mct:input>Trainers</mct:input></b></mct:link>\n<mct:link><b><mct:input>No Preference</mct:input></b></mct:link>", ]
+                                    ),
+                                    children=[StylePreferenceProfileCheckInput.goto()]
+                                )
+                            ]
+                        ),
+                        StylePreferenceProfileCheckInput.create()
+                    ]
+                )
+            ]
+        )
 
 
 class StylePreferenceProfileCheckInput:
@@ -50,58 +53,58 @@ class StylePreferenceProfileCheckInput:
 
     @staticmethod
     def create():
-        return {
-            "@id": StylePreferenceProfileCheckInput.__id(),
-            (0, "input"): [
-                {
-                    (0, "grammar"): {
-                        "item": [
+        return GetUserInput(
+            _id=StylePreferenceProfileCheckInput.__id(),
+            children=[
+                Input(
+                    Grammar(
+                        watson_items=[
                             "What",
                             "$ what",
                             "$ which",
                             "$ tell me"
                         ]
-                    },
-                    (1, "input"): {
-                        (0, "grammar"): {
-                            "item": [
-                                "styles",
-                                "$ they",
-                                "$ ones",
-                                "$ choices",
-                                "$ options",
-                                "$ styles",
-                                "$ what else"
+                    ),
+                    children=[
+                        Input(
+                            Grammar(
+                                watson_items=[
+                                    "styles",
+                                    "$ they",
+                                    "$ ones",
+                                    "$ choices",
+                                    "$ options",
+                                    "$ styles",
+                                    "$ what else"
+                                ]
+                            ),
+                            children=[
+                                Output(
+                                    Prompt(
+                                        items=[
+                                            "For example.... Boots, High heels, Sandals, Trainers or Flats <br> <br>"]
+                                    ),
+                                    children=[StylePreferenceProfileCheckInput.goto()]
+                                )
                             ]
-                        },
-                        (1, "output"): {
-                            (0, "prompt"): Prompt(items=["For example.... Boots, High heels, Sandals, Trainers or Flats <br> <br>"]),
-                            (1, "goto"): StylePreferenceProfileCheckInput.goto()
-                        }
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
+                        )
+                    ]
+                ),
+                Input(
+                    Grammar(
+                        watson_items=[
                             "Style",
                             "$ (Style)={Style_Preference}"
                         ]
-                    },
-                    (1, "action"): [
-                        {
-                            "@varName": "Current_Index",
-                            "@operator": "SET_TO",
-                            "#text": "0"
-                        },
+                    ),
+                    children=[
+                        CurrentIndexAction.set_to_zero(),
                         PageAction.set_to_new(),
-                        {
-                            "@varName": "Search_Now",
-                            "@operator": "SET_TO_NO"
-                        },
-                        StylePreferenceAction.set_to_value()
-                    ],
-                    (2, "goto"): Goto(ref="output_ok_do_search")
-                },
+                        SearchNowAction.set_to_no(),
+                        StylePreferenceAction.set_to_value(),
+                        Goto(ref="output_ok_do_search")
+                    ]
+                ),
                 # {
                 #     (0, "grammar"): {
                 #         "item": [
@@ -117,9 +120,9 @@ class StylePreferenceProfileCheckInput:
                 #         (1, "goto"): StylePreferenceProfileCheckInput.goto()
                 #     }
                 # },
-                {
-                    (0, "grammar"): {
-                        "item": [
+                Input(
+                    Grammar(
+                        watson_items=[
                             "No",
                             "$ don't care",
                             "$ don't know",
@@ -133,26 +136,22 @@ class StylePreferenceProfileCheckInput:
                             "$ nothing specific",
                             "$ don't have a preference"
                         ]
-                    },
-                    (1, "action"): [
-                        {
-                            "@varName": "Current_Index",
-                            "@operator": "SET_TO",
-                            "#text": "0"
-                        },
-                        PageAction.set_to_new()
-                    ],
-                    (2, "goto"): {
-                        "@ref": "output_2456875"
-                    }
-                },
-                {
-                    (0, "grammar"): GenericGrammar.yes(),
-                    (1, "output"): {
-                        (0, "prompt"): Prompt(items=["What style?", "Please tell me the style you would prefer."]),
-                        (1, "goto"): StylePreferenceProfileCheckInput.goto()
-                    }
-                }
-            ],
-            (1, "goto"): PreliminarySequencesSearch.goto()
-        }
+                    ),
+                    children=[
+                        CurrentIndexAction.set_to_zero(),
+                        PageAction.set_to_new(),
+                        Goto(ref="output_2456875")
+                    ]
+                ),
+                Input(
+                    GenericGrammar.yes(),
+                    children=[
+                        Output(
+                            Prompt(items=["What style?", "Please tell me the style you would prefer."]),
+                            children=[StylePreferenceProfileCheckInput.goto()]
+                        )
+                    ]
+                ),
+                PreliminarySequencesSearch.goto()
+            ]
+        )

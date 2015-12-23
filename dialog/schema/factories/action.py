@@ -9,17 +9,6 @@ class OutOfScopeCountAction:
         return Action(var_name=NAME_OUT_OF_SCOPE_COUNT, operator="INCREMENT_BY", text="1")
 
 
-class CertificationPreferenceAction:
-    @staticmethod
-    def set_to_blank():
-        return Action(var_name="Certification_Preference", operator="SET_TO_BLANK")
-
-    @staticmethod
-    def set_to_value():
-        return Action(var_name="Certification_Preference", operator="SET_TO",
-                      text="{Certification_Preference.value:main}")
-
-
 class UserNameAction:
     @staticmethod
     def set_to_source():

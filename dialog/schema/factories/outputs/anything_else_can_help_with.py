@@ -1,8 +1,7 @@
-from dialog.elements import Goto
+from dialog.elements import Goto, Output, Grammar, Input, GetUserInput, Prompt
 from dialog.schema.factories.action import TerminalExchangeAction, RequestSuccessAction, TopicAction, \
-    CertificationPreferenceAction, RecencyPreferenceAction, ColorPreferenceAction
+    RecencyPreferenceAction, ColorPreferenceAction, StylePreferenceAction
 from dialog.schema.factories.grammar import GenericGrammar
-from dialog.schema.factories.outputs import HowCanHelpYouOutput
 from dialog.schema.factories.prompts.generic import GenericPrompt
 
 
@@ -19,50 +18,54 @@ class AnythingElseCanHelpWith:
     def create():
         from dialog.schema.factories.inputs import AfterSearchResults
 
-        return {
-            "@id": AnythingElseCanHelpWith.__id(),
-            (0, "prompt"): {
-                "item": "Is there anything else I can help you with?"
-            },
-            (1, "getUserInput"): {
-                (0, "input"): [
-                    {
-                        (0, "grammar"): {
-                            "item": [
-                                "Go back",
-                                "$ go back",
-                                "$ wait",
-                                "$ not done",
-                                "$ not finished"
+        return Output(
+            _id=AnythingElseCanHelpWith.__id(),
+            prompt=Prompt(
+                items=["Is there anything else I can help you with?"]
+            ),
+            children=[
+                GetUserInput(
+                    children=[
+                        Input(
+                            Grammar(
+                                watson_items=[
+                                    "Go back",
+                                    "$ go back",
+                                    "$ wait",
+                                    "$ not done",
+                                    "$ not finished"
+                                ]
+                            ),
+                            children=[
+                                Output(
+                                    GenericPrompt.ok(),
+                                    children=[AfterSearchResults.goto()]
+                                )
                             ]
-                        },
-                        (1, "output"): {
-                            (0, "prompt"): GenericPrompt.ok(),
-                            (1, "goto"): AfterSearchResults.goto()
-                        }
-                    },
-                    {
-                        (0, "grammar"): GenericGrammar.yes(),
-                        (1, "action"): [
-                            RequestSuccessAction.set_to_blank(),
-                            TerminalExchangeAction.set_to_blank(),
-                            TopicAction.set_to_blank(),
-                            CertificationPreferenceAction.set_to_blank(),
-                            ColorPreferenceAction.set_to_blank(),
-                            RecencyPreferenceAction.set_to_blank()
-                        ],
-                        (2, "goto"): HowCanHelpYouOutput.goto()
-                    },
-                    {
-                        (0, "grammar"): GenericGrammar.no(),
-                        (1, "output"): {
-                            (0, "prompt"): GenericGrammar.ok(),
-                            (1, "goto"): Goto(ref="output_did_find_what_looking_for")
-                        }
-                    }
-                ],
-                (1, "goto"): {
-                    "@ref": "input_2456878"
-                }
-            }
-        }
+                        ),
+                        Input(
+                            GenericGrammar.yes(),
+                            children=[
+                                RequestSuccessAction.set_to_blank(),
+                                TerminalExchangeAction.set_to_blank(),
+                                TopicAction.set_to_blank(),
+                                StylePreferenceAction.set_to_blank(),
+                                ColorPreferenceAction.set_to_blank(),
+                                RecencyPreferenceAction.set_to_blank()
+                            ]
+                        ),
+                        Input(
+                            GenericGrammar.no(),
+                            children=[
+                                Output(
+                                    GenericGrammar.ok(),
+                                    children=[Goto(ref="output_did_find_what_looking_for")]
+                                )
+                            ]
+                        ),
+                        Goto(ref="input_2456878")
+                    ]
+
+                )
+            ]
+        )

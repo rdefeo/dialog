@@ -1,33 +1,23 @@
-from dialog.elements import Goto
-from dialog.schema.factories.action import PageAction
+from dialog.elements import Goto, Input, Grammar
+from dialog.schema.factories.action import PageAction, StylePreferenceAction, ColorPreferenceAction, CurrentIndexAction
 
 
 class RemoveAllSearchCriteriaInput:
     @staticmethod
     def create():
-        return {
-            (0, "grammar"): {
-                "item": [
-                    "all movies",
-                    "$ all movies",
+        return Input(
+            grammar=Grammar(
+                watson_items=[
+                    "all items",
+                    "$ all items",
                     "$ all results"
                 ]
-            },
-            (1, "action"): [
-                {
-                    "@varName": "Current_Index",
-                    "@operator": "SET_TO",
-                    "#text": "0"
-                },
+            ),
+            children=[
+                CurrentIndexAction.set_to_zero(),
                 PageAction.set_to_new(),
-                {
-                    "@varName": "Certification_Preference",
-                    "@operator": "SET_TO_BLANK"
-                },
-                {
-                    "@varName": "Genre_Preference",
-                    "@operator": "SET_TO_BLANK"
-                }
-            ],
-            (2, "goto"):  Goto(ref="output_ok_do_search")
-        }
+                StylePreferenceAction.set_to_blank(),
+                ColorPreferenceAction.set_to_blank(),
+                Goto(ref="output_ok_do_search")
+            ]
+        )

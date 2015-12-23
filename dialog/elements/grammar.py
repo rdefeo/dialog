@@ -4,7 +4,7 @@ from dialog.elements.element import Element
 class Grammar(Element):
     _element_name = "grammar"
 
-    def __init__(self, watson_items: list = None, items: list=None):
+    def __init__(self, watson_items: list = None, items: list = None):
         self.items = items
         self.watson_items = watson_items
 

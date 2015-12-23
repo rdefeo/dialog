@@ -44,6 +44,7 @@ class Folder(Element):
 
         if any(self.children):
             for i, child in enumerate(self.children):
+                assert not isinstance(child, dict), child
                 doc[(i, child._element_name)] = child
 
         return doc

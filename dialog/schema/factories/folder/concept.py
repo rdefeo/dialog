@@ -1,4 +1,4 @@
-from dialog.elements import Concept
+from dialog.elements import Concept, Grammar, Folder
 from dialog.schema.factories.concepts import StyleConcept, ColorConcept
 from dialog.schema.factories.folder.cdh import CDHFolder
 from dialog.schema.factories.grammar import GenericGrammar
@@ -7,14 +7,12 @@ from dialog.schema.factories.grammar import GenericGrammar
 class ConceptFolder:
     @staticmethod
     def create():
-        return {
-            "@label": "Concepts",
-            (0, "folder"): [
+        return Folder(
+            label="Concepts",
+            children=[
                 StyleConcept.create(),
                 ColorConcept.create(),
-                CDHFolder.create()
-            ],
-            (1, "concept"): [
+                CDHFolder.create(),
                 Concept(grammar=GenericGrammar.create_hello()),
                 Concept(grammar=GenericGrammar.create_yes_goodbye()),
                 Concept(grammar=GenericGrammar.create_ok_thanks()),
@@ -23,9 +21,9 @@ class ConceptFolder:
                 Concept(grammar=GenericGrammar.create_haha()),
                 Concept(grammar=GenericGrammar.create_sorry()),
                 Concept(grammar=GenericGrammar.create_you()),
-                {
-                    "grammar": {
-                        "item": [
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "movie",
                             "movies",
                             "film",
@@ -33,11 +31,11 @@ class ConceptFolder:
                             "flick",
                             "flicks"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "theater",
                             "theaters",
                             "theatre",
@@ -45,11 +43,11 @@ class ConceptFolder:
                             "cinema",
                             "cinemas"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "showtime",
                             "showtimes",
                             "show time",
@@ -57,11 +55,11 @@ class ConceptFolder:
                             "movie time",
                             "movie times"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "dining",
                             "restaurant",
                             "restaurants",
@@ -110,12 +108,12 @@ class ConceptFolder:
                             "food mall",
                             "food malls"
                         ]
-                    },
-                    "@id": "concept_place_to_eat"
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    ),
+                    _id="concept_place_to_eat"
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "weather",
                             "Rain",
                             "Raining",
@@ -129,12 +127,12 @@ class ConceptFolder:
                             "Tornado",
                             "Hurricane"
                         ]
-                    },
-                    "@id": "concept_weather"
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    ),
+                    _id="concept_weather"
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "traffic",
                             "Traffic conditions",
                             "Driving conditions",
@@ -163,20 +161,20 @@ class ConceptFolder:
                             "Driving",
                             "Pedestrian"
                         ]
-                    },
-                    "@id": "concept_2456118"
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    ),
+                    _id="concept_2456118"
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "what is",
                             "what's"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Review",
                             "Reviews",
                             "Critique",
@@ -185,30 +183,33 @@ class ConceptFolder:
                             "Tomatoes",
                             "stars"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Ratings",
                             "Rating",
                             "Popularity",
                             "Tomatoes",
                             "stars"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "it",
-                            "that"
+                            "that",
+                            "Popularity",
+                            "Tomatoes",
+                            "stars"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "family-friendly",
                             "family",
                             "child",
@@ -238,12 +239,12 @@ class ConceptFolder:
                             "no violence",
                             "clean"
                         ]
-                    },
-                    "@id": "concept_family_friendly"
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    ),
+                    _id="concept_family_friendly"
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "near me",
                             "by me",
                             "my area",
@@ -281,11 +282,11 @@ class ConceptFolder:
                             "my zipcode",
                             "dowtown"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Adult",
                             "Adults Only",
                             "NC 17",
@@ -309,8 +310,8 @@ class ConceptFolder:
                             "NC seventeen",
                             "NC-seventeen"
                         ]
-                    },
-                    "@id": "concept_porn"
-                }
+                    ),
+                    _id="concept_porn"
+                )
             ]
-        }
+        )

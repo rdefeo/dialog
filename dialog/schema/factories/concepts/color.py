@@ -1,29 +1,29 @@
-from dialog.elements import Concept, Grammar
+from dialog.elements import Concept, Grammar, Folder
 
 
 class ColorConcept:
     @staticmethod
     def create():
-        return {
-            "@label": "Color",
-            "concept": [
+        return Folder(
+            label="Color",
+            children=[
                 Concept(
-                    id="red",
+                    _id="red",
                     grammars=[
                         Grammar(watson_items=["red"])
                     ]
                 ),
                 Concept(
-                    id="white",
+                    _id="white",
                     grammars=[
                         Grammar(watson_items=["white"])
                     ]
                 ),
                 Concept(
-                    id="black",
+                    _id="black",
                     grammars=[
                         Grammar(watson_items=["black"])
                     ]
                 )
             ]
-        }
+        )

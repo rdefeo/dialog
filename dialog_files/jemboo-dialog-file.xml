@@ -206,7 +206,6 @@
                     </prompt>
                     <action operator="SET_TO" varName="Page">new</action>
                     <action operator="SET_TO" varName="Current_Index">0</action>
-                    <action operator="SET_TO_BLANK" varName="Certification_Preference"/>
                     <action operator="SET_TO_BLANK" varName="Color_Preference"/>
                     <action operator="SET_TO_BLANK" varName="Style_Preference"/>
                     <action operator="SET_TO_NO" varName="Search_Now"/>
@@ -627,7 +626,7 @@
                     <goto ref="output_what_jemboo_knows"/>
                 </input>
             </folder>
-            <folder id="folder_routing_sequences" label="ROUTING SEQUENCES" selectionType="RANDOM">
+            <folder id="folder_routing_sequences" label="ROUTING SEQUENCES">
                 <action operator="SET_TO" varName="Greeting_Count">0</action>
                 <action operator="SET_TO" varName="Small_Talk_Count">0</action>
                 <input>
@@ -764,7 +763,6 @@
                 <input id="input_main_search_criteria">
                     <grammar>
                         <item>Movies</item>
-                        <item>blobbly</item>
                         <item>$ (COLOR)={Color_Preference}</item>
                         <item>$ (STYLE)={Style_Preference}</item>
                     </grammar>
@@ -772,9 +770,8 @@
                     <action operator="SET_TO" varName="Small_Talk_Count">0</action>
                     <action operator="SET_TO" varName="Current_Index">0</action>
                     <action operator="SET_TO" varName="Page">new</action>
-                    <action operator="SET_TO" varName="Topic">movies</action>
-                    <action operator="SET_TO" varName="Certification_Preference">{Certification_Preference.value:main}
-                    </action>
+                    <action operator="SET_TO" varName="Topic">shoes</action>
+                    <action operator="SET_TO" varName="Color_Preference">{Color_Preference.value:main}</action>
                     <action operator="SET_TO" varName="Style_Preference">{Style_Preference.value:main}</action>
                     <input id="input_color_preference">
                         <grammar>
@@ -790,19 +787,9 @@
                             <item>$(STYLE)={Style_Preference}</item>
                         </grammar>
                         <action operator="SET_TO" varName="Style_Preference">{Style_Preference.value:main}</action>
-                        <goto ref="input_zipcode"/>
+                        <goto ref="out_of_scope_topics"/>
                     </input>
-                    <input id="input_zipcode">
-                        <grammar>
-                            <item>near me</item>
-                            <item>$ (ZIPCODE)={ZIP_Code_Preference}</item>
-                            <item>$ near me</item>
-                        </grammar>
-                        <action operator="SET_TO" varName="ZIP_Code_Preference">{ZIP_Code_Preference.value:main}
-                        </action>
-                        <goto ref="profileCheck_zipcode"/>
-                    </input>
-                    <input>
+                    <input id="out_of_scope_topics">
                         <grammar>
                             <item>out-of-scope movie topics</item>
                             <item>$ (OTHER_MOVIE)={Topic}</item>
@@ -810,13 +797,13 @@
                         <action operator="SET_TO" varName="Topic">{Topic.value:main}</action>
                         <goto ref="output_no_topic_lookup"/>
                     </input>
-                    <if id="profileCheck_style_preference">
+                    <if id="profileCheck_style_preference" matchType="ALL">
                         <cond operator="IS_BLANK" varName="Style_Preference"/>
                         <output>
                             <prompt selectionType="RANDOM">
                                 <item>Do you prefer a certain style?</item>
                             </prompt>
-                            <if>
+                            <if matchType="ALL">
                                 <cond operator="EQUAL_TO_YES" varName="First_Time"/>
                                 <output>
                                     <prompt selectionType="RANDOM">
@@ -1014,561 +1001,409 @@
                             <action operator="SET_TO_NO" varName="First_Results"/>
                             <action operator="SET_TO_YES" varName="Search_Now"/>
                             <action operator="SET_TO_NO" varName="First_Time"/>
-                            <action operator="SET_TO" varName="Previous Certification Selected">
-                                {Certification_Preference}
-                            </action>
-                            <action operator="SET_TO" varName="Previous Genre Selected">{Genre_Preference}</action>
-                            <action operator="SET_TO" varName="Previous Recency Selected">{Recency_Preference}</action>
-                            <getUserInput>
-                                <input>
-                                    <grammar>
-                                        <item>UPDATE NUM_MOVIES</item>
-                                    </grammar>
-                                    <if>
-                                        <cond operator="EQUALS" varName="results_count">0</cond>
-                                        <output>
-                                            <prompt selectionType="RANDOM">
-                                                <item>I'm afraid I found {results_count} matching {Color_Preference}
-                                                    {Style_Preference}. Try changing your criteria.
-                                                </item>
-                                            </prompt>
-                                            <getUserInput>
-                                                <input>
-                                                    <grammar>
-                                                        <item>okay</item>
-                                                        <item>ok</item>
-                                                    </grammar>
-                                                    <action operator="SET_TO_BLANK" varName="Color_Preference"/>
-                                                    <action operator="SET_TO_BLANK" varName="Style_Preference"/>
-                                                    <goto ref="profileCheck_style_preference"/>
-                                                </input>
-                                                <goto ref="input_remove_genre"/>
-                                            </getUserInput>
-                                        </output>
-                                    </if>
-                                    <if>
-                                        <cond operator="IS_BLANK" varName="Style_Preference"/>
-                                        <cond operator="HAS_VALUE" varName="Color_Preference"/>
-                                        <output>
-                                            <prompt selectionType="RANDOM">
-                                                <item>Good choice, {User_Name}! I found {results_count} results for
-                                                    {Recency_Preference} {Color_Preference}-rated movies.
-                                                </item>
-                                            </prompt>
-                                            <goto ref="getUserInput_after_search_results"/>
-                                        </output>
-                                    </if>
-                                    <if>
-                                        <cond operator="IS_BLANK" varName="Color_Preference"/>
-                                        <cond operator="HAS_VALUE" varName="Style_Preference"/>
-                                        <output>
-                                            <prompt selectionType="RANDOM">
-                                                <item>Good choice, {User_Name}! I found {results_count} results for
-                                                    {Color_Preference} {Style_Preference} movies.
-                                                </item>
-                                            </prompt>
-                                            <goto ref="getUserInput_after_search_results"/>
-                                        </output>
-                                    </if>
-                                    <if>
-                                        <cond operator="IS_BLANK" varName="Color_Preference"/>
-                                        <cond operator="IS_BLANK" varName="Style_Preference"/>
-                                        <output>
-                                            <prompt selectionType="RANDOM">
-                                                <item>I found {results_count} results for ALL {Recency_Preference}
-                                                    movies.
-                                                </item>
-                                            </prompt>
-                                            <goto ref="getUserInput_after_search_results"/>
-                                        </output>
-                                    </if>
+                            <input>
+                                <grammar>
+                                    <item>UPDATE NUM_MOVIES</item>
+                                </grammar>
+                                <if matchType="ALL">
+                                    <cond operator="EQUALS" varName="results_count">0</cond>
                                     <output>
                                         <prompt selectionType="RANDOM">
-                                            <item>Good choices, {User_Name}! I found {results_count} results for
+                                            <item>I'm afraid I found {results_count} matching {Color_Preference}
+                                                {Style_Preference}. Try changing your criteria.
+                                            </item>
+                                        </prompt>
+                                        <getUserInput>
+                                            <input>
+                                                <grammar>
+                                                    <item>okay</item>
+                                                    <item>ok</item>
+                                                </grammar>
+                                                <action operator="SET_TO_BLANK" varName="Color_Preference"/>
+                                                <action operator="SET_TO_BLANK" varName="Style_Preference"/>
+                                                <goto ref="profileCheck_style_preference"/>
+                                                <goto ref="input_remove_color"/>
+                                            </input>
+                                            <goto ref="input_remove_color"/>
+                                        </getUserInput>
+                                    </output>
+                                </if>
+                                <if matchType="ALL">
+                                    <cond operator="IS_BLANK" varName="Style_Preference"/>
+                                    <cond operator="HAS_VALUE" varName="Color_Preference"/>
+                                    <output>
+                                        <prompt selectionType="RANDOM">
+                                            <item>Good choice, {User_Name}! I found {results_count} results for
+                                                {Recency_Preference} {Color_Preference}-rated movies.
+                                            </item>
+                                        </prompt>
+                                        <goto ref="getUserInput_after_search_results"/>
+                                    </output>
+                                </if>
+                                <if matchType="ALL">
+                                    <cond operator="IS_BLANK" varName="Color_Preference"/>
+                                    <cond operator="HAS_VALUE" varName="Style_Preference"/>
+                                    <output>
+                                        <prompt selectionType="RANDOM">
+                                            <item>Good choice, {User_Name}! I found {results_count} results for
                                                 {Color_Preference} {Style_Preference} movies.
                                             </item>
                                         </prompt>
-                                        <getUserInput id="getUserInput_after_search_results">
-                                            <input id="input_2456878">
-                                                <grammar>
-                                                    <item>Okay</item>
-                                                    <item>okay</item>
-                                                    <item>$ done</item>
-                                                </grammar>
-                                                <output id="output_anything_else_can_help_with">
-                                                    <prompt>
-                                                        <item>Is there anything else I can help you with?</item>
-                                                    </prompt>
-                                                    <getUserInput>
-                                                        <input>
+                                        <goto ref="getUserInput_after_search_results"/>
+                                    </output>
+                                </if>
+                                <if matchType="ALL">
+                                    <cond operator="IS_BLANK" varName="Color_Preference"/>
+                                    <cond operator="IS_BLANK" varName="Style_Preference"/>
+                                    <output>
+                                        <prompt selectionType="RANDOM">
+                                            <item>I found {results_count} results for ALL {Recency_Preference} movies.
+                                            </item>
+                                        </prompt>
+                                        <goto ref="getUserInput_after_search_results"/>
+                                    </output>
+                                </if>
+                                <output>
+                                    <prompt selectionType="RANDOM">
+                                        <item>Good choices, {User_Name}! I found {results_count} results for
+                                            {Color_Preference} {Style_Preference} movies.
+                                        </item>
+                                    </prompt>
+                                    <getUserInput id="getUserInput_after_search_results">
+                                        <input id="input_2456878">
+                                            <grammar/>
+                                            <output id="output_anything_else_can_help_with">
+                                                <prompt selectionType="RANDOM">
+                                                    <item>Is there anything else I can help you with?</item>
+                                                </prompt>
+                                                <getUserInput>
+                                                    <input>
+                                                        <grammar>
+                                                            <item>Go back</item>
+                                                            <item>$ go back</item>
+                                                            <item>$ wait</item>
+                                                            <item>$ not done</item>
+                                                            <item>$ not finished</item>
+                                                        </grammar>
+                                                        <output>
+                                                            <prompt selectionType="RANDOM">
+                                                                <item>Okay.</item>
+                                                            </prompt>
+                                                            <goto ref="getUserInput_after_search_results"/>
+                                                        </output>
+                                                    </input>
+                                                    <input>
+                                                        <grammar>
+                                                            <item>Yes</item>
+                                                            <item>Yes.</item>
+                                                            <item>$ yes</item>
+                                                        </grammar>
+                                                        <action operator="SET_TO_BLANK" varName="Request_Success"/>
+                                                        <action operator="SET_TO_BLANK" varName="Terminal_Exchange"/>
+                                                        <action operator="SET_TO_BLANK" varName="Topic"/>
+                                                        <action operator="SET_TO_BLANK" varName="Style_Preference"/>
+                                                        <action operator="SET_TO_BLANK" varName="Color_Preference"/>
+                                                        <action operator="SET_TO_BLANK" varName="Recency_Preference"/>
+                                                    </input>
+                                                    <input>
+                                                        <grammar>
+                                                            <item>No</item>
+                                                        </grammar>
+                                                        <output>
                                                             <grammar>
-                                                                <item>Go back</item>
-                                                                <item>$ go back</item>
-                                                                <item>$ wait</item>
-                                                                <item>$ not done</item>
-                                                                <item>$ not finished</item>
+                                                                <item>okay</item>
+                                                                <item>ok</item>
                                                             </grammar>
-                                                            <output>
-                                                                <prompt selectionType="RANDOM">
-                                                                    <item>Okay.</item>
-                                                                </prompt>
-                                                                <goto ref="getUserInput_after_search_results"/>
-                                                            </output>
-                                                        </input>
-                                                        <input>
-                                                            <grammar>
-                                                                <item>Yes</item>
-                                                                <item>Yes.</item>
-                                                                <item>$ yes</item>
-                                                            </grammar>
-                                                            <action operator="SET_TO_BLANK" varName="Request_Success"/>
-                                                            <action operator="SET_TO_BLANK"
-                                                                    varName="Terminal_Exchange"/>
-                                                            <action operator="SET_TO_BLANK" varName="Topic"/>
-                                                            <action operator="SET_TO_BLANK"
-                                                                    varName="Certification_Preference"/>
-                                                            <action operator="SET_TO_BLANK" varName="Color_Preference"/>
-                                                            <action operator="SET_TO_BLANK"
-                                                                    varName="Recency_Preference"/>
-                                                            <goto ref="output_how_can_i_help_you"/>
-                                                        </input>
-                                                        <input>
-                                                            <grammar>
-                                                                <item>No</item>
-                                                            </grammar>
-                                                            <output>
-                                                                <prompt>
-                                                                    <item>okay</item>
-                                                                    <item>ok</item>
-                                                                </prompt>
-                                                                <goto ref="output_did_find_what_looking_for"/>
-                                                            </output>
-                                                        </input>
-                                                        <goto ref="input_2456878"/>
-                                                    </getUserInput>
-                                                </output>
-                                            </input>
+                                                            <goto ref="output_did_find_what_looking_for"/>
+                                                        </output>
+                                                    </input>
+                                                    <goto ref="input_2456878"/>
+                                                </getUserInput>
+                                            </output>
+                                        </input>
+                                        <input>
+                                            <grammar/>
+                                            <output>
+                                                <prompt selectionType="RANDOM">
+                                                    <item>These are the {Recency_Preference} movies. Go ahead and click
+                                                        one!
+                                                    </item>
+                                                </prompt>
+                                                <goto ref="getUserInput_after_search_results"/>
+                                            </output>
+                                        </input>
+                                        <input id="input_2459410">
+                                            <grammar>
+                                                <item>Are those</item>
+                                                <item>$ are those</item>
+                                                <item>$ are these</item>
+                                                <item>$ is that</item>
+                                                <item>$ were those</item>
+                                                <item>$ were these</item>
+                                                <item>$ does this</item>
+                                                <item>$ do these</item>
+                                                <item>$ are they</item>
+                                            </grammar>
                                             <input>
                                                 <grammar>
-                                                    <item>What do you mean</item>
-                                                    <item>$ what do you mean</item>
-                                                    <item>$ what does that mean</item>
-                                                    <item>$ what did you mean</item>
-                                                    <item>$ what were those movies again</item>
-                                                    <item>$ what did you mean</item>
-                                                    <item>$ what are those</item>
-                                                </grammar>
-                                                <output>
-                                                    <prompt selectionType="RANDOM">
-                                                        <item>These are the {Recency_Preference} movies. Go ahead and
-                                                            click one!
-                                                        </item>
-                                                    </prompt>
-                                                    <goto ref="getUserInput_after_search_results"/>
-                                                </output>
-                                            </input>
-                                            <input>
-                                                <grammar>
-                                                    <item>When are those showing?</item>
-                                                    <item>$ when * showing</item>
-                                                    <item>$ when * playing</item>
-                                                    <item>$ when * play</item>
-                                                    <item>$ what times * showing</item>
-                                                    <item>$ what times * playing</item>
-                                                    <item>$ what times * play</item>
-                                                    <item>$ what * showtimes</item>
-                                                    <item>$ where * showing</item>
-                                                    <item>$ where * playing</item>
-                                                    <item>$ where * play</item>
-                                                </grammar>
-                                                <output id="output_ask_search_for_movies_in_area">
-                                                    <prompt selectionType="RANDOM">
-                                                        <item>Oh. You mean movies in your area. I must direct you to
-                                                            Fandango for that. Would you like the link?
-                                                        </item>
-                                                    </prompt>
-                                                    <getUserInput>
-                                                        <input>
-                                                            <grammar>
-                                                                <item>Yes</item>
-                                                                <item>Yes.</item>
-                                                                <item>$ yes</item>
-                                                            </grammar>
-                                                            <output>
-                                                                <prompt selectionType="RANDOM">
-                                                                    <item>Okay.</item>
-                                                                </prompt>
-                                                                <goto ref="output_showtimes_zipcode"/>
-                                                            </output>
-                                                        </input>
-                                                        <input>
-                                                            <grammar>
-                                                                <item>No</item>
-                                                            </grammar>
-                                                            <output>
-                                                                <prompt selectionType="RANDOM">
-                                                                    <item>Okay.</item>
-                                                                </prompt>
-                                                                <goto ref="getUserInput_after_search_results"/>
-                                                            </output>
-                                                        </input>
-                                                        <goto ref="getUserInput_after_search_results"/>
-                                                    </getUserInput>
-                                                </output>
-                                            </input>
-                                            <if>
-                                                <cond operator="HAS_VALUE" varName="Popularity_Score"/>
-                                                <input>
-                                                    <grammar>
-                                                        <item>What are the ratings?</item>
-                                                        <item>$ ratings for it</item>
-                                                        <item>$ ratings does it get</item>
-                                                        <item>$ ratings it gets</item>
-                                                        <item>$ ratings it got</item>
-                                                        <item>$ ratings it received</item>
-                                                        <item>$ its ratings</item>
-                                                        <item>$ how many * stars</item>
-                                                        <item>why</item>
-                                                        <item>why not</item>
-                                                        <item>why do you say that</item>
-                                                    </grammar>
-                                                    <output>
-                                                        <prompt selectionType="RANDOM">
-                                                            <item>{Selected_Movie} gets {Popularity_Score} stars from
-                                                                users.
-                                                            </item>
-                                                        </prompt>
-                                                        <getUserInput>
-                                                            <input>
-                                                                <grammar>
-                                                                    <item>okay</item>
-                                                                    <item>okay</item>
-                                                                    <item>$ sucks</item>
-                                                                    <item>haha</item>
-                                                                </grammar>
-                                                                <goto ref="output_anything_else_can_help_with"/>
-                                                            </input>
-                                                            <goto ref="input_2456878"/>
-                                                        </getUserInput>
-                                                    </output>
-                                                </input>
-                                                <input>
-                                                    <grammar>
-                                                        <item>What is it about?</item>
-                                                        <item>$ what's is about?</item>
-                                                    </grammar>
-                                                    <output>
-                                                        <prompt selectionType="RANDOM">
-                                                            <item>There should be a short description of
-                                                                {Selected_Movie} to the right.
-                                                            </item>
-                                                        </prompt>
-                                                        <getUserInput>
-                                                            <input>
-                                                                <grammar>
-                                                                    <item>okay</item>
-                                                                    <item>okay</item>
-                                                                    <item>$ sucks</item>
-                                                                    <item>haha</item>
-                                                                </grammar>
-                                                                <goto ref="output_anything_else_can_help_with"/>
-                                                            </input>
-                                                            <goto ref="input_2456878"/>
-                                                        </getUserInput>
-                                                    </output>
-                                                </input>
-                                                <goto ref="input_2459410"/>
-                                            </if>
-                                            <input id="input_2459410">
-                                                <grammar>
-                                                    <item>Are those</item>
-                                                    <item>$ are those</item>
-                                                    <item>$ are these</item>
-                                                    <item>$ is that</item>
-                                                    <item>$ were those</item>
-                                                    <item>$ were these</item>
-                                                    <item>$ does this</item>
-                                                    <item>$ do these</item>
-                                                    <item>$ are they</item>
-                                                </grammar>
-                                                <input>
-                                                    <grammar>
-                                                        <item>What are</item>
-                                                        <item>$ what are</item>
-                                                        <item>$ what were</item>
-                                                    </grammar>
-                                                    <action operator="SET_TO" varName="Page">repeat</action>
-                                                    <goto ref="output_2456876"/>
-                                                </input>
-                                                <input>
-                                                    <grammar>
-                                                        <item>all of them</item>
-                                                        <item>$ all</item>
-                                                        <item>$ it</item>
-                                                    </grammar>
-                                                    <goto ref="profileCheck_2459411"/>
-                                                </input>
-                                                <if id="profileCheck_2459411">
-                                                    <cond operator="LESS_THEN" varName="Current_Index">{results_count}
-                                                    </cond>
-                                                    <output>
-                                                        <prompt selectionType="RANDOM">
-                                                            <item>No. Say &lt;i&gt;show me more&lt;/i&gt; if you want to
-                                                                see more.
-                                                            </item>
-                                                        </prompt>
-                                                        <goto ref="getUserInput_after_search_results"/>
-                                                    </output>
-                                                </if>
-                                                <output>
-                                                    <prompt selectionType="RANDOM">
-                                                        <item>Yes. I'm afraid that's all of them.</item>
-                                                    </prompt>
-                                                    <goto ref="getUserInput_after_search_results"/>
-                                                </output>
-                                            </input>
-                                            <input id="input_remove_genre">
-                                                <grammar>
-                                                    <item>Remove genre</item>
-                                                    <item>$ remove (GENRE)={Genre_Preference}</item>
-                                                    <item>$ cancel (GENRE)={Genre_Preference}</item>
-                                                    <item>$ remove genre</item>
-                                                    <item>$ cancel genre</item>
-                                                    <item>$ any genre</item>
-                                                    <item>$ all genre</item>
-                                                </grammar>
-                                                <action operator="SET_TO" varName="Current_Index">0</action>
-                                                <action operator="SET_TO" varName="Page">new</action>
-                                                <action operator="SET_TO_BLANK" varName="Genre_Preference"/>
-                                                <goto ref="output_ok_do_search"/>
-                                            </input>
-                                            <input>
-                                                <grammar>
-                                                    <item>Remove rating</item>
-                                                    <item>$ remove (CERTIFICATION)={Certification_Preference}</item>
-                                                    <item>$ cancel (CERTIFICATION)={Certification_Preference}</item>
-                                                    <item>$ remove rating</item>
-                                                    <item>$ cancel rating</item>
-                                                    <item>$ all ratings</item>
-                                                    <item>$ all rating</item>
-                                                    <item>$ any ratings</item>
-                                                    <item>$ any rating</item>
-                                                </grammar>
-                                                <action operator="SET_TO" varName="Current_Index">0</action>
-                                                <action operator="SET_TO" varName="Page">new</action>
-                                                <action operator="SET_TO_BLANK" varName="Certification_Preference"/>
-                                                <goto ref="output_ok_do_search"/>
-                                            </input>
-                                            <input>
-                                                <grammar>
-                                                    <item>all movies</item>
-                                                    <item>$ all movies</item>
-                                                    <item>$ all results</item>
-                                                </grammar>
-                                                <action operator="SET_TO" varName="Current_Index">0</action>
-                                                <action operator="SET_TO" varName="Page">new</action>
-                                                <action operator="SET_TO_BLANK" varName="Certification_Preference"/>
-                                                <action operator="SET_TO_BLANK" varName="Genre_Preference"/>
-                                                <goto ref="output_ok_do_search"/>
-                                            </input>
-                                            <input>
-                                                <grammar>
-                                                    <item>again</item>
-                                                    <item>$ again</item>
-                                                    <item>$ one more time</item>
+                                                    <item>What are</item>
+                                                    <item>$ what are</item>
+                                                    <item>$ what were</item>
                                                 </grammar>
                                                 <action operator="SET_TO" varName="Page">repeat</action>
-                                                <goto ref="output_ok_do_search"/>
+                                                <goto ref="output_2456876"/>
                                             </input>
                                             <input>
                                                 <grammar>
-                                                    <item>more</item>
-                                                    <item>$ more</item>
-                                                    <item>$ next</item>
-                                                    <item>$ forward</item>
+                                                    <item>all of them</item>
+                                                    <item>$ all</item>
+                                                    <item>$ it</item>
                                                 </grammar>
-                                                <action operator="SET_TO_YES" varName="Show_Next"/>
-                                                <action operator="SET_TO" varName="Page">next</action>
+                                                <goto ref="profileCheck_2459411"/>
+                                            </input>
+                                            <if id="profileCheck_2459411" matchType="ALL">
+                                                <cond operator="LESS_THEN" varName="results_count">{results_count}
+                                                </cond>
                                                 <output>
-                                                    <prompt>
-                                                        <item>Okay.</item>
+                                                    <prompt selectionType="RANDOM">
+                                                        <item>No. Say &lt;i&gt;show me more&lt;/i&gt; if you want to see
+                                                            more.
+                                                        </item>
                                                     </prompt>
-                                                    <output>
-                                                        <prompt>
-                                                            <item>"{Search_Now:"{Search_Now}",
-                                                                Color:"{Color_Preference}", Style:"{Style_Preference}",
-                                                                Index:"{Current_Index}", Page:"{Page}",
-                                                                Total_Movies:"{results_count}",
-                                                                Total_Pages:"{Total_Pages}"}"
-                                                            </item>
-                                                        </prompt>
-                                                        <action operator="SET_TO_NO" varName="First_Results"/>
-                                                        <getUserInput id="getUserInput_2503174">
-                                                            <input>
-                                                                <grammar>
-                                                                    <item>UPDATE CURRENT_INDEX</item>
-                                                                </grammar>
-                                                                <action operator="SET_TO_NO" varName="Show_Next"/>
-                                                                <action operator="SET_TO_NO" varName="Show_Previous"/>
-                                                                <if>
-                                                                    <cond operator="EQUAL_TO_YES"
-                                                                          varName="Last_Results"/>
-                                                                    <output>
-                                                                        <prompt>
-                                                                            <item>Those were the last results</item>
-                                                                        </prompt>
-                                                                        <goto ref="profileCheck_2503183"/>
-                                                                    </output>
-                                                                </if>
-                                                                <if>
-                                                                    <cond operator="EQUALS" varName="Current_Index">
-                                                                        {results_count}
-                                                                    </cond>
-                                                                    <output>
-                                                                        <prompt>
-                                                                            <item>Here are the last results</item>
-                                                                        </prompt>
-                                                                        <action operator="SET_TO_YES"
-                                                                                varName="Last_Results"/>
-                                                                        <goto ref="profileCheck_2503183"/>
-                                                                    </output>
-                                                                </if>
+                                                    <goto ref="getUserInput_after_search_results"/>
+                                                </output>
+                                            </if>
+                                            <output>
+                                                <prompt selectionType="RANDOM">
+                                                    <item>Yes. I'm afraid that's all of them.</item>
+                                                </prompt>
+                                                <goto ref="getUserInput_after_search_results"/>
+                                            </output>
+                                        </input>
+                                        <input id="input_remove_color">
+                                            <grammar>
+                                                <item>Remove genre</item>
+                                                <item>$ remove (COLOR)={Color_Preference}</item>
+                                                <item>$ cancel (COLOR)={Color_Preference}</item>
+                                                <item>$ remove color</item>
+                                                <item>$ cancel color</item>
+                                                <item>$ any color</item>
+                                                <item>$ all color</item>
+                                            </grammar>
+                                            <action operator="SET_TO" varName="Current_Index">0</action>
+                                            <action operator="SET_TO" varName="Page">new</action>
+                                            <action operator="SET_TO_BLANK" varName="Color_Preference"/>
+                                            <goto ref="output_ok_do_search"/>
+                                        </input>
+                                        <input>
+                                            <grammar>
+                                                <item>Remove rating</item>
+                                                <item>$ remove (STYLE)={Style_Preference}</item>
+                                                <item>$ cancel (STYLE)={Style_Preference}</item>
+                                                <item>$ remove style</item>
+                                                <item>$ cancel style</item>
+                                                <item>$ all styles</item>
+                                                <item>$ all style</item>
+                                                <item>$ any styles</item>
+                                                <item>$ any style</item>
+                                            </grammar>
+                                            <action operator="SET_TO" varName="Current_Index">0</action>
+                                            <action operator="SET_TO" varName="Page">new</action>
+                                            <action operator="SET_TO_BLANK" varName="Style_Preference"/>
+                                            <goto ref="output_ok_do_search"/>
+                                        </input>
+                                        <input>
+                                            <grammar>
+                                                <item>all items</item>
+                                                <item>$ all items</item>
+                                                <item>$ all results</item>
+                                            </grammar>
+                                            <action operator="SET_TO" varName="Current_Index">0</action>
+                                            <action operator="SET_TO" varName="Page">new</action>
+                                            <action operator="SET_TO_BLANK" varName="Style_Preference"/>
+                                            <action operator="SET_TO_BLANK" varName="Color_Preference"/>
+                                            <goto ref="output_ok_do_search"/>
+                                        </input>
+                                        <input>
+                                            <grammar>
+                                                <item>again</item>
+                                                <item>$ again</item>
+                                                <item>$ one more time</item>
+                                            </grammar>
+                                            <action operator="SET_TO" varName="Page">repeat</action>
+                                            <goto ref="output_ok_do_search"/>
+                                        </input>
+                                        <input>
+                                            <grammar/>
+                                            <action operator="SET_TO_YES" varName="Show_Next"/>
+                                            <action operator="SET_TO" varName="Page">next</action>
+                                            <output>
+                                                <prompt selectionType="RANDOM">
+                                                    <item>Okay.</item>
+                                                </prompt>
+                                                <output>
+                                                    <prompt selectionType="&quot;{Search_Now:&quot;{Search_Now}&quot;, Color:&quot;{Color_Preference}&quot;, Style:&quot;{Style_Preference}&quot;, Index:&quot;{Current_Index}&quot;, Page:&quot;{Page}&quot;, Total_Movies:&quot;{results_count}&quot;, Total_Pages:&quot;{Total_Pages}&quot;}&quot;"/>
+                                                    <action operator="SET_TO_NO" varName="First_Results"/>
+                                                    <getUserInput id="getUserInput_2503174">
+                                                        <input>
+                                                            <grammar/>
+                                                            <action operator="SET_TO_NO" varName="Show_Next"/>
+                                                            <action operator="SET_TO_NO" varName="Show_Previous"/>
+                                                            <if matchType="ALL">
+                                                                <cond operator="EQUAL_TO_YES" varName="Last_Results"/>
                                                                 <output>
-                                                                    <prompt>
-                                                                        <item>Here is the next set of results</item>
+                                                                    <prompt selectionType="RANDOM">
+                                                                        <item>Those were the last results</item>
                                                                     </prompt>
-                                                                    <if id="profileCheck_2503183">
-                                                                        <cond operator="IS_BLANK"
-                                                                              varName="Style_Preference"/>
-                                                                        <cond operator="HAS_VALUE"
-                                                                              varName="Color_Preference"/>
-                                                                        <output>
-                                                                            <prompt>
-                                                                                <item>for {Style_Preference}
-                                                                                    {Color_Preference}-rated movies.
-                                                                                </item>
-                                                                            </prompt>
-                                                                            <goto ref="getUserInput_after_search_results"/>
-                                                                        </output>
-                                                                    </if>
-                                                                    <if>
-                                                                        <cond operator="IS_BLANK"
-                                                                              varName="Color_Preference"/>
-                                                                        <cond operator="HAS_VALUE"
-                                                                              varName="Style_Preference"/>
-                                                                        <output>
-                                                                            <prompt>
-                                                                                <item>for {Recency_Preference}
-                                                                                    {Genre_Preference} movies.
-                                                                                </item>
-                                                                            </prompt>
-                                                                            <goto ref="getUserInput_after_search_results"/>
-                                                                        </output>
-                                                                    </if>
-                                                                    <if>
-                                                                        <cond operator="IS_BLANK"
-                                                                              varName="Color_Preference"/>
-                                                                        <cond operator="IS_BLANK"
-                                                                              varName="Style_Preference"/>
-                                                                        <output>
-                                                                            <prompt>
-                                                                                <item>for ALL {Recency_Preference}
-                                                                                    movies.
-                                                                                </item>
-                                                                            </prompt>
-                                                                            <goto ref="getUserInput_after_search_results"/>
-                                                                        </output>
-                                                                    </if>
+                                                                    <goto ref="profileCheck_2503183"/>
+                                                                </output>
+                                                            </if>
+                                                            <if matchType="ALL">
+                                                                <cond operator="EQUALS" varName="Current_Index">
+                                                                    {results_count}
+                                                                </cond>
+                                                                <output>
+                                                                    <prompt selectionType="RANDOM">
+                                                                        <item>Here are the last results</item>
+                                                                    </prompt>
+                                                                    <action operator="SET_TO_YES"
+                                                                            varName="Last_Results"/>
+                                                                    <goto ref="profileCheck_2503183"/>
+                                                                </output>
+                                                            </if>
+                                                            <output>
+                                                                <prompt selectionType="RANDOM">
+                                                                    <item>Here is the next set of results</item>
+                                                                </prompt>
+                                                                <if id="profileCheck_2503183" matchType="ALL">
+                                                                    <cond operator="IS_BLANK"
+                                                                          varName="Style_Preference"/>
+                                                                    <cond operator="HAS_VALUE"
+                                                                          varName="Color_Preference"/>
                                                                     <output>
-                                                                        <prompt>
+                                                                        <prompt selectionType="RANDOM">
+                                                                            <item>for {Style_Preference}
+                                                                                {Color_Preference}-rated movies.
+                                                                            </item>
+                                                                        </prompt>
+                                                                        <goto ref="getUserInput_after_search_results"/>
+                                                                    </output>
+                                                                </if>
+                                                                <if matchType="ALL">
+                                                                    <cond operator="IS_BLANK"
+                                                                          varName="Color_Preference"/>
+                                                                    <cond operator="HAS_VALUE"
+                                                                          varName="Style_Preference"/>
+                                                                    <output>
+                                                                        <prompt selectionType="RANDOM">
                                                                             <item>for {Recency_Preference}
-                                                                                {Certification_Preference}-rated
                                                                                 {Genre_Preference} movies.
                                                                             </item>
                                                                         </prompt>
                                                                         <goto ref="getUserInput_after_search_results"/>
                                                                     </output>
-                                                                </output>
-                                                            </input>
-                                                        </getUserInput>
-                                                    </output>
-                                                </output>
-                                            </input>
-                                            <input>
-                                                <grammar>
-                                                    <item>Go back</item>
-                                                    <item>$ back</item>
-                                                    <item>$ previous</item>
-                                                    <item>$ prior</item>
-                                                </grammar>
-                                                <action operator="SET_TO" varName="Page">previous</action>
-                                                <action operator="SET_TO_YES" varName="Show_Previous"/>
-                                                <if>
-                                                    <cond operator="EQUALS" varName="Current_Index">10</cond>
-                                                    <output>
-                                                        <prompt selectionType="RANDOM">
-                                                            <item>Those were the first results</item>
-                                                        </prompt>
-                                                        <goto ref="profileCheck_2503183"/>
-                                                    </output>
-                                                </if>
-                                                <output>
-                                                    <prompt selectionType="RANDOM">
-                                                        <item>Okay.</item>
-                                                    </prompt>
-                                                    <output>
-                                                        <prompt selectionType="RANDOM">
-                                                            <item>"{Search_Now:"{Search_Now}",
-                                                                Style:"{Style_Preference}", Rating:"{Color_Preference}",
-                                                                Index:"{Current_Index}", Page:"{Page}"}"
-                                                            </item>
-                                                        </prompt>
-                                                        <action operator="SET_TO_NO" varName="Last_Results"/>
-                                                        <getUserInput>
-                                                            <input>
-                                                                <grammar>
-                                                                    <item>UPDATE CURRENT_INDEX</item>
-                                                                </grammar>
-                                                                <action operator="SET_TO_NO" varName="Show_Next"/>
-                                                                <action operator="SET_TO_NO" varName="Show_Previous"/>
-                                                                <if>
-                                                                    <cond operator="EQUAL_TO_YES"
-                                                                          varName="First_Results"/>
-                                                                    <output>
-                                                                        <prompt selectionType="RANDOM">
-                                                                            <item>Those were the first results</item>
-                                                                        </prompt>
-                                                                        <goto ref="getUserInput_2503174"/>
-                                                                    </output>
                                                                 </if>
-                                                                <if>
-                                                                    <cond operator="EQUALS" varName="Current_Index">10
-                                                                    </cond>
+                                                                <if matchType="ALL">
+                                                                    <cond operator="IS_BLANK"
+                                                                          varName="Color_Preference"/>
+                                                                    <cond operator="IS_BLANK"
+                                                                          varName="Style_Preference"/>
                                                                     <output>
                                                                         <prompt selectionType="RANDOM">
-                                                                            <item>Here are the first results</item>
+                                                                            <item>for ALL {Recency_Preference} movies.
+                                                                            </item>
                                                                         </prompt>
-                                                                        <action operator="SET_TO_YES"
-                                                                                varName="First_Results"/>
                                                                         <goto ref="getUserInput_after_search_results"/>
                                                                     </output>
                                                                 </if>
                                                                 <output>
                                                                     <prompt selectionType="RANDOM">
-                                                                        <item>Here is the previous set of results</item>
+                                                                        <item>for {Recency_Preference}
+                                                                            {Certification_Preference}-rated
+                                                                            {Genre_Preference} movies.
+                                                                        </item>
                                                                     </prompt>
                                                                     <goto ref="getUserInput_after_search_results"/>
                                                                 </output>
-                                                            </input>
-                                                        </getUserInput>
-                                                    </output>
+                                                            </output>
+                                                        </input>
+                                                    </getUserInput>
                                                 </output>
-                                            </input>
-                                            <goto ref="search_preliminary_sequences"/>
-                                        </getUserInput>
-                                    </output>
-                                </input>
-                            </getUserInput>
+                                            </output>
+                                        </input>
+                                        <input>
+                                            <grammar>
+                                                <item>Go back</item>
+                                                <item>$ back</item>
+                                                <item>$ previous</item>
+                                                <item>$ prior</item>
+                                            </grammar>
+                                            <action operator="SET_TO" varName="Page">previous</action>
+                                            <action operator="SET_TO_YES" varName="Show_Previous"/>
+                                            <if matchType="ALL">
+                                                <cond operator="EQUALS" varName="Current_Index">10</cond>
+                                                <output>
+                                                    <prompt selectionType="RANDOM">
+                                                        <item>Those were the first results</item>
+                                                    </prompt>
+                                                    <goto ref="profileCheck_2503183"/>
+                                                </output>
+                                            </if>
+                                            <output>
+                                                <prompt selectionType="RANDOM">
+                                                    <item>Okay.</item>
+                                                </prompt>
+                                                <output>
+                                                    <prompt selectionType="RANDOM">
+                                                        <item>"{Search_Now:"{Search_Now}", Style:"{Style_Preference}",
+                                                            Rating:"{Color_Preference}", Index:"{Current_Index}",
+                                                            Page:"{Page}"}"
+                                                        </item>
+                                                    </prompt>
+                                                    <action operator="SET_TO_NO" varName="Last_Results"/>
+                                                    <getUserInput>
+                                                        <input>
+                                                            <grammar>
+                                                                <item>UPDATE CURRENT_INDEX</item>
+                                                            </grammar>
+                                                            <action operator="SET_TO_NO" varName="Show_Next"/>
+                                                            <action operator="SET_TO_NO" varName="Show_Previous"/>
+                                                            <if matchType="ALL">
+                                                                <cond operator="EQUAL_TO_YES" varName="First_Results"/>
+                                                                <output>
+                                                                    <prompt selectionType="RANDOM">
+                                                                        <item>Those were the first results</item>
+                                                                    </prompt>
+                                                                    <goto ref="getUserInput_2503174"/>
+                                                                </output>
+                                                            </if>
+                                                            <if matchType="ALL">
+                                                                <cond operator="EQUALS" varName="Current_Index">10
+                                                                </cond>
+                                                                <output>
+                                                                    <prompt selectionType="RANDOM">
+                                                                        <item>Here are the first results</item>
+                                                                    </prompt>
+                                                                    <action operator="SET_TO_YES"
+                                                                            varName="First_Results"/>
+                                                                    <goto ref="getUserInput_after_search_results"/>
+                                                                </output>
+                                                            </if>
+                                                            <output>
+                                                                <prompt selectionType="RANDOM">
+                                                                    <item>Here is the previous set of results</item>
+                                                                </prompt>
+                                                                <goto ref="getUserInput_after_search_results"/>
+                                                            </output>
+                                                        </input>
+                                                    </getUserInput>
+                                                </output>
+                                            </output>
+                                        </input>
+                                        <goto ref="search_preliminary_sequences"/>
+                                    </getUserInput>
+                                </output>
+                            </input>
                         </output>
                     </output>
                 </input>
@@ -2306,7 +2141,7 @@
                     </grammar>
                 </concept>
             </folder>
-            <folder label="cdh" selectionType="RANDOM">
+            <folder label="cdh">
                 <concept>
                     <grammar>
                         <item>Monday</item>
@@ -2635,6 +2470,9 @@
                 <grammar>
                     <item>it</item>
                     <item>that</item>
+                    <item>Popularity</item>
+                    <item>Tomatoes</item>
+                    <item>stars</item>
                 </grammar>
             </concept>
             <concept id="concept_family_friendly">

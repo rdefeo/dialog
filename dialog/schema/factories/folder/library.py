@@ -6,14 +6,14 @@ from dialog.schema.factories.folder.sequences import BaseSequences, GlobalSequen
 class LibraryFolder:
     @staticmethod
     def create():
-        return {
-            "@label": "Library",
-            "folder": [
+        return Folder(
+            label="Library",
+            children=[
                 SystemInitiatedSequences.create(),
                 PreliminarySequencesFolder.create(),
                 RoutingSequences.create(),
                 BaseSequences.create(),
                 GlobalSequences.create(),
-                Folder(label="Storage").create()
+                Folder(label="Storage")
             ]
-        }
+        )

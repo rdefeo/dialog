@@ -1,4 +1,5 @@
-from dialog.schema.factories.action import GreetingAction, SmallTalkAction
+from dialog.elements import Goto, Grammar, Input, Folder
+from dialog.schema.factories.action import GreetingAction, SmallTalkAction, TopicAction
 
 __author__ = 'robdefeo'
 
@@ -6,80 +7,63 @@ __author__ = 'robdefeo'
 class RoutingSequences:
     @staticmethod
     def create():
-        return {
-            "@id": "folder_routing_sequences",
-            "@selectionType": "RANDOM",
-            "@label": "ROUTING SEQUENCES",
-            (0, "action"): [
+        return Folder(
+            _id="folder_routing_sequences",
+            label="ROUTING SEQUENCES",
+            children=[
                 GreetingAction.reset(),
-                SmallTalkAction.set_to_zero()
-            ],
-            (1, "input"): [
-                {
-                    (0, "grammar"): {
-                        "item": [
+                SmallTalkAction.set_to_zero(),
+                Input(
+                    Grammar(
+                        watson_items=[
                             "out-of-scope movie topics",
                             "$ (OTHER_MOVIE)={Topic}"
                         ]
-                    },
-                    (1, "action"): {
-                        "@varName": "Topic",
-                        "@operator": "SET_TO",
-                        "#text": "{Topic.value:main}"
-                    },
-                    (2, "goto"): {
-                        "@ref": "output_no_topic_lookup"
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
+                    ),
+                    children=[
+                        TopicAction.set_to_value(),
+                        Goto(ref="output_no_topic_lookup")
+                    ]
+                ),
+                Input(
+                    Grammar(
+                        watson_items=[
                             "by out-of-scope movie topics",
                             "$ (BY_OTHER_MOVIE)={Topic}"
                         ]
-                    },
-                    (1, "action"): {
-                        "@varName": "Topic",
-                        "@operator": "SET_TO",
-                        "#text": "{Topic.value:main}"
-                    },
-                    (2, "goto"): {
-                        "@ref": "output_2503370"
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
+                    ),
+                    children=[
+                        TopicAction.set_to_value(),
+                        Goto(ref="output_2503370")
+                    ]
+                ),
+                Input(
+                    Grammar(
+                        watson_items=[
                             "unsupported genres",
                             "$ (UNSUPPORTED_GENRES)={Topic}"
                         ]
-                    },
-                    (1, "action"): {
-                        "@varName": "Topic",
-                        "@operator": "SET_TO",
-                        "#text": "{Topic.value:main}"
-                    },
-                    (2, "goto"): {
-                        "@ref": "output_2510164"
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
+                    ),
+                    children=[
+                        TopicAction.set_to_value(),
+                        Goto(ref="output_2510164")
+                    ]
+                ),
+                Input(
+                    Grammar(
+                        watson_items=[
                             "old movies",
                             "$ old movies",
                             "$ classic movies",
                             "$ oldies",
                             "$ classics"
                         ]
-                    },
-                    (1, "goto"): {
-                        "@ref": "output_2503380"
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
+                    ),
+                    children=[Goto(ref="output_2503380")]
+                ),
+                Input(
+                    Grammar(
+                        watson_items=[
                             "Review",
                             "$ review",
                             "$ find movies by rating",
@@ -94,45 +78,37 @@ class RoutingSequences:
                             "$ best movie",
                             "$ best movies"
                         ]
-                    },
-                    (1, "action"): [
+                    ),
+                    children=[
                         GreetingAction.reset(),
-                        SmallTalkAction.set_to_zero()
-                    ],
-                    (2, "goto"): {
-                        "@ref": "output_2469539"
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
+                        SmallTalkAction.set_to_zero(),
+                        Goto(ref="output_2469539")
+                    ]
+                ),
+                Input(
+                    Grammar(
+                        [
                             "Movie theaters",
                             "$ movie theaters"
                         ]
-                    },
-                    (1, "goto"): {
-                        "@ref": "output_2503320"
-                    }
-                },
-                {
-                    (0, "grammar"): {
-                        "item": [
+                    ),
+                    children=[
+                        Goto(ref="output_2503320")
+                    ]
+                ),
+                Input(
+                    Grammar(
+                        watson_items=[
                             "trailer",
                             "$ trailer",
                             "$ trailers"
                         ]
-                    },
-                    (1, "action"): [
+                    ),
+                    children=[
                         GreetingAction.reset(),
-                        {
-                            "@varName": "Small_Talk_Count",
-                            "@operator": "SET_TO",
-                            "#text": "0"
-                        }
-                    ],
-                    (2, "goto"): {
-                        "@ref": "output_2510290"
-                    }
-                }
+                        SmallTalkAction.set_to_zero(),
+                        Goto(ref="output_2510290")
+                    ]
+                )
             ]
-        }
+        )

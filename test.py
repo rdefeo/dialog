@@ -17,21 +17,12 @@ dialog = Dialog(
                 children=[
                     SystemInitiatedSequences.create(),
                     PreliminarySequencesFolder.create(),
+                    RoutingSequences.create(),
+                    BaseSequences.create(),
                     GlobalSequences.create(),
                     Folder(label="Storage")
                 ]
             ),
-            # {
-            #     "@label": "Library",
-            #     "folder": [
-            #         # SystemInitiatedSequences.create(),
-            #         PreliminarySequencesFolder.create(),
-            #         # RoutingSequences.create(),
-            #         # BaseSequences.create(),
-            #         # GlobalSequences.create(),
-            #         # Folder(label="Storage").create()
-            #     ]
-            # },
             GlobalFolder.create(),
         ]
         # {

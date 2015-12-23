@@ -1,66 +1,68 @@
+from dialog.elements import Concept, Grammar, Folder
+
+
 class CDHFolder:
     @staticmethod
     def create():
-        return {
-            "@selectionType": "RANDOM",
-            "@label": "cdh",
-            "concept": [
-                {
-                    "grammar": {
-                        "item": [
+        return Folder(
+            label="cdh",
+            children=[
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Monday",
                             "Mon"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Tuesday",
                             "Tues"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Wednesday",
                             "Wed"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Thursday",
                             "Thurs",
                             "Thu"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Friday",
                             "Fri"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Saturday",
                             "Sat"
                         ]
-                    }
-                },
-                {
-                    "grammar": {
-                        "item": [
+                    )
+                ),
+                Concept(
+                    grammar=Grammar(
+                        watson_items=[
                             "Sunday",
                             "Sun"
                         ]
-                    }
-                }
+                    )
+                )
             ]
-        }
+        )
