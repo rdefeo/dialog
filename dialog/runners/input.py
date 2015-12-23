@@ -14,10 +14,10 @@ class InputRunner:
 
         handled = False
         conversation.flow_position.append(_input._id)
-        goto_position = conversation.get_first_goto_position()
+        goto_position = conversation.get_first_goto_position(_input)
         if goto_position is not None:
             if goto_position == _input._id:
-                goto_position = conversation.get_first_goto_position()
+                goto_position = conversation.get_first_goto_position(_input)
             else:
                 raise Exception()
         if GrammarRunner.run(dialog, conversation, _input.grammar):

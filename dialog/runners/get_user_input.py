@@ -11,14 +11,14 @@ class GetUserInputRunner(Exception):
     def run(dialog: Dialog, conversation: Conversation, get_user_input: GetUserInput):
         from dialog.runners.goto import GotoRunner
 
-        goto_position = conversation.get_first_goto_position()
+        goto_position = conversation.get_first_goto_position(get_user_input)
         conversation.flow_position.append(get_user_input._id)
         if goto_position is None:
             raise GetUserInputException(conversation, get_user_input)
         else:
             if goto_position == get_user_input._id:
                 # so now it needs to look through the possible responses
-                goto_position = conversation.get_first_goto_position()
+                goto_position = conversation.get_first_goto_position(get_user_input)
             else:
                 raise Exception()
 

@@ -10,10 +10,10 @@ class OutputRunner:
     @staticmethod
     def run(dialog: Dialog, conversation: Conversation, output: Output):
         conversation.flow_position.append(output._id)
-        goto_position = conversation.get_first_goto_position()
+        goto_position = conversation.get_first_goto_position(output)
         if goto_position is not None:
             if goto_position == output._id:
-                goto_position = conversation.get_first_goto_position()
+                goto_position = conversation.get_first_goto_position(output)
             else:
                 raise Exception()
 

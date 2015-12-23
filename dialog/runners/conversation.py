@@ -1,5 +1,7 @@
 from collections import deque
 
+from dialog.elements import GetUserInput
+
 
 class Conversation:
     conversation_id = None
@@ -8,6 +10,7 @@ class Conversation:
     user_input = None
     current_input_context = None
     profile = {}
+    default_get_user_input = None
 
     __goto_position = None
 
@@ -19,9 +22,11 @@ class Conversation:
     def goto_position(self, value):
         self.__goto_position = value
 
-    def get_first_goto_position(self):
-        return self.goto_position.popleft() if self.goto_position is not None and any(self.goto_position) else None
-
-        # def create_goto_position(self):
-        #     self.goto_position = deque(copy(self.flow_position))
-        #     self.flow_position = []
+    def get_first_goto_position(self, element):
+        # return self.goto_position.popleft() if self.goto_position is not None and any(self.goto_position) else None
+        if self.goto_position is not None and any(self.goto_position):
+            return self.goto_position.popleft()
+        else:
+            if isinstance(element, GetUserInput):
+                self.default_get_user_input = element
+            return None

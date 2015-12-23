@@ -29,6 +29,10 @@ class Search(Element):
             for x in self.children:
                 x._set_dialog(value)
 
+    @property
+    def ref(self):
+        return self.settings["ref"]
+
     def create(self):
         doc = {}
 

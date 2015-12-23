@@ -12,7 +12,7 @@ class ActionRunner:
                 input_context_key = action.settings["text"].strip("{").strip("}").strip(".source")
                 conversation.profile[action.var_name] = conversation.current_input_context[action.var_name]
             else:
-                raise NotImplemented()
+                conversation.profile[action.var_name] = action.settings["text"]
 
             pass
         else:

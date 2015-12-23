@@ -1,8 +1,6 @@
 from dialog.elements import Goto
 from dialog.elements.search import Search
 
-__author__ = 'robdefeo'
-
 
 class PreliminarySequencesSearch:
     @staticmethod
@@ -11,7 +9,8 @@ class PreliminarySequencesSearch:
 
     @staticmethod
     def goto():
-        return Goto(ref=PreliminarySequencesSearch._id())
+        from dialog.schema.factories.inputs.how_can_i_help_you import folder_how_can_i_help_sequences
+        return Goto(ref=folder_how_can_i_help_sequences.settings["id"])
 
     @staticmethod
     def create():
