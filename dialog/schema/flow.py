@@ -7,8 +7,9 @@ from dialog.schema.factories.folder._global import GlobalFolder
 
 class Flow:
     def create(self):
-        return Folder(
-            children=[
+        from dialog.elements.flow import Flow as FlowElement
+        return FlowElement(
+            folders=[
                 MainFolder.create(),
                 LibraryFolder.create(),
                 GlobalFolder.create(),

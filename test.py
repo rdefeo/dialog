@@ -1,43 +1,27 @@
-from dialog.elements import Folder
-from dialog.elements.flow import Flow
 from dialog.elements.dialog import Dialog
 from dialog.runners.conversation import Conversation
 from dialog.runners.dialog import DialogRunner
-from dialog.schema.factories.folder._global import GlobalFolder
-from dialog.schema.factories.folder.main import MainFolder
-from dialog.schema.factories.folder.sequences import SystemInitiatedSequences, PreliminarySequencesFolder, \
-    RoutingSequences, BaseSequences, GlobalSequences
+from dialog.schema.entities import Entities
+from dialog.schema.flow import Flow
+from dialog.schema.variables import Variables
 
 dialog = Dialog(
-    flow=Flow(
-        folders=[
-            MainFolder.create(),
-            Folder(
-                label="Library",
-                children=[
-                    SystemInitiatedSequences.create(),
-                    PreliminarySequencesFolder.create(),
-                    RoutingSequences.create(),
-                    BaseSequences.create(),
-                    GlobalSequences.create(),
-                    Folder(label="Storage")
-                ]
-            ),
-            GlobalFolder.create(),
-        ]
-        # {
-        #     "folder": [
-        #         MainFolder.create(),
-        #         LibraryFolder.create(),
-        #         GlobalFolder.create(),
-        #         ConceptFolder.create()
-        #     ]
-        # }
-    ),
+    flow=Flow().create(),
+    entities=Entities().create(),
+    variables=Variables().create()
+
+    # {
+    #     "folder": [
+    #         MainFolder.create(),
+    #         LibraryFolder.create(),
+    #         GlobalFolder.create(),
+    #         ConceptFolder.create()
+    #     ]
+    # }
+    # ),
     # Entities().create(),
     # Variables().create()
 )
-
 
 user_input = DialogRunner.run(dialog, Conversation())
 

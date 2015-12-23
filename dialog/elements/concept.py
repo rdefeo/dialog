@@ -16,6 +16,9 @@ class Concept(Element):
 
         self.id = _id
 
+    def _set_dialog(self, value):
+        self.dialog = value
+
     def create(self):
         doc = {}
 

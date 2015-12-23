@@ -1,6 +1,7 @@
-from dialog.elements import Goto, Action, Output
+from dialog.elements import Goto, Action, Output, GetUserInput
 from dialog.elements.dialog import Dialog
 from dialog.runners.conversation import Conversation
+from dialog.runners.get_user_input import GetUserInputRunner
 
 
 class GotoRunner:
@@ -25,6 +26,8 @@ class GotoRunner:
                 ActionRunner.run(dialog, conversation, goto_object)
             elif isinstance(goto_object,  Output):
                 OutputRunner.run(dialog, conversation, goto_object)
+            elif isinstance(goto_object,  GetUserInput):
+                GetUserInputRunner.run(dialog, conversation, goto_object)
             else:
                 raise NotImplementedError(type(goto_object))
 

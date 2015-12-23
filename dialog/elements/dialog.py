@@ -6,7 +6,7 @@ class Dialog(Element):
     from dialog.elements.flow import Flow
     _element_name = "dialog"
 
-    def __init__(self, flow: Flow = None, entities: Entities = None):
+    def __init__(self, flow: Flow = None, entities: Entities = None, variables=None):
         """
             Node defines a top-level container for the dialog that you design.
             :param flow: flow
@@ -19,6 +19,7 @@ class Dialog(Element):
         }
 
         super().__init__(settings, [flow, entities])
+        self.variables = variables
         self.entities = entities
         self.flow = flow
         self.ref_ids = {}

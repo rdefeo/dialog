@@ -24,7 +24,7 @@ class Element:
     #     raise NotImplemented()
     #
     def _set_dialog(self, value):
-        raise NotImplemented()
+        raise NotImplemented(self._element_name)
 
     def create(self):
         raise NotImplemented()
