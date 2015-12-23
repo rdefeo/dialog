@@ -1,11 +1,12 @@
 from collections import deque
 from copy import copy
 
-from dialog.elements import Action, Output
+from dialog.elements import Action, Output, GetUserInput
 from dialog.elements.dialog import Dialog
 from dialog.get_user_input_exception import GetUserInputException
 from dialog.runners.conversation import Conversation
 from dialog.runners.flow import FlowRunner
+from dialog.runners.get_user_input import GetUserInputRunner
 
 
 class DialogRunner:
@@ -27,6 +28,8 @@ class DialogRunner:
                     ActionRunner.run(dialog, conversation, goto_object)
                 elif isinstance(goto_object, Output):
                     OutputRunner.run(dialog, conversation, goto_object)
+                elif isinstance(goto_object, GetUserInput):
+                    GetUserInputRunner.run(dialog, conversation, goto_object)
                 else:
                     raise NotImplementedError(type(goto_object))
             except GetUserInputException as get_user_input:

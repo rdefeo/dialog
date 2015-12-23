@@ -1,7 +1,9 @@
 from dialog.elements import Goto, Action, Output, GetUserInput
 from dialog.elements.dialog import Dialog
+from dialog.elements.search import Search
 from dialog.runners.conversation import Conversation
 from dialog.runners.get_user_input import GetUserInputRunner
+from dialog.runners.search import SearchRunner
 
 
 class GotoRunner:
@@ -10,27 +12,21 @@ class GotoRunner:
         from dialog.runners.action import ActionRunner
         from dialog.runners.output import OutputRunner
 
-        # conversation.flow_position.append(goto._id)
-        # goto_position = conversation.get_first_goto_position()
-        # if goto_position is not None:
-        #     if goto_position == goto._id:
-        #         goto_position = conversation.get_first_goto_position()
-        #     else:
-        #         raise Exception()
-        # think it just does this instead
         conversation.flow_position = []
         conversation.flow_goto_position = goto.ref
         if goto.ref in dialog.ref_ids:
             goto_object = dialog.ref_ids[goto.ref]
-            if isinstance(goto_object,  Action):
+            if isinstance(goto_object, Action):
                 ActionRunner.run(dialog, conversation, goto_object)
-            elif isinstance(goto_object,  Output):
+            elif isinstance(goto_object, Output):
                 OutputRunner.run(dialog, conversation, goto_object)
-            elif isinstance(goto_object,  GetUserInput):
+            elif isinstance(goto_object, GetUserInput):
                 GetUserInputRunner.run(dialog, conversation, goto_object)
+            elif isinstance(goto_object, Search):
+                SearchRunner.run(dialog, conversation, goto_object)
             else:
                 raise NotImplementedError(type(goto_object))
 
         else:
-            raise NotImplementedError()
-        conversation.flow_position.pop()
+            raise Exception("can not find,id=%s" % goto.ref)
+        # conversation.flow_position.pop()
