@@ -209,7 +209,7 @@ class AfterSearchResults:
                             ),
                             children=[
                                 PageAction.set_to_repeat(),
-                                Goto(ref="output_2456876")
+                                Goto(ref="output_search_now")
                             ]
                         ),
                         Input(

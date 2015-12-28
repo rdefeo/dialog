@@ -1,5 +1,5 @@
 from dialog.elements import Action
-from dialog.elements.action import ACTION_SET_TO
+from dialog.elements.action import ACTION_SET_TO, ACTION_SET_TO_NO, ACTION_SET_TO_YES
 from dialog.elements.dialog import Dialog
 from dialog.runners.conversation import Conversation
 
@@ -15,6 +15,10 @@ class ActionRunner:
                 conversation.profile[action.var_name] = action.settings["text"]
 
             pass
+        elif action.operator == ACTION_SET_TO_NO:
+            conversation.profile[action.var_name] = False
+        elif action.operator == ACTION_SET_TO_YES:
+            conversation.profile[action.var_name] = True
         else:
             raise NotImplemented()
 

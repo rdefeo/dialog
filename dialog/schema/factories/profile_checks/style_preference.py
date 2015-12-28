@@ -1,4 +1,5 @@
 from dialog.elements import Goto, Prompt, Output, Condition, If, Grammar, Input, GetUserInput
+from dialog.elements.grammar_item import EntityGrammarItem
 from dialog.schema.factories.action import StylePreferenceAction, PageAction, CurrentIndexAction, SearchNowAction
 from dialog.schema.factories.conditions.style import StyleConditions
 from dialog.schema.factories.grammar import GenericGrammar
@@ -92,6 +93,9 @@ class StylePreferenceProfileCheckInput:
                 ),
                 Input(
                     Grammar(
+                        items=[
+                            EntityGrammarItem(dynamic_field_assignment="Style_Preference", entity_id="STYLE")
+                        ],
                         watson_items=[
                             "Style",
                             "$ (Style)={Style_Preference}"

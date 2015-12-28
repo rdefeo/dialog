@@ -63,10 +63,9 @@ class MainSearchCriteriaInput:
                     prompt=GenericPrompt.ok(),
                     children=[
                         Output(
-                            _id="output_2456876",
+                            _id="output_search_now",
                             prompt=Prompt(
-                                items=[
-                                    "\"{\"Search_Now\":\"{Search_Now}\", \"Style\":\"{Style_Preference}\", \"Color\":\"{Color_Preference}\", \"Index\":\"{Current_Index}\", \"Page\":\"{Page}\"}\""]
+                                items=["Search_Now"]
                             ),
                             children=[
                                 Action(var_name="Last_Results", operator="SET_TO_NO"),

@@ -7,6 +7,9 @@ class Entities(Element):
     def __init__(self, entities: Iterable[Entity] = None):
         self.entities = entities
 
+    def _set_dialog(self, value):
+        pass
+
     def create(self):
         return {
             "entity": self.entities
