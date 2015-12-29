@@ -15,8 +15,9 @@ class FolderRunner:
                 goto_position = conversation.get_first_goto_position(folder)
             else:
                 raise Exception()
-
+        print("start_folder_runner,_id=%s" % (folder._id))
         for index, child in enumerate(folder.children):
+
             if goto_position is None or index >= goto_position:
                 conversation.flow_position.append(index)
                 if isinstance(child, Output):

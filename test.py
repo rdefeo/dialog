@@ -27,7 +27,7 @@ user_input = DialogRunner.entry_point(dialog, Conversation())
 
 user_input.conversation.user_input = "My name is Rob"
 after_name_input = DialogRunner.entry_point(dialog, user_input.conversation)
-user_input.conversation.user_input = "Yes"
+user_input.conversation.user_input = "no"
 after_yes_shoes_input = DialogRunner.entry_point(dialog, user_input.conversation)
 user_input.conversation.user_input = "high heels"
 after_style_input = DialogRunner.entry_point(dialog, user_input.conversation)
