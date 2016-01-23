@@ -1,4 +1,8 @@
+from random import choice
+
+from dialog.elements.dialog import Dialog
 from dialog.elements.element import Element
+from dialog.runners.conversation import Conversation
 from typing import Iterable
 
 
@@ -30,8 +34,8 @@ class Prompt(Element):
     def selection_type(self):
         return self.settings["selection_type"]
 
-        # def process(self, process_request: ProcessRequest):
-        #     if self.settings["selection_type"] == "RANDOM":
-        #         return choice(self.items)
-        #     else:
-        #         raise NotImplemented()
+    def run(self, conversation: Conversation):
+        if self.selection_type == "RANDOM":
+            self.dialog.write_to_user(conversation, choice(self.items))
+        else:
+            raise NotImplemented()

@@ -1,8 +1,6 @@
 from dialog.elements.grammar import Grammar
-from dialog.elements.output import Output
-from dialog.elements.action import Action
 from dialog.elements.element import Element
-from dialog.process import ProcessRequest
+from dialog.runners.conversation import Conversation
 from typing import Iterable
 
 
@@ -36,25 +34,34 @@ class Input(Element):
 
         return doc
 
-    # def process(self, process_request: ProcessRequest):
-    #     grammar = list(self.children)[0]
-    #     if not isinstance(grammar, Grammar):
-    #         raise Exception("grammar not the first item")
-    #
-    #     if grammar.process(process_request).match_type == GrammarMatchType.exact:
-    #         response = {
-    #             "actions": [],
-    #             "outputs": []
-    #         }
-    #         for child in iter(self.children[1:]):
-    #             if isinstance(child, Action):
-    #                 response["actions"].append(child.process(process_request))
-    #             elif isinstance(child, Output):
-    #                 response["outputs"].append(child.process(process_request))
-    #             else:
-    #
-    #                 pass
-    #
-    #         return response
-    #     else:
-    #         return None
+    def run(self, conversation: Conversation):
+        from dialog.elements.goto import Goto
+        from dialog.elements.output import Output
+        from dialog.elements.action import Action
+
+        handled = False
+        conversation.flow_position.append(self._id)
+        goto_position = conversation.get_first_goto_position(self)
+        if goto_position is not None:
+            if goto_position == self._id:
+                goto_position = conversation.get_first_goto_position(self)
+            else:
+                raise Exception()
+        if self.grammar.run(conversation):
+            for index, child in enumerate(self.children):
+                if goto_position is None or index >= goto_position:
+                    conversation.flow_position.append(index)
+                    if isinstance(child, Action):
+                        child.run(conversation)
+                    elif isinstance(child, Output):
+                        child.run(conversation)
+                    elif isinstance(child, Goto):
+                        child.run(conversation)
+                    else:
+                        raise NotImplementedError(type(child))
+                    conversation.flow_position.pop()
+
+            handled = True
+
+        conversation.flow_position.pop()
+        return handled

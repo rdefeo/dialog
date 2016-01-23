@@ -1,4 +1,5 @@
 from dialog.elements.element import Element
+from dialog.runners.conversation import Conversation
 from typing import Iterable
 
 
@@ -25,3 +26,12 @@ class Flow(Element):
                 doc[(i, folder._element_name)] = folder
 
         return doc
+
+    def run(self, conversation: Conversation):
+        # conversation.flow_position.append(flow._id)
+        goto_position = conversation.get_first_goto_position(self)
+        for index, folder in enumerate(self.folders):
+            if goto_position is None or index >= goto_position:
+                conversation.flow_position.append(index)
+                folder.run(conversation)
+                conversation.flow_position.pop()

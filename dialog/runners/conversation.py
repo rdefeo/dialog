@@ -1,6 +1,5 @@
 from collections import deque
 
-from dialog.elements import GetUserInput
 
 
 class Conversation:
@@ -23,6 +22,8 @@ class Conversation:
         self.__goto_position = value
 
     def get_first_goto_position(self, element):
+        from dialog.elements.get_user_input import GetUserInput
+
         # return self.goto_position.popleft() if self.goto_position is not None and any(self.goto_position) else None
         if self.goto_position is not None and any(self.goto_position):
             return self.goto_position.popleft()

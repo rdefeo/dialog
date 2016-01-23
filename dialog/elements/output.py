@@ -1,6 +1,10 @@
+from dialog.elements.action import Action
+from dialog.elements.input import Input
+from dialog.elements.goto import Goto
+from dialog.elements.get_user_input import GetUserInput
 from dialog.elements.prompt import Prompt
 from dialog.elements.element import Element
-from dialog.process import ProcessRequest
+from dialog.runners.conversation import Conversation
 
 
 class Output(Element):
@@ -54,10 +58,32 @@ class Output(Element):
 
         return doc
 
-    def process(self, process_request: ProcessRequest):
-        prompt = list(self.children)[0]
-        if not isinstance(prompt, Prompt):
-            raise Exception("grammar not the first item")
+    def run(self, conversation: Conversation):
+        conversation.flow_position.append(self._id)
+        goto_position = conversation.get_first_goto_position(self)
+        if goto_position is not None:
+            if goto_position == self._id:
+                goto_position = conversation.get_first_goto_position(self)
+            else:
+                raise Exception()
 
-        for x in self.children:
-            pass
+        for index, child in enumerate(self.children):
+            if goto_position is None or index >= goto_position:
+                conversation.flow_position.append(index)
+                if isinstance(child, Prompt):
+                    child.run(conversation)
+                elif isinstance(child, GetUserInput):
+                    child.run(conversation)
+                elif isinstance(child, Output):
+                    child.run(conversation)
+                elif isinstance(child, Goto):
+                    child.run(conversation)
+                elif isinstance(child, Input):
+                    child.run(conversation)
+                elif isinstance(child, Action):
+                    child.run(conversation)
+                else:
+                    raise NotImplementedError(child)
+                conversation.flow_position.pop()
+
+        conversation.flow_position.pop()

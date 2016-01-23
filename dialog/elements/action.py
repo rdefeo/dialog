@@ -1,6 +1,5 @@
 from dialog.elements.element import Element
-from dialog.process import ProcessRequest
-from dialog.process.action_response import ActionProcessResponse
+from dialog.runners.conversation import Conversation
 
 __author__ = 'robdefeo'
 
@@ -54,15 +53,19 @@ class Action(Element):
     def var_name(self):
         return self.settings["var_name"]
 
-    # def process(self, process_request: ProcessRequest):
-    #     if self.operator == ACTION_SET_TO_NO:
-    #         new_value = False
-    #     elif self.operator == ACTION_SET_TO_YES:
-    #         new_value = True
-    #     else:
-    #         raise Exception("unknown operator=%s", self.operator)
-    #
-    #     process_request.profile[self.varName] = new_value
-    #     return ActionProcessResponse(self.varName, new_value)
-    #     # look in profile for variable and perform the action
+    def run(self, conversation: Conversation):
+        if self.operator == ACTION_SET_TO:
+            if "{" in self.settings["text"] and "}" in self.settings["text"]:
+                input_context_key = self.settings["text"].strip("{").strip("}").strip(".source")
+                conversation.profile[self.var_name] = conversation.current_input_context[self.var_name]
+            else:
+                conversation.profile[self.var_name] = self.settings["text"]
+
+            pass
+        elif self.operator == ACTION_SET_TO_NO:
+            conversation.profile[self.var_name] = False
+        elif self.operator == ACTION_SET_TO_YES:
+            conversation.profile[self.var_name] = True
+        else:
+            raise NotImplemented()
 

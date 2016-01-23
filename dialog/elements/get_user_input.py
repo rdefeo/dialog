@@ -1,4 +1,5 @@
 from dialog.elements.element import Element
+from dialog.runners.conversation import Conversation
 from typing import Iterable
 
 
@@ -35,3 +36,41 @@ class GetUserInput(Element):
                 doc[(i, child._element_name)] = child
 
         return doc
+
+    def run(self, conversation: Conversation):
+        from dialog.elements import Input, Goto, Folder
+
+        goto_position = conversation.get_first_goto_position(self)
+        conversation.flow_position.append(self._id)
+        if goto_position is None:
+            raise GetUserInputException(conversation, self)
+        else:
+            if goto_position == self._id:
+                # so now it needs to look through the possible responses
+                goto_position = conversation.get_first_goto_position(self)
+            else:
+                raise Exception()
+
+            for index, child in enumerate(self.children):
+                if goto_position is None or index >= goto_position:
+                    conversation.flow_position.append(index)
+                    if isinstance(child, Input):
+                        # from dialog.runners.input import InputRunner
+                        child.run(conversation)
+                    elif isinstance(child, Goto):
+                        child.run(conversation)
+                    elif isinstance(child, Folder):
+                        child.run(conversation)
+                    else:
+                        raise NotImplementedError(type(child))
+
+                    conversation.flow_position.pop()
+
+            conversation.flow_position.pop()
+
+class GetUserInputException(Exception):
+    def __init__(self, conversation: Conversation, get_user_input: GetUserInput):
+        self.get_user_input = get_user_input
+        self.conversation = conversation
+        self.conversation.goto_position = list(self.conversation.flow_position)
+

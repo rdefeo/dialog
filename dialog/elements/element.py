@@ -1,6 +1,7 @@
 from bson import ObjectId
 from dialog.process import ProcessRequest
 from dialog.process.response import ProcessResponse
+from dialog.runners.conversation import Conversation
 
 
 class Element:
@@ -24,8 +25,10 @@ class Element:
     #     raise NotImplemented()
     #
     def _set_dialog(self, value):
-        raise NotImplemented(self._element_name)
+        raise NotImplementedError(self._element_name)
 
     def create(self):
-        raise NotImplemented()
+        raise NotImplementedError()
 
+    def run(self, conversation: Conversation):
+        raise NotImplementedError()

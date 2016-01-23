@@ -1,4 +1,8 @@
+from dialog.elements.output import Output
+from dialog.elements.default import Default
 from dialog.elements.element import Element
+from dialog.elements.search import Search
+from dialog.runners.conversation import Conversation
 from typing import Iterable
 
 
@@ -48,3 +52,29 @@ class Folder(Element):
                 doc[(i, child._element_name)] = child
 
         return doc
+
+    def run(self, conversation: Conversation):
+        conversation.flow_position.append(self._id)
+        goto_position = conversation.get_first_goto_position(self)
+        if goto_position is not None:
+            if goto_position == self._id:
+                goto_position = conversation.get_first_goto_position(self)
+            else:
+                raise Exception()
+        print("start_folder_runner,_id=%s" % (self._id))
+        for index, child in enumerate(self.children):
+
+            if goto_position is None or index >= goto_position:
+                conversation.flow_position.append(index)
+                if isinstance(child, Output):
+                    child.run(conversation)
+                elif isinstance(child, Search):
+                    child.run(conversation)
+                elif isinstance(child, Default):
+                    child.run(conversation)
+                else:
+                    raise NotImplementedError(type(child))
+
+                conversation.flow_position.pop()
+
+        conversation.flow_position.pop()
