@@ -1,5 +1,5 @@
 from collections import defaultdict
-from dialog.schema.elements import Element
+from dialog.elements.element import Element
 
 
 def etree_to_dict(t):
@@ -41,13 +41,13 @@ def dict_to_etree(d):
                 # for k, v in d.items():
                 for key in list(sorted(d.keys(), key=lambda k: int(k[0]) if isinstance(k, tuple) else -1)):
                     key_string = key[1] if isinstance(key, tuple) else key
-                    assert isinstance(key_string, basestring)
+                    assert isinstance(key_string, basestring), d
                     value = d[key]
                     if key_string.startswith('#'):
                         assert key_string == '#text' and isinstance(value, basestring)
                         root.text = value
                     elif key_string.startswith('@'):
-                        assert isinstance(value, basestring)
+                        assert isinstance(value, basestring), (value, basestring)
                         root.set(key_string[1:], value)
                     elif isinstance(value, list):
                         for e in value:

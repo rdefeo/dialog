@@ -1,13 +1,23 @@
-from dialog.schema.elements import Grammar
+from dialog.elements import Grammar
+from dialog.elements.grammar_item import RegExGrammarItem
 
 __author__ = 'robdefeo'
 
 
 class GenericGrammar:
     @staticmethod
+    def create_you():
+        return Grammar(
+            watson_items=[
+                "you",
+                "u"
+            ]
+        )
+
+    @staticmethod
     def create_sorry():
         return Grammar(
-            [
+            watson_items=[
                 "sorry",
                 "apologize",
                 "I am sorry",
@@ -30,8 +40,9 @@ class GenericGrammar:
     @staticmethod
     def create_hello():
         return Grammar(
-            [
+            watson_items=[
                 "Hello",
+                "Hello again",
                 "Hi",
                 "Hola",
                 "Howdy",
@@ -46,9 +57,9 @@ class GenericGrammar:
         )
 
     @staticmethod
-    def create_ok():
+    def ok():
         return Grammar(
-            [
+            watson_items=[
 
                 "okay",
                 "ok"
@@ -58,8 +69,7 @@ class GenericGrammar:
     @staticmethod
     def create_ok_thanks():
         return Grammar(
-            [
-
+            watson_items=[
                 "okay",
                 "ok",
                 "thanks",
@@ -88,7 +98,7 @@ class GenericGrammar:
     @staticmethod
     def create_yes_goodbye():
         return Grammar(
-            [
+            watson_items=[
                 "Goodbye",
                 "bye bye",
                 "bye now",
@@ -109,7 +119,7 @@ class GenericGrammar:
     @staticmethod
     def create_yes_full():
         return Grammar(
-            [
+            watson_items=[
                 "yes",
                 "yep",
                 "yup",
@@ -137,7 +147,7 @@ class GenericGrammar:
     @staticmethod
     def create_no_full():
         return Grammar(
-            [
+            watson_items=[
                 "no",
                 "n",
                 "nope",
@@ -150,9 +160,28 @@ class GenericGrammar:
         )
 
     @staticmethod
-    def create_yes():
+    def create_no_preference():
         return Grammar(
-            [
+            watson_items=[
+                "No",
+                "$ no",
+                "$ no preference",
+                "$ don't care",
+                "$ don't know",
+                "$ none",
+                "$ all",
+                "$ anything",
+                "$ any",
+                "$ whatever",
+                "$ nothing specific",
+                "$ don't have a preference"
+            ]
+        )
+
+    @staticmethod
+    def yes():
+        return Grammar(
+            watson_items=[
                 "Yes",
                 "Yes.",
                 "$ yes"
@@ -160,31 +189,44 @@ class GenericGrammar:
         )
 
     @staticmethod
-    def create_no():
+    def no():
         return Grammar(
-            [
+            watson_items=[
                 "No"
             ]
         )
 
     @staticmethod
-    def create_yes_okay():
+    def create_haha():
         return Grammar(
-            [
-                "Yes",
-                "Yes.",
-                "Okay",
-                "Ok",
-                "$ yes"
+            watson_items=[
+                "haha",
+                "ha",
+                "hehe",
+                "lol",
+                "rofl",
+                "lmao"
             ]
         )
+
+    @staticmethod
+    def yes_okay(wildcard=True):
+        items = [
+            "Yes",
+            "Yes.",
+            "Okay",
+            "Ok"
+        ]
+        if wildcard:
+            items.append("$ yes")
+        return Grammar(watson_items=items)
 
 
 class ProfileGrammar:
     @staticmethod
     def create_my_name_is_dynamic_data():
         return Grammar(
-            [
+            watson_items=[
                 "My name is",
                 "$ my name is (DYNAMIC_DATA)={User_Name}",
                 "$ I am (DYNAMIC_DATA)={User_Name}",
@@ -193,15 +235,28 @@ class ProfileGrammar:
                 "$ call me (DYNAMIC_DATA)={User_Name}",
                 "$ known as (DYNAMIC_DATA)={User_Name}",
                 "$ (DYNAMIC_DATA)={User_Name}"
+            ],
+            items=[
+                RegExGrammarItem(pattern=r"\w*My name is (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*My name (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*I am called (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*I am (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*I'm called (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*I'm (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*called (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*call me (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*call me (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"\w*known as (\w{1,3})", dynamic_field_assignments=["User_Name"]),
+                RegExGrammarItem(pattern=r"(\w{1})", dynamic_field_assignments=["User_Name"])
             ]
-        ).create()
+        )
 
 
 class FeelingGrammar:
     @staticmethod
     def create_preliminaries():
         return Grammar(
-            [
+            watson_items=[
                 "Preliminaries",
                 "$ what do you know",
                 "$ what can you do",
@@ -215,24 +270,33 @@ class FeelingGrammar:
                 "$ do you have information",
                 "$ can I"
             ]
-        ).create()
+        )
 
     @staticmethod
     def create_not_so_good():
         return Grammar(
-            [
+            watson_items=[
                 "Not so good",
                 "$ not * good",
                 "$ not * well",
                 "$ no * good",
                 "$ not * nice"
             ]
-        ).create()
+        )
+
+    @staticmethod
+    def create_not_so_bad():
+        return Grammar(
+            watson_items=[
+                "Not so bad",
+                "$ not * bad"
+            ]
+        )
 
     @staticmethod
     def create_feeling_great():
         return Grammar(
-            [
+            watson_items=[
                 "Great",
                 "$ great",
                 "$ excellent",
@@ -242,12 +306,12 @@ class FeelingGrammar:
                 "$ fantastic",
                 "$ awesome"
             ]
-        ).create()
+        )
 
     @staticmethod
     def create_feeling_fine():
         return Grammar(
-            [
+            watson_items=[
                 "Fine",
                 "$ good",
                 "$ fine",
@@ -255,12 +319,12 @@ class FeelingGrammar:
                 "$ all right",
                 "$ nice"
             ]
-        ).create()
+        )
 
     @staticmethod
     def create_feeling_bad():
         return Grammar(
-            [
+            watson_items=[
                 "Bad",
                 "$ terrible",
                 "$ awful",
@@ -277,4 +341,4 @@ class FeelingGrammar:
                 "$ crap",
                 "$ crappy"
             ]
-        ).create()
+        )

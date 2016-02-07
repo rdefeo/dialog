@@ -1,35 +1,40 @@
-from dialog.schema.elements import Grammar, Entity, Value
-
-__author__ = 'robdefeo'
+from dialog.elements import Grammar, Entity, Value
 
 
 class Entities:
     def create(self):
-        return {
-            "entity": [
-                Entity(
-                    "CERTIFICATION", [
-                        Value("G", "G", Grammar(["G Rated", "G-Rated"])),
-                        Value("PG", "PG", Grammar(["PG Rated", "PG-Rated"]))
-                    ]
-                ).create(),
-                Entity(
-                    "GENRE", [
-                        Value("Action", "Action", Grammar(["Action"])),
-                        Value("Adventure", "Adventure", Grammar(["Adventure"]))
-                    ]
-                ).create(),
+        from dialog.elements import Entities as EntitiesElement
+        return EntitiesElement(
+            [
                 Entity(
                     "DYNAMIC_DATA", [
-                        Value("DataCapture", "DataCapture", Grammar(["*"]))
+                        Value("DataCapture", "DataCapture", Grammar(items=["*"]))
                     ]
-                ).create(),
+                ),
                 Entity(
-                    "RECENCY", [
-                        Value("Upcoming", "Upcoming", Grammar(["coming soon"])),
-                        Value("Current", "Current", Grammar(["current", "recent", "now", "new"]))
+                    "STYLE", [
+                        Value("high heels", "high heels", Grammar(items=["high heels", "high-heels"])),
+                        Value("boots", "boots", Grammar(items=["boots", "boot"]))
                     ]
-                ).create()
+                ),
+                Entity(
+                    "COLOR", [
+                        Value("red", "red", Grammar(items=["red"])),
+                        Value("white", "white", Grammar(items=["white"])),
+                        Value("black", "black", Grammar(items=["black"]))
+                    ]
+                ),
+                Entity(
+                    "DINING", [
 
+                    ]
+                )
+                # TODO
+                #         <entity name="DINING">
+                #     <value name="restaurants" value="restaurants">
+                #         <concept ref="concept_2456113"/>
+                #     </value>
+                #     <value name="bars" value="bars"/>
+                # </entity>
             ]
-        }
+        )
